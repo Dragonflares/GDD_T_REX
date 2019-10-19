@@ -167,3 +167,26 @@ CREATE TABLE [T_REX].[CLIENTE] (
 		cli_usuario int FOREIGN KEY REFERENCES [T_REX].USUARIO(id_usuario) NOT NULL
 );
 END
+GO
+
+IF NOT EXISTS (
+		SELECT 1
+		FROM INFORMATION_SCHEMA.TABLES
+		WHERE TABLE_TYPE = 'BASE TABLE'
+		AND TABLE_NAME = 'OFERTA'
+		AND TABLE_SCHEMA = 'T_REX'
+)
+BEGIN
+CREATE TABLE [T_REX].[OFERTA] (
+		id_oferta int IDENTITY(1,1) PRIMARY KEY NOT NULL,
+		of_cod_oferta [nvarchar](60) NOT NULL,
+		of_descripcion [nvarchar](255) NOT NULL,
+		of_fecha_inicio [datetime2](3) NOT NULL,
+		of_fecha_fin [datetime2](3) NOT NULL,
+		of_precio_oferta [decimal](30,2) NOT NULL,
+		of_precio_lista [decimal](30,2) NOT NULL,
+		of_cant_disponible [decimal](30,2) NOT NULL,
+		of_cant_max_por_cliente [decimal](30,2) NOT NULL,
+		of_proveedor int FOREIGN KEY REFERENCES [T_REX].PROVEEDOR(id_proveedor) NOT NULL
+);
+END
