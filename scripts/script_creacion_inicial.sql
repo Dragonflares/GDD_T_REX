@@ -226,6 +226,8 @@ CREATE TABLE [T_REX].[OFERTA] (
 END
 GO
 
+-- Creacion de tabla COMPRA
+
 IF NOT EXISTS (
 		SELECT 1
 		FROM INFORMATION_SCHEMA.TABLES
@@ -236,13 +238,15 @@ IF NOT EXISTS (
 BEGIN
 CREATE TABLE [T_REX].[COMPRA] (
 		id_compra int IDENTITY(1,1) PRIMARY KEY NOT NULL,
-		comp_fecha [datetime2](3) NOT NULL,
-		comp_oferta int FOREIGN KEY REFERENCES [T_REX].OFERTA(id_oferta) NOT NULL,
-		comp_cliente int FOREIGN KEY REFERENCES [T_REX].CLIENTE(id_cliente) NOT NULL,
-		comp_cantidad [decimal](15,0) NOT NULL
+		compra_fecha datetime2 (3) NOT NULL,
+		id_oferta int FOREIGN KEY REFERENCES [T_REX].OFERTA(id_oferta) NOT NULL,
+		id_cliente int FOREIGN KEY REFERENCES [T_REX].CLIENTE(id_cliente) NOT NULL,
+		cantidad decimal (15,0) NOT NULL
 );
 END
 GO
+
+-- Creacion de tabla TARJETA
 
 IF NOT EXISTS (
 		SELECT 1
@@ -254,13 +258,15 @@ IF NOT EXISTS (
 BEGIN
 CREATE TABLE [T_REX].[TARJETA] (
 		id_tarjeta int IDENTITY(1,1) PRIMARY KEY NOT NULL,
-		tarj_num [decimal](25,0) NOT NULL,
-		tarj_titular [nvarchar](150) NOT NULL,
-		tarj_banco [nvarchar](150) NOT NULL,
-		tark_tipo [nvarchar](150) NOT NULL
+		nro_tarjeta decimal (25,0) NOT NULL,
+		titular_tarjeta nvarchar (150) NOT NULL,
+		banco_tarjeta nvarchar(150) NOT NULL,
+		tipo_tarjeta nvarchar (150) NOT NULL
 );
 END
 GO
+
+-- Creacion de tabla FORMA_PAGO
 
 IF NOT EXISTS (
 		SELECT 1
@@ -272,11 +278,13 @@ IF NOT EXISTS (
 BEGIN
 CREATE TABLE [T_REX].[FORMA_PAGO] (
 		id_forma_pago int IDENTITY(1,1) PRIMARY KEY NOT NULL,
-		fp_tipo_pago_desc [nvarchar](150) NOT NULL,
-		fp_marca [nvarchar](100) NOT NULL
+		tipo_pago_desc nvarchar (150) NOT NULL,
+		marca nvarchar(100) NOT NULL
 );
 END
 GO
+
+-- Creacion de tabla CREDITO
 
 IF NOT EXISTS (
 		SELECT 1
@@ -288,14 +296,16 @@ IF NOT EXISTS (
 BEGIN
 CREATE TABLE [T_REX].[CREDITO] (
 		id_credito int IDENTITY(1,1) PRIMARY KEY NOT NULL,
-		cred_fecha [datetime2](3) NOT NULL,
-		cred_cliente int FOREIGN KEY REFERENCES [T_REX].CLIENTE(id_cliente) NOT NULL,
-		cred_tipo_pago int FOREIGN KEY REFERENCES [T_REX].FORMA_PAGO(id_forma_pago) NOT NULL,
-		cred_monto [decimal](20,2) NOT NULL,
-		cred_tarjeta int FOREIGN KEY REFERENCES [T_REX].TARJETA(id_tarjeta) NOT NULL
+		fecha_credito datetime2 (3) NOT NULL,
+		id_cliente int FOREIGN KEY REFERENCES [T_REX].CLIENTE(id_cliente) NOT NULL,
+		id_forma_pago int FOREIGN KEY REFERENCES [T_REX].FORMA_PAGO(id_forma_pago) NOT NULL,
+		monto_credito decimal (20,2) NOT NULL,
+		id_tarjeta int FOREIGN KEY REFERENCES [T_REX].TARJETA(id_tarjeta) NOT NULL
 );
 END
 GO
+
+-- Creacion de tabla FACTURA_PROVEEDOR
 
 IF NOT EXISTS (
 		SELECT 1
@@ -307,14 +317,16 @@ IF NOT EXISTS (
 BEGIN
 CREATE TABLE [T_REX].[FACTURA_PROVEEDOR] (
 		id_factura int IDENTITY(1,1) PRIMARY KEY NOT NULL,
-		fact_num_factura [decimal](20,0) NOT NULL,
-		fact_importe [decimal](20,2) NOT NULL,
-		fact_fecha_inicio [datetime2](3) NOT NULL,
-		fact_fecha_fin [datetime2](3) NOT NULL,
-		fact_proveedor int FOREIGN KEY REFERENCES [T_REX].PROVEEDOR(id_proveedor) NOT NULL
+		nro_factura decimal(20,0) NOT NULL,
+		importe_fact decimal (20,2) NOT NULL,
+		fecha_inicio datetime2 (3) NOT NULL,
+		fecha_fin datetime2 (3) NOT NULL,
+		id_proveedor int FOREIGN KEY REFERENCES [T_REX].PROVEEDOR(id_proveedor) NOT NULL
 );
 END
 GO
+
+-- Creacion de tabla CLIENTE_DESTINO
 
 IF NOT EXISTS (
 		SELECT 1
@@ -326,17 +338,19 @@ IF NOT EXISTS (
 BEGIN
 CREATE TABLE [T_REX].[CLIENTE_DESTINO] (
 		id_consumidor int IDENTITY(1,1) PRIMARY KEY NOT NULL,
-		cli_dest_nombre nvarchar(150) NOT NULL,
-		cli_dest_apellido [nvarchar](150) NOT NULL,
-		cli_dest_documento [decimal](18,0) NOT NULL,
-		cli_dest_tipo_documento [nvarchar](20) NOT NULL DEFAULT 'DNI',
-		cli_dest_fecha_de_nacimiento [datetime2](3) NOT NULL,
-		cli_dest_mail [nvarchar](100) NOT NULL,
-		cli_dest_telefono [int] NOT NULL,
-		cli_dest_domicilio int FOREIGN KEY REFERENCES [T_REX].DOMICILIO(id_domicilio) NOT NULL
+		dest_nombre nvarchar(150) NOT NULL,
+		dest_apellido nvarchar(150) NOT NULL,
+		dest_nrodocumento decimal(18,0) NOT NULL,
+		dest_tipo_documento nvarchar(20) NOT NULL DEFAULT 'DNI',
+		dest_fecha_nacimiento datetime2(3) NOT NULL,
+		dest_mail nvarchar(100) NOT NULL,
+		dest_telefono int NOT NULL,
+		id_domicilio int FOREIGN KEY REFERENCES [T_REX].DOMICILIO(id_domicilio) NOT NULL
 );
 END
 GO
+
+-- Creacion de tabla CUPON
 
 IF NOT EXISTS (
 		SELECT 1
@@ -348,13 +362,13 @@ IF NOT EXISTS (
 BEGIN
 CREATE TABLE [T_REX].[CUPON] (
 		id_cupon int IDENTITY(1,1) PRIMARY KEY NOT NULL,
-		cupon_codigo [nvarchar](60) NOT NULL,
-		cupon_fecha_de_consumo [datetime2](3) NOT NULL,
-		cupon_precio_oferta [decimal](20,2) NOT NULL,
-		cupon_precio_lista [decimal](20,2) NOT NULL,
-		cupon_consumidor int FOREIGN KEY REFERENCES [T_REX].CLIENTE_DESTINO(id_consumidor) NOT NULL,
-		cupon_estado [bit] NOT NULL DEFAULT 1,
-		cupon_compra int FOREIGN KEY REFERENCES [T_REX].COMPRA(id_compra) NOT NULL
+		cupon_codigo nvarchar(60) NOT NULL,
+		cupon_fecha_deconsumo datetime2(3) NOT NULL,
+		cupon_precio_oferta decimal (20,2) NOT NULL,
+		cupon_precio_lista decimal (20,2) NOT NULL,
+		id_consumidor int FOREIGN KEY REFERENCES [T_REX].CLIENTE_DESTINO(id_consumidor) NOT NULL,
+		cupon_estado bit NOT NULL DEFAULT 1,
+		id_compra int FOREIGN KEY REFERENCES [T_REX].COMPRA(id_compra) NOT NULL
 );
 END
 
@@ -363,12 +377,15 @@ END
 ##########################################################################################################*/
 
 
-/*Creacion de Rubros*/
+/*Migracion de Rubros*/
 
-INSERT INTO [T_REX].[RUBRO] (nombreDeRubro) VALUES ('No definido');
-INSERT INTO [T_REX].[RUBRO] (nombreDeRubro) VALUES ('Comestible');
-INSERT INTO [T_REX].[RUBRO] (nombreDeRubro) VALUES ('Electronica');
-INSERT INTO [T_REX].[RUBRO] (nombreDeRubro) VALUES ('Hoteleria');
+INSERT INTO [T_REX].[RUBRO](
+			nombreDeRubro
+			)
+SELECT DISTINCT Provee_Rubro 
+FROM [gd_esquema].[Maestra] m
+WHERE m.Provee_Rubro is not null
+ORDER BY m.Provee_Rubro
 
 --------
 
