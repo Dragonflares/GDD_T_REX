@@ -190,7 +190,7 @@ CREATE TABLE [T_REX].[CLIENTE] (
 		apellido nvarchar(150) NOT NULL,
 		nro_documento  decimal (18,0) NOT NULL,
 		tipo_documento nvarchar(20) NOT NULL DEFAULT('DNI'),
-		fechaDenacimiento datetime2 (3) NOT NULL,
+		fechaDeNacimiento datetime2 (3) NOT NULL,
 		mail nvarchar (150) NOT NULL,
 		telefono int NOT NULL,
 		estado bit NOT NULL DEFAULT 1,
@@ -254,10 +254,10 @@ IF NOT EXISTS (
 BEGIN
 CREATE TABLE [T_REX].[TARJETA] (
 		id_tarjeta int IDENTITY(1,1) PRIMARY KEY NOT NULL,
-		tarj_num [decimal](25,0) NOT NULL,
+		tarj_num [nvarchar](150) NOT NULL,
 		tarj_titular [nvarchar](150) NOT NULL,
 		tarj_banco [nvarchar](150) NOT NULL,
-		tark_tipo [nvarchar](150) NOT NULL
+		tarj_tipo [nvarchar](150) NOT NULL
 );
 END
 GO
@@ -273,7 +273,7 @@ BEGIN
 CREATE TABLE [T_REX].[FORMA_PAGO] (
 		id_forma_pago int IDENTITY(1,1) PRIMARY KEY NOT NULL,
 		fp_tipo_pago_desc [nvarchar](150) NOT NULL,
-		fp_marca [nvarchar](100) NOT NULL
+--		fp_marca [nvarchar](100) NOT NULL
 );
 END
 GO
@@ -423,3 +423,23 @@ INSERT INTO [T_REX].[FUNCIONALIDAD_ROL] (id_rol,id_funcionalidad) VALUES (2,5);
 INSERT INTO [T_REX].[FUNCIONALIDAD_ROL] (id_rol,id_funcionalidad) VALUES (3,7);
 INSERT INTO [T_REX].[FUNCIONALIDAD_ROL] (id_rol,id_funcionalidad) VALUES (3,6);
 
+
+/*Creacion de Forma_pago*/
+INSERT INTO [T_REX].[FORMA_PAGO] (fp_tipo_pago_desc)
+	(SELECT distinct Tipo_Pago_Desc
+		FROM gd_esquema.Maestra
+		Where Tipo_Pago_Desc is not null)
+
+/*Creacion de Tarjeta*/
+INSERT INTO [T_REX].[TARJETA] (tarj_num, tarj_titular, tarj_banco, tarj_tipo)
+	   VALUES('0000000000000000','No se tiene registro', 'No se tiene registro','No se tiene registro')
+	   
+/*
+/*Creacion de Credito, antes cargar tablas: cliente,forma_pago y tarjeta*/
+INSERT INTO [T_REX].[CREDITO] (cred_fecha, cred_cliente, cred_tipo_pago,cred_monto,cred_tarjeta)
+	(SELECT a.Carga_Fecha,c.id_cliente,b.id_forma_pago, a.Carga_Credito,1
+		FROM gd_esquema.Maestra a
+		inner join T_REX.FORMA_PAGO b on a.Tipo_Pago_Desc = b.fp_tipo_pago_desc
+		inner join T_REX.CLIENTE c on a.Cli_Dni=c.nro_documento)
+
+*/
