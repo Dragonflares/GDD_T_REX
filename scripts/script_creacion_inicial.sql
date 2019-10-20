@@ -8,41 +8,6 @@ EXEC ('CREATE SCHEMA [T_REX] AUTHORIZATION [gdCupon2019]')
 END
 GO
 
-
---BORRAR TABLAS--
-
-IF OBJECT_ID('[T_REX].[CLIENTE]') IS NOT NULL
-	drop table [T_REX].[CLIENTE]
-
-IF OBJECT_ID('[T_REX].[FUNCIONALIDAD_ROL]') IS NOT NULL
-	drop table [T_REX].[FUNCIONALIDAD_ROL]
-
-IF OBJECT_ID('[T_REX].[FUNCIONALIDAD]') IS NOT NULL
-	drop table [T_REX].[FUNCIONALIDAD]
-
-IF OBJECT_ID('[T_REX].[OFERTA]') IS NOT NULL
-	drop table [T_REX].[OFERTA]
-
-IF OBJECT_ID('[T_REX].[PROVEEDOR]') IS NOT NULL
-	drop table [T_REX].[PROVEEDOR]
-
-IF OBJECT_ID('[T_REX].[RUBRO]') IS NOT NULL
-	drop table [T_REX].[RUBRO]
-
-IF OBJECT_ID('[T_REX].[DOMICILIO]') IS NOT NULL
-drop table [T_REX].[DOMICILIO]
-
-IF OBJECT_ID('[T_REX].[ROL_USUARIO]') IS NOT NULL
-	drop table [T_REX].[ROL_USUARIO]
-
-IF OBJECT_ID('[T_REX].[ROL]') IS NOT NULL
-	drop table [T_REX].[ROL]
-
-IF OBJECT_ID('[T_REX].[USUARIO]') IS NOT NULL
-	drop table [T_REX].[USUARIO]
-
-
-
 /*##########################################################################################################
 										CREACION DE TABLAS													
 ##########################################################################################################*/
@@ -259,8 +224,139 @@ CREATE TABLE [T_REX].[OFERTA] (
 		id_proveedor int FOREIGN KEY REFERENCES [T_REX].PROVEEDOR(id_proveedor) NOT NULL
 );
 END
+GO
 
+IF NOT EXISTS (
+		SELECT 1
+		FROM INFORMATION_SCHEMA.TABLES
+		WHERE TABLE_TYPE = 'BASE TABLE'
+		AND TABLE_NAME = 'COMPRA'
+		AND TABLE_SCHEMA = 'T_REX'
+)
+BEGIN
+CREATE TABLE [T_REX].[COMPRA] (
+		id_compra int IDENTITY(1,1) PRIMARY KEY NOT NULL,
+		comp_fecha [datetime2](3) NOT NULL,
+		comp_oferta int FOREIGN KEY REFERENCES [T_REX].OFERTA(id_oferta) NOT NULL,
+		comp_cliente int FOREIGN KEY REFERENCES [T_REX].CLIENTE(id_cliente) NOT NULL,
+		comp_cantidad [decimal](15,0) NOT NULL
+);
+END
+GO
 
+IF NOT EXISTS (
+		SELECT 1
+		FROM INFORMATION_SCHEMA.TABLES
+		WHERE TABLE_TYPE = 'BASE TABLE'
+		AND TABLE_NAME = 'TARJETA'
+		AND TABLE_SCHEMA = 'T_REX'
+)
+BEGIN
+CREATE TABLE [T_REX].[TARJETA] (
+		id_tarjeta int IDENTITY(1,1) PRIMARY KEY NOT NULL,
+		tarj_num [decimal](25,0) NOT NULL,
+		tarj_titular [nvarchar](150) NOT NULL,
+		tarj_banco [nvarchar](150) NOT NULL,
+		tark_tipo [nvarchar](150) NOT NULL
+);
+END
+GO
+
+IF NOT EXISTS (
+		SELECT 1
+		FROM INFORMATION_SCHEMA.TABLES
+		WHERE TABLE_TYPE = 'BASE TABLE'
+		AND TABLE_NAME = 'FORMA_PAGO'
+		AND TABLE_SCHEMA = 'T_REX'
+)
+BEGIN
+CREATE TABLE [T_REX].[FORMA_PAGO] (
+		id_forma_pago int IDENTITY(1,1) PRIMARY KEY NOT NULL,
+		fp_tipo_pago_desc [nvarchar](150) NOT NULL,
+		fp_marca [nvarchar](100) NOT NULL
+);
+END
+GO
+
+IF NOT EXISTS (
+		SELECT 1
+		FROM INFORMATION_SCHEMA.TABLES
+		WHERE TABLE_TYPE = 'BASE TABLE'
+		AND TABLE_NAME = 'CREDITO'
+		AND TABLE_SCHEMA = 'T_REX'
+)
+BEGIN
+CREATE TABLE [T_REX].[CREDITO] (
+		id_credito int IDENTITY(1,1) PRIMARY KEY NOT NULL,
+		cred_fecha [datetime2](3) NOT NULL,
+		cred_cliente int FOREIGN KEY REFERENCES [T_REX].CLIENTE(id_cliente) NOT NULL,
+		cred_tipo_pago int FOREIGN KEY REFERENCES [T_REX].FORMA_PAGO(id_forma_pago) NOT NULL,
+		cred_monto [decimal](20,2) NOT NULL,
+		cred_tarjeta int FOREIGN KEY REFERENCES [T_REX].TARJETA(id_tarjeta) NOT NULL
+);
+END
+GO
+
+IF NOT EXISTS (
+		SELECT 1
+		FROM INFORMATION_SCHEMA.TABLES
+		WHERE TABLE_TYPE = 'BASE TABLE'
+		AND TABLE_NAME = 'FACTURA_PROVEEDOR'
+		AND TABLE_SCHEMA = 'T_REX'
+)
+BEGIN
+CREATE TABLE [T_REX].[FACTURA_PROVEEDOR] (
+		id_factura int IDENTITY(1,1) PRIMARY KEY NOT NULL,
+		fact_num_factura [decimal](20,0) NOT NULL,
+		fact_importe [decimal](20,2) NOT NULL,
+		fact_fecha_inicio [datetime2](3) NOT NULL,
+		fact_fecha_fin [datetime2](3) NOT NULL,
+		fact_proveedor int FOREIGN KEY REFERENCES [T_REX].PROVEEDOR(id_proveedor) NOT NULL
+);
+END
+GO
+
+IF NOT EXISTS (
+		SELECT 1
+		FROM INFORMATION_SCHEMA.TABLES
+		WHERE TABLE_TYPE = 'BASE TABLE'
+		AND TABLE_NAME = 'CLIENTE_DESTINO'
+		AND TABLE_SCHEMA = 'T_REX'
+)
+BEGIN
+CREATE TABLE [T_REX].[CLIENTE_DESTINO] (
+		id_consumidor int IDENTITY(1,1) PRIMARY KEY NOT NULL,
+		cli_dest_nombre nvarchar(150) NOT NULL,
+		cli_dest_apellido [nvarchar](150) NOT NULL,
+		cli_dest_documento [decimal](18,0) NOT NULL,
+		cli_dest_tipo_documento [nvarchar](20) NOT NULL DEFAULT 'DNI',
+		cli_dest_fecha_de_nacimiento [datetime2](3) NOT NULL,
+		cli_dest_mail [nvarchar](100) NOT NULL,
+		cli_dest_telefono [int] NOT NULL,
+		cli_dest_domicilio int FOREIGN KEY REFERENCES [T_REX].DOMICILIO(id_domicilio) NOT NULL
+);
+END
+GO
+
+IF NOT EXISTS (
+		SELECT 1
+		FROM INFORMATION_SCHEMA.TABLES
+		WHERE TABLE_TYPE = 'BASE TABLE'
+		AND TABLE_NAME = 'CUPON'
+		AND TABLE_SCHEMA = 'T_REX'
+)
+BEGIN
+CREATE TABLE [T_REX].[CUPON] (
+		id_cupon int IDENTITY(1,1) PRIMARY KEY NOT NULL,
+		cupon_codigo [nvarchar](60) NOT NULL,
+		cupon_fecha_de_consumo [datetime2](3) NOT NULL,
+		cupon_precio_oferta [decimal](20,2) NOT NULL,
+		cupon_precio_lista [decimal](20,2) NOT NULL,
+		cupon_consumidor int FOREIGN KEY REFERENCES [T_REX].CLIENTE_DESTINO(id_consumidor) NOT NULL,
+		cupon_estado [bit] NOT NULL DEFAULT 1,
+		cupon_compra int FOREIGN KEY REFERENCES [T_REX].COMPRA(id_compra) NOT NULL
+);
+END
 
 /*##########################################################################################################
 										MIGRACION DE DATOS													

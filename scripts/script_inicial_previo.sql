@@ -271,8 +271,55 @@ IF NOT EXISTS (
 		AND TABLE_SCHEMA = 'T_REX'
 )
 BEGIN
-CREATE TABLE [T_REX].[FORMA_PAGO] (
+CREATE TABLE [T_REX].[FACTURA_PROVEEDOR] (
 		id_factura int IDENTITY(1,1) PRIMARY KEY NOT NULL,
-		
+		fact_num_factura [decimal](100,0) NOT NULL,
+		fact_importe [decimal](20,2) NOT NULL,
+		fact_fecha_inicio [datetime2](3) NOT NULL,
+		fact_fecha_fin [datetime2](3) NOT NULL,
+		fact_proveedor int FOREIGN KEY REFERENCES [T_REX].PROVEEDOR(id_proveedor) NOT NULL
+);
+END
+GO
+
+IF NOT EXISTS (
+		SELECT 1
+		FROM INFORMATION_SCHEMA.TABLES
+		WHERE TABLE_TYPE = 'BASE TABLE'
+		AND TABLE_NAME = 'CLIENTE_DESTINO'
+		AND TABLE_SCHEMA = 'T_REX'
+)
+BEGIN
+CREATE TABLE [T_REX].[CLIENTE_DESTINO] (
+		id_consumidor int IDENTITY(1,1) PRIMARY KEY NOT NULL,
+		cli_dest_nombre nvarchar(150) NOT NULL,
+		cli_dest_apellido [nvarchar](150) NOT NULL,
+		cli_dest_documento [decimal](18,0) NOT NULL,
+		cli_dest_tipo_documento [nvarchar](20) NOT NULL DEFAULT 'DNI',
+		cli_dest_fecha_de_nacimiento [datetime2](3) NOT NULL,
+		cli_dest_mail [nvarchar](100) NOT NULL,
+		cli_dest_telefono [int] NOT NULL,
+		cli_dest_domicilio int FOREIGN KEY REFERENCES [T_REX].DOMICILIO(id_domicilio) NOT NULL
+);
+END
+GO
+
+IF NOT EXISTS (
+		SELECT 1
+		FROM INFORMATION_SCHEMA.TABLES
+		WHERE TABLE_TYPE = 'BASE TABLE'
+		AND TABLE_NAME = 'CUPON'
+		AND TABLE_SCHEMA = 'T_REX'
+)
+BEGIN
+CREATE TABLE [T_REX].[CUPON] (
+		id_cupon int IDENTITY(1,1) PRIMARY KEY NOT NULL,
+		cupon_codigo [nvarchar](60) NOT NULL,
+		cupon_fecha_de_consumo [datetime2](3) NOT NULL,
+		cupon_precio_oferta [decimal](20,2) NOT NULL,
+		cupon_precio_lista [decimal](20,2) NOT NULL,
+		cupon_consumidor int FOREIGN KEY REFERENCES [T_REX].CLIENTE_DESTINO(id_consumidor) NOT NULL,
+		cupon_estado [bit] NOT NULL DEFAULT 1,
+		cupon_compra int FOREIGN KEY REFERENCES [T_REX].COMPRA(id_compra) NOT NULL
 );
 END
