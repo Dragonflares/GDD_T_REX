@@ -25,10 +25,10 @@ BEGIN
 CREATE TABLE [T_REX].[DOMICILIO] (
 		id_domicilio int IDENTITY(1,1) PRIMARY KEY NOT NULL,
 		direc_calle nvarchar (100) NOT NULL,
-		direc_piso	nvarchar (100) NOT NULL,
-		direc_localidad nvarchar(100) NOT NULL,
-		codigoPostal nvarchar (20) NOT NULL,
-		direc_depto nvarchar(10) NOT NULL,
+		direc_nro_piso	nvarchar (100) default 'No especificado',
+		direc_localidad nvarchar(255) NOT NULL,
+		codigoPostal nvarchar (50) default 'No especificado',
+		direc_nro_depto nvarchar(50) default 'No especificado',
 );
 END
 GO
@@ -403,7 +403,7 @@ INSERT INTO [T_REX].[USUARIO] (username,password)
 VALUES ('admin', '0xCA4D710175F395034CD7CA5D3B5E9D5CD34018A4FA8281E8D37389836D5F0E23');
 
 --select HASHBYTES('SHA2_256', 't12r')
-
+select HASHBYTES('SHA2_256', '1234')
 ----------------
 
 /*Creacion de ROL_USUARIO para el usuario admin*/
@@ -458,4 +458,56 @@ INSERT INTO [T_REX].[CREDITO] (fecha_Credito, id_cliente, id_forma_pago,monto_cr
 		inner join T_REX.FORMA_PAGO b on a.Tipo_Pago_Desc = b.tipo_pago_desc
 		inner join T_REX.CLIENTE c on a.Cli_Dni=c.nro_documento)
 
+
 */
+
+
+/*Migracion de Proveedor*/
+
+SELECT 
+	Provee_RS,
+	Provee_Dom,
+	Provee_Ciudad,
+	Provee_Telefono,
+	Provee_CUIT,
+	Provee_Rubro
+into #Temp_Proveedor
+FROM [gd_esquema].[Maestra]
+where Provee_RS  is not null
+group by 
+	Provee_RS,
+	Provee_Dom,
+	Provee_Ciudad,
+	Provee_Telefono,
+	Provee_CUIT,
+	Provee_Rubro
+;
+
+select *from #Temp_Proveedor
+
+/* Insertar en Tabla domicilio*/
+
+insert into [T_REX].[DOMICILIO] (
+			direc_calle,
+			direc_localidad )
+(select  Provee_Dom,
+		Provee_Ciudad
+from #Temp_Proveedor
+)
+
+--select*from [T_REX].[DOMICILIO]
+
+/*Insertar tabla usuario */
+
+insert into [T_REX].[USUARIO] (
+			username,
+			password )
+(select  Provee_CUIT,
+		'4f37c061f1854f9682f543fecb5ee9d652c803235970202de97c6e40c8361766' pass
+	from #Temp_Proveedor
+)
+
+-- Los proveedores tienen "nombre usuario": CUIT y contraseña: "1234" para todos, 
+--luego cuando realicen el primer login deben cambiar la contraseña
+
+--select *from [T_REX].[USUARIO] 
