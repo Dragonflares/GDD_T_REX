@@ -194,7 +194,7 @@ CREATE TABLE [T_REX].[CLIENTE] (
 		mail nvarchar (150) NOT NULL,
 		telefono int NOT NULL,
 		estado bit NOT NULL DEFAULT 1,
-		creditoTotal int NOT NULL,
+		creditoTotal decimal (18,0) NOT NULL,
 		id_domicilio int FOREIGN KEY REFERENCES [T_REX].DOMICILIO(id_domicilio) NOT NULL,
 		id_usuario int FOREIGN KEY REFERENCES [T_REX].USUARIO(id_usuario) NOT NULL
 );
@@ -444,23 +444,16 @@ INSERT INTO [T_REX].[FUNCIONALIDAD_ROL] (id_rol,id_funcionalidad) VALUES (3,6);
 INSERT INTO [T_REX].[FORMA_PAGO] (tipo_pago_desc)
 	(SELECT distinct Tipo_Pago_Desc
 		FROM gd_esquema.Maestra
-		Where Tipo_Pago_Desc is not null)
+		Where Tipo_Pago_Desc is not null);
+GO
+--select * from T_REX.FORMA_PAGO
 
 /*Creacion de Tarjeta*/
 INSERT INTO [T_REX].[TARJETA] (nro_tarjeta,titular_tarjeta,banco_tarjeta,tipo_tarjeta)
-	   VALUES('0000000000000000','No se tiene registro', 'No se tiene registro','No se tiene registro')
-	   
-/*
-/*Creacion de Credito, antes cargar tablas: cliente,forma_pago y tarjeta*/
-INSERT INTO [T_REX].[CREDITO] (fecha_Credito, id_cliente, id_forma_pago,monto_credito,id_tarjeta)
-	(SELECT a.Carga_Fecha,c.id_cliente,b.id_forma_pago, a.Carga_Credito,1
-		FROM gd_esquema.Maestra a
-		inner join T_REX.FORMA_PAGO b on a.Tipo_Pago_Desc = b.tipo_pago_desc
-		inner join T_REX.CLIENTE c on a.Cli_Dni=c.nro_documento)
-
-
-*/
-
+	   VALUES('0000000000000000','No se tiene registro', 'No se tiene registro','No se tiene registro'
+	   );
+GO
+--select * from T_REX.TARJETA   
 
 /*Migracion de Proveedor*/
 
@@ -482,8 +475,8 @@ group by
 	Provee_CUIT,
 	Provee_Rubro
 ;
-
-select *from #Temp_Proveedor
+GO
+--select *from #Temp_Proveedor
 
 /* Insertar en Tabla domicilio*/
 
@@ -493,21 +486,86 @@ insert into [T_REX].[DOMICILIO] (
 (select  Provee_Dom,
 		Provee_Ciudad
 from #Temp_Proveedor
-)
+);
 
 --select*from [T_REX].[DOMICILIO]
 
 /*Insertar tabla usuario */
-
+GO
 insert into [T_REX].[USUARIO] (
 			username,
 			password )
 (select  Provee_CUIT,
 		'4f37c061f1854f9682f543fecb5ee9d652c803235970202de97c6e40c8361766' pass
 	from #Temp_Proveedor
-)
-
+);
+GO
+--select * from T_REX.USUARIO
 -- Los proveedores tienen "nombre usuario": CUIT y contraseña: "1234" para todos, 
 --luego cuando realicen el primer login deben cambiar la contraseña
 
 --select *from [T_REX].[USUARIO] 
+
+
+--Migracion cliente
+--218 registros
+SELECT 
+	Cli_Nombre,
+	Cli_Apellido,
+	Cli_Dni,
+	Cli_Fecha_Nac,
+	Cli_Mail,
+	Cli_Telefono,
+	Cli_Ciudad,
+	Cli_Direccion
+into #Temp_cliente
+FROM [gd_esquema].[Maestra]
+group by 
+	Cli_Nombre,
+	Cli_Apellido,
+	Cli_Dni,
+	Cli_Fecha_Nac,
+	Cli_Mail,
+	Cli_Telefono,
+	Cli_Ciudad,
+	Cli_Direccion
+;
+GO
+
+/* Insertar en Tabla domicilio los clientes*/
+insert into [T_REX].[DOMICILIO] (
+			direc_calle,
+			direc_localidad )
+(select Cli_Direccion, Cli_Ciudad
+from #Temp_cliente
+);
+GO
+
+/*Insertar tabla usuario los clientes */
+insert into [T_REX].[USUARIO] (
+			username,
+			password )
+(select  Cli_Dni,
+		'4f37c061f1854f9682f543fecb5ee9d652c803235970202de97c6e40c8361766' pass
+	from #Temp_cliente
+);
+GO
+/*Insertar tabla cliente: antes de usuario y domicilio*/
+insert into [T_REX].[CLIENTE](nombre,apellido,nro_documento,fechaDeNacimiento,mail,telefono,creditoTotal,id_domicilio,id_usuario)
+(select a.Cli_Nombre,a.Cli_Apellido, a.Cli_Dni,a.Cli_Fecha_Nac,a.Cli_Mail,a.Cli_Telefono,0,b.id_domicilio,c.id_usuario 
+from #Temp_cliente a
+inner join T_REX.DOMICILIO b on a.Cli_Direccion=b.direc_calle and a.Cli_Ciudad = b.direc_localidad 
+inner join T_REX.USUARIO c on CAST(a.Cli_Dni  AS NVARCHAR(255))=c.username
+);
+GO
+--select * from T_REX.CLIENTE
+
+/*Creacion de Credito, antes cargar tablas: cliente,forma_pago y tarjeta*/
+INSERT INTO [T_REX].[CREDITO] (fecha_Credito, id_cliente, id_forma_pago,monto_credito,id_tarjeta)
+	(SELECT a.Carga_Fecha,c.id_cliente,b.id_forma_pago, a.Carga_Credito,1
+		FROM gd_esquema.Maestra a
+		inner join T_REX.FORMA_PAGO b on a.Tipo_Pago_Desc = b.tipo_pago_desc
+		inner join T_REX.CLIENTE c on a.Cli_Dni=c.nro_documento
+		where a.Provee_RS is null);
+GO
+--select * from T_REX.CREDITO
