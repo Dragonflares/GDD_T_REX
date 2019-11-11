@@ -507,8 +507,7 @@ insert into [T_REX].[USUARIO] (
 );
 GO
 
--- Los proveedores tienen "nombre usuario": CUIT y contraseña: "1234" para todos, 
---luego cuando realicen el primer login deben cambiar la contraseña
+-- NOTA: Los proveedores tienen "nombre usuario": CUIT y contraseña: "1234" para todos, luego cuando realicen el primer login deben cambiar la contraseña
 
 /* Inserta Rol_Usuario*/
 
@@ -546,6 +545,7 @@ DROP TABLE #Temp_Proveedor
 /*Migracion cliente*/
 
 --218 registros
+-- Inserto tabla temporal
 
 SELECT 
 	Cli_Nombre,
@@ -567,8 +567,7 @@ group by
 	Cli_Telefono,
 	Cli_Ciudad,
 	Cli_Direccion
-;
-GO
+
 
 /* Insertar en Tabla domicilio los clientes*/
 
@@ -622,11 +621,10 @@ DROP TABLE #Temp_cliente
 /*Creacion de Credito, antes cargar tablas: cliente,forma_pago y tarjeta*/
 
 INSERT INTO [T_REX].[CREDITO] (fecha_Credito, id_cliente, id_forma_pago,monto_credito,id_tarjeta)
-	(SELECT a.Carga_Fecha,c.id_cliente,b.id_forma_pago, a.Carga_Credito,1
-		FROM gd_esquema.Maestra a
-		inner join T_REX.FORMA_PAGO b on a.Tipo_Pago_Desc = b.tipo_pago_desc
-		inner join T_REX.CLIENTE c on a.Cli_Dni=c.nro_documento
-		where a.Provee_RS is null);
-GO
+SELECT a.Carga_Fecha,c.id_cliente,b.id_forma_pago, a.Carga_Credito,1
+FROM gd_esquema.Maestra a
+inner join T_REX.FORMA_PAGO b on a.Tipo_Pago_Desc = b.tipo_pago_desc
+inner join T_REX.CLIENTE c on a.Cli_Dni=c.nro_documento
+where a.Provee_RS is null
 
 
