@@ -25,10 +25,10 @@ BEGIN
 CREATE TABLE [T_REX].[DOMICILIO] (
 		id_domicilio int IDENTITY(1,1) PRIMARY KEY NOT NULL,
 		direc_calle nvarchar (100) NOT NULL,
-		direc_nro_piso	nvarchar (100) default 'No especificado',
+		direc_nro_piso	nvarchar (100) default 'No definido',
 		direc_localidad nvarchar(255) NOT NULL,
-		codigoPostal nvarchar (50) default 'No especificado',
-		direc_nro_depto nvarchar(50) default 'No especificado',
+		codigoPostal nvarchar (50) default 'No definido',
+		direc_nro_depto nvarchar(50) default 'No definido',
 );
 END
 GO
@@ -163,8 +163,8 @@ CREATE TABLE [T_REX].[PROVEEDOR] (
 		id_proveedor int IDENTITY(1,1) PRIMARY KEY NOT NULL,
 		provee_rs nvarchar(150) NOT NULL,
 		provee_cuit nvarchar(40) NOT NULL,
-		email nvarchar(100) NOT NULL,
-		provee_telefono int NOT NULL,
+		email nvarchar(100) default 'No definido',
+		provee_telefono int default 'No definido',
 		estado bit NOT NULL DEFAULT 1,
 		id_domicilio int FOREIGN KEY REFERENCES [T_REX].DOMICILIO(id_domicilio) NOT NULL,
 		id_rubro int FOREIGN KEY REFERENCES [T_REX].RUBRO(id_rubro) NOT NULL,
@@ -386,7 +386,7 @@ FROM [gd_esquema].[Maestra] m
 WHERE m.Provee_Rubro is not null
 ORDER BY m.Provee_Rubro
 
---------
+-------------------------------------------------------------------------------------------------------------
 
 /*Creacion de Roles*/
 
@@ -394,7 +394,7 @@ INSERT INTO [T_REX].[ROL](nombre) VALUES ('Administrativo');
 INSERT INTO [T_REX].[ROL](nombre) VALUES ('Cliente');
 INSERT INTO [T_REX].[ROL](nombre) VALUES ('Proveedor');
 
-----------------
+--------------------------------------------------------------------------------------------------------------
 
 /*Creacion de usuario Admin */
 
@@ -403,8 +403,9 @@ INSERT INTO [T_REX].[USUARIO] (username,password)
 VALUES ('admin', '0xCA4D710175F395034CD7CA5D3B5E9D5CD34018A4FA8281E8D37389836D5F0E23');
 
 --select HASHBYTES('SHA2_256', 't12r')
-select HASHBYTES('SHA2_256', '1234')
-----------------
+--select HASHBYTES('SHA2_256', '1234') contraseña para usuarios y proveedores
+
+---------------------------------------------------------------------------------------------------------------
 
 /*Creacion de ROL_USUARIO para el usuario admin*/
 
@@ -412,7 +413,7 @@ INSERT INTO [T_REX].[ROL_USUARIO] (id_usuario,id_rol) VALUES (1,1);
 INSERT INTO [T_REX].[ROL_USUARIO] (id_usuario,id_rol) VALUES (1,2);
 INSERT INTO [T_REX].[ROL_USUARIO] (id_usuario,id_rol) VALUES (1,3);
 
--------------------
+---------------------------------------------------------------------------------------------------------------
 
 /*Creacion de funcionalidades*/
 
@@ -426,7 +427,8 @@ INSERT INTO [T_REX].[FUNCIONALIDAD] (descripcion) VALUES ('Consumo Oferta'); --7
 INSERT INTO [T_REX].[FUNCIONALIDAD] (descripcion) VALUES ('Facturacion Proveedor'); --8
 INSERT INTO [T_REX].[FUNCIONALIDAD] (descripcion) VALUES ('Listado Estadistico');  --9
 
----------------------
+-----------------------------------------------------------------------------------------------------------------
+
 /*Creacion de Funcionalidad_Rol*/
 
 INSERT INTO [T_REX].[FUNCIONALIDAD_ROL] (id_rol,id_funcionalidad) VALUES (1,1);
@@ -439,6 +441,7 @@ INSERT INTO [T_REX].[FUNCIONALIDAD_ROL] (id_rol,id_funcionalidad) VALUES (2,5);
 INSERT INTO [T_REX].[FUNCIONALIDAD_ROL] (id_rol,id_funcionalidad) VALUES (3,7);
 INSERT INTO [T_REX].[FUNCIONALIDAD_ROL] (id_rol,id_funcionalidad) VALUES (3,6);
 
+------------------------------------------------------------------------------------------------------------------
 
 /*Creacion de Forma_pago*/
 INSERT INTO [T_REX].[FORMA_PAGO] (tipo_pago_desc)
@@ -446,16 +449,20 @@ INSERT INTO [T_REX].[FORMA_PAGO] (tipo_pago_desc)
 		FROM gd_esquema.Maestra
 		Where Tipo_Pago_Desc is not null);
 GO
---select * from T_REX.FORMA_PAGO
+
+-------------------------------------------------------------------------------------------------------------------
 
 /*Creacion de Tarjeta*/
 INSERT INTO [T_REX].[TARJETA] (nro_tarjeta,titular_tarjeta,banco_tarjeta,tipo_tarjeta)
 	   VALUES('0000000000000000','No se tiene registro', 'No se tiene registro','No se tiene registro'
 	   );
 GO
---select * from T_REX.TARJETA   
+
+---------------------------------------------------------------------------------------------------------------------
 
 /*Migracion de Proveedor*/
+
+-- Inserto en tabla temporal
 
 SELECT 
 	Provee_RS,
@@ -476,7 +483,7 @@ group by
 	Provee_Rubro
 ;
 GO
---select *from #Temp_Proveedor
+
 
 /* Insertar en Tabla domicilio*/
 
@@ -488,7 +495,6 @@ insert into [T_REX].[DOMICILIO] (
 from #Temp_Proveedor
 );
 
---select*from [T_REX].[DOMICILIO]
 
 /*Insertar tabla usuario */
 GO
@@ -500,15 +506,47 @@ insert into [T_REX].[USUARIO] (
 	from #Temp_Proveedor
 );
 GO
---select * from T_REX.USUARIO
+
 -- Los proveedores tienen "nombre usuario": CUIT y contraseña: "1234" para todos, 
 --luego cuando realicen el primer login deben cambiar la contraseña
 
---select *from [T_REX].[USUARIO] 
+/* Inserta Rol_Usuario*/
+
+INSERT INTO [T_REX].[ROL_USUARIO] (id_usuario,id_rol) 
+SELECT id_usuario,3
+FROM [T_REX].[USUARIO]
+where id_usuario not in (select id_usuario from [T_REX].[ROL_USUARIO])
+
+/* Inserta Proveedor*/			
+
+insert into [T_REX].[PROVEEDOR](
+					provee_rs, 
+					provee_cuit, 
+					provee_telefono, 
+					id_domicilio, 
+					id_rubro, 
+					id_usuario )
+select	Provee_RS, 
+		Provee_CUIT, 
+		Provee_Telefono, 
+		id_domicilio, 
+		id_rubro, 
+		id_usuario 
+FROM #Temp_Proveedor t
+inner join [T_REX].[USUARIO] u on u.username= t.Provee_CUIT 
+inner join [T_REX].[RUBRO] r  on r.nombreDeRubro= t.Provee_Rubro
+inner join [T_REX].[DOMICILIO] d on d.direc_calle= t.Provee_Dom
+order by Provee_CUIT
+
+DROP TABLE #Temp_Proveedor
 
 
---Migracion cliente
+----------------------------------------------------------------------------------------------------------------
+
+/*Migracion cliente*/
+
 --218 registros
+
 SELECT 
 	Cli_Nombre,
 	Cli_Apellido,
@@ -533,34 +571,56 @@ group by
 GO
 
 /* Insertar en Tabla domicilio los clientes*/
-insert into [T_REX].[DOMICILIO] (
-			direc_calle,
-			direc_localidad )
-(select Cli_Direccion, Cli_Ciudad
+
+insert into [T_REX].[DOMICILIO] (direc_calle, direc_localidad )
+select Cli_Direccion, Cli_Ciudad
 from #Temp_cliente
-);
-GO
+
 
 /*Insertar tabla usuario los clientes */
-insert into [T_REX].[USUARIO] (
-			username,
-			password )
-(select  Cli_Dni,
-		'4f37c061f1854f9682f543fecb5ee9d652c803235970202de97c6e40c8361766' pass
-	from #Temp_cliente
-);
-GO
+
+insert into [T_REX].[USUARIO] ( username, password )
+select  Cli_Dni, '4f37c061f1854f9682f543fecb5ee9d652c803235970202de97c6e40c8361766' pass
+from #Temp_cliente
+
+/* Inserte tabla rol_usuario */
+
+INSERT INTO [T_REX].[ROL_USUARIO] (id_usuario,id_rol) 
+SELECT id_usuario,2
+FROM [T_REX].[USUARIO]
+where id_usuario not in (select id_usuario from [T_REX].[ROL_USUARIO])
+
+
 /*Insertar tabla cliente: antes de usuario y domicilio*/
-insert into [T_REX].[CLIENTE](nombre,apellido,nro_documento,fechaDeNacimiento,mail,telefono,creditoTotal,id_domicilio,id_usuario)
-(select a.Cli_Nombre,a.Cli_Apellido, a.Cli_Dni,a.Cli_Fecha_Nac,a.Cli_Mail,a.Cli_Telefono,0,b.id_domicilio,c.id_usuario 
+
+--218 clientes (?
+
+insert into [T_REX].[CLIENTE](
+					nombre,apellido,
+					nro_documento,
+					fechaDeNacimiento,
+					mail,telefono,
+					creditoTotal,
+					id_domicilio,
+					id_usuario)
+select a.Cli_Nombre,
+		a.Cli_Apellido, 
+		a.Cli_Dni,
+		a.Cli_Fecha_Nac,
+		a.Cli_Mail,
+		a.Cli_Telefono,
+		0,
+		b.id_domicilio,
+		c.id_usuario 
 from #Temp_cliente a
 inner join T_REX.DOMICILIO b on a.Cli_Direccion=b.direc_calle and a.Cli_Ciudad = b.direc_localidad 
 inner join T_REX.USUARIO c on CAST(a.Cli_Dni  AS NVARCHAR(255))=c.username
-);
-GO
---select * from T_REX.CLIENTE
+
+DROP TABLE #Temp_cliente
+-----------------------------------------------------------------------------------------------------------------------
 
 /*Creacion de Credito, antes cargar tablas: cliente,forma_pago y tarjeta*/
+
 INSERT INTO [T_REX].[CREDITO] (fecha_Credito, id_cliente, id_forma_pago,monto_credito,id_tarjeta)
 	(SELECT a.Carga_Fecha,c.id_cliente,b.id_forma_pago, a.Carga_Credito,1
 		FROM gd_esquema.Maestra a
@@ -568,4 +628,5 @@ INSERT INTO [T_REX].[CREDITO] (fecha_Credito, id_cliente, id_forma_pago,monto_cr
 		inner join T_REX.CLIENTE c on a.Cli_Dni=c.nro_documento
 		where a.Provee_RS is null);
 GO
---select * from T_REX.CREDITO
+
+
