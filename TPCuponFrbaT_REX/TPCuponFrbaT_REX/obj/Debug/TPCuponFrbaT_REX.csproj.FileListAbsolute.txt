@@ -1,3 +1,0 @@
-D:\Documentos\TP GDD\GDD_T_REX\TPCuponFrbaT_REX\TPCuponFrbaT_REX\obj\Debug\TPCuponFrbaT_REX.Properties.Resources.resources
-D:\Documentos\TP GDD\GDD_T_REX\TPCuponFrbaT_REX\TPCuponFrbaT_REX\obj\Debug\TPCuponFrbaT_REX.csproj.GenerateResource.Cache
-D:\Documentos\TP GDD\GDD_T_REX\TPCuponFrbaT_REX\TPCuponFrbaT_REX\bin\Debug\TPCuponFrbaT_REX.exe.config

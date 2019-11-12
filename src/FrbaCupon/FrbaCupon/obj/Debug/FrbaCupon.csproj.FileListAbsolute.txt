@@ -1,0 +1,2 @@
+D:\Documentos\TP GDD\GDD_T_REX\FrbaCupon\FrbaCupon\bin\Debug\FrbaCupon.exe.config
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaCupon\FrbaCupon\bin\Debug\FrbaCupon.exe.config
