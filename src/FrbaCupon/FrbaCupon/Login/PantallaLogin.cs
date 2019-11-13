@@ -17,7 +17,24 @@ namespace FrbaCupon.Login
             InitializeComponent();
         }
 
-        private void PantallaLogin_Load(object sender, EventArgs e)
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void admin_Click(object sender, EventArgs e)
+        {
+    //        new LoginAdmin().Show(this);
+            this.Hide();
+        }
+
+        private void usuario_Click(object sender, EventArgs e)
+        {
+    //        new PantallaPrincipal("CLIENTE").Show(this);
+    //        this.Hide();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
         {
 
         }

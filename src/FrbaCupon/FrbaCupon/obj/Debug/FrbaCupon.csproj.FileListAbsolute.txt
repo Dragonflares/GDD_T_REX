@@ -1,2 +1,13 @@
 D:\Documentos\TP GDD\GDD_T_REX\FrbaCupon\FrbaCupon\bin\Debug\FrbaCupon.exe.config
 D:\Documentos\TP GDD\GDD_T_REX\src\FrbaCupon\FrbaCupon\bin\Debug\FrbaCupon.exe.config
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaCupon\FrbaCupon\obj\Debug\FrbaCupon.csprojResolveAssemblyReference.cache
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaCupon\FrbaCupon\obj\Debug\FrbaCupon.Login.AdminLogin.resources
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaCupon\FrbaCupon\obj\Debug\FrbaCupon.Login.PantallaLogin.resources
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaCupon\FrbaCupon\obj\Debug\FrbaCupon.Properties.Resources.resources
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaCupon\FrbaCupon\obj\Debug\FrbaCupon.csproj.GenerateResource.Cache
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaCupon\FrbaCupon\bin\Debug\FrbaCupon.exe
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaCupon\FrbaCupon\bin\Debug\FrbaCupon.pdb
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaCupon\FrbaCupon\bin\Debug\EntityFramework.dll
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaCupon\FrbaCupon\bin\Debug\EntityFramework.xml
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaCupon\FrbaCupon\obj\Debug\FrbaCupon.exe
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaCupon\FrbaCupon\obj\Debug\FrbaCupon.pdb
