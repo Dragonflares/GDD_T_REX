@@ -105,7 +105,7 @@ CREATE TABLE [T_REX].[USUARIO] (
 		id_usuario int IDENTITY(1,1) PRIMARY KEY NOT NULL,
 		username nvarchar (255) NOT NULL,
 		password nvarchar (255) NOT NULL,
-		intentos_USUARIO int NOT NULL DEFAULT (0),
+		intentos_login int NOT NULL DEFAULT (0),
 		estado bit NOT NULL DEFAULT 1
 );
 END
@@ -631,7 +631,6 @@ where a.Provee_RS is null
 ------------ USUARIO ----------
 
 GO 
-
 CREATE PROCEDURE [T_REX].LogearUsuario
 @username nvarchar(255),
 @password nvarchar(255),
