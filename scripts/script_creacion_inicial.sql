@@ -105,7 +105,7 @@ CREATE TABLE [T_REX].[USUARIO] (
 		id_usuario int IDENTITY(1,1) PRIMARY KEY NOT NULL,
 		username nvarchar (255) NOT NULL,
 		password nvarchar (255) NOT NULL,
-		intentos_login int NOT NULL DEFAULT (0),
+		intentos_USUARIO int NOT NULL DEFAULT (0),
 		estado bit NOT NULL DEFAULT 1
 );
 END
@@ -507,7 +507,7 @@ insert into [T_REX].[USUARIO] (
 );
 GO
 
--- NOTA: Los proveedores tienen "nombre usuario": CUIT y contraseña: "1234" para todos, luego cuando realicen el primer login deben cambiar la contraseña
+-- NOTA: Los proveedores tienen "nombre usuario": CUIT y contraseña: "1234" para todos, luego cuando realicen el primer USUARIO deben cambiar la contraseña
 
 /* Inserta Rol_Usuario*/
 
@@ -628,3 +628,72 @@ inner join T_REX.CLIENTE c on a.Cli_Dni=c.nro_documento
 where a.Provee_RS is null
 
 
+------------ USUARIO ----------
+
+GO 
+
+CREATE PROCEDURE [T_REX].LogearUsuario
+@username nvarchar(255),
+@password nvarchar(255),
+@tipoUsuario nvarchar(255)
+AS
+BEGIN
+	DECLARE @intentosFallidos INT
+	DECLARE @intentosFaltantes INT
+	IF(NOT EXISTS(SELECT u.id_usuario FROM [T_REX].USUARIO u WHERE u.username = @username))
+	BEGIN
+			RAISERROR('ERROR: USUARIO incorrecto, no existe ningun usuario con este username', 16, 1)
+	END
+	ELSE
+		IF(@tipoUsuario = 'Cliente')
+		BEGIN
+			IF(EXISTS(SELECT 1 FROM [T_REX].USUARIO us JOIN [T_REX].CLIENTE cli ON (us.id_usuario = cli.id_usuario)
+			WHERE us.username = @username AND us.estado = 0))
+				RAISERROR('ERROR: Usuario %s bloqueado.',16,1,@username)
+			ELSE IF(NOT EXISTS(SELECT us.id_usuario FROM [T_REX].USUARIO us WHERE us.username = @username AND us.password = @password))
+			BEGIN
+				SET @intentosFallidos = (SELECT us.intentos_login FROM [T_REX].USUARIO us WHERE us.username = @username) +1					
+				UPDATE [T_REX].USUARIO SET intentos_login = @intentosFallidos WHERE username = @username
+				SET @intentosFaltantes = 3-@intentosFallidos
+				IF(@intentosFaltantes = 0)
+					RAISERROR('ERROR: Supero el límite de intentos. Usuario bloqueado',16,1);
+				ELSE
+					RAISERROR ('ERROR: Loggin incorrecto para el usuario %s. Intentos restantes: %i.',16,1,@username,@intentosFaltantes)
+			END	
+			ELSE
+			BEGIN
+				BEGIN TRANSACTION
+					UPDATE [T_REX].USUARIO SET intentos_login = 0 WHERE username = @username
+					DECLARE @idUsuarioLoggeado INT
+					SET @idUsuarioLoggeado = (SELECT id_usuario FROM [T_REX].USUARIO WHERE username = @username)
+					UPDATE [T_REX].USUARIO set estado = 1 WHERE id_usuario = @idUsuarioLoggeado
+				COMMIT TRANSACTION
+			END				
+		END	
+		ELSE
+		BEGIN
+			IF(EXISTS(SELECT 1 FROM [T_REX].USUARIO us JOIN [T_REX].PROVEEDOR cli ON (us.id_usuario = cli.id_usuario)
+			WHERE us.username = @username AND us.estado = 0))
+				RAISERROR('ERROR: Usuario %s bloqueado.',16,1,@username)
+			ELSE IF(NOT EXISTS(SELECT us.id_usuario FROM [T_REX].USUARIO us WHERE us.username = @username AND us.password = @password))
+			BEGIN
+				SET @intentosFallidos = (SELECT us.intentos_login FROM [T_REX].USUARIO us WHERE us.username = @username) +1					
+				UPDATE [T_REX].USUARIO SET intentos_login = @intentosFallidos WHERE username = @username
+				SET @intentosFaltantes = 3-@intentosFallidos
+				IF(@intentosFaltantes = 0)
+					RAISERROR('ERROR: Supero el límite de intentos. Usuario bloqueado',16,1);
+				ELSE
+					RAISERROR ('ERROR: Loggin incorrecto para el usuario %s. Intentos restantes: %i.',16,1,@username,@intentosFaltantes)
+			END	
+			ELSE
+			BEGIN
+				BEGIN TRANSACTION
+					UPDATE [T_REX].USUARIO SET intentos_login = 0 WHERE username = @username
+					DECLARE @idProvLoggeado INT
+					SET @idProvLoggeado = (SELECT id_usuario FROM [T_REX].USUARIO WHERE username = @username)
+					UPDATE [T_REX].USUARIO set estado = 1 WHERE id_usuario = @idProvLoggeado
+				COMMIT TRANSACTION
+			END				
+		END	
+ 
+END
