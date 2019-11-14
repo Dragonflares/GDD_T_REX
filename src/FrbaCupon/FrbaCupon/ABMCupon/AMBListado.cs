@@ -8,19 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace FrbaCupon.Login
+namespace FrbaCupon.ABMCupon
 {
-    public partial class AdminLogin : Form
+    public partial class AMBListado : Form
     {
-        public AdminLogin()
+        public AMBListado()
         {
             InitializeComponent();
-            textBox2.PasswordChar = '*';
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

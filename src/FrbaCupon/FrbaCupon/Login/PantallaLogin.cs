@@ -24,19 +24,20 @@ namespace FrbaCupon.Login
 
         private void admin_Click(object sender, EventArgs e)
         {
-    //        new LoginAdmin().Show(this);
+            new AdminLogin().Show(this);
             this.Hide();
-        }
-
-        private void usuario_Click(object sender, EventArgs e)
-        {
-    //        new PantallaPrincipal("CLIENTE").Show(this);
-    //        this.Hide();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
+            new ProveedorLogin().Show(this);
+            this.Hide();
+        }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            new ClienteLogin().Show(this);
+            this.Hide();
         }
     }
 }

@@ -10,12 +10,11 @@ using System.Windows.Forms;
 
 namespace FrbaCupon.Login
 {
-    public partial class AdminLogin : Form
+    public partial class ClienteLogin : Form
     {
-        public AdminLogin()
+        public ClienteLogin()
         {
             InitializeComponent();
-            textBox2.PasswordChar = '*';
         }
 
         private void button1_Click(object sender, EventArgs e)
