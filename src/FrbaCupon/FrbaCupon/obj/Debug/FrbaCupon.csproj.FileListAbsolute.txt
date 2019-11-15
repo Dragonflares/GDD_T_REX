@@ -11,3 +11,18 @@ D:\Documentos\TP GDD\GDD_T_REX\src\FrbaCupon\FrbaCupon\bin\Debug\EntityFramework
 D:\Documentos\TP GDD\GDD_T_REX\src\FrbaCupon\FrbaCupon\bin\Debug\EntityFramework.xml
 D:\Documentos\TP GDD\GDD_T_REX\src\FrbaCupon\FrbaCupon\obj\Debug\FrbaCupon.exe
 D:\Documentos\TP GDD\GDD_T_REX\src\FrbaCupon\FrbaCupon\obj\Debug\FrbaCupon.pdb
+D:\Drizz\Documentos\GDD_T_REX\src\FrbaCupon\FrbaCupon\bin\Debug\FrbaCupon.exe.config
+D:\Drizz\Documentos\GDD_T_REX\src\FrbaCupon\FrbaCupon\obj\Debug\FrbaCupon.exe
+D:\Drizz\Documentos\GDD_T_REX\src\FrbaCupon\FrbaCupon\obj\Debug\FrbaCupon.pdb
+D:\Drizz\Documentos\GDD_T_REX\src\FrbaCupon\FrbaCupon\obj\Debug\FrbaCupon.csprojResolveAssemblyReference.cache
+D:\Drizz\Documentos\GDD_T_REX\src\FrbaCupon\FrbaCupon\obj\Debug\FrbaCupon.ABMCupon.AMBListado.resources
+D:\Drizz\Documentos\GDD_T_REX\src\FrbaCupon\FrbaCupon\obj\Debug\FrbaCupon.ABMCupon.Cliente.CargaCredito.resources
+D:\Drizz\Documentos\GDD_T_REX\src\FrbaCupon\FrbaCupon\obj\Debug\FrbaCupon.Login.AdminLogin.resources
+D:\Drizz\Documentos\GDD_T_REX\src\FrbaCupon\FrbaCupon\obj\Debug\FrbaCupon.Login.ClienteLogin.resources
+D:\Drizz\Documentos\GDD_T_REX\src\FrbaCupon\FrbaCupon\obj\Debug\FrbaCupon.Login.PantallaLogin.resources
+D:\Drizz\Documentos\GDD_T_REX\src\FrbaCupon\FrbaCupon\obj\Debug\FrbaCupon.Login.PrimerLoginCliente.resources
+D:\Drizz\Documentos\GDD_T_REX\src\FrbaCupon\FrbaCupon\obj\Debug\FrbaCupon.Login.PrimerLoginProveedor.resources
+D:\Drizz\Documentos\GDD_T_REX\src\FrbaCupon\FrbaCupon\obj\Debug\FrbaCupon.Login.ProveedorLogin.resources
+D:\Drizz\Documentos\GDD_T_REX\src\FrbaCupon\FrbaCupon\obj\Debug\FrbaCupon.PantallaPrincipal.resources
+D:\Drizz\Documentos\GDD_T_REX\src\FrbaCupon\FrbaCupon\obj\Debug\FrbaCupon.Properties.Resources.resources
+D:\Drizz\Documentos\GDD_T_REX\src\FrbaCupon\FrbaCupon\obj\Debug\FrbaCupon.csproj.GenerateResource.Cache

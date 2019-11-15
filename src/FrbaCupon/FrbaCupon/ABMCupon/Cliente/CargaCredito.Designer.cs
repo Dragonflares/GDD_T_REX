@@ -1,6 +1,6 @@
-﻿namespace FrbaCupon.ABMCupon
+﻿namespace FrbaCupon.ABMCupon.Cliente
 {
-    partial class AMBListado
+    partial class CargaCredito
     {
         /// <summary>
         /// Required designer variable.
@@ -28,9 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // CargaCredito
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "AMBListado";
+            this.ClientSize = new System.Drawing.Size(377, 397);
+            this.Name = "CargaCredito";
+            this.Text = "CargaCredito";
+            this.ResumeLayout(false);
+
         }
 
         #endregion

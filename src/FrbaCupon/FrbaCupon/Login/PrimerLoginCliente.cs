@@ -10,22 +10,11 @@ using System.Windows.Forms;
 
 namespace FrbaCupon.Login
 {
-    public partial class ProveedorLogin : Form
+    public partial class PrimerLoginCliente : Form
     {
-        public ProveedorLogin()
+        public PrimerLoginCliente()
         {
             InitializeComponent();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            new PrimerLoginProveedor().Show();
         }
     }
 }

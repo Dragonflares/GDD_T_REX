@@ -48,11 +48,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ABMCupon\AMBListado.cs">
+    <Compile Include="ABMCupon\Administrador\AMBListado.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABMCupon\AMBListado.Designer.cs">
+    <Compile Include="ABMCupon\Administrador\AMBListado.Designer.cs">
       <DependentUpon>AMBListado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ABMCupon\Cliente\CargaCredito.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABMCupon\Cliente\CargaCredito.Designer.cs">
+      <DependentUpon>CargaCredito.cs</DependentUpon>
     </Compile>
     <Compile Include="Login\AdminLogin.cs">
       <SubType>Form</SubType>
@@ -71,6 +77,18 @@
     </Compile>
     <Compile Include="Login\PantallaLogin.Designer.cs">
       <DependentUpon>PantallaLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login\PrimerLoginCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\PrimerLoginCliente.Designer.cs">
+      <DependentUpon>PrimerLoginCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login\PrimerLoginProveedor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\PrimerLoginProveedor.Designer.cs">
+      <DependentUpon>PrimerLoginProveedor.cs</DependentUpon>
     </Compile>
     <Compile Include="Login\ProveedorLogin.cs">
       <SubType>Form</SubType>
@@ -144,15 +162,21 @@
     <Compile Include="Models\USUARIO.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="PantallaPrincial.cs">
+    <Compile Include="PantallaPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PantallaPrincial.Designer.cs">
-      <DependentUpon>PantallaPrincial.cs</DependentUpon>
+    <Compile Include="PantallaPrincipal.Designer.cs">
+      <DependentUpon>PantallaPrincipal.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\Database.cs" />
+    <EmbeddedResource Include="ABMCupon\Administrador\AMBListado.resx">
+      <DependentUpon>AMBListado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABMCupon\Cliente\CargaCredito.resx">
+      <DependentUpon>CargaCredito.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Login\AdminLogin.resx">
       <DependentUpon>AdminLogin.cs</DependentUpon>
     </EmbeddedResource>
@@ -162,11 +186,17 @@
     <EmbeddedResource Include="Login\PantallaLogin.resx">
       <DependentUpon>PantallaLogin.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Login\PrimerLoginCliente.resx">
+      <DependentUpon>PrimerLoginCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login\PrimerLoginProveedor.resx">
+      <DependentUpon>PrimerLoginProveedor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Login\ProveedorLogin.resx">
       <DependentUpon>ProveedorLogin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PantallaPrincial.resx">
-      <DependentUpon>PantallaPrincial.cs</DependentUpon>
+    <EmbeddedResource Include="PantallaPrincipal.resx">
+      <DependentUpon>PantallaPrincipal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -213,7 +243,9 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ABMCupon\Proveedor\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
