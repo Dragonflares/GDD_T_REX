@@ -16,5 +16,11 @@ namespace FrbaCupon.Login
         {
             InitializeComponent();
         }
+
+        private void registrarse_Click(object sender, EventArgs e)
+        {
+            new PantallaPrincipal("PROVEEDOR").Show();
+            this.Close();
+        }
     }
 }
