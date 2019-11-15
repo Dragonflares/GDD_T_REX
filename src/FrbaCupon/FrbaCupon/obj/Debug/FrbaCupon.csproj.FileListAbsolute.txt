@@ -26,3 +26,10 @@ D:\Drizz\Documentos\GDD_T_REX\src\FrbaCupon\FrbaCupon\obj\Debug\FrbaCupon.Login.
 D:\Drizz\Documentos\GDD_T_REX\src\FrbaCupon\FrbaCupon\obj\Debug\FrbaCupon.PantallaPrincipal.resources
 D:\Drizz\Documentos\GDD_T_REX\src\FrbaCupon\FrbaCupon\obj\Debug\FrbaCupon.Properties.Resources.resources
 D:\Drizz\Documentos\GDD_T_REX\src\FrbaCupon\FrbaCupon\obj\Debug\FrbaCupon.csproj.GenerateResource.Cache
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaCupon\FrbaCupon\obj\Debug\FrbaCupon.ABMCupon.AMBListado.resources
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaCupon\FrbaCupon\obj\Debug\FrbaCupon.ABMCupon.Cliente.CargaCredito.resources
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaCupon\FrbaCupon\obj\Debug\FrbaCupon.Login.ClienteLogin.resources
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaCupon\FrbaCupon\obj\Debug\FrbaCupon.Login.PrimerLoginCliente.resources
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaCupon\FrbaCupon\obj\Debug\FrbaCupon.Login.PrimerLoginProveedor.resources
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaCupon\FrbaCupon\obj\Debug\FrbaCupon.Login.ProveedorLogin.resources
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaCupon\FrbaCupon\obj\Debug\FrbaCupon.PantallaPrincipal.resources
