@@ -112,7 +112,7 @@ CREATE TABLE [T_REX].[USUARIO] (
 END
 GO
 
--- Creacion de tabla ROL_USUARIO
+-- Tabla ROL_USUARIO
 
 IF NOT EXISTS (
 		SELECT 1
@@ -133,7 +133,7 @@ CREATE TABLE [T_REX].[ROL_USUARIO] (
 END
 GO
 
--- Creacion de tabla RUBRO
+-- Tabla RUBRO
 
 IF NOT EXISTS (
 		SELECT 1
@@ -150,7 +150,7 @@ CREATE TABLE [T_REX].[RUBRO] (
 END
 GO
 
--- Creacion de tabla PROVEEDOR
+-- Tabla PROVEEDOR
 
 IF NOT EXISTS (
 		SELECT 1
@@ -175,7 +175,7 @@ END
 
 GO
 
--- Creacion de tabla CLIENTE
+-- Tabla CLIENTE
 
 IF NOT EXISTS (
 		SELECT 1
@@ -202,7 +202,7 @@ CREATE TABLE [T_REX].[CLIENTE] (
 END
 GO
 
--- Creacion de tabla OFERTA
+-- Tabla OFERTA
 
 IF NOT EXISTS (
 		SELECT 1
@@ -227,7 +227,7 @@ CREATE TABLE [T_REX].[OFERTA] (
 END
 GO
 
--- Creacion de tabla COMPRA
+-- Tabla COMPRA
 
 IF NOT EXISTS (
 		SELECT 1
@@ -247,7 +247,7 @@ CREATE TABLE [T_REX].[COMPRA] (
 END
 GO
 
--- Creacion de tabla TARJETA
+-- Tabla TARJETA
 
 IF NOT EXISTS (
 		SELECT 1
@@ -267,7 +267,7 @@ CREATE TABLE [T_REX].[TARJETA] (
 END
 GO
 
--- Creacion de tabla FORMA_PAGO
+-- Tabla FORMA_PAGO
 
 IF NOT EXISTS (
 		SELECT 1
@@ -284,7 +284,7 @@ CREATE TABLE [T_REX].[FORMA_PAGO] (
 END
 GO
 
--- Creacion de tabla CREDITO
+-- Tabla CREDITO
 
 IF NOT EXISTS (
 		SELECT 1
@@ -305,7 +305,7 @@ CREATE TABLE [T_REX].[CREDITO] (
 END
 GO
 
--- Creacion de tabla FACTURA_PROVEEDOR
+-- Tabla FACTURA_PROVEEDOR
 
 IF NOT EXISTS (
 		SELECT 1
@@ -318,6 +318,7 @@ BEGIN
 CREATE TABLE [T_REX].[FACTURA_PROVEEDOR] (
 		id_factura int IDENTITY(1,1) PRIMARY KEY NOT NULL,
 		nro_factura decimal(20,0) NOT NULL,
+		tipo_factura char(8) default 'No definido',
 		importe_fact decimal (20,2) NOT NULL,
 		fecha_inicio datetime2 (3) NOT NULL,
 		fecha_fin datetime2 (3) NOT NULL,
@@ -326,31 +327,27 @@ CREATE TABLE [T_REX].[FACTURA_PROVEEDOR] (
 END
 GO
 
--- Creacion de tabla CLIENTE_DESTINO
+-- Tabla ITEM_FACTURA
 
 IF NOT EXISTS (
 		SELECT 1
 		FROM INFORMATION_SCHEMA.TABLES
 		WHERE TABLE_TYPE = 'BASE TABLE'
-		AND TABLE_NAME = 'CLIENTE_DESTINO'
+		AND TABLE_NAME = 'ITEM_FACTURA'
 		AND TABLE_SCHEMA = 'T_REX'
 )
 BEGIN
-CREATE TABLE [T_REX].[CLIENTE_DESTINO] (
-		id_consumidor int IDENTITY(1,1) PRIMARY KEY NOT NULL,
-		dest_nombre nvarchar(150) NOT NULL,
-		dest_apellido nvarchar(150) NOT NULL,
-		dest_nrodocumento decimal(18,0) NOT NULL,
-		dest_tipo_documento nvarchar(20) NOT NULL DEFAULT 'DNI',
-		dest_fecha_nacimiento datetime2(3) NOT NULL,
-		dest_mail nvarchar(100) NOT NULL,
-		dest_telefono int NOT NULL,
-		id_domicilio int FOREIGN KEY REFERENCES [T_REX].DOMICILIO(id_domicilio) NOT NULL
+CREATE TABLE [T_REX].[ITEM_FACTURA] (
+		id_itemFactura int IDENTITY(1,1) PRIMARY KEY NOT NULL,
+		importe_oferta decimal (20,2) NOT NULL,
+		cantidad decimal (15,0) NOT NULL,
+		id_factura int FOREIGN KEY REFERENCES [T_REX].FACTURA_PROVEEDOR(id_factura) NOT NULL,
+		id_oferta int FOREIGN KEY REFERENCES [T_REX].[OFERTA](id_oferta) NOT NULL
 );
 END
 GO
 
--- Creacion de tabla CUPON
+-- Tabla CUPON
 
 IF NOT EXISTS (
 		SELECT 1
@@ -366,10 +363,10 @@ CREATE TABLE [T_REX].[CUPON] (
 		cupon_fecha_deconsumo datetime2(3) NOT NULL,
 		cupon_precio_oferta decimal (20,2) NOT NULL,
 		cupon_precio_lista decimal (20,2) NOT NULL,
-		id_consumidor int FOREIGN KEY REFERENCES [T_REX].CLIENTE_DESTINO(id_consumidor) NOT NULL,
+		id_consumidor int FOREIGN KEY REFERENCES [T_REX].CLIENTE(id_cliente) NOT NULL,
 		cupon_estado bit NOT NULL DEFAULT 1,
-		id_compra int FOREIGN KEY REFERENCES [T_REX].COMPRA(id_compra) NOT NULL
-		id_oferta int FOREIGN KEY REFERENCES [T_REX].COMPRA(id_compra) NOT NULL
+		id_compra int FOREIGN KEY REFERENCES [T_REX].COMPRA(id_compra) NOT NULL,
+		id_oferta int FOREIGN KEY REFERENCES [T_REX].[OFERTA](id_oferta) NOT NULL
 );
 END
 
