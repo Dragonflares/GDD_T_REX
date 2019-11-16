@@ -102,6 +102,12 @@
     <Compile Include="Login\ProveedorLogin.Designer.cs">
       <DependentUpon>ProveedorLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="Login\CambioPassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\CambioPassword.Designer.cs">
+      <DependentUpon>CambioPassword.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\CLIENTE.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
