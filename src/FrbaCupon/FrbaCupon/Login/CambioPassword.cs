@@ -22,8 +22,25 @@ namespace FrbaCupon.Login
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Usted ha cambiado la contraseña con éxito.", "EXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            this.Close();
+            Boolean estanTodosLlenos = true;
+            foreach (Control x in this.Controls)
+            {
+                if (x is TextBox && x.Text == "")
+                {
+                    estanTodosLlenos = false;
+                    break;
+                }
+            }
+            if (estanTodosLlenos)
+            {
+                MessageBox.Show("Usted ha cambiado la contraseña con éxito.", "EXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Tiene que completar todos los campos para registrarse.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
     }
 }

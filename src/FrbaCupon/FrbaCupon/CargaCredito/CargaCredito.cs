@@ -16,5 +16,18 @@ namespace FrbaCupon.ABMCupon.Cliente
         {
             InitializeComponent();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.Owner.Show();
+            this.Close();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+            this.Owner.Show();
+            this.Close();
+        }
     }
 }
