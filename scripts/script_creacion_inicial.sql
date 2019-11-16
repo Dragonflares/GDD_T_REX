@@ -12,7 +12,7 @@ GO
 										CREACION DE TABLAS													
 ##########################################################################################################*/
 
--- Creacion de tabla DOMICILIO
+--Tabla DOMICILIO
 
 IF NOT EXISTS (
 		SELECT *
@@ -34,7 +34,7 @@ END
 GO
 
 
--- Creacion de tabla FUNCIONALIDAD
+-- Tabla FUNCIONALIDAD
 
 IF NOT EXISTS (
 		SELECT 1
@@ -44,6 +44,7 @@ IF NOT EXISTS (
 		AND TABLE_SCHEMA = 'T_REX'
 )
 BEGIN
+
 CREATE TABLE [T_REX].[FUNCIONALIDAD] (
 		id_funcionalidad int IDENTITY(1,1) PRIMARY KEY NOT NULL,
 		descripcion nvarchar (255) NOT NULL
@@ -51,7 +52,7 @@ CREATE TABLE [T_REX].[FUNCIONALIDAD] (
 END
 GO
 
--- Creacion de tabla ROL
+-- Tabla ROL
 
 IF NOT EXISTS (
 		SELECT 1
@@ -70,7 +71,7 @@ END
 
 GO
 
--- Creacion de tabla FUNCIONALIDAD_ROL
+--Tabla FUNCIONALIDAD_ROL
 
 IF NOT EXISTS (
 		SELECT 1
@@ -91,7 +92,7 @@ CREATE TABLE [T_REX].[FUNCIONALIDAD_ROL] (
 END
 GO
 
--- Creacion de tabla USUARIO
+-- Tabla USUARIO
 
 IF NOT EXISTS (
 		SELECT 1
@@ -111,7 +112,7 @@ CREATE TABLE [T_REX].[USUARIO] (
 END
 GO
 
--- Creacion de tabla ROL_USUARIO
+-- Tabla ROL_USUARIO
 
 IF NOT EXISTS (
 		SELECT 1
@@ -132,7 +133,7 @@ CREATE TABLE [T_REX].[ROL_USUARIO] (
 END
 GO
 
--- Creacion de tabla RUBRO
+-- Tabla RUBRO
 
 IF NOT EXISTS (
 		SELECT 1
@@ -149,7 +150,7 @@ CREATE TABLE [T_REX].[RUBRO] (
 END
 GO
 
--- Creacion de tabla PROVEEDOR
+-- Tabla PROVEEDOR
 
 IF NOT EXISTS (
 		SELECT 1
@@ -174,7 +175,7 @@ END
 
 GO
 
--- Creacion de tabla CLIENTE
+-- Tabla CLIENTE
 
 IF NOT EXISTS (
 		SELECT 1
@@ -201,7 +202,7 @@ CREATE TABLE [T_REX].[CLIENTE] (
 END
 GO
 
--- Creacion de tabla OFERTA
+-- Tabla OFERTA
 
 IF NOT EXISTS (
 		SELECT 1
@@ -226,7 +227,7 @@ CREATE TABLE [T_REX].[OFERTA] (
 END
 GO
 
--- Creacion de tabla COMPRA
+-- Tabla COMPRA
 
 IF NOT EXISTS (
 		SELECT 1
@@ -246,7 +247,7 @@ CREATE TABLE [T_REX].[COMPRA] (
 END
 GO
 
--- Creacion de tabla TARJETA
+-- Tabla TARJETA
 
 IF NOT EXISTS (
 		SELECT 1
@@ -266,7 +267,7 @@ CREATE TABLE [T_REX].[TARJETA] (
 END
 GO
 
--- Creacion de tabla FORMA_PAGO
+-- Tabla FORMA_PAGO
 
 IF NOT EXISTS (
 		SELECT 1
@@ -283,7 +284,7 @@ CREATE TABLE [T_REX].[FORMA_PAGO] (
 END
 GO
 
--- Creacion de tabla CREDITO
+-- Tabla CREDITO
 
 IF NOT EXISTS (
 		SELECT 1
@@ -304,7 +305,7 @@ CREATE TABLE [T_REX].[CREDITO] (
 END
 GO
 
--- Creacion de tabla FACTURA_PROVEEDOR
+-- Tabla FACTURA_PROVEEDOR
 
 IF NOT EXISTS (
 		SELECT 1
@@ -317,6 +318,7 @@ BEGIN
 CREATE TABLE [T_REX].[FACTURA_PROVEEDOR] (
 		id_factura int IDENTITY(1,1) PRIMARY KEY NOT NULL,
 		nro_factura decimal(20,0) NOT NULL,
+		tipo_factura char(8) default 'No definido',
 		importe_fact decimal (20,2) NOT NULL,
 		fecha_inicio datetime2 (3) NOT NULL,
 		fecha_fin datetime2 (3) NOT NULL,
@@ -325,31 +327,27 @@ CREATE TABLE [T_REX].[FACTURA_PROVEEDOR] (
 END
 GO
 
--- Creacion de tabla CLIENTE_DESTINO
+-- Tabla ITEM_FACTURA
 
 IF NOT EXISTS (
 		SELECT 1
 		FROM INFORMATION_SCHEMA.TABLES
 		WHERE TABLE_TYPE = 'BASE TABLE'
-		AND TABLE_NAME = 'CLIENTE_DESTINO'
+		AND TABLE_NAME = 'ITEM_FACTURA'
 		AND TABLE_SCHEMA = 'T_REX'
 )
 BEGIN
-CREATE TABLE [T_REX].[CLIENTE_DESTINO] (
-		id_consumidor int IDENTITY(1,1) PRIMARY KEY NOT NULL,
-		dest_nombre nvarchar(150) NOT NULL,
-		dest_apellido nvarchar(150) NOT NULL,
-		dest_nrodocumento decimal(18,0) NOT NULL,
-		dest_tipo_documento nvarchar(20) NOT NULL DEFAULT 'DNI',
-		dest_fecha_nacimiento datetime2(3) NOT NULL,
-		dest_mail nvarchar(100) NOT NULL,
-		dest_telefono int NOT NULL,
-		id_domicilio int FOREIGN KEY REFERENCES [T_REX].DOMICILIO(id_domicilio) NOT NULL
+CREATE TABLE [T_REX].[ITEM_FACTURA] (
+		id_itemFactura int IDENTITY(1,1) PRIMARY KEY NOT NULL,
+		importe_oferta decimal (20,2) NOT NULL,
+		cantidad decimal (15,0) NOT NULL,
+		id_factura int FOREIGN KEY REFERENCES [T_REX].FACTURA_PROVEEDOR(id_factura) NOT NULL,
+		id_oferta int FOREIGN KEY REFERENCES [T_REX].[OFERTA](id_oferta) NOT NULL
 );
 END
 GO
 
--- Creacion de tabla CUPON
+-- Tabla CUPON
 
 IF NOT EXISTS (
 		SELECT 1
@@ -361,13 +359,14 @@ IF NOT EXISTS (
 BEGIN
 CREATE TABLE [T_REX].[CUPON] (
 		id_cupon int IDENTITY(1,1) PRIMARY KEY NOT NULL,
-		cupon_codigo nvarchar(60) NOT NULL,
+		cupon_codigo nvarchar(60) DEFAULT NULL,
 		cupon_fecha_deconsumo datetime2(3) NOT NULL,
 		cupon_precio_oferta decimal (20,2) NOT NULL,
 		cupon_precio_lista decimal (20,2) NOT NULL,
-		id_consumidor int FOREIGN KEY REFERENCES [T_REX].CLIENTE_DESTINO(id_consumidor) NOT NULL,
+		id_consumidor int FOREIGN KEY REFERENCES [T_REX].CLIENTE(id_cliente) NOT NULL,
 		cupon_estado bit NOT NULL DEFAULT 1,
-		id_compra int FOREIGN KEY REFERENCES [T_REX].COMPRA(id_compra) NOT NULL
+		id_compra int FOREIGN KEY REFERENCES [T_REX].COMPRA(id_compra) NOT NULL,
+		id_oferta int FOREIGN KEY REFERENCES [T_REX].[OFERTA](id_oferta) NOT NULL
 );
 END
 
@@ -422,7 +421,7 @@ INSERT INTO [T_REX].[FUNCIONALIDAD] (descripcion) VALUES ('ABM Clientes'); --2
 INSERT INTO [T_REX].[FUNCIONALIDAD] (descripcion) VALUES ('ABM Proveedor'); --3
 INSERT INTO [T_REX].[FUNCIONALIDAD] (descripcion) VALUES ('Cargar Credito'); --4
 INSERT INTO [T_REX].[FUNCIONALIDAD] (descripcion) VALUES ('Comprar Oferta'); --5
-INSERT INTO [T_REX].[FUNCIONALIDAD] (descripcion) VALUES ('Publicar Oferta'); --6
+INSERT INTO [T_REX].[FUNCIONALIDAD] (descripcion) VALUES ('Crear Oferta'); --6
 INSERT INTO [T_REX].[FUNCIONALIDAD] (descripcion) VALUES ('Consumo Oferta'); --7
 INSERT INTO [T_REX].[FUNCIONALIDAD] (descripcion) VALUES ('Facturacion Proveedor'); --8
 INSERT INTO [T_REX].[FUNCIONALIDAD] (descripcion) VALUES ('Listado Estadistico');  --9
@@ -627,6 +626,35 @@ inner join T_REX.FORMA_PAGO b on a.Tipo_Pago_Desc = b.tipo_pago_desc
 inner join T_REX.CLIENTE c on a.Cli_Dni=c.nro_documento
 where a.Provee_RS is null
 
+
+
+----------------------------------------------------------------------------------------------------------------
+/*Migracion oferta*/
+
+--84262 registros
+
+insert into [T_REX].[OFERTA](
+					cod_oferta,
+					descripcion,
+					fecha_inicio,
+					fecha_fin,
+					precio_oferta,
+					precio_lista,
+					cantDisponible,
+					cant_max_porCliente,
+					id_proveedor)
+select distinct a.Oferta_Codigo,
+		a.Oferta_Descripcion, 
+		a.Oferta_Fecha,
+		a.Oferta_Fecha_Venc,
+		a.Oferta_Precio,
+		a.Oferta_Precio_Ficticio,
+		a.Oferta_Cantidad,
+		a.Oferta_Cantidad,
+		b.id_proveedor
+from gd_esquema.Maestra a
+inner join T_REX.PROVEEDOR b on b.provee_rs= a.Provee_RS and b.provee_cuit=a.Provee_CUIT
+where a.Oferta_Codigo is not null
 
 ------------ USUARIO ----------
 
