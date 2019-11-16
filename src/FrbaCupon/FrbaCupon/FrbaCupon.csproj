@@ -54,17 +54,53 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ABMCupon\Administrador\AMBListado.cs">
+    <Compile Include="CargaCredito\CargaCredito.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABMCupon\Administrador\AMBListado.Designer.cs">
-      <DependentUpon>AMBListado.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ABMCupon\Cliente\CargaCredito.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ABMCupon\Cliente\CargaCredito.Designer.cs">
+    <Compile Include="CargaCredito\CargaCredito.Designer.cs">
       <DependentUpon>CargaCredito.cs</DependentUpon>
+    </Compile>
+        <Compile Include="ABMCliente\ABMCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABMCliente\ABMCliente.Designer.cs">
+      <DependentUpon>ABMCliente.cs</DependentUpon>
+    </Compile>
+        <Compile Include="ABMProveedor\ABMProveedor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABMProveedor\ABMProveedor.Designer.cs">
+      <DependentUpon>ABMProveedor.cs</DependentUpon>
+    </Compile>
+        <Compile Include="ABMRol\ABMRol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABMRol\ABMRol.Designer.cs">
+      <DependentUpon>ABMRol.cs</DependentUpon>
+    </Compile>
+        <Compile Include="ComprarOferta\ComprarOferta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ComprarOferta\ComprarOferta.Designer.cs">
+      <DependentUpon>ComprarOferta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CrearOferta\CrearOferta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CrearOferta\CrearOferta.Designer.cs">
+      <DependentUpon>CrearOferta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Facturar\Facturar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Facturar\Facturar.Designer.cs">
+      <DependentUpon>Facturar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListadoEstadistico\ListadoEstadistico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListadoEstadistico\ListadoEstadistico.Designer.cs">
+      <DependentUpon>ListadoEstadistico.cs</DependentUpon>
     </Compile>
     <Compile Include="Login\AdminLogin.cs">
       <SubType>Form</SubType>
@@ -186,7 +222,7 @@
     <EmbeddedResource Include="ABMCupon\Administrador\AMBListado.resx">
       <DependentUpon>AMBListado.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ABMCupon\Cliente\CargaCredito.resx">
+    <EmbeddedResource Include="CargaCredito\CargaCredito.resx">
       <DependentUpon>CargaCredito.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\AdminLogin.resx">
