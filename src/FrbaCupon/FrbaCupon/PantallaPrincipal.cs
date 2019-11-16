@@ -43,5 +43,16 @@ namespace FrbaCupon
 
             funcionalidades.Where(f => !funcionalidadesRol.Contains(f.Key)).ToList().ForEach(f => { f.Value.Visible = false; });
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            new Login.CambioPassword().Show(); //Hay que pasarle el cliente/proveedor
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            new Login.PantallaLogin().Show();
+        }
     }
 }

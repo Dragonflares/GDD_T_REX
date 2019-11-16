@@ -45,7 +45,6 @@
             this.nombre = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -186,27 +185,18 @@
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(181, 205);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(91, 13);
+            this.label13.Size = new System.Drawing.Size(93, 13);
             this.label13.TabIndex = 53;
-            this.label13.Text = "Fecha nacimiento";
+            this.label13.Text = "Fecha Nacimiento";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(40, 296);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(71, 13);
+            this.label10.Size = new System.Drawing.Size(72, 13);
             this.label10.TabIndex = 50;
-            this.label10.Text = "Código postal";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(39, 244);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(52, 13);
-            this.label9.TabIndex = 49;
-            this.label9.Text = "Dirección";
+            this.label10.Text = "Código Postal";
             // 
             // label8
             // 
@@ -271,9 +261,9 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(181, 127);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(104, 13);
+            this.label5.Size = new System.Drawing.Size(105, 13);
             this.label5.TabIndex = 41;
-            this.label5.Text = "Confirme contraseña";
+            this.label5.Text = "Confirme Contraseña";
             // 
             // label4
             // 
@@ -298,9 +288,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(39, 87);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(96, 13);
+            this.label2.Size = new System.Drawing.Size(98, 13);
             this.label2.TabIndex = 38;
-            this.label2.Text = "Nombre de usuario";
+            this.label2.Text = "Nombre de Usuario";
             // 
             // label1
             // 
@@ -343,7 +333,6 @@
             this.Controls.Add(this.nombre);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label10);
-            this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -382,7 +371,6 @@
         private System.Windows.Forms.TextBox nombre;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
