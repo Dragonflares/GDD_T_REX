@@ -1,0 +1,11 @@
+D:\Documentos\TP GDD\GDD_T_REX\FrbaOfertas\FrbaOfertas\bin\Debug\FrbaOfertas.exe.config
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\bin\Debug\FrbaOfertas.exe.config
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\bin\Debug\FrbaOfertas.exe
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\bin\Debug\FrbaOfertas.pdb
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\bin\Debug\EntityFramework.dll
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\bin\Debug\EntityFramework.xml
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.csprojResolveAssemblyReference.cache
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.Properties.Resources.resources
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.csproj.GenerateResource.Cache
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.exe
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.pdb

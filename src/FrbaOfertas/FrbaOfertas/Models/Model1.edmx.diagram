@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="79a6435b38cf447fb2f31f5304db926c" Name="Diagram1">
+        <EntityTypeShape EntityType="GD2C2019Model.CLIENTE" Width="1.5" PointX="3" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GD2C2019Model.CLIENTE_DESTINO" Width="1.5" PointX="3" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="GD2C2019Model.COMPRA" Width="1.5" PointX="10.5" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="GD2C2019Model.CREDITO" Width="1.5" PointX="5.25" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GD2C2019Model.CUPON" Width="1.5" PointX="12.75" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="GD2C2019Model.DOMICILIO" Width="1.5" PointX="0.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GD2C2019Model.FACTURA_PROVEEDOR" Width="1.5" PointX="8.25" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GD2C2019Model.FORMA_PAGO" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="GD2C2019Model.FUNCIONALIDAD" Width="1.5" PointX="3.75" PointY="23.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GD2C2019Model.FUNCIONALIDAD_ROL" Width="1.5" PointX="6" PointY="20.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GD2C2019Model.OFERTA" Width="1.5" PointX="8.25" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GD2C2019Model.PROVEEDOR" Width="1.5" PointX="6" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GD2C2019Model.ROL" Width="1.5" PointX="3.75" PointY="20.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GD2C2019Model.ROL_USUARIO" Width="1.5" PointX="6" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GD2C2019Model.RUBRO" Width="1.5" PointX="3.75" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GD2C2019Model.TARJETA" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GD2C2019Model.USUARIO" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <AssociationConnector Association="GD2C2019Model.FK__CLIENTE__id_domi__70099B30" ManuallyRouted="false" />
+        <AssociationConnector Association="GD2C2019Model.FK__CLIENTE__id_usua__70FDBF69" ManuallyRouted="false" />
+        <AssociationConnector Association="GD2C2019Model.FK__COMPRA__id_clien__77AABCF8" ManuallyRouted="false" />
+        <AssociationConnector Association="GD2C2019Model.FK__CREDITO__id_clie__7E57BA87" ManuallyRouted="false" />
+        <AssociationConnector Association="GD2C2019Model.FK__CLIENTE_D__id_do__06ED0088" ManuallyRouted="false" />
+        <AssociationConnector Association="GD2C2019Model.FK__CUPON__id_consum__09C96D33" ManuallyRouted="false" />
+        <AssociationConnector Association="GD2C2019Model.FK__COMPRA__id_ofert__76B698BF" ManuallyRouted="false" />
+        <AssociationConnector Association="GD2C2019Model.FK__CUPON__id_compra__0BB1B5A5" ManuallyRouted="false" />
+        <AssociationConnector Association="GD2C2019Model.FK__CREDITO__id_form__7F4BDEC0" ManuallyRouted="false" />
+        <AssociationConnector Association="GD2C2019Model.FK__CREDITO__id_tarj__004002F9" ManuallyRouted="false" />
+        <AssociationConnector Association="GD2C2019Model.FK__PROVEEDOR__id_do__695C9DA1" ManuallyRouted="false" />
+        <AssociationConnector Association="GD2C2019Model.FK__FACTURA_P__id_pr__031C6FA4" ManuallyRouted="false" />
+        <AssociationConnector Association="GD2C2019Model.FK__FUNCIONAL__id_fu__5832119F" ManuallyRouted="false" />
+        <AssociationConnector Association="GD2C2019Model.FK__FUNCIONAL__id_ro__592635D8" ManuallyRouted="false" />
+        <AssociationConnector Association="GD2C2019Model.FK__OFERTA__id_prove__73DA2C14" ManuallyRouted="false" />
+        <AssociationConnector Association="GD2C2019Model.FK__PROVEEDOR__id_ru__6A50C1DA" ManuallyRouted="false" />
+        <AssociationConnector Association="GD2C2019Model.FK__PROVEEDOR__id_us__6B44E613" ManuallyRouted="false" />
+        <AssociationConnector Association="GD2C2019Model.FK__ROL_USUAR__id_ro__61BB7BD9" ManuallyRouted="false" />
+        <AssociationConnector Association="GD2C2019Model.FK__ROL_USUAR__id_us__60C757A0" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
