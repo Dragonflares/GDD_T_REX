@@ -12,7 +12,7 @@ GO
 										CREACION DE TABLAS													
 ##########################################################################################################*/
 
--- Creacion de tabla DOMICILIO
+--Tabla DOMICILIO
 
 IF NOT EXISTS (
 		SELECT *
@@ -34,7 +34,7 @@ END
 GO
 
 
--- Creacion de tabla FUNCIONALIDAD
+-- Tabla FUNCIONALIDAD
 
 IF NOT EXISTS (
 		SELECT 1
@@ -44,6 +44,7 @@ IF NOT EXISTS (
 		AND TABLE_SCHEMA = 'T_REX'
 )
 BEGIN
+
 CREATE TABLE [T_REX].[FUNCIONALIDAD] (
 		id_funcionalidad int IDENTITY(1,1) PRIMARY KEY NOT NULL,
 		descripcion nvarchar (255) NOT NULL
@@ -51,7 +52,7 @@ CREATE TABLE [T_REX].[FUNCIONALIDAD] (
 END
 GO
 
--- Creacion de tabla ROL
+-- Tabla ROL
 
 IF NOT EXISTS (
 		SELECT 1
@@ -70,7 +71,7 @@ END
 
 GO
 
--- Creacion de tabla FUNCIONALIDAD_ROL
+--Tabla FUNCIONALIDAD_ROL
 
 IF NOT EXISTS (
 		SELECT 1
@@ -91,7 +92,7 @@ CREATE TABLE [T_REX].[FUNCIONALIDAD_ROL] (
 END
 GO
 
--- Creacion de tabla USUARIO
+-- Tabla USUARIO
 
 IF NOT EXISTS (
 		SELECT 1
@@ -422,7 +423,7 @@ INSERT INTO [T_REX].[FUNCIONALIDAD] (descripcion) VALUES ('ABM Clientes'); --2
 INSERT INTO [T_REX].[FUNCIONALIDAD] (descripcion) VALUES ('ABM Proveedor'); --3
 INSERT INTO [T_REX].[FUNCIONALIDAD] (descripcion) VALUES ('Cargar Credito'); --4
 INSERT INTO [T_REX].[FUNCIONALIDAD] (descripcion) VALUES ('Comprar Oferta'); --5
-INSERT INTO [T_REX].[FUNCIONALIDAD] (descripcion) VALUES ('Publicar Oferta'); --6
+INSERT INTO [T_REX].[FUNCIONALIDAD] (descripcion) VALUES ('Crear Oferta'); --6
 INSERT INTO [T_REX].[FUNCIONALIDAD] (descripcion) VALUES ('Consumo Oferta'); --7
 INSERT INTO [T_REX].[FUNCIONALIDAD] (descripcion) VALUES ('Facturacion Proveedor'); --8
 INSERT INTO [T_REX].[FUNCIONALIDAD] (descripcion) VALUES ('Listado Estadistico');  --9
