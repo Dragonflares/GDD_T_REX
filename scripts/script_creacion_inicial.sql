@@ -362,13 +362,14 @@ IF NOT EXISTS (
 BEGIN
 CREATE TABLE [T_REX].[CUPON] (
 		id_cupon int IDENTITY(1,1) PRIMARY KEY NOT NULL,
-		cupon_codigo nvarchar(60) NOT NULL,
+		cupon_codigo nvarchar(60) DEFAULT NULL,
 		cupon_fecha_deconsumo datetime2(3) NOT NULL,
 		cupon_precio_oferta decimal (20,2) NOT NULL,
 		cupon_precio_lista decimal (20,2) NOT NULL,
 		id_consumidor int FOREIGN KEY REFERENCES [T_REX].CLIENTE_DESTINO(id_consumidor) NOT NULL,
 		cupon_estado bit NOT NULL DEFAULT 1,
 		id_compra int FOREIGN KEY REFERENCES [T_REX].COMPRA(id_compra) NOT NULL
+		id_oferta int FOREIGN KEY REFERENCES [T_REX].COMPRA(id_compra) NOT NULL
 );
 END
 
@@ -628,6 +629,35 @@ inner join T_REX.FORMA_PAGO b on a.Tipo_Pago_Desc = b.tipo_pago_desc
 inner join T_REX.CLIENTE c on a.Cli_Dni=c.nro_documento
 where a.Provee_RS is null
 
+
+
+----------------------------------------------------------------------------------------------------------------
+/*Migracion oferta*/
+
+--84262 registros
+
+insert into [T_REX].[OFERTA](
+					cod_oferta,
+					descripcion,
+					fecha_inicio,
+					fecha_fin,
+					precio_oferta,
+					precio_lista,
+					cantDisponible,
+					cant_max_porCliente,
+					id_proveedor)
+select distinct a.Oferta_Codigo,
+		a.Oferta_Descripcion, 
+		a.Oferta_Fecha,
+		a.Oferta_Fecha_Venc,
+		a.Oferta_Precio,
+		a.Oferta_Precio_Ficticio,
+		a.Oferta_Cantidad,
+		a.Oferta_Cantidad,
+		b.id_proveedor
+from gd_esquema.Maestra a
+inner join T_REX.PROVEEDOR b on b.provee_rs= a.Provee_RS and b.provee_cuit=a.Provee_CUIT
+where a.Oferta_Codigo is not null
 
 ------------ USUARIO ----------
 
