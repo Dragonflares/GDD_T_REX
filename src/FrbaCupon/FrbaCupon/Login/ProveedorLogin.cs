@@ -15,6 +15,7 @@ namespace FrbaCupon.Login
         public ProveedorLogin()
         {
             InitializeComponent();
+            textBox2.PasswordChar = '*';
         }
 
         private void button1_Click(object sender, EventArgs e)

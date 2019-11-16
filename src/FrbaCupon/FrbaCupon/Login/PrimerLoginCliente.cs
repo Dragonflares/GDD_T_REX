@@ -15,6 +15,7 @@ namespace FrbaCupon.Login
         public PrimerLoginCliente()
         {
             InitializeComponent();
+            contrasenia.PasswordChar = '*';
         }
 
         private void registrarse_Click(object sender, EventArgs e)

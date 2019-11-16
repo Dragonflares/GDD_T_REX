@@ -15,6 +15,9 @@ namespace FrbaCupon.Login
         public CambioPassword()
         {
             InitializeComponent();
+            textBox1.PasswordChar = '*';
+            textBox2.PasswordChar = '*';
+            textBox3.PasswordChar = '*';
         }
 
         private void button1_Click(object sender, EventArgs e)
