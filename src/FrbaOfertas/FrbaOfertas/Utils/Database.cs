@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace FrbaCupon.Utils
+namespace FrbaOfertas.Utils
 {
     class Database
     {
-        private static String connectionStr = ConfigurationManager.ConnectionStrings["FrbaCupon"]
+        private static String connectionStr = ConfigurationManager.ConnectionStrings["FrbaOfertas"]
             .ConnectionString;
         private static SqlConnection connection = new SqlConnection(connectionStr);
 

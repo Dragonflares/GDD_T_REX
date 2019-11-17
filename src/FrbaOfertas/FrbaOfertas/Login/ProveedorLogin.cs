@@ -28,5 +28,11 @@ namespace FrbaOfertas.Login
             this.Hide();
             new PrimerLoginProveedor().Show();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.Owner.Show();
+        }
     }
 }

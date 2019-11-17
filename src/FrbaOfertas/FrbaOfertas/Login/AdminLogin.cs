@@ -20,6 +20,18 @@ namespace FrbaOfertas.Login
 
         private void button1_Click(object sender, EventArgs e)
         {
+            this.Hide();
+            new PantallaPrincipal("Administrativo").Show();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.Owner.Show();
+        }
+
+        private void AdminLogin_Load(object sender, EventArgs e)
+        {
 
         }
     }

@@ -18,7 +18,6 @@ namespace FrbaOfertas
         public PantallaPrincipal(String rol)
         {
             InitializeComponent();
-            loadFuncionalidades();
             showFuncionalidades(rol);
         }
 
@@ -27,25 +26,18 @@ namespace FrbaOfertas
 
         }
 
-        private void loadFuncionalidades()
-        {
-
-        }
-
         private void showFuncionalidades(string rol)
         {
-            using (GD2C2019Entities db = new GD2C2019Entities())
+            SqlCommand obtenerFuncionalidades = FrbaOfertas.Utils.Database.createCommand("SELECT f.descripcion FROM [GD2C2019].[T_REX].Funcionalidad f" + 
+                " JOIN [GD2C2019].[T_REX].Funcionalidad_Rol fr on fr.id_funcionalidad = f.id_funcionalidad" +
+                " JOIN [GD2C2019].[T_REX].Rol r on r.id_rol = fr.id_rol WHERE r.nombre = @rol");
+            obtenerFuncionalidades.Parameters.Add("@rol", SqlDbType.NChar).Value = rol;
+            DataTable tablaFunc = Utils.Database.getData(obtenerFuncionalidades);
+
+            foreach (DataRow row in tablaFunc.Rows)
             {
-                var funcionalidad = (from func in db.FUNCIONALIDAD
-                                     join fr in db.FUNCIONALIDAD_ROL on func.id_funcionalidad equals fr.id_funcionalidad
-                                     join r in db.ROL on fr.id_rol equals r.id_rol
-                                     where r.nombre == rol
-                                     select new
-                                     {
-                                         nombre = func.descripcion
-                                     });
-                comboBox1.DataSource = funcionalidad.ToList();
-            }
+                comboBox1.Items.Add(row["descripcion"]); 
+            }           
         }
 
         private void button1_Click(object sender, EventArgs e)
