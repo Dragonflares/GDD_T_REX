@@ -148,6 +148,5 @@ namespace FrbaOfertas.Utils
         {
             return table.Rows.Cast<DataRow>().Select(r => r[0]).ToList();
         }
-
     }
 }
