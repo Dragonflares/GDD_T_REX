@@ -389,9 +389,9 @@ ORDER BY m.Provee_Rubro
 
 /*Creacion de Roles*/
 
-INSERT INTO [T_REX].[ROL](nombre) VALUES ('Administrativo');
-INSERT INTO [T_REX].[ROL](nombre) VALUES ('Cliente');
-INSERT INTO [T_REX].[ROL](nombre) VALUES ('Proveedor');
+INSERT INTO [T_REX].[ROL](nombre) VALUES ('Administrativo'); --1
+INSERT INTO [T_REX].[ROL](nombre) VALUES ('Cliente');	--2
+INSERT INTO [T_REX].[ROL](nombre) VALUES ('Proveedor');	--3
 
 --------------------------------------------------------------------------------------------------------------
 
@@ -430,15 +430,16 @@ INSERT INTO [T_REX].[FUNCIONALIDAD] (descripcion) VALUES ('Listado Estadistico')
 
 /*Creacion de Funcionalidad_Rol*/
 
-INSERT INTO [T_REX].[FUNCIONALIDAD_ROL] (id_rol,id_funcionalidad) VALUES (1,1);
-INSERT INTO [T_REX].[FUNCIONALIDAD_ROL] (id_rol,id_funcionalidad) VALUES (1,2);
-INSERT INTO [T_REX].[FUNCIONALIDAD_ROL] (id_rol,id_funcionalidad) VALUES (1,3);
-INSERT INTO [T_REX].[FUNCIONALIDAD_ROL] (id_rol,id_funcionalidad) VALUES (1,8);
-INSERT INTO [T_REX].[FUNCIONALIDAD_ROL] (id_rol,id_funcionalidad) VALUES (1,9);
-INSERT INTO [T_REX].[FUNCIONALIDAD_ROL] (id_rol,id_funcionalidad) VALUES (2,4);
-INSERT INTO [T_REX].[FUNCIONALIDAD_ROL] (id_rol,id_funcionalidad) VALUES (2,5);
-INSERT INTO [T_REX].[FUNCIONALIDAD_ROL] (id_rol,id_funcionalidad) VALUES (3,7);
-INSERT INTO [T_REX].[FUNCIONALIDAD_ROL] (id_rol,id_funcionalidad) VALUES (3,6);
+INSERT INTO [T_REX].[FUNCIONALIDAD_ROL] (id_rol,id_funcionalidad) VALUES (1,1);	-- Admin ABM ROL -
+INSERT INTO [T_REX].[FUNCIONALIDAD_ROL] (id_rol,id_funcionalidad) VALUES (1,2);	-- Admin ABM CLIENTES - 
+INSERT INTO [T_REX].[FUNCIONALIDAD_ROL] (id_rol,id_funcionalidad) VALUES (1,3); --	Admin ABM PROVEEDOR -
+INSERT INTO [T_REX].[FUNCIONALIDAD_ROL] (id_rol,id_funcionalidad) VALUES (1,8);	-- Admin  FACTURACION PROVEEDOR -
+INSERT INTO [T_REX].[FUNCIONALIDAD_ROL] (id_rol,id_funcionalidad) VALUES (1,9);	-- Admin LISTADO ESTADISTICO -
+INSERT INTO [T_REX].[FUNCIONALIDAD_ROL] (id_rol,id_funcionalidad) VALUES (1,6);	-- Admin CREAR OFERTA
+INSERT INTO [T_REX].[FUNCIONALIDAD_ROL] (id_rol,id_funcionalidad) VALUES (2,4);	-- Cliente CARGAR CREDITO -
+INSERT INTO [T_REX].[FUNCIONALIDAD_ROL] (id_rol,id_funcionalidad) VALUES (2,5);	-- Cliente COMPRAR OFERTA -
+INSERT INTO [T_REX].[FUNCIONALIDAD_ROL] (id_rol,id_funcionalidad) VALUES (3,7);	-- Proveedor CONSUMO DE OFERTA -
+INSERT INTO [T_REX].[FUNCIONALIDAD_ROL] (id_rol,id_funcionalidad) VALUES (3,6);	-- Proveedor CREAR OFERTA -
 
 ------------------------------------------------------------------------------------------------------------------
 
