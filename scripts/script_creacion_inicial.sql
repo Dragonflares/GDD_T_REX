@@ -374,7 +374,6 @@ END
 										MIGRACION DE DATOS													
 ##########################################################################################################*/
 
-
 /*Migracion de Rubros*/
 
 INSERT INTO [T_REX].[RUBRO](
@@ -384,6 +383,8 @@ SELECT DISTINCT Provee_Rubro
 FROM [gd_esquema].[Maestra] m
 WHERE m.Provee_Rubro is not null
 ORDER BY m.Provee_Rubro
+
+-- Comestibles, electronica, Hoteleria 
 
 -------------------------------------------------------------------------------------------------------------
 
@@ -408,7 +409,7 @@ VALUES ('admin', '0xCA4D710175F395034CD7CA5D3B5E9D5CD34018A4FA8281E8D37389836D5F
 
 /*Creacion de ROL_USUARIO para el usuario admin*/
 
-INSERT INTO [T_REX].[ROL_USUARIO] (id_usuario,id_rol) VALUES (1,1);
+INSERT INTO [T_REX].[ROL_USUARIO] (id_usuario,id_rol) VALUES (1,1); 
 INSERT INTO [T_REX].[ROL_USUARIO] (id_usuario,id_rol) VALUES (1,2);
 INSERT INTO [T_REX].[ROL_USUARIO] (id_usuario,id_rol) VALUES (1,3);
 
@@ -444,23 +445,24 @@ INSERT INTO [T_REX].[FUNCIONALIDAD_ROL] (id_rol,id_funcionalidad) VALUES (3,6);	
 ------------------------------------------------------------------------------------------------------------------
 
 /*Creacion de Forma_pago*/
+
 INSERT INTO [T_REX].[FORMA_PAGO] (tipo_pago_desc)
-	(SELECT distinct Tipo_Pago_Desc
-		FROM gd_esquema.Maestra
-		Where Tipo_Pago_Desc is not null);
-GO
+SELECT distinct Tipo_Pago_Desc
+FROM gd_esquema.Maestra
+Where Tipo_Pago_Desc is not null
 
 -------------------------------------------------------------------------------------------------------------------
 
 /*Creacion de Tarjeta*/
+
 INSERT INTO [T_REX].[TARJETA] (nro_tarjeta,titular_tarjeta,banco_tarjeta,tipo_tarjeta)
-	   VALUES('0000000000000000','No se tiene registro', 'No se tiene registro','No se tiene registro'
-	   );
-GO
+VALUES('0000000000000000','No se tiene registro', 'No se tiene registro','No se tiene registro')
 
 ---------------------------------------------------------------------------------------------------------------------
 
 /*Migracion de Proveedor*/
+
+-- 37 PROVEEDORES
 
 -- Inserto en tabla temporal
 
@@ -487,27 +489,19 @@ GO
 
 /* Insertar en Tabla domicilio*/
 
-insert into [T_REX].[DOMICILIO] (
-			direc_calle,
-			direc_localidad )
-(select  Provee_Dom,
-		Provee_Ciudad
+insert into [T_REX].[DOMICILIO] (direc_calle, direc_localidad )
+select  Provee_Dom,Provee_Ciudad
 from #Temp_Proveedor
-);
 
 
 /*Insertar tabla usuario */
-GO
-insert into [T_REX].[USUARIO] (
-			username,
-			password )
-(select  Provee_CUIT,
-		'4f37c061f1854f9682f543fecb5ee9d652c803235970202de97c6e40c8361766' pass
-	from #Temp_Proveedor
-);
-GO
 
--- NOTA: Los proveedores tienen "nombre usuario": CUIT y contraseña: "1234" para todos, luego cuando realicen el primer USUARIO deben cambiar la contraseña
+insert into [T_REX].[USUARIO] ( username, password )
+select  Provee_CUIT, '4f37c061f1854f9682f543fecb5ee9d652c803235970202de97c6e40c8361766' pass
+from #Temp_Proveedor
+
+-- NOTA: Los proveedores tienen "nombre usuario": CUIT y contraseña: "1234" para todos, luego cuando realicen el primer logueo deben cambiar la contraseña
+
 
 /* Inserta Rol_Usuario*/
 
@@ -518,7 +512,7 @@ where id_usuario not in (select id_usuario from [T_REX].[ROL_USUARIO])
 
 /* Inserta Proveedor*/			
 
-insert into [T_REX].[PROVEEDOR](
+INSERT INTO [T_REX].[PROVEEDOR](
 					provee_rs, 
 					provee_cuit, 
 					provee_telefono, 
@@ -544,8 +538,9 @@ DROP TABLE #Temp_Proveedor
 
 /*Migracion cliente*/
 
---218 registros
--- Inserto tabla temporal
+--218 CLIENTES
+
+-- Inserto en tabla temporal
 
 SELECT 
 	Cli_Nombre,
@@ -578,7 +573,7 @@ from #Temp_cliente
 
 /*Insertar tabla usuario los clientes */
 
-insert into [T_REX].[USUARIO] ( username, password )
+INSERT INTO [T_REX].[USUARIO] ( username, password )
 select  Cli_Dni, '4f37c061f1854f9682f543fecb5ee9d652c803235970202de97c6e40c8361766' pass
 from #Temp_cliente
 
@@ -592,13 +587,14 @@ where id_usuario not in (select id_usuario from [T_REX].[ROL_USUARIO])
 
 /*Insertar tabla cliente: antes de usuario y domicilio*/
 
---218 clientes (?
-
-insert into [T_REX].[CLIENTE](
-					nombre,apellido,
+ 
+INSERT INTO [T_REX].[CLIENTE](
+					nombre,
+					apellido,
 					nro_documento,
 					fechaDeNacimiento,
-					mail,telefono,
+					mail,
+					telefono,
 					creditoTotal,
 					id_domicilio,
 					id_usuario)
@@ -616,20 +612,29 @@ inner join T_REX.DOMICILIO b on a.Cli_Direccion=b.direc_calle and a.Cli_Ciudad =
 inner join T_REX.USUARIO c on CAST(a.Cli_Dni  AS NVARCHAR(255))=c.username
 
 DROP TABLE #Temp_cliente
+
 -----------------------------------------------------------------------------------------------------------------------
 
 /*Creacion de Credito, antes cargar tablas: cliente,forma_pago y tarjeta*/
 
-INSERT INTO [T_REX].[CREDITO] (fecha_Credito, id_cliente, id_forma_pago,monto_credito,id_tarjeta)
-SELECT a.Carga_Fecha,c.id_cliente,b.id_forma_pago, a.Carga_Credito,1
+INSERT INTO [T_REX].[CREDITO] (fecha_Credito, 
+								id_cliente, 
+								id_forma_pago,
+								monto_credito,
+								id_tarjeta)
+SELECT	a.Carga_Fecha,
+		c.id_cliente,
+		b.id_forma_pago, 
+		a.Carga_Credito,
+		1
 FROM gd_esquema.Maestra a
 inner join T_REX.FORMA_PAGO b on a.Tipo_Pago_Desc = b.tipo_pago_desc
 inner join T_REX.CLIENTE c on a.Cli_Dni=c.nro_documento
 where a.Provee_RS is null
 
 
-
 ----------------------------------------------------------------------------------------------------------------
+
 /*Migracion oferta*/
 
 --84262 registros
@@ -645,21 +650,31 @@ insert into [T_REX].[OFERTA](
 					cant_max_porCliente,
 					id_proveedor)
 select distinct a.Oferta_Codigo,
-		a.Oferta_Descripcion, 
-		a.Oferta_Fecha,
-		a.Oferta_Fecha_Venc,
-		a.Oferta_Precio,
-		a.Oferta_Precio_Ficticio,
-		a.Oferta_Cantidad,
-		a.Oferta_Cantidad,
-		b.id_proveedor
+				a.Oferta_Descripcion, 
+				a.Oferta_Fecha,
+				a.Oferta_Fecha_Venc,
+				a.Oferta_Precio,
+				a.Oferta_Precio_Ficticio,
+				a.Oferta_Cantidad,
+				a.Oferta_Cantidad,
+				b.id_proveedor
 from gd_esquema.Maestra a
 inner join T_REX.PROVEEDOR b on b.provee_rs= a.Provee_RS and b.provee_cuit=a.Provee_CUIT
 where a.Oferta_Codigo is not null
 
+
+
+
+/*##########################################################################################################
+										SPs y FN													
+##########################################################################################################*/
+
 ------------ USUARIO ----------
 
-GO 
+IF OBJECT_ID('T_REX.LogearUsuario') IS NOT NULL
+	DROP PROCEDURE [T_REX].LogearUsuario;
+GO
+
 CREATE PROCEDURE [T_REX].LogearUsuario
 @username nvarchar(255),
 @password nvarchar(255),
