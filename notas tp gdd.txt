@@ -1,0 +1,43 @@
+SISTEMA VIEJO:
+
+CONTRASEÑA: "1234" para usuarios y proveedores, primer inicio de sesion luego deben cambiar contraseña
+
+NOMBRE USUARIO CLIENTES: 
+
+NOMBRE USUARIO PROVEEDORES: CUIT
+-------------------------------------------------------------------------------------------------
+CANTIDAD DE REGISTROS
+37 PROVEEDORES
+128 CLIENTES ( 7 con mails repetidos)
+
+
+USUARIOS CON EL MISMO MAIL:
+
+NOMBRE		APELLIDO	DNI				FECHA NACIMIENTO			MAIL
+GISELDA		Gutiérrez	58027403	1985-02-03 00:00:00.000		giselda@gmail.com
+GISELDA		Martínez	72125621	1960-04-08 00:00:00.000		giselda@gmail.com
+
+JERAMEL		Ortiz		73265515	1960-08-05 00:00:00.000		jeramel@gmail.com
+JERAMEL		Pérez		19978944	1929-08-18 00:00:00.000		jeramel@gmail.com
+
+LIA			Cabrera		90753805	1957-01-30 00:00:00.000		lia@gmail.com
+LIA			Henríquez	90878663	1940-07-31 00:00:00.000		lia@gmail.com
+
+LOREDANA	Escobar		91864827	1953-11-30 00:00:00.000		loredana@gmail.com
+LOREDANA	Flores		98408239	1947-06-24 00:00:00.000		loredana@gmail.com
+
+OTTO		Olivera		32624852	1953-10-27 00:00:00.000		otto@gmail.com
+OTTO		Ramos		68130594	1971-07-17 00:00:00.000		otto@gmail.com
+
+PUEL		Palma		65837930	1977-12-06 00:00:00.000		puel@gmail.com
+PUEL		Romero		55082948	1962-12-19 00:00:00.000		puel@gmail.com
+
+SALACIA		Miranda		53660181	1913-11-02 00:00:00.000		salacia@gmail.com
+SALACIA		Moyano		34111521	1905-08-15 00:00:00.000		salacia@gmail.com
+
+
+BAJA USUARIO: campo estado TABLA USUARIO
+
+Un cliente esta inhabilitado (baja logica) cuando posee datos inconsistentes ( como tener un mail repetido) o  decisión del administrador
+
+ 
