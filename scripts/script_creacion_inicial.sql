@@ -214,7 +214,7 @@ IF NOT EXISTS (
 BEGIN
 CREATE TABLE [T_REX].[OFERTA] (
 		id_oferta int IDENTITY(1,1) PRIMARY KEY NOT NULL,
-		cod_oferta nvarchar (60) NOT NULL,
+		cod_oferta nvarchar (60) NULL,
 		descripcion nvarchar (255) NOT NULL,
 		fecha_inicio datetime  NOT NULL,
 		fecha_fin datetime NOT NULL,
@@ -360,10 +360,10 @@ BEGIN
 CREATE TABLE [T_REX].[CUPON] (
 		id_cupon int IDENTITY(1,1) PRIMARY KEY NOT NULL,
 		cupon_codigo nvarchar(60) DEFAULT NULL,
-		cupon_fecha_deconsumo datetime2(3) NOT NULL,
+		cupon_fecha_deconsumo datetime2(3)  NULL,
 		cupon_precio_oferta decimal (20,2) NOT NULL,
 		cupon_precio_lista decimal (20,2) NOT NULL,
-		id_consumidor int FOREIGN KEY REFERENCES [T_REX].CLIENTE(id_cliente) NOT NULL,
+		id_consumidor int FOREIGN KEY REFERENCES [T_REX].CLIENTE(id_cliente) NULL,
 		cupon_estado bit NOT NULL DEFAULT 1,
 		id_compra int FOREIGN KEY REFERENCES [T_REX].COMPRA(id_compra) NOT NULL,
 		id_oferta int FOREIGN KEY REFERENCES [T_REX].[OFERTA](id_oferta) NOT NULL
@@ -661,9 +661,88 @@ select distinct a.Oferta_Codigo,
 from gd_esquema.Maestra a
 inner join T_REX.PROVEEDOR b on b.provee_rs= a.Provee_RS and b.provee_cuit=a.Provee_CUIT
 where a.Oferta_Codigo is not null
+order by a.Oferta_Fecha, a.Oferta_Codigo;
 
+----------------------------------------------------------------------------------------------------------------
+/*Migracion compra*/
 
+--119678 registros
 
+insert into [T_REX].[COMPRA] (
+		id_cliente,
+		id_oferta,
+		compra_fecha,
+		cantidad)
+select (select id_cliente from T_REX.CLIENTE where nro_documento= Cli_Dni), 
+(select id_oferta from T_REX.OFERTA where cod_oferta=Oferta_Codigo), 
+Oferta_Fecha_Compra, 
+count(*) 
+from gd_esquema.Maestra 
+where Oferta_Entregado_Fecha is null 
+and Oferta_Codigo is not NULL
+and Factura_Nro is null  
+and Factura_Fecha is null
+group by Cli_Dni, Oferta_Codigo, Oferta_Fecha_Compra
+order by Oferta_Fecha_Compra asc, Oferta_Codigo;
+
+----------------------------------------------------------------------------------------------------------------
+/*Migracion cupon*/
+
+--119678 registros
+insert into [T_REX].[CUPON] (
+		cupon_codigo,
+		cupon_fecha_deconsumo,
+		cupon_precio_oferta,
+		cupon_precio_lista,
+		id_consumidor,
+		id_compra,
+		id_oferta
+)
+select 
+Oferta_codigo cupon_codigo,
+max(Oferta_Entregado_Fecha),
+Oferta_Precio,
+Oferta_Precio_Ficticio,
+CASE WHEN max(Oferta_Entregado_Fecha) IS NOT NULL
+    THEN (select id_cliente from [T_REX].CLIENTE where nro_documento= Cli_Dni)
+    ELSE NULL
+END id_cliente,
+(select c.id_compra 
+	from T_REX.COMPRA c
+	inner join T_REX.OFERTA o on c.id_oferta = o.id_oferta
+	inner join T_REX.CLIENTE cli on c.id_cliente=cli.id_cliente
+	where o.cod_oferta=Oferta_Codigo
+	and cli.nro_documento=Cli_Dni
+	and c.compra_fecha=Oferta_Fecha_Compra), 
+(select id_oferta from [T_REX].OFERTA where cod_oferta=Oferta_Codigo)
+from gd_esquema.Maestra a
+where Factura_Nro is null  
+and Factura_Fecha is null
+and Oferta_Codigo is not NULL
+group by Cli_Dni, Oferta_Codigo, Oferta_Fecha_Compra,Oferta_Precio_Ficticio, Oferta_Precio
+order by Oferta_Fecha_Compra asc, Oferta_Codigo;
+----------------------------------------------------------------------------------------------------------------
+/*Migracion Item Factura*/
+--64929
+/*
+insert into [T_REX].[ITEM_FACTURA] (
+		importe_oferta,
+		cantidad,
+		c.id_factura,
+		id_oferta)
+select sum(a.Oferta_Precio),
+		count(*),
+		id_factura,
+		(select id_oferta from T_REX.OFERTA b where b.cod_oferta=a.Oferta_Codigo)
+from gd_esquema.Maestra a
+inner join T_REX.FACTURA_PROVEEDOR c on c.nro_factura=a.Factura_Nro
+where a.Oferta_Codigo is not NULL
+and a.Factura_Nro is not null  
+and a.Factura_Fecha is not null
+group by a.Oferta_Codigo
+order by a.Factura_Fecha;
+
+*/
 
 /*##########################################################################################################
 										SPs y FN													
