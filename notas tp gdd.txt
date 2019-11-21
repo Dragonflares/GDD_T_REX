@@ -2,7 +2,7 @@ SISTEMA VIEJO:
 
 CONTRASEÑA: "1234" para usuarios y proveedores, primer inicio de sesion luego deben cambiar contraseña
 
-NOMBRE USUARIO CLIENTES: 
+NOMBRE USUARIO CLIENTES: DNI
 
 NOMBRE USUARIO PROVEEDORES: CUIT
 -------------------------------------------------------------------------------------------------
