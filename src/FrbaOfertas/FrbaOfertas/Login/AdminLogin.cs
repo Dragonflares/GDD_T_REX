@@ -24,7 +24,7 @@ namespace FrbaOfertas.Login
         {
 
             this.Hide();
-            new PantallaPrincipal(rol).Show();
+            new PantallaPrincipal(rol, "").Show();
         }
 
         private void button2_Click(object sender, EventArgs e)

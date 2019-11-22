@@ -15,11 +15,13 @@ namespace FrbaOfertas
     {
         private Dictionary<String, Button> funcionalidades = new Dictionary<String, Button>();
         private string userRole;
-        public PantallaPrincipal(String rol)
+        private string username;
+        public PantallaPrincipal(String rol, string _username)
         {
             InitializeComponent();
             userRole = rol;
             showFuncionalidades(rol);
+            username = _username;
         }
 
         private void PantallaPrincial_Load(object sender, EventArgs e)
@@ -83,7 +85,7 @@ namespace FrbaOfertas
                 case "CREAR OFERTA":
                 {
                     this.Hide();
-                    new CrearOferta.CrearOferta(userRole).Show();
+                    new CrearOferta.CrearOferta(userRole, username).Show();
                     break;
                 }
                 case "LISTADO ESTADISTICO":

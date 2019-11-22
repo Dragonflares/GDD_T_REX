@@ -31,7 +31,7 @@ namespace FrbaOfertas.Login
             }
             if (estanTodosLlenos)
             {
-                new PantallaPrincipal("Proveedor").Show();
+                new PantallaPrincipal("Proveedor", nombreUsuario.Text).Show();
                 this.Close();
             }
             else
@@ -39,5 +39,8 @@ namespace FrbaOfertas.Login
                 MessageBox.Show("Tiene que completar todos los campos para registrarse.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
+        // agregar evento de en cambio del texto de nombreUsuario, que haga una busqueda para completar y bloquear los campos de contraseña.
     }
 }

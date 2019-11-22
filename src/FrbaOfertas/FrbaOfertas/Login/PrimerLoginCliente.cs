@@ -31,7 +31,8 @@ namespace FrbaOfertas.Login
             }
             if (estanTodosLlenos)
             {
-                new PantallaPrincipal("CLIENTE").Show();
+                
+                new PantallaPrincipal("CLIENTE", nombreUsuario.Text).Show();
                 this.Close();
             }
             else

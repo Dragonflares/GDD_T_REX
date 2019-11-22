@@ -12,3 +12,9 @@ D:\Documentos\TP GDD\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas
 D:\Drizz\Documentos\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\bin\Debug\FrbaOfertas.exe.config
 D:\Drizz\Documentos\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.exe
 D:\Drizz\Documentos\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.pdb
+D:\Drizz\Documentos\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.csprojResolveAssemblyReference.cache
+D:\Drizz\Documentos\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.CargaCredito.CargaCredito.resources
+D:\Drizz\Documentos\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.CrearOferta.CrearOferta.resources
+D:\Drizz\Documentos\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.PantallaPrincipal.resources
+D:\Drizz\Documentos\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.Properties.Resources.resources
+D:\Drizz\Documentos\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.csproj.GenerateResource.Cache
