@@ -95,6 +95,18 @@
     <Compile Include="CrearOferta\CrearOferta.Designer.cs">
       <DependentUpon>CrearOferta.cs</DependentUpon>
     </Compile>
+    <Compile Include="CrearOferta\Listado Proveedores.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CrearOferta\Listado Proveedores.Designer.cs">
+      <DependentUpon>Listado Proveedores.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Facturar\Elegir facturable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Facturar\Elegir facturable.Designer.cs">
+      <DependentUpon>Elegir facturable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Facturar\Facturar.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -229,6 +241,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CrearOferta\CrearOferta.resx">
       <DependentUpon>CrearOferta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CrearOferta\Listado Proveedores.resx">
+      <DependentUpon>Listado Proveedores.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Facturar\Elegir facturable.resx">
+      <DependentUpon>Elegir facturable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Facturar\Facturar.resx">
+      <DependentUpon>Facturar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PantallaPrincipal.resx">
       <DependentUpon>PantallaPrincipal.cs</DependentUpon>

@@ -31,19 +31,19 @@
             this.btn_limpiar = new System.Windows.Forms.Button();
             this.btn_buscar = new System.Windows.Forms.Button();
             this.dgv_proveedores = new System.Windows.Forms.DataGridView();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.razonsocial = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.btn_volver = new System.Windows.Forms.Button();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.razon_social = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.rubro = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cuit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cruc_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.seleccionar = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.razonsocial = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btn_volver = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_proveedores)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -90,6 +90,43 @@
             this.dgv_proveedores.TabIndex = 13;
             this.dgv_proveedores.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_proveedores_CellContentClick);
             // 
+            // razon_social
+            // 
+            this.razon_social.HeaderText = "Razón Social";
+            this.razon_social.Name = "razon_social";
+            this.razon_social.ReadOnly = true;
+            this.razon_social.Width = 120;
+            // 
+            // rubro
+            // 
+            this.rubro.HeaderText = "Rubro";
+            this.rubro.Name = "rubro";
+            this.rubro.ReadOnly = true;
+            // 
+            // cuit
+            // 
+            this.cuit.HeaderText = "CUIT";
+            this.cuit.Name = "cuit";
+            this.cuit.ReadOnly = true;
+            // 
+            // cruc_id
+            // 
+            this.cruc_id.DataPropertyName = "cruc_id";
+            this.cruc_id.HeaderText = "id";
+            this.cruc_id.Name = "cruc_id";
+            this.cruc_id.ReadOnly = true;
+            this.cruc_id.Visible = false;
+            // 
+            // seleccionar
+            // 
+            this.seleccionar.HeaderText = "Seleccionar";
+            this.seleccionar.Name = "seleccionar";
+            this.seleccionar.ReadOnly = true;
+            this.seleccionar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.seleccionar.Text = "Seleccionar";
+            this.seleccionar.UseColumnTextForButtonValue = true;
+            this.seleccionar.Width = 90;
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.comboBox1);
@@ -106,6 +143,22 @@
             this.groupBox1.TabIndex = 17;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Proveedor";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(316, 47);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(124, 21);
+            this.comboBox1.TabIndex = 13;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(103, 69);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(124, 20);
+            this.textBox3.TabIndex = 12;
             // 
             // razonsocial
             // 
@@ -157,59 +210,6 @@
             this.btn_volver.UseVisualStyleBackColor = true;
             this.btn_volver.Click += new System.EventHandler(this.btn_atras_Click);
             // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(103, 69);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(124, 20);
-            this.textBox3.TabIndex = 12;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(316, 47);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(124, 21);
-            this.comboBox1.TabIndex = 13;
-            // 
-            // razon_social
-            // 
-            this.razon_social.HeaderText = "Razón Social";
-            this.razon_social.Name = "razon_social";
-            this.razon_social.ReadOnly = true;
-            this.razon_social.Width = 120;
-            // 
-            // rubro
-            // 
-            this.rubro.HeaderText = "Rubro";
-            this.rubro.Name = "rubro";
-            this.rubro.ReadOnly = true;
-            // 
-            // cuit
-            // 
-            this.cuit.HeaderText = "CUIT";
-            this.cuit.Name = "cuit";
-            this.cuit.ReadOnly = true;
-            // 
-            // cruc_id
-            // 
-            this.cruc_id.DataPropertyName = "cruc_id";
-            this.cruc_id.HeaderText = "id";
-            this.cruc_id.Name = "cruc_id";
-            this.cruc_id.ReadOnly = true;
-            this.cruc_id.Visible = false;
-            // 
-            // seleccionar
-            // 
-            this.seleccionar.HeaderText = "Seleccionar";
-            this.seleccionar.Name = "seleccionar";
-            this.seleccionar.ReadOnly = true;
-            this.seleccionar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.seleccionar.Text = "Seleccionar";
-            this.seleccionar.UseColumnTextForButtonValue = true;
-            this.seleccionar.Width = 90;
-            // 
             // ListadoProveedor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -222,7 +222,7 @@
             this.Controls.Add(this.btn_limpiar);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ListadoProveedor";
-            this.Text = "Listado Cruceros";
+            this.Text = "Listado Proveedores";
             this.Load += new System.EventHandler(this.FormListadoProveedores_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_proveedores)).EndInit();
             this.groupBox1.ResumeLayout(false);
