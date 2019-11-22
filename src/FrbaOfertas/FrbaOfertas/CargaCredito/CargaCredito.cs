@@ -25,9 +25,38 @@ namespace FrbaOfertas.CargaCredito
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (comboBox1.Text == "")
+            {
+                MessageBox.Show("Debe seleccionar un metodo de pago!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (textBox2.Text == "")
+            {
+                MessageBox.Show("Debe indicar el DNI del titular de la tarjeta!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (textBox8.Text == "")
+            {
+                MessageBox.Show("Debe indicar el banco de la tarjeta!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (textBox3.Text == "")
+            {
+                MessageBox.Show("Debe indicar le numero de tarjeta!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (comboBox2.Text == "")
+            {
+                MessageBox.Show("Debe indicar un tipo de tarjeta!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (numericUpDown1.Value < 1)
+            {
+                MessageBox.Show("No puede realizar una carga nula o negativa!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
 
-            this.Owner.Show();
-            this.Close();
+                //#TODO agregar funcionalidad para que impacte cambios en base de datos(no hace falta realizar verificaciones)
+                MessageBox.Show("Carga acreditada con exito", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Owner.Show();
+                this.Close();
+            }
         }
     }
 }
