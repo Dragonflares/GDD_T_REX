@@ -14,10 +14,11 @@ namespace FrbaOfertas
     public partial class PantallaPrincipal : Form
     {
         private Dictionary<String, Button> funcionalidades = new Dictionary<String, Button>();
-
+        private string userRole;
         public PantallaPrincipal(String rol)
         {
             InitializeComponent();
+            userRole = rol;
             showFuncionalidades(rol);
         }
 
@@ -49,6 +50,73 @@ namespace FrbaOfertas
         {
             this.Close();
             new Login.PantallaLogin().Show();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            switch (comboBox1.Text)
+            {
+                case "ABM ROL":
+                {
+                    this.Hide();
+                    new ABMRol.ABMRol().Show(); 
+                    break;
+                }
+                case "ABM CLIENTE":
+                {
+                    this.Hide();
+                    new ABMCliente.ABMCliente().Show();
+                    break;
+                }
+                case "ABM PROVEEDOR":
+                {
+                    this.Hide();
+                    new ABMProveedor.ABMProveedor().Show();
+                    break;
+                }
+                case "FACTURACION PROVEEDOR":
+                {
+                    this.Hide();
+                    new Facturar.Facturar().Show();
+                    break;
+                }
+                case "CREAR OFERTA":
+                {
+                    this.Hide();
+                    new CrearOferta.CrearOferta(userRole).Show();
+                    break;
+                }
+                case "LISTADO ESTADISTICO":
+                {
+                    this.Hide();
+                    new ListadoEstadistico.ListadoEstadistico().Show();
+                    break;
+                }
+                case "COMPRAR OFERTA":
+                {
+                    this.Hide();
+                    new ComprarOferta.ComprarOferta().Show();
+                    break;
+                }
+                case "CARGAR CREDITO":
+                {
+                    this.Hide();
+                    new CargaCredito.CargaCredito().Show();
+                    break;
+                }
+                case "CONSUMO DE OFERTA":
+                {
+                    this.Hide();
+                    new CanjeCupon.CanjeCupon().Show();
+                    break;
+                }
+                default:
+                {
+                    MessageBox.Show("Debe seleccionar una funcionalidad!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+                }
+
+            }
         }
     }
 }

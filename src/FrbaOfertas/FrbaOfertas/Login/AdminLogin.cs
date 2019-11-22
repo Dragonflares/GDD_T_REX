@@ -12,6 +12,8 @@ namespace FrbaOfertas.Login
 {
     public partial class AdminLogin : Form
     {
+        private string rol = "Administrativo";
+
         public AdminLogin()
         {
             InitializeComponent();
@@ -20,8 +22,9 @@ namespace FrbaOfertas.Login
 
         private void button1_Click(object sender, EventArgs e)
         {
+
             this.Hide();
-            new PantallaPrincipal("Administrativo").Show();
+            new PantallaPrincipal(rol).Show();
         }
 
         private void button2_Click(object sender, EventArgs e)

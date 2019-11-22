@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace FrbaOfertas.ABMCupon.Cliente
+namespace FrbaOfertas.CargaCredito
 {
     public partial class CargaCredito : Form
     {

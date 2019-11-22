@@ -12,7 +12,7 @@ namespace FrbaOfertas.CrearOferta
 {
     public partial class CrearOferta : Form
     {
-        public CrearOferta()
+        public CrearOferta(string rol)
         {
             InitializeComponent();
         }
