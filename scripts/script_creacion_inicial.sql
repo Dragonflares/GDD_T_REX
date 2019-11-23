@@ -192,7 +192,7 @@ CREATE TABLE [T_REX].[CLIENTE] (
 		nro_documento  decimal (18,0) NOT NULL,
 		tipo_documento nvarchar(20) NOT NULL DEFAULT('DNI'),
 		fechaDeNacimiento datetime2 (3) NOT NULL,
-		mail nvarchar (150) NOT NULL,
+		email nvarchar (150) NOT NULL,
 		telefono int NOT NULL,
 		estado bit NOT NULL DEFAULT 1,
 		creditoTotal decimal (18,0) NOT NULL,
@@ -318,7 +318,7 @@ BEGIN
 CREATE TABLE [T_REX].[FACTURA_PROVEEDOR] (
 		id_factura int IDENTITY(1,1) PRIMARY KEY NOT NULL,
 		nro_factura decimal(20,0) NOT NULL,
-		tipo_factura char(8) default 'No definido',
+		tipo_factura char(15) default 'No definido',
 		importe_fact decimal (20,2) NOT NULL,
 		fecha_inicio datetime2 (3) NOT NULL,
 		fecha_fin datetime2 (3) NOT NULL,
@@ -593,7 +593,7 @@ INSERT INTO [T_REX].[CLIENTE](
 					apellido,
 					nro_documento,
 					fechaDeNacimiento,
-					mail,
+					email,
 					telefono,
 					creditoTotal,
 					id_domicilio,
@@ -604,7 +604,12 @@ select a.Cli_Nombre,
 		a.Cli_Fecha_Nac,
 		a.Cli_Mail,
 		a.Cli_Telefono,
-		0,
+		isnull(((select sum(isnull(d.Carga_Credito,0)) from gd_esquema.Maestra d
+		where d.Cli_Dni=a.Cli_Dni and d.Carga_Credito is not null)-
+		(select sum(isnull(e.Oferta_Precio,0)) from gd_esquema.Maestra e 
+		where e.Cli_Dni=a.Cli_Dni
+		and e.Factura_Nro is null
+		and e.Oferta_Entregado_Fecha is null)),0),
 		b.id_domicilio,
 		c.id_usuario 
 from #Temp_cliente a
@@ -612,7 +617,6 @@ inner join T_REX.DOMICILIO b on a.Cli_Direccion=b.direc_calle and a.Cli_Ciudad =
 inner join T_REX.USUARIO c on CAST(a.Cli_Dni  AS NVARCHAR(255))=c.username
 
 DROP TABLE #Temp_cliente
-
 -----------------------------------------------------------------------------------------------------------------------
 
 /*Creacion de Credito, antes cargar tablas: cliente,forma_pago y tarjeta*/
@@ -695,6 +699,7 @@ insert into [T_REX].[CUPON] (
 		cupon_precio_oferta,
 		cupon_precio_lista,
 		id_consumidor,
+		cupon_estado,
 		id_compra,
 		id_oferta
 )
@@ -707,6 +712,10 @@ CASE WHEN max(Oferta_Entregado_Fecha) IS NOT NULL
     THEN (select id_cliente from [T_REX].CLIENTE where nro_documento= Cli_Dni)
     ELSE NULL
 END id_cliente,
+CASE WHEN max(Oferta_Entregado_Fecha) IS NOT NULL
+    THEN 0
+    ELSE 1
+END,
 (select c.id_compra 
 	from T_REX.COMPRA c
 	inner join T_REX.OFERTA o on c.id_oferta = o.id_oferta
@@ -721,28 +730,50 @@ and Factura_Fecha is null
 and Oferta_Codigo is not NULL
 group by Cli_Dni, Oferta_Codigo, Oferta_Fecha_Compra,Oferta_Precio_Ficticio, Oferta_Precio
 order by Oferta_Fecha_Compra asc, Oferta_Codigo;
+
+----------------------------------------------------------------------------------------------------------------
+/*Migracion Factura Proveedor*/
+--481
+insert into [T_REX].[FACTURA_PROVEEDOR] (
+		nro_factura,
+		importe_fact,
+		fecha_inicio,
+		fecha_fin,
+		id_proveedor)
+select a.Factura_Nro, 
+	sum(isnull(a.Oferta_Precio,0)),
+	a.Factura_Fecha,
+	a.Factura_Fecha,
+		id_proveedor
+from gd_esquema.Maestra a
+inner join T_REX.PROVEEDOR b on a.Provee_CUIT=b.provee_cuit and a.Provee_RS=b.provee_rs
+where a.Oferta_Codigo is not NULL
+and a.Factura_Nro is not null  
+and a.Factura_Fecha is not null
+group by a.Factura_Nro,a.Factura_Fecha,id_proveedor
+order by Factura_Nro;
+
 ----------------------------------------------------------------------------------------------------------------
 /*Migracion Item Factura*/
---64929
-/*
+--66644
+
 insert into [T_REX].[ITEM_FACTURA] (
 		importe_oferta,
 		cantidad,
-		c.id_factura,
-		id_oferta)
-select sum(a.Oferta_Precio),
-		count(*),
 		id_factura,
+		id_oferta)
+select sum(isnull(a.Oferta_Precio,0)),
+		isnull(count(*),0),
+		c.id_factura,
 		(select id_oferta from T_REX.OFERTA b where b.cod_oferta=a.Oferta_Codigo)
 from gd_esquema.Maestra a
 inner join T_REX.FACTURA_PROVEEDOR c on c.nro_factura=a.Factura_Nro
 where a.Oferta_Codigo is not NULL
 and a.Factura_Nro is not null  
 and a.Factura_Fecha is not null
-group by a.Oferta_Codigo
-order by a.Factura_Fecha;
+group by a.Oferta_Codigo, c.id_factura, a.Factura_Nro
+order by a.Factura_Nro;
 
-*/
 
 /*##########################################################################################################
 										SPs y FN													
