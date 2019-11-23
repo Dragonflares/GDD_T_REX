@@ -1,6 +1,6 @@
 ﻿namespace FrbaOfertas.Facturar
 {
-    partial class Facturar
+    partial class ListadoFacturable
     {
         /// <summary>
         /// Required designer variable.
