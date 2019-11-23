@@ -56,57 +56,57 @@ namespace FrbaOfertas
 
         private void button3_Click(object sender, EventArgs e)
         {
-            switch (comboBox1.Text)
+            switch ((string)comboBox1.SelectedItem)
             {
-                case "ABM ROL":
+                case "ABM Rol":
                 {
                     this.Hide();
                     new ABMRol.ABMRol().Show(); 
                     break;
                 }
-                case "ABM CLIENTE":
+                case "ABM Cliente":
                 {
                     this.Hide();
                     new ABMCliente.ABMCliente().Show();
                     break;
                 }
-                case "ABM PROVEEDOR":
+                case "ABM Proveedor":
                 {
                     this.Hide();
                     new ABMProveedor.ABMProveedor().Show();
                     break;
                 }
-                case "FACTURACION PROVEEDOR":
+                case "Facturacion Proveedor":
                 {
                     this.Hide();
                     new Facturar.Facturar().Show();
                     break;
                 }
-                case "CREAR OFERTA":
+                case "Publicar Oferta":
                 {
                     this.Hide();
                     new CrearOferta.CrearOferta(userRole, username).Show();
                     break;
                 }
-                case "LISTADO ESTADISTICO":
+                case "Listado Estadistico":
                 {
                     this.Hide();
                     new ListadoEstadistico.ListadoEstadistico().Show();
                     break;
                 }
-                case "COMPRAR OFERTA":
+                case "Comprar Oferta":
                 {
                     this.Hide();
                     new ComprarOferta.ComprarOferta().Show();
                     break;
                 }
-                case "CARGAR CREDITO":
+                case "Cargar Credito":
                 {
                     this.Hide();
                     new CargaCredito.CargaCredito().Show();
                     break;
                 }
-                case "CONSUMO DE OFERTA":
+                case "Consumo Oferta":
                 {
                     this.Hide();
                     new CanjeCupon.CanjeCupon().Show();

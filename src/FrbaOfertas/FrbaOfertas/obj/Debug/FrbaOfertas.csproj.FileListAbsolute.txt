@@ -18,3 +18,9 @@ D:\Drizz\Documentos\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.
 D:\Drizz\Documentos\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.PantallaPrincipal.resources
 D:\Drizz\Documentos\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.Properties.Resources.resources
 D:\Drizz\Documentos\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.csproj.GenerateResource.Cache
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.CargaCredito.CargaCredito.resources
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.CrearOferta.CrearOferta.resources
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.CrearOferta.ListadoProveedor.resources
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.Facturar.ListadoFacturable.resources
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.Facturar.Facturar.resources
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.PantallaPrincipal.resources

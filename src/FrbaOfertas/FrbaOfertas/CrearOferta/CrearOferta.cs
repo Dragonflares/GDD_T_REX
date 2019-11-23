@@ -37,7 +37,7 @@ namespace FrbaOfertas.CrearOferta
             }
             else
             {
-                MessageBox.Show("La Oferta se ha publicado con éxito.", "Oferta creada", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show("La Oferta se ha publicado con éxito.", "Oferta creada", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 

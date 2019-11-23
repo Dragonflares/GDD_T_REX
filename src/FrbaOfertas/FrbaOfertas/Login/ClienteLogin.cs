@@ -21,7 +21,7 @@ namespace FrbaOfertas.Login
         private void button1_Click(object sender, EventArgs e)
         {
             this.Hide();
-            new PantallaPrincipal("Cliente").Show();
+            new PantallaPrincipal("Cliente", textBox1.Text).Show();
         }
 
         private void label4_Click(object sender, EventArgs e)

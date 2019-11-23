@@ -20,12 +20,13 @@ namespace FrbaOfertas.Login
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string cuit = "";//asignar valor del cuit, que es el username
+            string cuit = textBox1.Text;//asignar valor del cuit, que es el username
             if (textBox2.Text == "1234")
             {
                 MessageBox.Show("Como es su primer login, será redirigido a una pantalla para cambiar su contraseña.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             new PantallaPrincipal("Proveedor", cuit).Show();
+            this.Hide();
         }
 
         private void label4_Click(object sender, EventArgs e)
