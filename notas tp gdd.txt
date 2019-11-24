@@ -8,7 +8,20 @@ NOMBRE USUARIO PROVEEDORES: CUIT
 -------------------------------------------------------------------------------------------------
 CANTIDAD DE REGISTROS
 37 PROVEEDORES
-128 CLIENTES ( 7 con mails repetidos)
+218 CLIENTES ( 7 con mails repetidos)
+255 DOMICILIO ( 37+218)
+258 ROL_USUARIO( 37 + 218 + 3 del admin) 
+256 USUARIOS (255+ 1 admin)
+
+----------------------------------------------------------------------------------------
+VIEJO SISTEMA
+Los usuarios que tengan datos repetidos (mismo mail) se dara baja logica en tabla usuario ( campo estado)
+y baja logica en tabla clientes ( campo baja_logica).
+En caso que el cliente quiera habilitar el usuario se debera contactar con el Administrador.
+El admin puede identificar este tipo de usuarios a travez del campo "estado" (tabla clientes) 
+
+
+
 
 
 USUARIOS CON EL MISMO MAIL:
@@ -36,8 +49,11 @@ SALACIA		Miranda		53660181	1913-11-02 00:00:00.000		salacia@gmail.com
 SALACIA		Moyano		34111521	1905-08-15 00:00:00.000		salacia@gmail.com
 
 
+
+
 BAJA USUARIO: campo estado TABLA USUARIO
 
 Un cliente esta inhabilitado (baja logica) cuando posee datos inconsistentes ( como tener un mail repetido) o  decisión del administrador
 
- 
+ bit: El número 0 es falso o FALSE, y el 1 verdadero o TRUE.
+---------------------------------------------------------------------
