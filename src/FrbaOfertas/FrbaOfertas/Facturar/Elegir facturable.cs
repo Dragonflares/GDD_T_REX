@@ -20,7 +20,6 @@ namespace FrbaOfertas.Facturar
         private void btn_volver_Click(object sender, EventArgs e)
         {
             this.Close();
-            this.Owner.Show();
         }
 
         private void btn_limpiar_Click(object sender, EventArgs e)
@@ -40,6 +39,18 @@ namespace FrbaOfertas.Facturar
                     if (c is MonthCalendar)
                         ((MonthCalendar)c).Visible = false;
                 });
+        }
+
+        private void dgv_proveedores_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+            {
+                return;
+            }
+            if (e.ColumnIndex == dgv_proveedores.Columns["Dar de Baja"].Index)
+            {
+                new FrbaOfertas.CanjeCupon.ListadoClientes();
+            }
         }
 
     }
