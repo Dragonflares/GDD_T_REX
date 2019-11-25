@@ -535,6 +535,7 @@ DROP TABLE #Temp_Proveedor
 ----------------------------------------------------------------------------------------------------------------
 /*Migracion de clientes*/
 
+--218 clientes
 
 -- Inserto en tabla temporal
 
@@ -698,6 +699,8 @@ DROP TABLE #Temp_cliente_incons
 
 /*Creacion de Credito, antes cargar tablas: cliente,forma_pago y tarjeta*/
 
+-- 93679 registros
+
 INSERT INTO [T_REX].[CREDITO] (fecha_Credito, 
 								id_cliente, 
 								id_forma_pago,
@@ -721,6 +724,32 @@ order by 1,4
 
 --84262 registros
 
+-- Inseto tabla temporal datos de ofertas
+
+select	a.Oferta_Codigo,
+		a.Oferta_Descripcion,
+		a.Oferta_Fecha,
+		a.Oferta_Fecha_Venc,
+		a.Oferta_Precio,
+		a.Oferta_Precio_Ficticio,
+		a.Oferta_Cantidad,
+		a.Provee_RS
+into #TEMP_Oferta
+from [gd_esquema].[Maestra] a
+where Oferta_Codigo is not null
+group by a.Oferta_Codigo,
+		a.Oferta_Descripcion,
+		a.Oferta_Fecha,
+		a.Oferta_Fecha_Venc,
+		a.Oferta_Precio,
+		a.Oferta_Precio_Ficticio,
+		a.Oferta_Cantidad,
+		a.Provee_RS
+order by 1,3
+
+
+-- Inserto en tabla OFERTAS
+
 insert into [T_REX].[OFERTA](
 					cod_oferta,
 					descripcion,
@@ -731,21 +760,31 @@ insert into [T_REX].[OFERTA](
 					cantDisponible,
 					cant_max_porCliente,
 					id_proveedor)
-select distinct a.Oferta_Codigo,
-				a.Oferta_Descripcion, 
-				a.Oferta_Fecha,
-				a.Oferta_Fecha_Venc,
-				a.Oferta_Precio,
-				a.Oferta_Precio_Ficticio,
-				a.Oferta_Cantidad,
-				a.Oferta_Cantidad,
-				b.id_proveedor
-from gd_esquema.Maestra a
-inner join T_REX.PROVEEDOR b on b.provee_rs= a.Provee_RS and b.provee_cuit=a.Provee_CUIT
-where a.Oferta_Codigo is not null
-order by a.Oferta_Fecha, a.Oferta_Codigo;
+select	a.Oferta_Codigo,
+		a.Oferta_Descripcion,
+		a.Oferta_Fecha,
+		a.Oferta_Fecha_Venc,
+		a.Oferta_Precio,
+		a.Oferta_Precio_Ficticio,
+		a.Oferta_Cantidad,
+		a.Oferta_Cantidad,
+		b.id_proveedor
+from #TEMP_Oferta a
+inner join T_REX.PROVEEDOR b on b.provee_rs= a.Provee_RS 
+group by Oferta_Codigo,
+		Oferta_Descripcion,
+		Oferta_Fecha,
+		Oferta_Fecha_Venc,
+		Oferta_Precio,
+		Oferta_Precio_Ficticio,
+		Oferta_Cantidad,
+		b.id_proveedor
+order by 1, 3
+
+drop table #TEMP_Oferta
 
 ----------------------------------------------------------------------------------------------------------------
+
 /*Migracion compra*/ -- advertencia valor null
 
 --119678 registros
@@ -772,6 +811,7 @@ order by Oferta_Fecha_Compra asc, Oferta_Codigo;
 
 --119678 registros
 insert into [T_REX].[CUPON] (
+
 		cupon_codigo,
 		cupon_fecha_deconsumo,
 		cupon_precio_oferta,

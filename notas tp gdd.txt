@@ -13,6 +13,7 @@ CANTIDAD DE REGISTROS
 258 	ROL_USUARIO( 37 + 218 + 3 del admin) 
 256 	USUARIOS (255+ 1 admin)
 93679 	CREDITO
+84262 	OFERTA
 
 ----------------------------------------------------------------------------------------
 VIEJO SISTEMA
