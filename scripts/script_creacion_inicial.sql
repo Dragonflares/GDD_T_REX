@@ -194,6 +194,7 @@ CREATE TABLE [T_REX].[CLIENTE] (
 		fechaDeNacimiento datetime2 (3) NOT NULL,
 		email nvarchar (150) NOT NULL,
 		telefono int NOT NULL,
+		baja_logica bit NOT NULL DEFAULT 1,
 		estado bit NOT NULL DEFAULT 1,
 		creditoTotal decimal (18,0) NOT NULL,
 		id_domicilio int FOREIGN KEY REFERENCES [T_REX].DOMICILIO(id_domicilio) NOT NULL,
@@ -402,7 +403,7 @@ INSERT INTO [T_REX].[USUARIO] (username,password)
 --user :admin pass: t12r
 VALUES ('admin', '0xCA4D710175F395034CD7CA5D3B5E9D5CD34018A4FA8281E8D37389836D5F0E23');
 
---select HASHBYTES('SHA2_256', 't12r')
+--select HASHBYTES('SHA2_256', 't12r')	contraseña del admin
 --select HASHBYTES('SHA2_256', '1234') contraseña para usuarios y proveedores
 
 ---------------------------------------------------------------------------------------------------------------
@@ -483,9 +484,6 @@ group by
 	Provee_Telefono,
 	Provee_CUIT,
 	Provee_Rubro
-;
-GO
-
 
 /* Insertar en Tabla domicilio*/
 
@@ -535,10 +533,8 @@ DROP TABLE #Temp_Proveedor
 
 
 ----------------------------------------------------------------------------------------------------------------
+/*Migracion de clientes*/
 
-/*Migracion cliente*/
-
---218 CLIENTES
 
 -- Inserto en tabla temporal
 
@@ -563,30 +559,52 @@ group by
 	Cli_Ciudad,
 	Cli_Direccion
 
+-- Se busca inconsistencias en los datos con otra tabla temporal
 
-/* Insertar en Tabla domicilio los clientes*/
+SELECT 
+	Cli_Nombre,
+	Cli_Apellido,
+	Cli_Dni,
+	Cli_Fecha_Nac,
+	Cli_Mail,
+	Cli_Telefono,
+	Cli_Ciudad,
+	Cli_Direccion,
+	row_number() OVER(PARTITION BY [Cli_Dni] ORDER BY [Cli_Mail]) AS cantDni,
+	row_number() OVER(PARTITION BY [Cli_Mail] ORDER BY [Cli_Mail]) AS cantEmail
+into #Temp_cliente_incons
+FROM #Temp_cliente
+group by 
+	Cli_Nombre,
+	Cli_Apellido,
+	Cli_Dni,
+	Cli_Fecha_Nac,
+	Cli_Mail,
+	Cli_Telefono,
+	Cli_Ciudad,
+	Cli_Direccion
+
+
+DROP TABLE #Temp_cliente;
+
+
+-- Insertar en tabla Domicilio
 
 insert into [T_REX].[DOMICILIO] (direc_calle, direc_localidad )
 select Cli_Direccion, Cli_Ciudad
-from #Temp_cliente
+from #Temp_cliente_incons
 
 
-/*Insertar tabla usuario los clientes */
+--Insertar en tabla usuario los clientes que tienen datos correctos
 
-INSERT INTO [T_REX].[USUARIO] ( username, password )
-select  Cli_Dni, '4f37c061f1854f9682f543fecb5ee9d652c803235970202de97c6e40c8361766' pass
-from #Temp_cliente
-
-/* Inserte tabla rol_usuario */
-
-INSERT INTO [T_REX].[ROL_USUARIO] (id_usuario,id_rol) 
-SELECT id_usuario,2
-FROM [T_REX].[USUARIO]
-where id_usuario not in (select id_usuario from [T_REX].[ROL_USUARIO])
+INSERT INTO [T_REX].[USUARIO] ( username, password, intentos_login, estado )
+select  Cli_Dni, '4f37c061f1854f9682f543fecb5ee9d652c803235970202de97c6e40c8361766' pass, 0, 1
+from #Temp_cliente_incons
+where cantDni=1 and cantEmail=1
 
 
-/*Insertar tabla cliente: antes de usuario y domicilio*/
 
+--Insertar en tabla cliente con datos unicos
  
 INSERT INTO [T_REX].[CLIENTE](
 					nombre,
@@ -612,11 +630,69 @@ select a.Cli_Nombre,
 		and e.Oferta_Entregado_Fecha is null)),0),
 		b.id_domicilio,
 		c.id_usuario 
-from #Temp_cliente a
+from #Temp_cliente_incons a
 inner join T_REX.DOMICILIO b on a.Cli_Direccion=b.direc_calle and a.Cli_Ciudad = b.direc_localidad 
 inner join T_REX.USUARIO c on CAST(a.Cli_Dni  AS NVARCHAR(255))=c.username
+where cantDni=1 and cantEmail=1
+order by a.Cli_Dni
 
-DROP TABLE #Temp_cliente
+
+--Inserto en tabla usuarios los inconsistentes
+
+INSERT INTO [T_REX].[USUARIO] ( username, password, intentos_login, estado )
+select  Cli_Dni, '4f37c061f1854f9682f543fecb5ee9d652c803235970202de97c6e40c8361766' pass, 0, 0
+from #Temp_cliente_incons
+where cantDni=1 and cantEmail >1
+
+--El número 0 es FALSE, y el 1  es TRUE.
+
+
+-- Inserto en tabla rol_usuario 
+
+INSERT INTO [T_REX].[ROL_USUARIO] (id_usuario,id_rol) 
+SELECT id_usuario,2
+FROM [T_REX].[USUARIO]
+where id_usuario not in (select id_usuario from [T_REX].[ROL_USUARIO])
+
+
+-- Inserto en tabla clientes los usuarios con datos repetidos ( dos mails iguales con distinto dni)
+
+INSERT INTO [T_REX].[CLIENTE](
+					nombre,
+					apellido,
+					nro_documento,
+					fechaDeNacimiento,
+					email,
+					telefono,
+					creditoTotal,
+					baja_logica,
+					estado,
+					id_domicilio,
+					id_usuario)
+select a.Cli_Nombre,
+		a.Cli_Apellido, 
+		a.Cli_Dni,
+		a.Cli_Fecha_Nac,
+		a.Cli_Mail,
+		a.Cli_Telefono,
+		isnull(((select sum(isnull(d.Carga_Credito,0)) from gd_esquema.Maestra d
+		where d.Cli_Dni=a.Cli_Dni and d.Carga_Credito is not null)-
+		(select sum(isnull(e.Oferta_Precio,0)) from gd_esquema.Maestra e 
+		where e.Cli_Dni=a.Cli_Dni
+		and e.Factura_Nro is null
+		and e.Oferta_Entregado_Fecha is null)),0),
+		0,
+		0,
+		b.id_domicilio,
+		c.id_usuario 
+from #Temp_cliente_incons a
+inner join T_REX.DOMICILIO b on a.Cli_Direccion=b.direc_calle and a.Cli_Ciudad = b.direc_localidad 
+inner join T_REX.USUARIO c on CAST(a.Cli_Dni  AS NVARCHAR(255))=c.username
+where cantDni=1 and cantEmail>1
+order by a.Cli_Dni
+
+
+DROP TABLE #Temp_cliente_incons
 -----------------------------------------------------------------------------------------------------------------------
 
 /*Creacion de Credito, antes cargar tablas: cliente,forma_pago y tarjeta*/
@@ -635,6 +711,7 @@ FROM gd_esquema.Maestra a
 inner join T_REX.FORMA_PAGO b on a.Tipo_Pago_Desc = b.tipo_pago_desc
 inner join T_REX.CLIENTE c on a.Cli_Dni=c.nro_documento
 where a.Provee_RS is null
+
 
 
 ----------------------------------------------------------------------------------------------------------------
@@ -668,7 +745,7 @@ where a.Oferta_Codigo is not null
 order by a.Oferta_Fecha, a.Oferta_Codigo;
 
 ----------------------------------------------------------------------------------------------------------------
-/*Migracion compra*/
+/*Migracion compra*/ -- advertencia valor null
 
 --119678 registros
 
