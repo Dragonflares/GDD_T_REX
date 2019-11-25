@@ -16,5 +16,29 @@ namespace FrbaOfertas.ComprarOferta
         {
             InitializeComponent();
         }
+
+        private void btn_buscar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgv_clientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+            {
+                return;
+            }
+            if (e.ColumnIndex == dgv_clientes.Columns["Comprar"].Index)
+            {
+                if (numericUpDown1.Value == 0)
+                {
+                    MessageBox.Show("Tiene que indicar una cantidad a comprar.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show("Compra realizada con Éxito!", "Compra realizada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
     }
 }
