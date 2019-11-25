@@ -16,6 +16,7 @@ namespace FrbaOfertas.Login
         {
             InitializeComponent();
             contrasenia.PasswordChar = '*';
+            textBox1.Enabled = false;
         }
 
         private void registrarse_Click(object sender, EventArgs e)
@@ -31,13 +32,21 @@ namespace FrbaOfertas.Login
             }
             if (estanTodosLlenos)
             {
-                new PantallaPrincipal("Proveedor", nombreUsuario.Text).Show();
+                PantallaPrincipal pantalla = new PantallaPrincipal("Proveedor", nombreUsuario.Text);
+                pantalla.Owner = this.Owner;
+                pantalla.Show();
                 this.Close();
             }
             else
             {
                 MessageBox.Show("Tiene que completar todos los campos para registrarse.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.Owner.Show();
         }
 
 

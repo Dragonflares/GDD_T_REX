@@ -51,7 +51,7 @@ namespace FrbaOfertas
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
-            new Login.ClienteLogin().Show();
+            this.Owner.Show();
         }
 
         private void button3_Click(object sender, EventArgs e)

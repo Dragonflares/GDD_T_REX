@@ -35,7 +35,9 @@ namespace FrbaOfertas.Login
             if (estanTodosLlenos)
             {
 
-                new PantallaPrincipal(rol, nombreUsuario.Text).Show();
+                PantallaPrincipal pantalla = new PantallaPrincipal(rol, nombreUsuario.Text);
+                pantalla.Owner = this.Owner;
+                pantalla.Show();
                 this.Close();
             }
             else
