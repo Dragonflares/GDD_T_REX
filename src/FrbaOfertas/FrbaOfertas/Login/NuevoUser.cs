@@ -33,13 +33,15 @@ namespace FrbaOfertas.Login
             }
             if (estanTodosLlenos)
             {
-                
+
                 new PantallaPrincipal(rol, nombreUsuario.Text).Show();
                 this.Close();
             }
             else
             {
                 MessageBox.Show("Tiene que completar todos los campos para registrarse.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
         }
     }
 }

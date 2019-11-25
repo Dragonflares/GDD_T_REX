@@ -24,3 +24,9 @@ D:\Documentos\TP GDD\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas
 D:\Documentos\TP GDD\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.Facturar.ListadoFacturable.resources
 D:\Documentos\TP GDD\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.Facturar.Facturar.resources
 D:\Documentos\TP GDD\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.PantallaPrincipal.resources
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.ABMCliente.ABMCliente.resources
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.CanjeCupon.CanjeCupon.resources
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.CanjeCupon.ListadoClientes.resources
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.ComprarOferta.ComprarOferta.resources
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.Login.ClienteLogin.resources
+D:\Documentos\TP GDD\GDD_T_REX\src\FrbaOfertas\FrbaOfertas\obj\Debug\FrbaOfertas.Login.NuevoUser.resources
