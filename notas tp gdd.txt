@@ -7,11 +7,12 @@ NOMBRE USUARIO CLIENTES: DNI
 NOMBRE USUARIO PROVEEDORES: CUIT
 -------------------------------------------------------------------------------------------------
 CANTIDAD DE REGISTROS
-37 PROVEEDORES
-218 CLIENTES ( 7 con mails repetidos)
-255 DOMICILIO ( 37+218)
-258 ROL_USUARIO( 37 + 218 + 3 del admin) 
-256 USUARIOS (255+ 1 admin)
+37 	PROVEEDORES
+218 	CLIENTES ( 7 con mails repetidos)
+255 	DOMICILIO ( 37+218)
+258 	ROL_USUARIO( 37 + 218 + 3 del admin) 
+256 	USUARIOS (255+ 1 admin)
+93679 	CREDITO
 
 ----------------------------------------------------------------------------------------
 VIEJO SISTEMA
