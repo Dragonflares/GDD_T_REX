@@ -637,7 +637,7 @@ where cantDni=1 and cantEmail=1
 order by a.Cli_Dni
 
 
---Inserto en tabla usuarios los inconsistentes
+--Inserto en tabla usuarios los clientes con datos duplicados
 
 INSERT INTO [T_REX].[USUARIO] ( username, password, intentos_login, estado )
 select  Cli_Dni, '4f37c061f1854f9682f543fecb5ee9d652c803235970202de97c6e40c8361766' pass, 0, 0
@@ -693,6 +693,7 @@ order by a.Cli_Dni
 
 
 DROP TABLE #Temp_cliente_incons
+
 -----------------------------------------------------------------------------------------------------------------------
 
 /*Creacion de Credito, antes cargar tablas: cliente,forma_pago y tarjeta*/
@@ -710,9 +711,9 @@ SELECT	a.Carga_Fecha,
 FROM gd_esquema.Maestra a
 inner join T_REX.FORMA_PAGO b on a.Tipo_Pago_Desc = b.tipo_pago_desc
 inner join T_REX.CLIENTE c on a.Cli_Dni=c.nro_documento
-where a.Provee_RS is null
-
-
+where  Carga_Credito is not null
+group by a.Carga_Fecha, c.id_cliente, b.id_forma_pago, a.Carga_Credito
+order by 1,4
 
 ----------------------------------------------------------------------------------------------------------------
 
