@@ -37,14 +37,14 @@
             this.btn_buscar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.dgv_clientes = new System.Windows.Forms.DataGridView();
-            this.comprar_prod = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.cantdisponible = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.proveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.preciooferta = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.preciolista = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fechafin = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fechafin = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.preciolista = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.preciooferta = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.proveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cantdisponible = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.comprar_prod = new System.Windows.Forms.DataGridViewButtonColumn();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
@@ -115,6 +115,7 @@
             this.btn_limpiar.TabIndex = 33;
             this.btn_limpiar.Text = "Limpiar";
             this.btn_limpiar.UseVisualStyleBackColor = true;
+            this.btn_limpiar.Click += new System.EventHandler(this.btn_limpiar_Click);
             // 
             // btn_buscar
             // 
@@ -161,6 +162,54 @@
             this.dgv_clientes.TabIndex = 35;
             this.dgv_clientes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_clientes_CellContentClick);
             // 
+            // id
+            // 
+            this.id.DataPropertyName = "id";
+            this.id.HeaderText = "id";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            this.id.Visible = false;
+            // 
+            // descripcion
+            // 
+            this.descripcion.HeaderText = "Descripcion";
+            this.descripcion.Name = "descripcion";
+            this.descripcion.ReadOnly = true;
+            // 
+            // fechafin
+            // 
+            this.fechafin.HeaderText = "Fecha de Fin";
+            this.fechafin.Name = "fechafin";
+            this.fechafin.ReadOnly = true;
+            this.fechafin.Width = 95;
+            // 
+            // preciolista
+            // 
+            this.preciolista.HeaderText = "Precio Lista";
+            this.preciolista.Name = "preciolista";
+            this.preciolista.ReadOnly = true;
+            this.preciolista.Width = 95;
+            // 
+            // preciooferta
+            // 
+            this.preciooferta.HeaderText = "Precio Oferta";
+            this.preciooferta.Name = "preciooferta";
+            this.preciooferta.ReadOnly = true;
+            this.preciooferta.Width = 95;
+            // 
+            // proveedor
+            // 
+            this.proveedor.HeaderText = "Proveedor";
+            this.proveedor.Name = "proveedor";
+            this.proveedor.ReadOnly = true;
+            // 
+            // cantdisponible
+            // 
+            this.cantdisponible.HeaderText = "Cantidad Disponible";
+            this.cantdisponible.Name = "cantdisponible";
+            this.cantdisponible.ReadOnly = true;
+            this.cantdisponible.Width = 125;
+            // 
             // comprar_prod
             // 
             this.comprar_prod.HeaderText = "Comprar";
@@ -170,54 +219,6 @@
             this.comprar_prod.Text = "Comprar";
             this.comprar_prod.UseColumnTextForButtonValue = true;
             this.comprar_prod.Width = 50;
-            // 
-            // cantdisponible
-            // 
-            this.cantdisponible.HeaderText = "Cantidad Disponible";
-            this.cantdisponible.Name = "cantdisponible";
-            this.cantdisponible.ReadOnly = true;
-            this.cantdisponible.Width = 125;
-            // 
-            // proveedor
-            // 
-            this.proveedor.HeaderText = "Proveedor";
-            this.proveedor.Name = "proveedor";
-            this.proveedor.ReadOnly = true;
-            // 
-            // preciooferta
-            // 
-            this.preciooferta.HeaderText = "Precio Oferta";
-            this.preciooferta.Name = "preciooferta";
-            this.preciooferta.ReadOnly = true;
-            this.preciooferta.Width = 95;
-            // 
-            // preciolista
-            // 
-            this.preciolista.HeaderText = "Precio Lista";
-            this.preciolista.Name = "preciolista";
-            this.preciolista.ReadOnly = true;
-            this.preciolista.Width = 95;
-            // 
-            // fechafin
-            // 
-            this.fechafin.HeaderText = "Fecha de Fin";
-            this.fechafin.Name = "fechafin";
-            this.fechafin.ReadOnly = true;
-            this.fechafin.Width = 95;
-            // 
-            // descripcion
-            // 
-            this.descripcion.HeaderText = "Descripcion";
-            this.descripcion.Name = "descripcion";
-            this.descripcion.ReadOnly = true;
-            // 
-            // id
-            // 
-            this.id.DataPropertyName = "id";
-            this.id.HeaderText = "id";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            this.id.Visible = false;
             // 
             // numericUpDown1
             // 

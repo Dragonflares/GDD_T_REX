@@ -27,7 +27,14 @@ namespace FrbaOfertas.CanjeCupon
             {
                 MessageBox.Show("Cupón entregado con Éxito!", "Entrega realizada", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
+                this.Owner.Enabled = true;
             }
+        }
+
+        private void btn_volver_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.Owner.Enabled = true;
         }
     }
 }

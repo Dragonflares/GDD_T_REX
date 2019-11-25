@@ -18,6 +18,7 @@ namespace FrbaOfertas.Login
             rol = _rol;
             InitializeComponent();
             textBox1.Text = rol;
+            textBox1.Enabled = false;
         }
 
         private void registrarse_Click(object sender, EventArgs e)
@@ -42,6 +43,12 @@ namespace FrbaOfertas.Login
                 MessageBox.Show("Tiene que completar todos los campos para registrarse.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.Owner.Show();
         }
     }
 }

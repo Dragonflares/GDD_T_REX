@@ -51,7 +51,13 @@ namespace FrbaOfertas.CanjeCupon
             if (e.ColumnIndex == dgv_cupon.Columns["Dar de Baja"].Index)
             {
                 new FrbaOfertas.CanjeCupon.ListadoClientes();
+                this.Enabled = false;
             }
+        }
+
+        private void btn_buscar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
