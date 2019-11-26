@@ -14,6 +14,7 @@ CANTIDAD DE REGISTROS
 256 	USUARIOS (255+ 1 admin)
 93679 	CREDITO
 84262 	OFERTA
+119678  COMPRAS
 
 ----------------------------------------------------------------------------------------
 VIEJO SISTEMA
