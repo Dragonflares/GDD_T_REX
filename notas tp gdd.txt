@@ -65,3 +65,13 @@ OFERTAS
 Viejo sistema:
 Una oferta puede tener varios cupones y el campo "cantidad" de la tabla COMPRAS es 
 la cantidad de cupones comprados de una misma oferta
+
+----------------------------------------------------------------------
+
+CUPONES
+
+VIEJO SISTEMA:
+para la migracion completamos el codigo cupon con el codigo oferta
+
+NUEVO SISTEMA:
+para el nuevo sistema nos vamos a manejar con el ID ( no se genera codigo-oferta ni codigo-cupon)
