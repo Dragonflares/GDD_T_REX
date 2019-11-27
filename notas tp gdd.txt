@@ -13,6 +13,8 @@ CANTIDAD DE REGISTROS
 258 	ROL_USUARIO( 37 + 218 + 3 del admin) 
 256 	USUARIOS (255+ 1 admin)
 93679 	CREDITO
+84262 	OFERTA
+119678  COMPRAS
 
 ----------------------------------------------------------------------------------------
 VIEJO SISTEMA
@@ -58,3 +60,18 @@ Un cliente esta inhabilitado (baja logica) cuando posee datos inconsistentes ( c
 
  bit: El número 0 es falso o FALSE, y el 1 verdadero o TRUE.
 ---------------------------------------------------------------------
+OFERTAS
+
+Viejo sistema:
+Una oferta puede tener varios cupones y el campo "cantidad" de la tabla COMPRAS es 
+la cantidad de cupones comprados de una misma oferta
+
+----------------------------------------------------------------------
+
+CUPONES
+
+VIEJO SISTEMA:
+para la migracion completamos el codigo cupon con el codigo oferta
+
+NUEVO SISTEMA:
+para el nuevo sistema nos vamos a manejar con el ID ( no se genera codigo-oferta ni codigo-cupon)

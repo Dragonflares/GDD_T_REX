@@ -240,7 +240,7 @@ IF NOT EXISTS (
 BEGIN
 CREATE TABLE [T_REX].[COMPRA] (
 		id_compra int IDENTITY(1,1) PRIMARY KEY NOT NULL,
-		compra_fecha datetime2 (3) NOT NULL,
+		compra_fecha datetime2(3) NOT NULL,
 		id_oferta int FOREIGN KEY REFERENCES [T_REX].OFERTA(id_oferta) NOT NULL,
 		id_cliente int FOREIGN KEY REFERENCES [T_REX].CLIENTE(id_cliente) NOT NULL,
 		cantidad decimal (15,0) NOT NULL
@@ -535,6 +535,7 @@ DROP TABLE #Temp_Proveedor
 ----------------------------------------------------------------------------------------------------------------
 /*Migracion de clientes*/
 
+--218 clientes
 
 -- Inserto en tabla temporal
 
@@ -698,6 +699,8 @@ DROP TABLE #Temp_cliente_incons
 
 /*Creacion de Credito, antes cargar tablas: cliente,forma_pago y tarjeta*/
 
+-- 93679 registros
+
 INSERT INTO [T_REX].[CREDITO] (fecha_Credito, 
 								id_cliente, 
 								id_forma_pago,
@@ -721,6 +724,32 @@ order by 1,4
 
 --84262 registros
 
+-- Inseto tabla temporal datos de ofertas
+
+select	a.Oferta_Codigo,
+		a.Oferta_Descripcion,
+		a.Oferta_Fecha,
+		a.Oferta_Fecha_Venc,
+		a.Oferta_Precio,
+		a.Oferta_Precio_Ficticio,
+		a.Oferta_Cantidad,
+		a.Provee_RS
+into #TEMP_Oferta
+from [gd_esquema].[Maestra] a
+where Oferta_Codigo is not null
+group by a.Oferta_Codigo,
+		a.Oferta_Descripcion,
+		a.Oferta_Fecha,
+		a.Oferta_Fecha_Venc,
+		a.Oferta_Precio,
+		a.Oferta_Precio_Ficticio,
+		a.Oferta_Cantidad,
+		a.Provee_RS
+order by 1,3
+
+
+-- Inserto en tabla OFERTAS
+
 insert into [T_REX].[OFERTA](
 					cod_oferta,
 					descripcion,
@@ -731,47 +760,60 @@ insert into [T_REX].[OFERTA](
 					cantDisponible,
 					cant_max_porCliente,
 					id_proveedor)
-select distinct a.Oferta_Codigo,
-				a.Oferta_Descripcion, 
-				a.Oferta_Fecha,
-				a.Oferta_Fecha_Venc,
-				a.Oferta_Precio,
-				a.Oferta_Precio_Ficticio,
-				a.Oferta_Cantidad,
-				a.Oferta_Cantidad,
-				b.id_proveedor
-from gd_esquema.Maestra a
-inner join T_REX.PROVEEDOR b on b.provee_rs= a.Provee_RS and b.provee_cuit=a.Provee_CUIT
-where a.Oferta_Codigo is not null
-order by a.Oferta_Fecha, a.Oferta_Codigo;
+select	a.Oferta_Codigo,
+		a.Oferta_Descripcion,
+		a.Oferta_Fecha,
+		a.Oferta_Fecha_Venc,
+		a.Oferta_Precio,
+		a.Oferta_Precio_Ficticio,
+		a.Oferta_Cantidad,
+		a.Oferta_Cantidad,
+		b.id_proveedor
+from #TEMP_Oferta a
+inner join T_REX.PROVEEDOR b on b.provee_rs= a.Provee_RS 
+group by Oferta_Codigo,
+		Oferta_Descripcion,
+		Oferta_Fecha,
+		Oferta_Fecha_Venc,
+		Oferta_Precio,
+		Oferta_Precio_Ficticio,
+		Oferta_Cantidad,
+		b.id_proveedor
+order by 1, 3
+
+drop table #TEMP_Oferta
 
 ----------------------------------------------------------------------------------------------------------------
+
 /*Migracion compra*/ -- advertencia valor null
 
 --119678 registros
 
 insert into [T_REX].[COMPRA] (
+		compra_fecha,
 		id_cliente,
 		id_oferta,
-		compra_fecha,
 		cantidad)
-select (select id_cliente from T_REX.CLIENTE where nro_documento= Cli_Dni), 
-(select id_oferta from T_REX.OFERTA where cod_oferta=Oferta_Codigo), 
-Oferta_Fecha_Compra, 
-count(*) 
-from gd_esquema.Maestra 
-where Oferta_Entregado_Fecha is null 
-and Oferta_Codigo is not NULL
-and Factura_Nro is null  
-and Factura_Fecha is null
-group by Cli_Dni, Oferta_Codigo, Oferta_Fecha_Compra
-order by Oferta_Fecha_Compra asc, Oferta_Codigo;
+select
+		a.Oferta_Fecha_Compra,
+		c.id_cliente,
+		o.id_oferta,
+		count(*) 
+from [gd_esquema].[Maestra] a
+inner join [T_REX].[CLIENTE] c on a.Cli_Dni=c.nro_documento 
+inner join [T_REX].[OFERTA] o on a.Oferta_Codigo=o.cod_oferta
+where a.Oferta_Fecha_Compra is not null
+group by a.Oferta_Fecha_Compra,
+		c.id_cliente,
+		o.id_oferta
+order by 1,2
 
 ----------------------------------------------------------------------------------------------------------------
 /*Migracion cupon*/
 
 --119678 registros
 insert into [T_REX].[CUPON] (
+
 		cupon_codigo,
 		cupon_fecha_deconsumo,
 		cupon_precio_oferta,

@@ -32,8 +32,33 @@ namespace FrbaOfertas.Login
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            new PantallaPrincipal(comboBox1.Text, textBox1.Text).Show();
+            SqlCommand login = FrbaOfertas.Utils.Database.createCommand("[GD2C2019].[T_REX].LogearUsuario");
+            login.Parameters.AddWithValue("username", textBox1.Text);
+            login.Parameters.AddWithValue("password", textBox2.Text);
+            login.Parameters.AddWithValue("tipoUsuario", comboBox1.Text);
+
+            try
+            {
+                FrbaOfertas.Utils.Database.executeProcedure(login);
+                Utils.Database.executeProcedure(login);
+                this.Hide();
+                new PantallaPrincipal(comboBox1.Text, textBox1.Text).Show();
+                
+                /*DataTable tablaFunc = Utils.Database.getDataProcedure(login);
+                if (!tablaFunc.HasErrors)
+                {
+                    this.Hide();
+                    new PantallaPrincipal(comboBox1.Text, textBox1.Text).Show();
+                }
+                 */
+                
+            }
+            catch (SqlException exception)
+            {
+                MessageBox.Show(exception.Message, "ERROR",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }
 
         private void label4_Click(object sender, EventArgs e)
