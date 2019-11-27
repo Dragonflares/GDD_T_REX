@@ -21,6 +21,7 @@ namespace FrbaOfertas.CrearOferta
             {
                 button1.Visible = false;
                 textBox2.Text = username;
+                textBox2.Enabled = false;
             }
             textBox2.ReadOnly = true;
         }

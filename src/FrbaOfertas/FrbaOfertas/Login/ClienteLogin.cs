@@ -18,6 +18,7 @@ namespace FrbaOfertas.Login
             InitializeComponent();
             textBox2.PasswordChar = '*';
             showRoles();
+            
         }
         private void showRoles()
         {
