@@ -401,11 +401,12 @@ INSERT INTO [T_REX].[ROL](nombre) VALUES ('Proveedor');	--3
 
 INSERT INTO [T_REX].[USUARIO] (username,password)
 --user :admin pass: t12r
-VALUES ('admin', '0xE6B87050BFCB8143FCB8DB0170A4DC9ED00D904DDD3E2A4AD1B1E8DC0FDC9BE7');
+VALUES ('admin', CONVERT(varchar(64), HASHBYTES('SHA2_256', 'w23e')));
 
 --select HASHBYTES('SHA2_256', 'w23e')	contraseña del admin
 --select HASHBYTES('SHA2_256', '1234') contraseña para usuarios y proveedores
 
+--select CONVERT(varchar(64), HASHBYTES('SHA2_256', 'w23e'))
 
 ---------------------------------------------------------------------------------------------------------------
 
