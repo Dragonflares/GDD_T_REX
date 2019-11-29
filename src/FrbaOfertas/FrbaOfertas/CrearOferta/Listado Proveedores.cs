@@ -20,7 +20,18 @@ namespace FrbaOfertas.CrearOferta
         public ListadoProveedor()
         {
             InitializeComponent();
+            loadRubros();
+        }
 
+        private void loadRubros()
+        {
+            SqlCommand obtenerRubros = FrbaOfertas.Utils.Database.createCommand("SELECT r.nombreDeRubro FROM [GD2C2019].[T_REX].Rubro r");
+            DataTable tablaFunc = Utils.Database.getData(obtenerRubros);
+
+            foreach (DataRow row in tablaFunc.Rows)
+            {
+                comboBox1.Items.Add(row["nombreDeRubro"]);
+            }
         }
 
         private void FormListadoProveedores_Load(object sender, EventArgs e)
