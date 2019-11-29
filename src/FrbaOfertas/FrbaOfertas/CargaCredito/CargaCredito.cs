@@ -58,5 +58,10 @@ namespace FrbaOfertas.CargaCredito
                 this.Close();
             }
         }
+
+        private void CargaCredito_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
