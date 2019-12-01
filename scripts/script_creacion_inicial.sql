@@ -401,7 +401,7 @@ INSERT INTO [T_REX].[ROL](nombre) VALUES ('Proveedor');	--3
 
 INSERT INTO [T_REX].[USUARIO] (username,password)
 --user :admin pass: t12r
-VALUES ('admin', CONVERT(varchar(64), HASHBYTES('SHA2_256', 'w23e')));
+VALUES ('admin', CONVERT(varchar(64), HASHBYTES('SHA2_256', 'w23e'), 2));
 
 --select HASHBYTES('SHA2_256', 'w23e')	contraseña del admin
 --select HASHBYTES('SHA2_256', '1234') contraseña para usuarios y proveedores
@@ -497,7 +497,7 @@ from #Temp_Proveedor
 /*Insertar tabla usuario */
 
 insert into [T_REX].[USUARIO] ( username, password )
-select  Provee_CUIT, '4f37c061f1854f9682f543fecb5ee9d652c803235970202de97c6e40c8361766' pass
+select  Provee_CUIT, CONVERT(varchar(64), HASHBYTES('SHA2_256', '1234'), 2) pass
 from #Temp_Proveedor
 
 -- NOTA: Los proveedores tienen "nombre usuario": CUIT y contraseña: "1234" para todos, luego cuando realicen el primer logueo deben cambiar la contraseña
@@ -601,7 +601,7 @@ from #Temp_cliente_incons
 --Insertar en tabla usuario los clientes que tienen datos correctos
 
 INSERT INTO [T_REX].[USUARIO] ( username, password, intentos_login, estado )
-select  Cli_Dni, '4f37c061f1854f9682f543fecb5ee9d652c803235970202de97c6e40c8361766' pass, 0, 1
+select  Cli_Dni, CONVERT(varchar(64), HASHBYTES('SHA2_256', '1234'), 2) pass, 0, 1
 from #Temp_cliente_incons
 where cantDni=1 and cantEmail=1
 
@@ -643,7 +643,7 @@ order by a.Cli_Dni
 --Inserto en tabla usuarios los clientes con datos duplicados
 
 INSERT INTO [T_REX].[USUARIO] ( username, password, intentos_login, estado )
-select  Cli_Dni, '4f37c061f1854f9682f543fecb5ee9d652c803235970202de97c6e40c8361766' pass, 0, 0
+select  Cli_Dni, CONVERT(varchar(64), HASHBYTES('SHA2_256', '1234'), 2) pass, 0, 0
 from #Temp_cliente_incons
 where cantDni=1 and cantEmail >1
 
@@ -909,7 +909,7 @@ IF OBJECT_ID('T_REX.LogearUsuario') IS NOT NULL
 GO
 CREATE PROCEDURE [T_REX].LogearUsuario
 @username nvarchar(255),
-@password nvarchar(255),
+@password varchar(255),
 @tipoUsuario nvarchar(255)
 AS
 BEGIN
