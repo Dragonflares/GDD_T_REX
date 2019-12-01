@@ -243,5 +243,4 @@
         private System.Windows.Forms.ErrorProvider semestreErrorProvider;
         private System.Windows.Forms.Button limpiarButton;
     }
-    }
 }
