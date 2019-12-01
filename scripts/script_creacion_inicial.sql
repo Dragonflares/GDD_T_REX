@@ -901,7 +901,8 @@ order by a.Factura_Nro;
 										SPs y FN													
 ##########################################################################################################*/
 
------------- USUARIO ----------
+--//---------- USUARIO ----------//
+
 --exec [T_REX].LogearUsuario '88430112', '1234', 'Proveedor';
 
 IF OBJECT_ID('T_REX.LogearUsuario') IS NOT NULL
@@ -993,4 +994,21 @@ BEGIN
 		END			
 	END		
 END	
+
+
+--//---------- ROLES ----------//
+
+-- [T_REX].SP_HabilitarRol
+
+IF OBJECT_ID('T_REX.SP_HabilitarRol') IS NOT NULL
+    DROP PROCEDURE T_REX.SP_HabilitarRol
+GO
+
+CREATE PROCEDURE [T_REX].[SP_HabilitarRol] @id_Rol int
+as
+	update [T_REX].ROL
+	set estado = '0'
+	where id_rol=@id_Rol
+
+go
 
