@@ -12,7 +12,7 @@ namespace FrbaOfertas.ABMRol
 {
     public partial class Alta : Form
     {
-        public Alta()
+        public Alta(ABMRol abmrol)
         {
             InitializeComponent();
         }
