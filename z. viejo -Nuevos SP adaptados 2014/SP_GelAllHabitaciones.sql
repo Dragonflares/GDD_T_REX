@@ -1,0 +1,7 @@
+CREATE PROCEDURE [CUATROGDD2018].[SP_GelAllHabitaciones]
+AS
+BEGIN
+	SELECT * FROM [CUATROGDD2018].[Habitaciones] 
+	ORDER BY nro_habitacion
+END
+GO

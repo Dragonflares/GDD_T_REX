@@ -1,0 +1,9 @@
+CREATE PROCEDURE [CUATROGDD2018].[SP_GetReserva_PorId]
+	@IdReserva int
+AS
+BEGIN
+	SET NOCOUNT ON;
+	SELECT * FROM [CUATROGDD2018].[Reservas] R 
+	WHERE R.id_reserva= @IdReserva
+END
+GO

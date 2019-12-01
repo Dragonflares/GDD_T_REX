@@ -1,0 +1,8 @@
+CREATE PROCEDURE [CUATROGDD2018].[SP_GetDescripcionTipoHab]
+AS
+BEGIN
+	SELECT TH.descripcion
+	FROM [CUATROGDD2018].[Tipo_Habitacion] TH
+	GROUP BY TH.descripcion
+END
+GO

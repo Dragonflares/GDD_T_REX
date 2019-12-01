@@ -1,0 +1,8 @@
+CREATE PROCEDURE [CUATROGDD2018].[SP_GetFrenteHabitaciones]
+AS
+BEGIN
+	SELECT H.frente
+	FROM [CUATROGDD2018].[Habitaciones] H
+	GROUP BY H.frente
+END
+GO
