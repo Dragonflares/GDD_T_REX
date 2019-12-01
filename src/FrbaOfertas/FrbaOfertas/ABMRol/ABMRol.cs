@@ -36,7 +36,7 @@ namespace FrbaOfertas.ABMRol
         private void dgvRoles_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             int i = int.Parse(dgvRoles.SelectedCells[0].Value.ToString());
-            dgvFuncionalidades.DataSource = FuncionalidadDAO.buscarFuncionalidades(i);
+            dgvFuncionalidades.DataSource = rolDao.getFuncionalidades(i);
         }
 
         private void btnCrear_Click(object sender, EventArgs e)

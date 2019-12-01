@@ -25,10 +25,12 @@ namespace FrbaOfertas.Utils
            
         }
 
-        public DataTable getFuncionalidades(Rol rol)
+        public DataTable getFuncionalidades(int rol)
         {
-            SqlCommand cmd = Database.createCommand("[T_REX].GetFuncionalidades");
-            cmd.Parameters.Add("@rol_id",SqlDbType.Int).Value = rol.id;
+            SqlCommand cmd = Database.createCommand("SELECT f.descripcion FROM [GD2C2019].[T_REX].Funcionalidad f" +
+                " JOIN [GD2C2019].[T_REX].Funcionalidad_Rol fr on fr.id_funcionalidad = f.id_funcionalidad" +
+                " JOIN [GD2C2019].[T_REX].Rol r on r.id_rol = fr.id_rol WHERE r.id_rol = @rol");
+            cmd.Parameters.Add("@rol",SqlDbType.Int).Value = rol;
             return Database.getDataProcedure(cmd);
         }
 
@@ -44,7 +46,7 @@ namespace FrbaOfertas.Utils
             SqlCommand cmd = Database.createCommand("SELECT f.descripcion FROM [GD2C2019].[T_REX].Funcionalidad f" +
                 " JOIN [GD2C2019].[T_REX].Funcionalidad_Rol fr on fr.id_funcionalidad = f.id_funcionalidad" +
                 " JOIN [GD2C2019].[T_REX].Rol r on r.id_rol = fr.id_rol WHERE r.nombre = @rol");
-            cmd.Parameters.Add("@rol_id", SqlDbType.Int).Value = rol.id;
+            cmd.Parameters.Add("@rol", SqlDbType.NVarChar).Value = rol.nombre;
             return Database.getData(cmd);
         }
 

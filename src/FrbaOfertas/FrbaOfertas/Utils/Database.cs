@@ -43,26 +43,6 @@ namespace FrbaOfertas.Utils
             return res;
         }
 
-        public static DataTable listarDatos(string consulta)
-        {
-            connection.Open();
-            var tabla = new DataTable();
-            try
-            {
-                using (var adaptador = new SqlDataAdapter(consulta, connection))
-                {
-                    adaptador.Fill(tabla);
-                }
-            }
-            catch (SqlException e)
-            {
-                MessageBox.Show(e.Message);
-                return tabla;
-            }
-            connection.Close();
-            return tabla;
-        }
-
         public static int executeScalar(SqlCommand command)
         {
 
