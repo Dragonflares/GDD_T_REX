@@ -14,8 +14,8 @@ namespace FrbaOfertas
     public partial class PantallaPrincipal : Form
     {
         private Dictionary<String, Button> funcionalidades = new Dictionary<String, Button>();
-        private string userRole;
-        private string username;
+        public string userRole;
+        public string username;
         public PantallaPrincipal(String rol, string _username)
         {
             InitializeComponent();
@@ -61,7 +61,7 @@ namespace FrbaOfertas
                 case "ABM Rol":
                 {
                     this.Hide();
-                    new ABMRol.ABMRol().Show(); 
+                    new ABMRol.ABMRol(this).Show(); 
                     break;
                 }
                 case "ABM Cliente":
