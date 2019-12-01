@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using FrbaOfertas.Models.Funcionalidades;
+using FrbaOfertas.Utils;
+using FrbaOfertas.Models.Roles;
 
 namespace FrbaOfertas.ABMRol
 {
@@ -15,10 +18,10 @@ namespace FrbaOfertas.ABMRol
     {
         Rol rol;
         RolDAO rolDao = new RolDAO();
-        public FormularioModificacion(Rol rol)
+        public Modificacion(Rol _rol)
         {
             InitializeComponent();
-            this.rol = rol;
+            this.rol = _rol;
             NombreTextBox.Text = rol.nombre;
             btn_activar.Visible = rol.activo;
             populateFuncionalidades(rol);
@@ -63,7 +66,7 @@ namespace FrbaOfertas.ABMRol
 
         private void btn_activar_Click(object sender, EventArgs e)
         {
-            SqlCommand procedure = Utils.Database.createCommand("MACACO_NOT_NULL.AltaRol");
+            SqlCommand procedure = Utils.Database.createCommand("T_REX.AltaRol");
             procedure.Parameters.Add("@nombre_rol", SqlDbType.NVarChar).Value = NombreTextBox.Text;
             procedure.Parameters.Add("@activo", SqlDbType.Bit).Value = 1;
             Utils.Database.executeProcedure(procedure);
@@ -89,8 +92,7 @@ namespace FrbaOfertas.ABMRol
                     row["func_detalle"] = funcionalidad.nombre;
                     dt.Rows.Add(row);
                 }
-            }
-           
+            }  
         }
 
 

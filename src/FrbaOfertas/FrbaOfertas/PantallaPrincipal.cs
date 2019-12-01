@@ -16,7 +16,7 @@ namespace FrbaOfertas
         private Dictionary<String, Button> funcionalidades = new Dictionary<String, Button>();
         public string userRole;
         public string username;
-        public PantallaPrincipal(String rol, string _username)
+        public PantallaPrincipal(string rol, string _username)
         {
             InitializeComponent();
             userRole = rol;
@@ -97,7 +97,7 @@ namespace FrbaOfertas
                 case "Comprar Oferta":
                 {
                     this.Hide();
-                    new ComprarOferta.ComprarOferta().Show();
+                    new ComprarOferta.ComprarOferta(username, userRole).Show();
                     break;
                 }
                 case "Cargar Credito":

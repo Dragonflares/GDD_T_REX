@@ -12,9 +12,17 @@ namespace FrbaOfertas.ComprarOferta
 {
     public partial class ComprarOferta : Form
     {
-        public ComprarOferta()
+        private string Rol;
+        public ComprarOferta(string _nombre_cliente, string _rol)
         {
             InitializeComponent();
+            Rol = _rol;
+            if (Rol == "Cliente")
+            {
+                button1.Visible = false;
+                textBox3.Text = Rol;
+            }
+            button1.Enabled = false;
         }
 
         private void btn_buscar_Click(object sender, EventArgs e)
