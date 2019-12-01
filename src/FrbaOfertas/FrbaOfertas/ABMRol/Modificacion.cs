@@ -60,7 +60,7 @@ namespace FrbaOfertas.ABMRol
         private void btn_limpiar_Click(object sender, EventArgs e)
         {
             NombreTextBox.Text = rol.nombre;
-            table_funcionalidades.DataSource = rolDao.getFuncionalidades(rol);
+            table_funcionalidades.DataSource = rolDao.getFuncionalidades(rol.id);
             
         }
 
