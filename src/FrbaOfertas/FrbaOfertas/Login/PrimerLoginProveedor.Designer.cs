@@ -43,7 +43,6 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
             this.razonSocial = new System.Windows.Forms.TextBox();
             this.telefono = new System.Windows.Forms.TextBox();
             this.mail = new System.Windows.Forms.TextBox();
@@ -52,7 +51,6 @@
             this.label16 = new System.Windows.Forms.Label();
             this.numeroCalle = new System.Windows.Forms.TextBox();
             this.codigoPostal = new System.Windows.Forms.TextBox();
-            this.rubro = new System.Windows.Forms.TextBox();
             this.piso = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
@@ -60,9 +58,9 @@
             this.label19 = new System.Windows.Forms.Label();
             this.localidad = new System.Windows.Forms.TextBox();
             this.cuit = new System.Windows.Forms.TextBox();
-            this.ciudad = new System.Windows.Forms.TextBox();
             this.registrarse = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
@@ -196,15 +194,6 @@
             this.label12.TabIndex = 16;
             this.label12.Text = "CUIT";
             // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(33, 354);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(40, 13);
-            this.label13.TabIndex = 17;
-            this.label13.Text = "Ciudad";
-            // 
             // razonSocial
             // 
             this.razonSocial.Location = new System.Drawing.Point(36, 162);
@@ -215,6 +204,7 @@
             // telefono
             // 
             this.telefono.Location = new System.Drawing.Point(36, 214);
+            this.telefono.MaxLength = 12;
             this.telefono.Name = "telefono";
             this.telefono.Size = new System.Drawing.Size(113, 20);
             this.telefono.TabIndex = 20;
@@ -265,13 +255,6 @@
             this.codigoPostal.Size = new System.Drawing.Size(113, 20);
             this.codigoPostal.TabIndex = 26;
             // 
-            // rubro
-            // 
-            this.rubro.Location = new System.Drawing.Point(36, 292);
-            this.rubro.Name = "rubro";
-            this.rubro.Size = new System.Drawing.Size(113, 20);
-            this.rubro.TabIndex = 27;
-            // 
             // piso
             // 
             this.piso.Location = new System.Drawing.Point(178, 292);
@@ -307,7 +290,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(175, 354);
+            this.label19.Location = new System.Drawing.Point(103, 354);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(53, 13);
             this.label19.TabIndex = 32;
@@ -315,7 +298,7 @@
             // 
             // localidad
             // 
-            this.localidad.Location = new System.Drawing.Point(178, 370);
+            this.localidad.Location = new System.Drawing.Point(106, 370);
             this.localidad.Name = "localidad";
             this.localidad.Size = new System.Drawing.Size(113, 20);
             this.localidad.TabIndex = 33;
@@ -326,13 +309,6 @@
             this.cuit.Name = "cuit";
             this.cuit.Size = new System.Drawing.Size(113, 20);
             this.cuit.TabIndex = 34;
-            // 
-            // ciudad
-            // 
-            this.ciudad.Location = new System.Drawing.Point(36, 370);
-            this.ciudad.Name = "ciudad";
-            this.ciudad.Size = new System.Drawing.Size(113, 20);
-            this.ciudad.TabIndex = 35;
             // 
             // registrarse
             // 
@@ -358,14 +334,22 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(36, 291);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(113, 21);
+            this.comboBox1.TabIndex = 38;
+            // 
             // PrimerLoginProveedor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(341, 493);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.registrarse);
-            this.Controls.Add(this.ciudad);
             this.Controls.Add(this.cuit);
             this.Controls.Add(this.localidad);
             this.Controls.Add(this.label19);
@@ -373,7 +357,6 @@
             this.Controls.Add(this.label18);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.piso);
-            this.Controls.Add(this.rubro);
             this.Controls.Add(this.codigoPostal);
             this.Controls.Add(this.numeroCalle);
             this.Controls.Add(this.label16);
@@ -382,7 +365,6 @@
             this.Controls.Add(this.mail);
             this.Controls.Add(this.telefono);
             this.Controls.Add(this.razonSocial);
-            this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
@@ -422,7 +404,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox razonSocial;
         private System.Windows.Forms.TextBox telefono;
         private System.Windows.Forms.TextBox mail;
@@ -431,7 +412,6 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox numeroCalle;
         private System.Windows.Forms.TextBox codigoPostal;
-        private System.Windows.Forms.TextBox rubro;
         private System.Windows.Forms.TextBox piso;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label18;
@@ -439,8 +419,8 @@
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.TextBox localidad;
         private System.Windows.Forms.TextBox cuit;
-        private System.Windows.Forms.TextBox ciudad;
         private System.Windows.Forms.Button registrarse;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }

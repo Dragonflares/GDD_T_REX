@@ -7,14 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FrbaOfertas.Models.Usuarios;
 
 namespace FrbaOfertas.CargaCredito
 {
     public partial class CargaCredito : Form
     {
-        public CargaCredito()
+        public Usuario user;
+        public CargaCredito(Usuario _user)
         {
             InitializeComponent();
+            user = _user;
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -60,6 +63,11 @@ namespace FrbaOfertas.CargaCredito
         }
 
         private void CargaCredito_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
         {
 
         }

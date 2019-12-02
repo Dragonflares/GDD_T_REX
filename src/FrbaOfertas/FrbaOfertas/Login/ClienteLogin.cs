@@ -17,7 +17,8 @@ namespace FrbaOfertas.Login
         {
             InitializeComponent();
             textBox2.PasswordChar = '*';
-            showRoles();            
+            showRoles();
+            
         }
         private void showRoles()
         {
@@ -29,7 +30,6 @@ namespace FrbaOfertas.Login
                 comboBox1.Items.Add(row["nombre"]);
             }
         }
-       
         private void button1_Click(object sender, EventArgs e)
         {
             SqlCommand login = FrbaOfertas.Utils.Database.createCommand("[GD2C2019].[T_REX].LogearUsuario");
@@ -41,18 +41,9 @@ namespace FrbaOfertas.Login
             {
                 FrbaOfertas.Utils.Database.executeProcedure(login);
                 Utils.Database.executeProcedure(login);
-                PantallaPrincipal pantallaPrincipalForm = new PantallaPrincipal(comboBox1.Text, textBox1.Text);
-
-                pantallaPrincipalForm.TopLevel = false;
-                pantallaPrincipalForm.AutoScroll = true;
-                this.mainPanel.Visible = true;
-                pantallaPrincipalForm.FormBorderStyle = FormBorderStyle.None;
-                this.mainPanel.Controls.Clear();
-
-                this.mainPanel.Controls.Add(pantallaPrincipalForm);
-                pantallaPrincipalForm.Show();
-                //this.Hide();
-
+                this.Hide();
+                new PantallaPrincipal(comboBox1.Text, textBox1.Text).Show();
+                
                 /*DataTable tablaFunc = Utils.Database.getDataProcedure(login);
                 if (!tablaFunc.HasErrors)
                 {
@@ -74,15 +65,18 @@ namespace FrbaOfertas.Login
         {
             if(comboBox1.Text == "Proveedor")
             {
-                new PrimerLoginProveedor().ShowDialog();
+                new PrimerLoginProveedor().Show();
+                this.Hide();
             }
             else if (comboBox1.Text == "Cliente")
             {
-                new PrimerLoginCliente().ShowDialog();
+                new PrimerLoginCliente().Show();
+                this.Hide();
             }
             else
             {
-                new NuevoUser(comboBox1.Text).ShowDialog();
+                new NuevoUser(comboBox1.Text).Show();
+                this.Hide();
             }
             
         }

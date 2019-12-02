@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using FrbaOfertas.Models;
+using FrbaOfertas.Models.Usuarios;
 
 namespace FrbaOfertas
 {
@@ -60,47 +60,57 @@ namespace FrbaOfertas
             {
                 case "ABM Rol":
                 {
-                    new ABMRol.ABMRol(this).ShowDialog(); 
+                    this.Hide();
+                    new ABMRol.ABMRol(this).Show(); 
                     break;
                 }
-                case "ABM Clientes":
+                case "ABM Cliente":
                 {
-                    new ABMCliente.ABMCliente().ShowDialog();
+                    this.Hide();
+                    new ABMCliente.ABMCliente().Show();
                     break;
                 }
                 case "ABM Proveedor":
                 {
-                    new ABMProveedor.ABMProveedor().ShowDialog();
+                    this.Hide();
+                    new ABMProveedor.ABMProveedor().Show();
                     break;
                 }
                 case "Facturacion Proveedor":
                 {
-                    new Facturar.Facturar().ShowDialog();
+                    this.Hide();
+                    new Facturar.Facturar().Show();
                     break;
                 }
                 case "Publicar Oferta":
                 {
-                    new CrearOferta.CrearOferta(userRole, username).ShowDialog();
+                    this.Hide();
+                    new CrearOferta.CrearOferta(userRole, username).Show();
                     break;
                 }
                 case "Listado Estadistico":
                 {
-                    new ListadoEstadistico.ListadoEstadistico().ShowDialog();
+                    this.Hide();
+                    new ListadoEstadistico.ListadoEstadistico().Show();
                     break;
                 }
                 case "Comprar Oferta":
                 {
-                    new ComprarOferta.ComprarOferta(username, userRole).ShowDialog();
+                    this.Hide();
+                    new ComprarOferta.ComprarOferta(username, userRole).Show();
                     break;
                 }
                 case "Cargar Credito":
                 {
-                    new CargaCredito.CargaCredito().ShowDialog();
+                    Usuario user = new Usuario(0, null, null, null, null);
+                    new CargaCredito.CargaCredito(user).Show();
+                    this.Hide();
                     break;
                 }
                 case "Consumo Oferta":
                 {
-                    new CanjeCupon.CanjeCupon().ShowDialog();
+                    this.Hide();
+                    new CanjeCupon.CanjeCupon().Show();
                     break;
                 }
                 default:

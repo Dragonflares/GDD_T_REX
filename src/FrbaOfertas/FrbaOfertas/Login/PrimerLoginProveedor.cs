@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace FrbaOfertas.Login
 {
@@ -17,6 +18,21 @@ namespace FrbaOfertas.Login
             InitializeComponent();
             contrasenia.PasswordChar = '*';
             textBox1.Enabled = false;
+            numeroCalle.KeyPress += numeroCalle_KeyPress;
+            piso.KeyPress += piso_KeyPress;
+            cuit.KeyPress += cuit_KeyPress;
+            loadRubros();
+        }
+
+        private void loadRubros()
+        {
+            SqlCommand obtenerRubros = FrbaOfertas.Utils.Database.createCommand("SELECT r.nombreDeRubro FROM [GD2C2019].[T_REX].Rubro r");
+            DataTable tablaFunc = Utils.Database.getData(obtenerRubros);
+
+            foreach (DataRow row in tablaFunc.Rows)
+            {
+                comboBox1.Items.Add(row["nombreDeRubro"]);
+            }
         }
 
         private void registrarse_Click(object sender, EventArgs e)
@@ -47,6 +63,48 @@ namespace FrbaOfertas.Login
         {
             this.Close();
             this.Owner.Show();
+        }
+
+        private void telefono_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+
+        }
+
+        private void numeroCalle_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+
+        }
+
+        private void piso_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+
+        }
+
+        private void cuit_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
+                (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            
+            if ((e.KeyChar == '-') && !(((sender as TextBox).Text.IndexOf('-') == ((sender as TextBox).Text.Length - 1) )))
+            {
+                e.Handled = true;
+            }
         }
 
 

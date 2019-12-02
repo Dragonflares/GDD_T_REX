@@ -101,6 +101,12 @@
     <Compile Include="CargaCredito\CargaCredito.Designer.cs">
       <DependentUpon>CargaCredito.cs</DependentUpon>
     </Compile>
+    <Compile Include="CargaCredito\ListadoClientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CargaCredito\ListadoClientes.Designer.cs">
+      <DependentUpon>ListadoClientes.cs</DependentUpon>
+    </Compile>
     <Compile Include="ComprarOferta\ComprarOferta.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -170,6 +176,7 @@
     <Compile Include="Models\CLIENTE.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Clientes\Cliente.cs" />
     <Compile Include="Models\CLIENTE_DESTINO.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -220,6 +227,7 @@
     <Compile Include="Models\PROVEEDOR.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Proveedores\Proveedor.cs" />
     <Compile Include="Models\ROL.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -236,6 +244,7 @@
     <Compile Include="Models\USUARIO.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Usuarios\Usuario.cs" />
     <Compile Include="PantallaPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -269,6 +278,9 @@
     <EmbeddedResource Include="CargaCredito\CargaCredito.resx">
       <DependentUpon>CargaCredito.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CargaCredito\ListadoClientes.resx">
+      <DependentUpon>ListadoClientes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ComprarOferta\ComprarOferta.resx">
       <DependentUpon>ComprarOferta.cs</DependentUpon>
     </EmbeddedResource>
@@ -292,6 +304,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Login\NuevoUser.resx">
       <DependentUpon>NuevoUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login\PrimerLoginCliente.resx">
+      <DependentUpon>PrimerLoginCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login\PrimerLoginProveedor.resx">
+      <DependentUpon>PrimerLoginProveedor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PantallaPrincipal.resx">
       <DependentUpon>PantallaPrincipal.cs</DependentUpon>

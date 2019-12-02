@@ -16,9 +16,7 @@ namespace FrbaOfertas
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            // Application.Run(new Login.ClienteLogin());
-            Login.ClienteLogin login = new Login.ClienteLogin();
-            login.ShowDialog();
+            Application.Run(new Login.ClienteLogin());
         }
     }
 }
