@@ -75,3 +75,40 @@ para la migracion completamos el codigo cupon con el codigo oferta
 
 NUEVO SISTEMA:
 para el nuevo sistema nos vamos a manejar con el ID ( no se genera codigo-oferta ni codigo-cupon)
+
+
+
+------------------------------------------
+
+LISTA DE TAREAS:
+
+-AGREGAR DGV ALTA ROL
+-ARMAR CLASES 
+-TERMINAR DE ARMAR DAOS
+-REVISAR SHOW CLOSE
+-SETTEAR CONSULTAS PARA PEDIDOS DE DATOS
+-SETTEAR INSERT Y DELETE
+-AGREGAR LISTADO CLIENTES Y LISTADO PROVEEDOR A CANJE CUPON
+
+- AGREGAR ROLES ARCHIVO CONFIGURACION 
+
+-------------------------------------------
+
+get proveedores:
+busca por razon social, cuit y rubro
+ 
+
+
+get de los clientes:
+
+cargar credito: listado de clientes
+nombre
+apellido
+mail
+dni
+
+
+
+
+
+
