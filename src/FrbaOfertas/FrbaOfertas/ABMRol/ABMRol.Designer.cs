@@ -140,7 +140,7 @@
             this.label1.TabIndex = 7;
             this.label1.Text = "Roles:";
             // 
-            // HomeRol
+            // ABMRol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -150,8 +150,8 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.dgvRoles);
             this.Controls.Add(this.label1);
-            this.Name = "HomeRol";
-            this.Text = "HomeRol";
+            this.Name = "ABMRol";
+            this.Text = "ABM Rol";
             this.Load += new System.EventHandler(this.HomeRol_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvFuncionalidades)).EndInit();
             this.groupBox1.ResumeLayout(false);
