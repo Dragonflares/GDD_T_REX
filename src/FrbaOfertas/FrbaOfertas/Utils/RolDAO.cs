@@ -44,7 +44,7 @@ namespace FrbaOfertas.Utils
 
         public DataTable getFuncionalidadesXRol(Rol rol)
         {
-            SqlCommand cmd = Database.createCommand("SELECT f.descripcion FROM [GD2C2019].[T_REX].Funcionalidad f" +
+            SqlCommand cmd = Database.createCommand("SELECT f.id_funcionalidad, f.descripcion FROM [GD2C2019].[T_REX].Funcionalidad f" +
                 " JOIN [GD2C2019].[T_REX].Funcionalidad_Rol fr on fr.id_funcionalidad = f.id_funcionalidad" +
                 " JOIN [GD2C2019].[T_REX].Rol r on r.id_rol = fr.id_rol WHERE r.nombre = @rol");
             cmd.Parameters.Add("@rol", SqlDbType.NVarChar).Value = rol.nombre;

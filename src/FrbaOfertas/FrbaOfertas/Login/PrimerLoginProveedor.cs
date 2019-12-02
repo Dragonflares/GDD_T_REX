@@ -61,8 +61,8 @@ namespace FrbaOfertas.Login
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Close();
             this.Owner.Show();
+            this.Close();
         }
 
         private void telefono_KeyPress(object sender, KeyPressEventArgs e)

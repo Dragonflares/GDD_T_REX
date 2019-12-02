@@ -51,7 +51,6 @@ namespace FrbaOfertas.ABMRol
                 if (e.ColumnIndex == table_funcionalidades.Columns["Eliminar"].Index)
                 {
                     table_funcionalidades.Rows.RemoveAt(e.RowIndex);
-                    ((DataTable)table_funcionalidades.DataSource).Rows.RemoveAt(e.RowIndex); 
                 }
             }
 
@@ -80,7 +79,7 @@ namespace FrbaOfertas.ABMRol
 
             Funcionalidad funcionalidad = (Funcionalidad)comboBoxFuncionalidades.SelectedItem;
             DataTable dt = table_funcionalidades.DataSource as DataTable;
-            if (dt.Select("func_id = " + funcionalidad.id).Count() > 0)
+            if (dt.Select("id_funcionalidad = " + funcionalidad.id).Count() > 0)
                MessageBox.Show("Ya contiene esa funcionalidad");
             else
             {
@@ -88,8 +87,8 @@ namespace FrbaOfertas.ABMRol
                 {
 
                     DataRow row = dt.NewRow();
-                    row["func_id"] = funcionalidad.id;
-                    row["func_detalle"] = funcionalidad.nombre;
+                    row["id_funcionalidad"] = funcionalidad.id;
+                    row["descripcion"] = funcionalidad.nombre;
                     dt.Rows.Add(row);
                 }
             }  

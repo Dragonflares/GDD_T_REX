@@ -14,7 +14,8 @@ namespace FrbaOfertas.Models.Proveedores
         public int telefono { get; set; }
         public string CUIT { get; set; }
         public string rubro { get; set; }
-        //public 
+        public Direccion direccion { get; set; }
+        public bool estado { get; set; }
 
         public Proveedor ()
         {

@@ -41,8 +41,11 @@ namespace FrbaOfertas.Login
             {
                 FrbaOfertas.Utils.Database.executeProcedure(login);
                 Utils.Database.executeProcedure(login);
+                
+                PantallaPrincipal pantalla = new PantallaPrincipal(comboBox1.Text, textBox1.Text);
+                pantalla.Owner = this;
+                pantalla.Show();
                 this.Hide();
-                new PantallaPrincipal(comboBox1.Text, textBox1.Text).Show();
                 
                 /*DataTable tablaFunc = Utils.Database.getDataProcedure(login);
                 if (!tablaFunc.HasErrors)
@@ -63,28 +66,32 @@ namespace FrbaOfertas.Login
 
         private void label4_Click(object sender, EventArgs e)
         {
-            if(comboBox1.Text == "Proveedor")
+            if (comboBox1.Text == "")
             {
-                new PrimerLoginProveedor().Show();
+                MessageBox.Show("Debe indicar el rol sobre el que crea el Usuario!", "ERROR",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if(comboBox1.Text == "Proveedor")
+            {
+                PrimerLoginProveedor login = new PrimerLoginProveedor();
+                login.Owner = this;
+                login.Show();
                 this.Hide();
             }
             else if (comboBox1.Text == "Cliente")
             {
-                new PrimerLoginCliente().Show();
+                PrimerLoginCliente login = new PrimerLoginCliente();
+                login.Owner = this;
+                login.Show();
                 this.Hide();
             }
             else
             {
-                new NuevoUser(comboBox1.Text).Show();
+                NuevoUser login = new NuevoUser(comboBox1.Text);
+                login.Owner = this;
+                login.Show();
                 this.Hide();
             }
-            
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            this.Close();
-            this.Owner.Show();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
