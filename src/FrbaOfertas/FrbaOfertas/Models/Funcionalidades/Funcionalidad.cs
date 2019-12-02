@@ -10,16 +10,8 @@ namespace FrbaOfertas.Models.Funcionalidades
     {
         public int id { get; set; }
         public String nombre { get; set; }
-        public int rol_id { get; set; }
 
-       public Funcionalidad (int id, String nombre,int rol_id)
-       {
-           this.id = id;
-           this.nombre = nombre;
-           this.rol_id = rol_id;
-       }
-
-       public Funcionalidad(int id, String nombre)
+       public Funcionalidad (int id, String nombre)
        {
            this.id = id;
            this.nombre = nombre;

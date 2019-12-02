@@ -50,8 +50,9 @@ namespace FrbaOfertas
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.Close();
+            
             this.Owner.Show();
+            this.Close();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -84,8 +85,8 @@ namespace FrbaOfertas
                 }
                 case "Publicar Oferta":
                 {
-                    this.Hide();
                     new CrearOferta.CrearOferta(userRole, username).Show();
+                    this.Hide();
                     break;
                 }
                 case "Listado Estadistico":

@@ -49,8 +49,8 @@ namespace FrbaOfertas.Login
 
         private void button3_Click(object sender, EventArgs e)
         {
-            this.Close();
             this.Owner.Show();
+            this.Close();
         }
     }
 }

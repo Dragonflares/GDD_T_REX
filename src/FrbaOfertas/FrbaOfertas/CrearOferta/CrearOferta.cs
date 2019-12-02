@@ -44,8 +44,8 @@ namespace FrbaOfertas.CrearOferta
 
         private void button4_Click(object sender, EventArgs e)
         {
-            this.Close();
             this.Owner.Show();
+            this.Close();
         }
 
         private void button1_Click(object sender, EventArgs e)
