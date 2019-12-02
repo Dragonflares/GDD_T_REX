@@ -104,7 +104,7 @@ IF NOT EXISTS (
 BEGIN
 CREATE TABLE [T_REX].[USUARIO] (
 		id_usuario int IDENTITY(1,1) PRIMARY KEY NOT NULL,
-		username nvarchar (255) NOT NULL,
+		username nvarchar (255) unique NOT NULL,
 		password nvarchar (255) NOT NULL,
 		intentos_login int NOT NULL DEFAULT (0),
 		estado bit NOT NULL DEFAULT 1
@@ -198,7 +198,8 @@ CREATE TABLE [T_REX].[CLIENTE] (
 		estado bit NOT NULL DEFAULT 1,
 		creditoTotal decimal (18,0) NOT NULL,
 		id_domicilio int FOREIGN KEY REFERENCES [T_REX].DOMICILIO(id_domicilio) NOT NULL,
-		id_usuario int FOREIGN KEY REFERENCES [T_REX].USUARIO(id_usuario) NOT NULL
+		id_usuario int FOREIGN KEY REFERENCES [T_REX].USUARIO(id_usuario) NOT NULL,
+		CONSTRAINT [UNIQUE_DNI] UNIQUE NONCLUSTERED ([nro_documento], [tipo_documento])
 );
 END
 GO
@@ -1111,3 +1112,135 @@ AS
 	Select @resultado;
 
 GO
+
+
+/*********************************/
+/********************************/
+/* ABM CLIENTE*/
+
+IF OBJECT_ID('T_REX.AbmUsuario') IS NOT NULL
+	DROP PROCEDURE [T_REX].AbmUsuario;
+GO
+CREATE PROCEDURE [T_REX].AbmUsuario
+
+	
+	@Nombre nvarchar(150),
+	@Apellido nvarchar(150),
+	@TipoDocumento nvarchar(20),
+	@Documento decimal(18,0),
+	@FechaNacimiento datetime2(3),
+	@Mail nvarchar(150),
+	@Telefono int,
+	@Domicilio nvarchar(100),
+	@NroPiso nvarchar(100),
+	@NroDpto nvarchar(50),
+	@Localidad nvarchar(255),
+	@CodigoPostal nvarchar(50),
+	@user nvarchar(255),
+	@pass varchar(255),
+	@Accion varchar(1),
+	@out varchar(1000) OUTPUT,
+	@IdCliente int = NULL
+AS
+
+BEGIN
+	
+	begin try
+		declare @idDomicilio int;
+	if(@Accion = 'A')
+
+		begin
+
+			declare @creditoInicial int=200, @id_cliente int,@id_usuario int, @fechaDeEntrada datetime2(3);
+			begin TRANSACTION [T]
+
+				insert into T_REX.USUARIO(username, password) values (@user,@pass);
+				select @id_usuario=id_usuario from T_REX.USUARIO where username=@user;
+				if(@@ROWCOUNT = 0) RAISERROR('Usuario Inexistente',16 ,1)
+				
+				insert into T_REX.ROL_USUARIO(id_usuario,id_rol) VALUES (@id_usuario,2);
+
+				insert into T_REX.DOMICILIO(direc_calle,direc_nro_piso,direc_localidad,codigoPostal,direc_nro_depto)
+				values(@Domicilio,@NroPiso,@Localidad,@CodigoPostal,@NroDpto)
+
+				select @idDomicilio=max(id_domicilio) from T_REX.DOMICILIO where direc_calle=@Domicilio and direc_nro_piso=@NroPiso and direc_localidad=@Localidad and 
+				codigoPostal=@CodigoPostal and direc_nro_depto=@NroDpto
+
+				if(@@ROWCOUNT = 0) RAISERROR('Domicilio Inexistente',16 ,1)
+				if(EXISTS(select 1 from T_REX.CLIENTE where nro_documento=@Documento and tipo_documento=@TipoDocumento and email=@Mail))
+				begin
+					RAISERROR('ERROR: cliente duplicado', 16, 1)
+					return
+				end
+				else
+				begin
+					insert into T_REX.CLIENTE(Nombre,Apellido,nro_documento,tipo_documento,fechaDeNacimiento,email,telefono,creditoTotal)
+						values(@Nombre,@Apellido,@Documento,@TipoDocumento,@FechaNacimiento,@Mail,@Telefono,@creditoInicial)
+				end
+
+/*				select @id_cliente=id_cliente from T_REX.CLIENTE where nro_documento=@Documento and tipo_documento=@TipoDocumento
+
+				insert into T_REX.CREDITO(fecha_credito,id_cliente,id_forma_pago,monto_credito,id_tarjeta)
+					values(@fechaDeEntrada ,@id_cliente,,@creditoInicial,)
+*/
+			commit TRANSACTION [T]
+		end
+	
+	else if (@Accion = 'M')
+
+		begin
+			begin TRANSACTION [T]
+				select @idDomicilio=id_domicilio from T_REX.CLIENTE where id_cliente=@IdCliente
+				if(@@ROWCOUNT = 0) RAISERROR('Cliente Inexistente',16 ,1);
+				if(exists(select 1 from T_REX.CLIENTE where nro_documento=@Documento and tipo_documento=@TipoDocumento and email=@Mail and id_cliente!= @idCliente))
+				begin
+					RAISERROR('ERROR: cliente duplicado', 16, 1)
+					return
+				end
+				else
+				begin
+					update T_REX.CLIENTE
+					set nombre = @Nombre,
+						apellido = @Apellido,
+						tipo_documento=@TipoDocumento,
+						nro_documento=@Documento,
+						fechaDeNacimiento = @FechaNacimiento,
+						email = @Mail,
+						telefono = @Telefono,
+						baja_logica = '1'
+					Where id_cliente = @IdCliente
+			
+					update T_REX.DOMICILIO
+					set direc_calle = @Domicilio,
+						direc_nro_piso = @NroPiso,
+						direc_localidad = @Localidad,
+						codigoPostal = @CodigoPostal,
+						direc_nro_depto = @NroDpto
+					Where id_domicilio= @idDomicilio
+
+					if(@@ROWCOUNT = 0) RAISERROR('Domicilio Inexistente',16 ,1)
+				end
+			commit TRANSACTION [T]
+		end
+
+	else if(@Accion = 'B')
+
+		begin
+
+			update T_REX.CLIENTE
+			set estado = '0'
+			Where id_cliente = @IdCliente
+
+			if(@@ROWCOUNT = 0) RAISERROR('Cliente Inexistente',16 ,1)
+
+		end
+
+	end try
+	begin catch
+		ROLLBACK TRANSACTION [T]
+		set @out = ERROR_MESSAGE();
+	end catch
+
+END
+
+
