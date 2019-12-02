@@ -39,16 +39,15 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dgv_clientes = new System.Windows.Forms.DataGridView();
+            this.btn_buscar = new System.Windows.Forms.Button();
+            this.btn_limpiar = new System.Windows.Forms.Button();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mail = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dni = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.direccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.credito = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.facturar_prov = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.btn_buscar = new System.Windows.Forms.Button();
-            this.btn_limpiar = new System.Windows.Forms.Button();
+            this.seleccionar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_clientes)).BeginInit();
             this.SuspendLayout();
@@ -56,7 +55,7 @@
             // btn_volver
             // 
             this.btn_volver.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_volver.Location = new System.Drawing.Point(39, 343);
+            this.btn_volver.Location = new System.Drawing.Point(47, 345);
             this.btn_volver.Margin = new System.Windows.Forms.Padding(2);
             this.btn_volver.Name = "btn_volver";
             this.btn_volver.Size = new System.Drawing.Size(135, 30);
@@ -75,7 +74,7 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(39, 15);
+            this.groupBox1.Location = new System.Drawing.Point(15, 13);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
@@ -167,18 +166,37 @@
             this.apellido,
             this.mail,
             this.dni,
-            this.direccion,
             this.credito,
-            this.facturar_prov});
-            this.dgv_clientes.Location = new System.Drawing.Point(39, 172);
+            this.seleccionar});
+            this.dgv_clientes.Location = new System.Drawing.Point(47, 166);
             this.dgv_clientes.Margin = new System.Windows.Forms.Padding(2);
             this.dgv_clientes.Name = "dgv_clientes";
             this.dgv_clientes.ReadOnly = true;
             this.dgv_clientes.RowHeadersWidth = 25;
             this.dgv_clientes.RowTemplate.Height = 24;
-            this.dgv_clientes.Size = new System.Drawing.Size(633, 154);
+            this.dgv_clientes.Size = new System.Drawing.Size(565, 154);
             this.dgv_clientes.TabIndex = 30;
             this.dgv_clientes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_clientes_CellContentClick);
+            // 
+            // btn_buscar
+            // 
+            this.btn_buscar.Location = new System.Drawing.Point(421, 117);
+            this.btn_buscar.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_buscar.Name = "btn_buscar";
+            this.btn_buscar.Size = new System.Drawing.Size(134, 24);
+            this.btn_buscar.TabIndex = 29;
+            this.btn_buscar.Text = "Buscar";
+            this.btn_buscar.UseVisualStyleBackColor = true;
+            // 
+            // btn_limpiar
+            // 
+            this.btn_limpiar.Location = new System.Drawing.Point(77, 117);
+            this.btn_limpiar.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_limpiar.Name = "btn_limpiar";
+            this.btn_limpiar.Size = new System.Drawing.Size(135, 24);
+            this.btn_limpiar.TabIndex = 28;
+            this.btn_limpiar.Text = "Limpiar";
+            this.btn_limpiar.UseVisualStyleBackColor = true;
             // 
             // id
             // 
@@ -216,13 +234,6 @@
             this.dni.ReadOnly = true;
             this.dni.Width = 80;
             // 
-            // direccion
-            // 
-            this.direccion.HeaderText = "Direccion";
-            this.direccion.Name = "direccion";
-            this.direccion.ReadOnly = true;
-            this.direccion.Width = 105;
-            // 
             // credito
             // 
             this.credito.HeaderText = "Crédito";
@@ -230,41 +241,21 @@
             this.credito.ReadOnly = true;
             this.credito.Width = 60;
             // 
-            // facturar_prov
+            // seleccionar
             // 
-            this.facturar_prov.HeaderText = "Entregar";
-            this.facturar_prov.Name = "facturar_prov";
-            this.facturar_prov.ReadOnly = true;
-            this.facturar_prov.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.facturar_prov.Text = "Entregar";
-            this.facturar_prov.UseColumnTextForButtonValue = true;
-            this.facturar_prov.Width = 50;
-            // 
-            // btn_buscar
-            // 
-            this.btn_buscar.Location = new System.Drawing.Point(445, 119);
-            this.btn_buscar.Margin = new System.Windows.Forms.Padding(2);
-            this.btn_buscar.Name = "btn_buscar";
-            this.btn_buscar.Size = new System.Drawing.Size(134, 24);
-            this.btn_buscar.TabIndex = 29;
-            this.btn_buscar.Text = "Buscar";
-            this.btn_buscar.UseVisualStyleBackColor = true;
-            // 
-            // btn_limpiar
-            // 
-            this.btn_limpiar.Location = new System.Drawing.Point(101, 119);
-            this.btn_limpiar.Margin = new System.Windows.Forms.Padding(2);
-            this.btn_limpiar.Name = "btn_limpiar";
-            this.btn_limpiar.Size = new System.Drawing.Size(135, 24);
-            this.btn_limpiar.TabIndex = 28;
-            this.btn_limpiar.Text = "Limpiar";
-            this.btn_limpiar.UseVisualStyleBackColor = true;
+            this.seleccionar.HeaderText = "Seleccionar";
+            this.seleccionar.Name = "seleccionar";
+            this.seleccionar.ReadOnly = true;
+            this.seleccionar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.seleccionar.Text = "Seleccionar";
+            this.seleccionar.UseColumnTextForButtonValue = true;
+            this.seleccionar.Width = 85;
             // 
             // ListadoClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(711, 388);
+            this.ClientSize = new System.Drawing.Size(665, 388);
             this.Controls.Add(this.btn_volver);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dgv_clientes);
@@ -292,16 +283,15 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dgv_clientes;
+        private System.Windows.Forms.Button btn_buscar;
+        private System.Windows.Forms.Button btn_limpiar;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
         private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn apellido;
         private System.Windows.Forms.DataGridViewTextBoxColumn mail;
         private System.Windows.Forms.DataGridViewTextBoxColumn dni;
-        private System.Windows.Forms.DataGridViewTextBoxColumn direccion;
         private System.Windows.Forms.DataGridViewTextBoxColumn credito;
-        private System.Windows.Forms.DataGridViewButtonColumn facturar_prov;
-        private System.Windows.Forms.Button btn_buscar;
-        private System.Windows.Forms.Button btn_limpiar;
+        private System.Windows.Forms.DataGridViewButtonColumn seleccionar;
 
     }
 }

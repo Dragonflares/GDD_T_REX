@@ -12,9 +12,12 @@ namespace FrbaOfertas.CargaCredito
 {
     public partial class ListadoClientes : Form
     {
-        public ListadoClientes()
+        public CargaCredito form_anterior;
+
+        public ListadoClientes(CargaCredito ant)
         {
             InitializeComponent();
+            this.form_anterior = ant;
         }
 
         private void dgv_clientes_CellContentClick(object sender, DataGridViewCellEventArgs e)

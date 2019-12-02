@@ -189,6 +189,7 @@
     <Compile Include="Models\CUPON.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Direccion.cs" />
     <Compile Include="Models\DOMICILIO.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

@@ -15,19 +15,19 @@ namespace FrbaOfertas.Utils
     {
         public List<Funcionalidad> getFuncionalidades()
         {
-            SqlCommand command = FrbaOfertas.Utils.Database.createCommand("SELECT [id_funcionalidad]" +
-                ",[descripcion] FROM [GD2C2019].[T_REX].[Funcionalidad] ORDER BY [descripcion] ASC");
+            SqlCommand command = FrbaOfertas.Utils.Database.createCommand("SELECT [id_funcionalidad] as id" +
+                ",[descripcion] as Funcionalidad FROM [GD2C2019].[T_REX].[Funcionalidad] ORDER BY [descripcion] ASC");
             DataTable table = Utils.Database.getData(command);
 
             return table.Rows.Cast<DataRow>().
-                Select(row => new Funcionalidad(int.Parse(row["id_funcionalidad"].ToString()),
-                    row["descripcion"].ToString())).ToList<Funcionalidad>();
+                Select(row => new Funcionalidad(int.Parse(row["id"].ToString()),
+                    row["Funcionalidad"].ToString())).ToList<Funcionalidad>();
            
         }
 
         public DataTable getFuncionalidades(int rol)
         {
-            SqlCommand cmd = Database.createCommand("SELECT f.id_funcionalidad as Id, f.descripcion as Nombre" +
+            SqlCommand cmd = Database.createCommand("SELECT f.id_funcionalidad as id, f.descripcion as Funcionalidad" +
                 " FROM [GD2C2019].[T_REX].Funcionalidad f" +
                 " JOIN [GD2C2019].[T_REX].Funcionalidad_Rol fr on fr.id_funcionalidad = f.id_funcionalidad" +
                 " JOIN [GD2C2019].[T_REX].Rol r on r.id_rol = fr.id_rol WHERE r.id_rol = @rol");
@@ -44,7 +44,7 @@ namespace FrbaOfertas.Utils
 
         public DataTable getFuncionalidadesXRol(Rol rol)
         {
-            SqlCommand cmd = Database.createCommand("SELECT f.id_funcionalidad, f.descripcion FROM [GD2C2019].[T_REX].Funcionalidad f" +
+            SqlCommand cmd = Database.createCommand("SELECT f.id_funcionalidad as id, f.descripcion as Funcionalidad FROM [GD2C2019].[T_REX].Funcionalidad f" +
                 " JOIN [GD2C2019].[T_REX].Funcionalidad_Rol fr on fr.id_funcionalidad = f.id_funcionalidad" +
                 " JOIN [GD2C2019].[T_REX].Rol r on r.id_rol = fr.id_rol WHERE r.nombre = @rol");
             cmd.Parameters.Add("@rol", SqlDbType.NVarChar).Value = rol.nombre;

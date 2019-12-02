@@ -36,14 +36,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.table_funcionalidades = new System.Windows.Forms.DataGridView();
-            this.idFunc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.idRolFuncionalidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Funcionalidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Eliminar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.BotonAgregar = new System.Windows.Forms.Button();
             this.btn_activar = new System.Windows.Forms.Button();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.btn_atras = new System.Windows.Forms.Button();
+            this.idFunc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.idRolFuncionalidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Funcionalidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Eliminar = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.table_funcionalidades)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
@@ -118,33 +118,6 @@
             this.table_funcionalidades.TabIndex = 12;
             this.table_funcionalidades.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.table_funcionalidades_CellContentClick);
             // 
-            // idFunc
-            // 
-            this.idFunc.DataPropertyName = "func_id";
-            this.idFunc.HeaderText = "id";
-            this.idFunc.Name = "idFunc";
-            this.idFunc.Visible = false;
-            // 
-            // idRolFuncionalidad
-            // 
-            this.idRolFuncionalidad.DataPropertyName = "rol_funcionalidad_id";
-            this.idRolFuncionalidad.HeaderText = "id_rol_funcionalidad";
-            this.idRolFuncionalidad.Name = "idRolFuncionalidad";
-            this.idRolFuncionalidad.Visible = false;
-            // 
-            // Funcionalidad
-            // 
-            this.Funcionalidad.DataPropertyName = "func_detalle";
-            this.Funcionalidad.HeaderText = "Funcionalidad";
-            this.Funcionalidad.Name = "Funcionalidad";
-            this.Funcionalidad.ReadOnly = true;
-            // 
-            // Eliminar
-            // 
-            this.Eliminar.HeaderText = "Eliminar";
-            this.Eliminar.Name = "Eliminar";
-            this.Eliminar.ReadOnly = true;
-            // 
             // BotonAgregar
             // 
             this.BotonAgregar.Location = new System.Drawing.Point(296, 63);
@@ -173,13 +146,40 @@
             // 
             this.btn_atras.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_atras.Location = new System.Drawing.Point(26, 334);
-            this.btn_atras.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btn_atras.Margin = new System.Windows.Forms.Padding(2);
             this.btn_atras.Name = "btn_atras";
             this.btn_atras.Size = new System.Drawing.Size(73, 25);
             this.btn_atras.TabIndex = 22;
             this.btn_atras.Text = "Atrás";
             this.btn_atras.UseVisualStyleBackColor = true;
             this.btn_atras.Click += new System.EventHandler(this.btn_atras_Click);
+            // 
+            // idFunc
+            // 
+            this.idFunc.DataPropertyName = "id";
+            this.idFunc.HeaderText = "id";
+            this.idFunc.Name = "idFunc";
+            this.idFunc.Visible = false;
+            // 
+            // idRolFuncionalidad
+            // 
+            this.idRolFuncionalidad.DataPropertyName = "rol_funcionalidad_id";
+            this.idRolFuncionalidad.HeaderText = "id_rol_funcionalidad";
+            this.idRolFuncionalidad.Name = "idRolFuncionalidad";
+            this.idRolFuncionalidad.Visible = false;
+            // 
+            // Funcionalidad
+            // 
+            this.Funcionalidad.DataPropertyName = "Funcionalidad";
+            this.Funcionalidad.HeaderText = "Funcionalidad";
+            this.Funcionalidad.Name = "Funcionalidad";
+            this.Funcionalidad.ReadOnly = true;
+            // 
+            // Eliminar
+            // 
+            this.Eliminar.HeaderText = "Eliminar";
+            this.Eliminar.Name = "Eliminar";
+            this.Eliminar.ReadOnly = true;
             // 
             // Modificacion
             // 
@@ -218,11 +218,11 @@
         private System.Windows.Forms.DataGridView table_funcionalidades;
         private System.Windows.Forms.Button BotonAgregar;
         private System.Windows.Forms.Button btn_activar;
+        private System.Windows.Forms.ErrorProvider errorProvider;
+        private System.Windows.Forms.Button btn_atras;
         private System.Windows.Forms.DataGridViewTextBoxColumn idFunc;
         private System.Windows.Forms.DataGridViewTextBoxColumn idRolFuncionalidad;
         private System.Windows.Forms.DataGridViewTextBoxColumn Funcionalidad;
         private System.Windows.Forms.DataGridViewButtonColumn Eliminar;
-        private System.Windows.Forms.ErrorProvider errorProvider;
-        private System.Windows.Forms.Button btn_atras;
     }
 }

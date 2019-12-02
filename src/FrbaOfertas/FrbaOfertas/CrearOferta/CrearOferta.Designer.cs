@@ -116,6 +116,7 @@
             0,
             0,
             0});
+            this.numericUpDown3.Maximum = int.MaxValue;
             // 
             // label8
             // 
@@ -176,9 +177,11 @@
             0,
             0,
             0});
+            this.numericUpDown2.Maximum = int.MaxValue;
             // 
             // numericUpDown1
             // 
+            this.numericUpDown1.Maximum = int.MaxValue;
             this.numericUpDown1.Location = new System.Drawing.Point(22, 49);
             this.numericUpDown1.Minimum = new decimal(new int[] {
             1,

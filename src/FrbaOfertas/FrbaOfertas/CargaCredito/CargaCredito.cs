@@ -8,16 +8,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FrbaOfertas.Models.Usuarios;
+using FrbaOfertas.Models.Clientes;
 
 namespace FrbaOfertas.CargaCredito
 {
     public partial class CargaCredito : Form
     {
         public Usuario user;
+        public Cliente cliente;
         public CargaCredito(Usuario _user)
         {
             InitializeComponent();
             user = _user;
+            if ("Cliente" == user.rolActivo.nombre)
+            {
+                this.cliente = user.cliente;
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -69,7 +75,8 @@ namespace FrbaOfertas.CargaCredito
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            new ListadoClientes(this).ShowDialog();
+            
         }
     }
 }
