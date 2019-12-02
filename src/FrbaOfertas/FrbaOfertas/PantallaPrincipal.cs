@@ -60,56 +60,47 @@ namespace FrbaOfertas
             {
                 case "ABM Rol":
                 {
-                    this.Hide();
-                    new ABMRol.ABMRol(this).Show(); 
+                    new ABMRol.ABMRol(this).ShowDialog(); 
                     break;
                 }
-                case "ABM Cliente":
+                case "ABM Clientes":
                 {
-                    this.Hide();
-                    new ABMCliente.ABMCliente().Show();
+                    new ABMCliente.ABMCliente().ShowDialog();
                     break;
                 }
                 case "ABM Proveedor":
                 {
-                    this.Hide();
-                    new ABMProveedor.ABMProveedor().Show();
+                    new ABMProveedor.ABMProveedor().ShowDialog();
                     break;
                 }
                 case "Facturacion Proveedor":
                 {
-                    this.Hide();
-                    new Facturar.Facturar().Show();
+                    new Facturar.Facturar().ShowDialog();
                     break;
                 }
                 case "Publicar Oferta":
                 {
-                    this.Hide();
-                    new CrearOferta.CrearOferta(userRole, username).Show();
+                    new CrearOferta.CrearOferta(userRole, username).ShowDialog();
                     break;
                 }
                 case "Listado Estadistico":
                 {
-                    this.Hide();
-                    new ListadoEstadistico.ListadoEstadistico().Show();
+                    new ListadoEstadistico.ListadoEstadistico().ShowDialog();
                     break;
                 }
                 case "Comprar Oferta":
                 {
-                    this.Hide();
-                    new ComprarOferta.ComprarOferta(username, userRole).Show();
+                    new ComprarOferta.ComprarOferta(username, userRole).ShowDialog();
                     break;
                 }
                 case "Cargar Credito":
                 {
-                    this.Hide();
-                    new CargaCredito.CargaCredito().Show();
+                    new CargaCredito.CargaCredito().ShowDialog();
                     break;
                 }
                 case "Consumo Oferta":
                 {
-                    this.Hide();
-                    new CanjeCupon.CanjeCupon().Show();
+                    new CanjeCupon.CanjeCupon().ShowDialog();
                     break;
                 }
                 default:
