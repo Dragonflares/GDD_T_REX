@@ -35,8 +35,8 @@ namespace FrbaOfertas.ABMRol
 
         private void dgvRoles_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            int i = int.Parse(dgvRoles.SelectedCells[0].Value.ToString());
-            dgvFuncionalidades.DataSource = rolDao.getFuncionalidades(i);
+            int linea = int.Parse(dgvRoles.SelectedCells[0].Value.ToString());
+            dgvFuncionalidades.DataSource = rolDao.getFuncionalidades(linea);
         }
 
         private void btnCrear_Click(object sender, EventArgs e)
@@ -49,7 +49,9 @@ namespace FrbaOfertas.ABMRol
             if (dgvRoles.RowCount != 0)
             {
                 Rol rol_seleccionado = this.get_rol_seleccionado();
-                new Modificacion(rol_seleccionado).ShowDialog();
+                Modificacion pantalla = new Modificacion(rol_seleccionado);
+                pantalla.Owner = this;
+                pantalla.ShowDialog();
             }
             else
             {

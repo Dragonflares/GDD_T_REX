@@ -16,7 +16,7 @@ namespace FrbaOfertas.Utils
         public List<Funcionalidad> getFuncionalidades()
         {
             SqlCommand command = FrbaOfertas.Utils.Database.createCommand("SELECT [id_funcionalidad]" +
-                ",[descripcion] FROM [GD1C2019].[T_REX].[Funcionalidad] ORDER BY [descripcion] ASC");
+                ",[descripcion] FROM [GD2C2019].[T_REX].[Funcionalidad] ORDER BY [descripcion] ASC");
             DataTable table = Utils.Database.getData(command);
 
             return table.Rows.Cast<DataRow>().
@@ -27,17 +27,18 @@ namespace FrbaOfertas.Utils
 
         public DataTable getFuncionalidades(int rol)
         {
-            SqlCommand cmd = Database.createCommand("SELECT f.descripcion FROM [GD2C2019].[T_REX].Funcionalidad f" +
+            SqlCommand cmd = Database.createCommand("SELECT f.id_funcionalidad as Id, f.descripcion as Nombre" +
+                " FROM [GD2C2019].[T_REX].Funcionalidad f" +
                 " JOIN [GD2C2019].[T_REX].Funcionalidad_Rol fr on fr.id_funcionalidad = f.id_funcionalidad" +
                 " JOIN [GD2C2019].[T_REX].Rol r on r.id_rol = fr.id_rol WHERE r.id_rol = @rol");
             cmd.Parameters.Add("@rol",SqlDbType.Int).Value = rol;
-            return Database.getDataProcedure(cmd);
+            return Database.getData(cmd);
         }
 
 
         public DataTable listarDatos()
         {
-            SqlCommand cmd = Database.createCommand("SELECT nombre, estado FROM [GD1C2019].[T_REX].[Rol]");
+            SqlCommand cmd = Database.createCommand("SELECT id_rol as Id, nombre as Nombre, estado as Estado FROM [GD2C2019].[T_REX].[Rol]");
             return Database.getData(cmd);
         }
 
