@@ -251,6 +251,12 @@
     <EmbeddedResource Include="ABMCliente\ABMCliente.resx">
       <DependentUpon>ABMCliente.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ABMRol\ABMRol.resx">
+      <DependentUpon>ABMRol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABMRol\Alta.resx">
+      <DependentUpon>Alta.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ABMRol\Modificacion.resx">
       <DependentUpon>Modificacion.cs</DependentUpon>
     </EmbeddedResource>
