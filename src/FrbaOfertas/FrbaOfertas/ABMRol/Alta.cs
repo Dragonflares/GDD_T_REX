@@ -8,15 +8,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using FrbaOfertas.Models.Funcionalidades;
+using FrbaOfertas.Utils;
 
 namespace FrbaOfertas.ABMRol
 {
     public partial class Alta : Form
     {
+       RolDAO rolDao = new RolDAO();
+
         public Alta(ABMRol abmrol)
         {
             InitializeComponent();
-            this.llenarItems(Funcionalidades);
+            var funcionalidades = rolDao.getFuncionalidades();
+            foreach (Funcionalidad funcionalidad in funcionalidades)
+            {
+                Funcionalidades.Items.Add(funcionalidad);
+            }
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -33,27 +41,24 @@ namespace FrbaOfertas.ABMRol
         {
             try
             {
-                // SqlConnection connection = Utils.Database.getConnection();
-                //connection.Open();
                 SqlCommand procedure = Utils.Database.createCommand("T_REX.AltaRol");
                 procedure.Parameters.Add("@nombre_rol", SqlDbType.NVarChar).Value = NombreNuevoRol.Text;
                 procedure.Parameters.Add("@activo", SqlDbType.Bit).Value = 1;
                 Utils.Database.executeProcedure(procedure);
 
-                SqlCommand query = Utils.Database.createCommand("SELECT max (id_rol) FROM [T_REX].ROL");
-                int id = Utils.Database.executeScalar(query);
+                foreach()
+                {
+                }
                 SqlCommand procedure2 = Utils.Database.createCommand("T_REX.AgregarFuncionalidadRol");
                 String funcionalidad = Funcionalidades.Text;
                 procedure2.Parameters.Add("@nombreNuevaFuncionalidadRol", SqlDbType.VarChar).Value = Funcionalidades.Text;
                 procedure2.Parameters.Add("@rol_id", SqlDbType.Int).Value = id;
                 Utils.Database.executeProcedure(procedure2);
-                // connection.Close();
                 MessageBox.Show("Alta realizada");
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "ERROR",
-   MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
 
@@ -108,6 +113,26 @@ namespace FrbaOfertas.ABMRol
         private void btn_atras_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Funcionalidad funcionalidad = (Funcionalidad) Funcionalidades.SelectedItem;
+            DataTable dt = table_funcionalidades.DataSource as DataTable;
+            if (dt.Select("id = " + funcionalidad.id).Count() > 0)
+               MessageBox.Show("Ya contiene esa funcionalidad");
+            else
+            {
+                if (funcionalidad != null)
+                {
+
+                    DataRow row = dt.NewRow();
+                    row["id"] = funcionalidad.id;
+                    row["Funcionalidad"] = funcionalidad.nombre;
+                    dt.Rows.Add(row);
+                }
+            }  
+        
         }
     }
 }

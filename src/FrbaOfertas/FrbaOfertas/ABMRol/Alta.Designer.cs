@@ -40,6 +40,7 @@
             this.idRolFuncionalidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Funcionalidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Eliminar = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.table_funcionalidades)).BeginInit();
             this.SuspendLayout();
             // 
@@ -105,7 +106,7 @@
             // 
             this.btn_atras.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_atras.Location = new System.Drawing.Point(10, 357);
-            this.btn_atras.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btn_atras.Margin = new System.Windows.Forms.Padding(2);
             this.btn_atras.Name = "btn_atras";
             this.btn_atras.Size = new System.Drawing.Size(73, 25);
             this.btn_atras.TabIndex = 22;
@@ -129,7 +130,7 @@
             // 
             // idFunc
             // 
-            this.idFunc.DataPropertyName = "func_id";
+            this.idFunc.DataPropertyName = "id";
             this.idFunc.HeaderText = "id";
             this.idFunc.Name = "idFunc";
             this.idFunc.Visible = false;
@@ -143,7 +144,7 @@
             // 
             // Funcionalidad
             // 
-            this.Funcionalidad.DataPropertyName = "func_detalle";
+            this.Funcionalidad.DataPropertyName = "Funcionalidad";
             this.Funcionalidad.HeaderText = "Funcionalidad";
             this.Funcionalidad.Name = "Funcionalidad";
             this.Funcionalidad.ReadOnly = true;
@@ -154,11 +155,22 @@
             this.Eliminar.Name = "Eliminar";
             this.Eliminar.ReadOnly = true;
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(95, 107);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 24;
+            this.button3.Text = "Agregar";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // Alta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(289, 393);
+            this.ClientSize = new System.Drawing.Size(282, 399);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.table_funcionalidades);
             this.Controls.Add(this.btn_atras);
             this.Controls.Add(this.button2);
@@ -185,6 +197,7 @@
         private System.Windows.Forms.ComboBox Funcionalidades;
         private System.Windows.Forms.Button btn_atras;
         private System.Windows.Forms.DataGridView table_funcionalidades;
+        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.DataGridViewTextBoxColumn idFunc;
         private System.Windows.Forms.DataGridViewTextBoxColumn idRolFuncionalidad;
         private System.Windows.Forms.DataGridViewTextBoxColumn Funcionalidad;
