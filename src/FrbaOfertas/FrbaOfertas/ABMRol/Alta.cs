@@ -46,13 +46,13 @@ namespace FrbaOfertas.ABMRol
                 procedure.Parameters.Add("@activo", SqlDbType.Bit).Value = 1;
                 Utils.Database.executeProcedure(procedure);
 
-                foreach()
+                foreach(DataGridViewRow row in table_funcionalidades.Rows)
                 {
                 }
                 SqlCommand procedure2 = Utils.Database.createCommand("T_REX.AgregarFuncionalidadRol");
                 String funcionalidad = Funcionalidades.Text;
                 procedure2.Parameters.Add("@nombreNuevaFuncionalidadRol", SqlDbType.VarChar).Value = Funcionalidades.Text;
-                procedure2.Parameters.Add("@rol_id", SqlDbType.Int).Value = id;
+                //procedure2.Parameters.Add("@rol_id", SqlDbType.Int).Value = id;
                 Utils.Database.executeProcedure(procedure2);
                 MessageBox.Show("Alta realizada");
             }
