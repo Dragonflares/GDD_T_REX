@@ -36,6 +36,8 @@
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -53,11 +55,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ABMCliente\ABMCliente.cs">
+    <Compile Include="ABMCliente\AltaCliente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABMCliente\ABMCliente.Designer.cs">
-      <DependentUpon>ABMCliente.cs</DependentUpon>
+    <Compile Include="ABMCliente\AltaCliente.Designer.cs">
+      <DependentUpon>AltaCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ABMCliente\ListadoCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABMCliente\ListadoCliente.Designer.cs">
+      <DependentUpon>ListadoCliente.cs</DependentUpon>
     </Compile>
     <Compile Include="ABMProveedor\ABMProveedor.cs">
       <SubType>Form</SubType>
@@ -258,14 +266,17 @@
     <Compile Include="Utils\Database.cs" />
     <Compile Include="Utils\ProveedorDAO.cs" />
     <Compile Include="Utils\RolDAO.cs" />
-    <EmbeddedResource Include="ABMCliente\ABMCliente.resx">
-      <DependentUpon>ABMCliente.cs</DependentUpon>
+    <EmbeddedResource Include="ABMCliente\AltaCliente.resx">
+      <DependentUpon>AltaCliente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ABMRol\ABMRol.resx">
       <DependentUpon>ABMRol.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ABMRol\Alta.resx">
       <DependentUpon>Alta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABMCliente\ListadoCliente.resx">
+      <DependentUpon>ListadoCliente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ABMRol\Modificacion.resx">
       <DependentUpon>Modificacion.cs</DependentUpon>
@@ -332,6 +343,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\FrbaOfertas.Models.Clientes.Cliente.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

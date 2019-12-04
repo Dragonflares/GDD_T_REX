@@ -1243,4 +1243,29 @@ BEGIN
 
 END
 
+IF OBJECT_ID('T_REX.BajaCliente') IS NOT NULL
+	DROP PROCEDURE [T_REX].BajaCliente;
+GO
+CREATE PROCEDURE [T_REX].BajaCliente
+	@out varchar(1000) OUTPUT,
+	@IdCliente int
+AS
+
+BEGIN
+	
+	begin try
+		update T_REX.CLIENTE
+		set estado = '0'
+		Where id_cliente = @IdCliente
+
+		if(@@ROWCOUNT = 0) RAISERROR('Cliente Inexistente',16 ,1)
+
+	end try
+	begin catch
+		ROLLBACK TRANSACTION [T]
+		set @out = ERROR_MESSAGE();
+	end catch
+
+END
+
 

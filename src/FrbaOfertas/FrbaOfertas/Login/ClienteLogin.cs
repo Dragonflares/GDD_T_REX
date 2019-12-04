@@ -40,7 +40,7 @@ namespace FrbaOfertas.Login
             try
             {
                 FrbaOfertas.Utils.Database.executeProcedure(login);
-                Utils.Database.executeProcedure(login);
+                //Utils.Database.executeProcedure(login);
                 
                 PantallaPrincipal pantalla = new PantallaPrincipal(comboBox1.Text, textBox1.Text);
                 pantalla.Owner = this;

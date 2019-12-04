@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FrbaOfertas.Models.Usuarios;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,8 +16,13 @@ namespace FrbaOfertas.Models.Clientes
         public string tipoDocumento { get; set; }
         public int nroDocumento { get; set; }
         public int telefono { get; set; }
-        public Direccion direccion;
-        public DateTime fechaNacimiento;
+        public Direccion direccion { get; set; }
+        public DateTime fechaNacimiento { get; set; }
+        public Boolean estado { get; set; }
+        public long credito { get; set; }
+        public Usuario usuario { get; set; }
+
+        public Cliente() { }
 
         public Cliente(string nombress, string apellidos, string mails, string tipoDoc, int nroDoc
             , int telefonos, Direccion direccionCli, DateTime fechaNac)

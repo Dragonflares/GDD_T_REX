@@ -65,10 +65,10 @@ namespace FrbaOfertas
                     new ABMRol.ABMRol(this).Show(); 
                     break;
                 }
-                case "ABM Cliente":
+                case "ABM Clientes":
                 {
                     this.Hide();
-                    new ABMCliente.ABMCliente().Show();
+                    new ABMCliente.ListadoCliente().Show();
                     break;
                 }
                 case "ABM Proveedor":
