@@ -44,15 +44,13 @@ namespace FrbaOfertas.ABMRol
                 SqlCommand procedure = Utils.Database.createCommand("T_REX.AltaRol");
                 procedure.Parameters.Add("@nombre_rol", SqlDbType.NVarChar).Value = NombreNuevoRol.Text;
                 procedure.Parameters.Add("@activo", SqlDbType.Bit).Value = 1;
+                SqlCommand query = Utils.Database.createCommand("SELECT max (id_rol) FROM [T_REX].ROL");
+                int id = Utils.Database.executeScalar(query);
                 Utils.Database.executeProcedure(procedure);
-
-                foreach(DataGridViewRow row in table_funcionalidades.Rows)
-                {
-                }
                 SqlCommand procedure2 = Utils.Database.createCommand("T_REX.AgregarFuncionalidadRol");
-                String funcionalidad = Funcionalidades.Text;
-                procedure2.Parameters.Add("@nombreNuevaFuncionalidadRol", SqlDbType.VarChar).Value = Funcionalidades.Text;
-                //procedure2.Parameters.Add("@rol_id", SqlDbType.Int).Value = id;
+                Funcionalidad funcionalidad = (Funcionalidad)Funcionalidades.SelectedItem;
+                procedure2.Parameters.Add("@nombreNuevaFuncionalidadRol", SqlDbType.VarChar).Value = funcionalidad.nombre;
+                procedure2.Parameters.Add("@rol_id", SqlDbType.Int).Value = id + 1 ;
                 Utils.Database.executeProcedure(procedure2);
                 MessageBox.Show("Alta realizada");
             }
@@ -113,26 +111,6 @@ namespace FrbaOfertas.ABMRol
         private void btn_atras_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            Funcionalidad funcionalidad = (Funcionalidad) Funcionalidades.SelectedItem;
-            DataTable dt = table_funcionalidades.DataSource as DataTable;
-            if (dt.Select("id = " + funcionalidad.id).Count() > 0)
-               MessageBox.Show("Ya contiene esa funcionalidad");
-            else
-            {
-                if (funcionalidad != null)
-                {
-
-                    DataRow row = dt.NewRow();
-                    row["id"] = funcionalidad.id;
-                    row["Funcionalidad"] = funcionalidad.nombre;
-                    dt.Rows.Add(row);
-                }
-            }  
-        
         }
     }
 }

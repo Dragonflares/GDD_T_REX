@@ -35,13 +35,6 @@
             this.button2 = new System.Windows.Forms.Button();
             this.Funcionalidades = new System.Windows.Forms.ComboBox();
             this.btn_atras = new System.Windows.Forms.Button();
-            this.table_funcionalidades = new System.Windows.Forms.DataGridView();
-            this.idFunc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.idRolFuncionalidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Funcionalidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Eliminar = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.button3 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.table_funcionalidades)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -68,13 +61,13 @@
             // 
             this.NombreNuevoRol.Location = new System.Drawing.Point(88, 20);
             this.NombreNuevoRol.Name = "NombreNuevoRol";
-            this.NombreNuevoRol.Size = new System.Drawing.Size(163, 20);
+            this.NombreNuevoRol.Size = new System.Drawing.Size(171, 20);
             this.NombreNuevoRol.TabIndex = 2;
             this.NombreNuevoRol.TextChanged += new System.EventHandler(this.NombreNuevoRol_TextChanged);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(176, 107);
+            this.button1.Location = new System.Drawing.Point(184, 107);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 4;
@@ -84,9 +77,9 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(12, 107);
+            this.button2.Location = new System.Drawing.Point(91, 107);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(87, 23);
             this.button2.TabIndex = 5;
             this.button2.Text = "Limpiar";
             this.button2.UseVisualStyleBackColor = true;
@@ -98,80 +91,27 @@
             this.Funcionalidades.FormattingEnabled = true;
             this.Funcionalidades.Location = new System.Drawing.Point(88, 54);
             this.Funcionalidades.Name = "Funcionalidades";
-            this.Funcionalidades.Size = new System.Drawing.Size(163, 21);
+            this.Funcionalidades.Size = new System.Drawing.Size(171, 21);
             this.Funcionalidades.TabIndex = 3;
             this.Funcionalidades.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // btn_atras
             // 
             this.btn_atras.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_atras.Location = new System.Drawing.Point(10, 357);
+            this.btn_atras.Location = new System.Drawing.Point(13, 107);
             this.btn_atras.Margin = new System.Windows.Forms.Padding(2);
             this.btn_atras.Name = "btn_atras";
-            this.btn_atras.Size = new System.Drawing.Size(73, 25);
+            this.btn_atras.Size = new System.Drawing.Size(73, 23);
             this.btn_atras.TabIndex = 22;
             this.btn_atras.Text = "Atrás";
             this.btn_atras.UseVisualStyleBackColor = true;
             this.btn_atras.Click += new System.EventHandler(this.btn_atras_Click);
             // 
-            // table_funcionalidades
-            // 
-            this.table_funcionalidades.AllowUserToAddRows = false;
-            this.table_funcionalidades.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.table_funcionalidades.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.idFunc,
-            this.idRolFuncionalidad,
-            this.Funcionalidad,
-            this.Eliminar});
-            this.table_funcionalidades.Location = new System.Drawing.Point(10, 150);
-            this.table_funcionalidades.Name = "table_funcionalidades";
-            this.table_funcionalidades.Size = new System.Drawing.Size(241, 184);
-            this.table_funcionalidades.TabIndex = 23;
-            // 
-            // idFunc
-            // 
-            this.idFunc.DataPropertyName = "id";
-            this.idFunc.HeaderText = "id";
-            this.idFunc.Name = "idFunc";
-            this.idFunc.Visible = false;
-            // 
-            // idRolFuncionalidad
-            // 
-            this.idRolFuncionalidad.DataPropertyName = "rol_funcionalidad_id";
-            this.idRolFuncionalidad.HeaderText = "id_rol_funcionalidad";
-            this.idRolFuncionalidad.Name = "idRolFuncionalidad";
-            this.idRolFuncionalidad.Visible = false;
-            // 
-            // Funcionalidad
-            // 
-            this.Funcionalidad.DataPropertyName = "Funcionalidad";
-            this.Funcionalidad.HeaderText = "Funcionalidad";
-            this.Funcionalidad.Name = "Funcionalidad";
-            this.Funcionalidad.ReadOnly = true;
-            // 
-            // Eliminar
-            // 
-            this.Eliminar.HeaderText = "Eliminar";
-            this.Eliminar.Name = "Eliminar";
-            this.Eliminar.ReadOnly = true;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(95, 107);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 24;
-            this.button3.Text = "Agregar";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
             // Alta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(282, 399);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.table_funcionalidades);
+            this.ClientSize = new System.Drawing.Size(269, 157);
             this.Controls.Add(this.btn_atras);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -181,7 +121,6 @@
             this.Controls.Add(this.label1);
             this.Name = "Alta";
             this.Text = "Alta Rol";
-            ((System.ComponentModel.ISupportInitialize)(this.table_funcionalidades)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -196,11 +135,5 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ComboBox Funcionalidades;
         private System.Windows.Forms.Button btn_atras;
-        private System.Windows.Forms.DataGridView table_funcionalidades;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idFunc;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idRolFuncionalidad;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Funcionalidad;
-        private System.Windows.Forms.DataGridViewButtonColumn Eliminar;
     }
 }
