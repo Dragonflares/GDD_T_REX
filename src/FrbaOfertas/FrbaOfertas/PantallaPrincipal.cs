@@ -97,7 +97,7 @@ namespace FrbaOfertas
                 case "Comprar Oferta":
                 {
                     this.Hide();
-                    new ComprarOferta.ComprarOferta(username, userRole).Show();
+                    new ComprarOferta.ComprarOferta(user.nombre, user.rolActivo.nombre).Show();
                     break;
                 }
                 case "Cargar Credito":

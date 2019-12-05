@@ -88,7 +88,7 @@ namespace FrbaOfertas.ABMRol
 
                 if (MessageBox.Show(mensaje, "ABM Rol", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes) //si selecciona que si
                 {
-                    if (form_anterior.userRole == rol_seleccionado.nombre) //si el rol del login es igual al rol que quiere deshabilitar
+                    if (form_anterior.user.rolActivo.nombre == rol_seleccionado.nombre) //si el rol del login es igual al rol que quiere deshabilitar
                     {
                         if (MessageBox.Show("¿Está a punto de inhabilitar el Rol en el que se encuentra logueado, se cerrará la sesión al finalizar, desea continuar?", "ABM Rol", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                         {
