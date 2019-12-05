@@ -39,25 +39,37 @@ namespace FrbaOfertas.ABMRol
 
         private void button1_Click(object sender, EventArgs e)
         {
-            try
+            if (NombreNuevoRol.Text == "")
             {
-                SqlCommand procedure = Utils.Database.createCommand("T_REX.AltaRol");
-                procedure.Parameters.Add("@nombre_rol", SqlDbType.NVarChar).Value = NombreNuevoRol.Text;
-                procedure.Parameters.Add("@activo", SqlDbType.Bit).Value = 1;
-                SqlCommand query = Utils.Database.createCommand("SELECT max (id_rol) FROM [T_REX].ROL");
-                int id = Utils.Database.executeScalar(query);
-                Utils.Database.executeProcedure(procedure);
-                SqlCommand procedure2 = Utils.Database.createCommand("T_REX.AgregarFuncionalidadRol");
-                Funcionalidad funcionalidad = (Funcionalidad)Funcionalidades.SelectedItem;
-                procedure2.Parameters.Add("@nombreNuevaFuncionalidadRol", SqlDbType.VarChar).Value = funcionalidad.nombre;
-                procedure2.Parameters.Add("@rol_id", SqlDbType.Int).Value = id + 1 ;
-                Utils.Database.executeProcedure(procedure2);
-                MessageBox.Show("Alta realizada");
+                MessageBox.Show("Debe indicar el nombre del nuevo rol!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            catch (Exception ex)
+            else if (Funcionalidades.Text == "")
             {
-                MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Debe indicar la funcionalidad base del nuevo rol!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            else
+            {
+                try
+                {
+                    SqlCommand procedure = Utils.Database.createCommand("T_REX.AltaRol");
+                    procedure.Parameters.Add("@nombre_rol", SqlDbType.NVarChar).Value = NombreNuevoRol.Text;
+                    procedure.Parameters.Add("@activo", SqlDbType.Bit).Value = 1;
+                    SqlCommand query = Utils.Database.createCommand("SELECT max (id_rol) FROM [T_REX].ROL");
+                    int id = Utils.Database.executeScalar(query);
+                    Utils.Database.executeProcedure(procedure);
+                    SqlCommand procedure2 = Utils.Database.createCommand("T_REX.AgregarFuncionalidadRol");
+                    Funcionalidad funcionalidad = (Funcionalidad)Funcionalidades.SelectedItem;
+                    procedure2.Parameters.Add("@nombreNuevaFuncionalidadRol", SqlDbType.VarChar).Value = funcionalidad.nombre;
+                    procedure2.Parameters.Add("@rol_id", SqlDbType.Int).Value = id + 1;
+                    Utils.Database.executeProcedure(procedure2);
+                    MessageBox.Show("Alta realizada");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            
 
 
         }

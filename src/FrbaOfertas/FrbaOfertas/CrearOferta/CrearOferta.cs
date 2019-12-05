@@ -8,19 +8,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FrbaOfertas.Models.Usuarios;
 
 namespace FrbaOfertas.CrearOferta
 {
     public partial class CrearOferta : Form
     {
-        
-        public CrearOferta(string rol, string username)
+        Usuario user;
+        public CrearOferta(Usuario usuario)
         {
             InitializeComponent();
-            if(rol == "Proveedor")
+            user = usuario;
+            if(user.rolActivo.id == 3)
             {
                 button1.Visible = false;
-                textBox2.Text = username;
+                textBox2.Text = user.nombre;
                 textBox2.Enabled = false;
             }
             textBox2.ReadOnly = true;
@@ -50,7 +52,7 @@ namespace FrbaOfertas.CrearOferta
 
         private void button1_Click(object sender, EventArgs e)
         {
-            new FrbaOfertas.CrearOferta.ListadoProveedor().Show();
+            new FrbaOfertas.CrearOferta.ListadoProveedor(this).Show();
         }
     }
 }
