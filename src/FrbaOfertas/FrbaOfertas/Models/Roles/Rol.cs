@@ -17,6 +17,7 @@ namespace FrbaOfertas.Models.Roles
         {
             this.id = id;
             this.nombre = nombre;
+            this.activo = true;
         }
     }
 }

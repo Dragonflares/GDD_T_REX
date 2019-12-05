@@ -8,11 +8,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FrbaOfertas.Models.Usuarios;
+using FrbaOfertas.Utils;
+using FrbaOfertas.Models.Clientes;
+using FrbaOfertas.Models;
+using FrbaOfertas.Models.Roles;
 
 namespace FrbaOfertas.Login
 {
     public partial class ClienteLogin : Form
     {
+        private RolDAO rolDAO = new RolDAO();
+        private UsuarioDAO userDAO = new UsuarioDAO();
+        private ClienteDAO cliDao = new ClienteDAO();
+        private ProveedorDAO provDAO = new ProveedorDAO();
+
         public ClienteLogin()
         {
             InitializeComponent();
@@ -22,7 +32,7 @@ namespace FrbaOfertas.Login
         }
         private void showRoles()
         {
-            SqlCommand obtenerRoles = FrbaOfertas.Utils.Database.createCommand("SELECT r.nombre FROM [GD2C2019].[T_REX].Rol r");
+            SqlCommand obtenerRoles = FrbaOfertas.Utils.Database.createCommand("SELECT r.nombre FROM [GD2C2019].[T_REX].Rol r WHERE r.estado = 1");
             DataTable tablaFunc = Utils.Database.getData(obtenerRoles);
 
             foreach (DataRow row in tablaFunc.Rows)
@@ -41,8 +51,27 @@ namespace FrbaOfertas.Login
             {
                 FrbaOfertas.Utils.Database.executeProcedure(login);
                 //Utils.Database.executeProcedure(login);
-                
-                PantallaPrincipal pantalla = new PantallaPrincipal(comboBox1.Text, textBox1.Text);
+                Usuario user = userDAO.getUsuario(textBox1.Text);
+                user.rolActivo = rolDAO.getRol(comboBox1.Text);
+                switch(comboBox1.Text)
+                {
+                    case "Cliente":
+                        {
+                            Cliente cliente = cliDao.getClienteXUsuario(user.id);
+                            user.cliente = cliente;
+                            break;
+                        }
+                    case "Proveedor":
+                        {
+                            //TODO Hace el ingreso de proveedor
+                            break;
+                        }
+                    default:
+                        {
+                            break;
+                        }
+                }
+                PantallaPrincipal pantalla = new PantallaPrincipal(user);
                 pantalla.Owner = this;
                 pantalla.Show();
                 this.Hide();

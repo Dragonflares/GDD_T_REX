@@ -13,6 +13,29 @@ namespace FrbaOfertas.Utils
 {
     class RolDAO
     {
+        public Rol getRol(string rol)
+        {
+            string cmd = "SELECT r.[id_rol], r.[nombre]" +
+                " FROM [GD2C2019].[T_REX].[Rol] r" +
+                " WHERE r.nombre =" + rol;
+
+            SqlCommand command = FrbaOfertas.Utils.Database.createCommand(cmd);
+            DataTable table = Utils.Database.getData(command);
+
+            return table.Rows.Cast<DataRow>().
+                Select(row =>
+                {
+                    return this.createRolFromQueryResult(row);
+                }).ToList<Rol>()[0];
+        }
+
+        private Rol createRolFromQueryResult(DataRow row)
+        {
+            Rol rol = new Rol(int.Parse(row["id_rol"].ToString()),
+                row["nombre"].ToString());
+            return rol;
+        }
+
         public List<Funcionalidad> getFuncionalidades()
         {
             SqlCommand command = FrbaOfertas.Utils.Database.createCommand("SELECT [id_funcionalidad] as id" +

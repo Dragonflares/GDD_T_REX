@@ -48,10 +48,10 @@ namespace FrbaOfertas.Login
             }
             if (estanTodosLlenos)
             {
-                PantallaPrincipal pantalla = new PantallaPrincipal("Proveedor", nombreUsuario.Text);
-                pantalla.Owner = this.Owner;
-                pantalla.Show();
-                this.Close();
+                //PantallaPrincipal pantalla = new PantallaPrincipal("Proveedor", nombreUsuario.Text);
+                //pantalla.Owner = this.Owner;
+                //pantalla.Show();
+                //this.Close();
             }
             else
             {

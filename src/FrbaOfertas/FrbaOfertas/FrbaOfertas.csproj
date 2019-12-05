@@ -266,6 +266,7 @@
     <Compile Include="Utils\Database.cs" />
     <Compile Include="Utils\ProveedorDAO.cs" />
     <Compile Include="Utils\RolDAO.cs" />
+    <Compile Include="Utils\UsuarioDAO.cs" />
     <EmbeddedResource Include="ABMCliente\AltaCliente.resx">
       <DependentUpon>AltaCliente.cs</DependentUpon>
     </EmbeddedResource>

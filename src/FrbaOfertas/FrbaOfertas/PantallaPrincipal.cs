@@ -102,7 +102,6 @@ namespace FrbaOfertas
                 }
                 case "Cargar Credito":
                 {
-                    Usuario user = new Usuario(0, null, null, null, null);
                     new CargaCredito.CargaCredito(user).Show();
                     this.Hide();
                     break;

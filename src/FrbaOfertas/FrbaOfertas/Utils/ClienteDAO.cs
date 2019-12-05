@@ -33,6 +33,26 @@ namespace FrbaOfertas.Utils
                 }).ToList<Cliente>()[0];
         }
 
+        public Cliente getClienteXUsuario(int id)
+        {
+            string cmd = "SELECT cli.[id_cliente], cli.[nombre], cli.[apellido], cli.[nro_documento], cli.[tipo_documento], cli.[fechaDeNacimiento], cli.[email], " +
+                "cli.[telefono], cli.[estado], cli.[creditoTotal], u.[id_usuario], u.[username], u.[password]," +
+                "d.[id_domicilio], d.[direc_calle], d.[direc_nro_piso], d.[direc_nro_depto], d.[direc_localidad], d.[codigoPostal] " +
+                "FROM [GD2C2019].[T_REX].[Cliente] cli " +
+                "INNER JOIN [GD2C2019].[T_REX].[USUARIO] u ON u.[id_usuario] = cli.[id_usuario] " +
+                "INNER JOIN [GD2C2019].[T_REX].[DOMICILIO] d ON d.[id_domicilio] = cli.[id_domicilio] " +
+                "WHERE u.id_usuario = " + id;
+
+            SqlCommand command = FrbaOfertas.Utils.Database.createCommand(cmd);
+            DataTable table = Utils.Database.getData(command);
+
+            return table.Rows.Cast<DataRow>().
+                Select(row =>
+                {
+                    return this.createClienteFromQueryResult(row);
+                }).ToList<Cliente>()[0];
+        }
+
         public List<Cliente> getClientes(string nombre, string apellido) 
         {
             string cmd = "SELECT cli.[id_cliente], cli.[nombre], cli.[apellido], cli.[nro_documento], cli.[tipo_documento], cli.[fechaDeNacimiento], cli.[email], " +

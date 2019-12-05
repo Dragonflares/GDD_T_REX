@@ -18,10 +18,11 @@ namespace FrbaOfertas.Models.Usuarios
         public Cliente cliente { get; set; }
         public Proveedor proveedor { get; set; }
 
-        public Usuario(int _id, string username, Rol rol, FrbaOfertas.Models.Clientes.Cliente cli, Proveedor prov)
+        public Usuario(int _id, string username, string password, Rol rol, Cliente cli, Proveedor prov)
         {
             this.id = _id;
             this.nombre = username;
+            this.pass = password;
             this.rolActivo = rol;
             this.cliente = cli;
             this.proveedor = prov;
