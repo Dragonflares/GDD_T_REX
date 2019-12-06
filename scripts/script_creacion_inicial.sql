@@ -1296,8 +1296,8 @@ IF OBJECT_ID('T_REX.AbmProveedor') IS NOT NULL
 GO
 CREATE PROCEDURE [T_REX].AbmProveedor
 
-	@Provee_rs nvarchar(150) NOT NULL,
-	@Provee_cuit nvarchar(40) NOT NULL,
+	@Provee_rs nvarchar(150),
+	@Provee_cuit nvarchar(40),
 	@Mail nvarchar(150),
 	@Telefono int,
 	@NombreDeRubro nvarchar (150),
@@ -1316,7 +1316,7 @@ AS
 BEGIN
 	
 	begin try
-		declare @idDomicilio int, @id_usuario int; @id_rubro int;
+		declare @idDomicilio int, @id_usuario int, @id_rubro int
 	if(@Accion = 'A')
 
 		begin
