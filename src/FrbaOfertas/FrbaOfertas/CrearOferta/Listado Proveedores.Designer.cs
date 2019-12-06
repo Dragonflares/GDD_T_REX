@@ -183,6 +183,7 @@
             // 
             // razon_social
             // 
+            this.razon_social.DataPropertyName = "razon_social";
             this.razon_social.HeaderText = "Razón Social";
             this.razon_social.Name = "razon_social";
             this.razon_social.ReadOnly = true;
@@ -190,18 +191,21 @@
             // 
             // rubro
             // 
+            this.rubro.DataPropertyName = "rubro";
             this.rubro.HeaderText = "Rubro";
             this.rubro.Name = "rubro";
             this.rubro.ReadOnly = true;
             // 
             // cuit
             // 
+            this.cuit.DataPropertyName = "cuit";
             this.cuit.HeaderText = "CUIT";
             this.cuit.Name = "cuit";
             this.cuit.ReadOnly = true;
             // 
             // seleccionar
             // 
+            this.seleccionar.DataPropertyName = "seleccionar";
             this.seleccionar.HeaderText = "Seleccionar";
             this.seleccionar.Name = "seleccionar";
             this.seleccionar.ReadOnly = true;

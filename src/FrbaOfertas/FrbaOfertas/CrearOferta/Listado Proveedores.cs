@@ -37,7 +37,7 @@ namespace FrbaOfertas.CrearOferta
         private void FormListadoProveedores_Load(object sender, EventArgs e)
         {
             SqlCommand cmd = Database.createCommand("SELECT p.id_proveedor as id, p.provee_rs as razon_social" + 
-                ", p.provee_cuit as cuit as Estado, r.nombreDeRubro as rubro" +
+                ", p.provee_cuit as cuit, r.nombreDeRubro as rubro" +
                 " FROM [GD2C2019].[T_REX].[Proveedor] p JOIN [GD2C2019].[T_REX].[Rubro] r ON r.id_rubro = p.id_rubro" + 
                 " WHERE p.estado = 1");
             dgv_proveedores.DataSource = Database.getData(cmd);

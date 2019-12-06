@@ -17,7 +17,7 @@ namespace FrbaOfertas.Utils
         {
             string cmd = "SELECT r.[id_rol], r.[nombre]" +
                 " FROM [GD2C2019].[T_REX].[Rol] r" +
-                " WHERE r.nombre =" + rol;
+                " WHERE r.nombre = '" + rol + "'";
 
             SqlCommand command = FrbaOfertas.Utils.Database.createCommand(cmd);
             DataTable table = Utils.Database.getData(command);
