@@ -44,6 +44,8 @@ namespace FrbaOfertas.Facturar
             }
             if (e.ColumnIndex == dgv_proveedores.Columns["seleccionar"].Index)
             {
+                int linea = int.Parse(dgv_proveedores.SelectedCells[0].Value.ToString());
+
                 new FrbaOfertas.CanjeCupon.ListadoClientes();
             }
         }
