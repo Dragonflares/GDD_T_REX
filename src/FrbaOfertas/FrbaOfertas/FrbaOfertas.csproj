@@ -203,12 +203,14 @@
     <Compile Include="Models\COMPRA.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Compras\Compra.cs" />
     <Compile Include="Models\CREDITO.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CUPON.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Cupones\Cupon.cs" />
     <Compile Include="Models\Direccion.cs" />
     <Compile Include="Models\DOMICILIO.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -244,7 +246,7 @@
     <Compile Include="Models\OFERTA.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Oferta\Oferta.cs" />
+    <Compile Include="Models\Ofertas\Oferta.cs" />
     <Compile Include="Models\PROVEEDOR.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

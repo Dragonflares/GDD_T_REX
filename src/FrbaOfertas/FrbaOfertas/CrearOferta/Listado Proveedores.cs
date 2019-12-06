@@ -50,12 +50,12 @@ namespace FrbaOfertas.CrearOferta
                 " FROM [GD2C2019].[T_REX].[Proveedor] p JOIN [GD2C2019].[T_REX].[Rubro] r ON r.id_rubro = p.id_rubro" +
                 " WHERE p.estado = 1";
 
-            if (!String.IsNullOrEmpty(razonsocial.Text)) takeprov += " and lower(cli.nombre) like '" + razonsocial.Text.ToLower() + "%'";
-            if (!String.IsNullOrEmpty(comboBox1.Text)) takeprov += " and lower(rub.nombreDeRubro) = '" + comboBox1.Text.ToLower() + "'";
-            if (!String.IsNullOrEmpty(textBox3.Text)) takeprov += " and lower(cli.cuit) = '" + textBox3.Text + "%'";
+            if (!String.IsNullOrEmpty(razonsocial.Text)) takeprov += " and lower(p.nombre) like '" + razonsocial.Text.ToLower() + "%'";
+            if (!String.IsNullOrEmpty(comboBox1.Text)) takeprov += " and lower(r.nombreDeRubro) = '" + comboBox1.Text.ToLower() + "'";
+            if (!String.IsNullOrEmpty(textBox3.Text)) takeprov += " and lower(p.cuit) = '" + textBox3.Text + "%'";
 
 
-            takeprov += "ORDER BY [id_cliente] ASC";
+            takeprov += "ORDER BY [id] ASC";
             SqlCommand takeClients = FrbaOfertas.Utils.Database.createCommand(takeprov);
             DataTable table = Utils.Database.getData(takeClients);
             this.dgv_proveedores.DataSource = table;
