@@ -1287,3 +1287,178 @@ BEGIN
 END
 
 
+/*********************************/
+/********************************/
+/* ABM PROVEEDOR */
+
+IF OBJECT_ID('T_REX.AbmProveedor') IS NOT NULL
+	DROP PROCEDURE [T_REX].AbmProveedor;
+GO
+CREATE PROCEDURE [T_REX].AbmProveedor
+
+	@Provee_rs nvarchar(150) NOT NULL,
+	@Provee_cuit nvarchar(40) NOT NULL,
+	@Mail nvarchar(150),
+	@Telefono int,
+	@NombreDeRubro nvarchar (150),
+	@Domicilio nvarchar(100),
+	@NroPiso nvarchar(100),
+	@NroDpto nvarchar(50),
+	@Localidad nvarchar(255),
+	@CodigoPostal nvarchar(50),
+	@user nvarchar(255),
+	@pass varchar(255),
+	@Accion varchar(1),
+	@out varchar(1000) OUTPUT,
+	@IdProveedor int = NULL
+AS
+
+BEGIN
+	
+	begin try
+		declare @idDomicilio int, @id_usuario int; @id_rubro int;
+	if(@Accion = 'A')
+
+		begin
+
+			declare @id_proveedor int;
+			begin TRANSACTION [T]
+
+				select @id_rubro=id_rubro from T_REX.RUBRO where nombreDeRubro=@NombreDeRubro;
+				if(@@ROWCOUNT = 0) 
+				begin
+					RAISERROR('Rubro Inexistente',16 ,1)
+					return
+				end
+
+				insert into T_REX.USUARIO(username, password) values (@user, CONVERT(varchar(64), HASHBYTES('SHA2_256', @pass), 2));
+				select @id_usuario=id_usuario from T_REX.USUARIO where username=@user;
+				if(@@ROWCOUNT = 0) 
+				begin
+					RAISERROR('Usuario Inexistente',16 ,1)
+					return
+				end
+				insert into T_REX.ROL_USUARIO(id_usuario,id_rol) VALUES (@id_usuario,2);
+
+				insert into T_REX.DOMICILIO(direc_calle,direc_nro_piso,direc_localidad,codigoPostal,direc_nro_depto)
+				values(@Domicilio,@NroPiso,@Localidad,@CodigoPostal,@NroDpto)
+
+				select @idDomicilio=max(id_domicilio) from T_REX.DOMICILIO where direc_calle=@Domicilio and direc_nro_piso=@NroPiso and direc_localidad=@Localidad and 
+				codigoPostal=@CodigoPostal and direc_nro_depto=@NroDpto
+
+				if(@@ROWCOUNT = 0) 
+				begin
+					RAISERROR('Domicilio Inexistente',16 ,1)
+					return
+				end
+
+				if(EXISTS(select 1 from T_REX.PROVEEDOR where provee_rs=@Provee_rs and provee_cuit=@Provee_cuit or email=@Mail))
+				begin
+					RAISERROR('ERROR: proveedor duplicado', 16, 1)
+					return
+				end
+				else
+				begin
+					insert into T_REX.PROVEEDOR(provee_rs, provee_cuit, email, provee_telefono, id_domicilio, id_rubro, id_usuario)
+						values(@Provee_rs, @Provee_cuit, @Mail, @Telefono, @idDomicilio, @id_rubro, @id_usuario)
+				end
+
+			commit TRANSACTION [T]
+		end
+	
+	else if (@Accion = 'M')
+		begin
+			begin TRANSACTION [T]
+				select @idDomicilio=id_domicilio, @id_usuario=id_usuario from T_REX.PROVEEDOR where id_proveedor=@IdProveedor
+				if(@@ROWCOUNT = 0) 
+				begin
+					RAISERROR('Proveedor Inexistente',16 ,1);
+					return
+				end
+
+				select @id_rubro=id_rubro from T_REX.RUBRO where nombreDeRubro=@NombreDeRubro;
+				if(@@ROWCOUNT = 0) 
+				begin
+					RAISERROR('Rubro Inexistente',16 ,1)
+					return
+				end
+
+				if(exists(select 1 from T_REX.PROVEEDOR where (provee_rs=@Provee_rs and provee_cuit=@Provee_cuit or email=@Mail) and id_proveedor!= @IdProveedor))
+				begin
+					RAISERROR('ERROR: Proveedor duplicado', 16, 1)
+					return
+				end
+				else
+				begin
+					update T_REX.PROVEEDOR
+					set provee_rs=@Provee_rs,
+						provee_cuit=@Provee_cuit,
+						email = @Mail,
+						provee_telefono = @Telefono,
+						estado = '1',
+						id_rubro = @id_rubro
+					Where id_proveedor = @IdProveedor
+			
+					update T_REX.DOMICILIO
+					set direc_calle = @Domicilio,
+						direc_nro_piso = @NroPiso,
+						direc_localidad = @Localidad,
+						codigoPostal = @CodigoPostal,
+						direc_nro_depto = @NroDpto
+					Where id_domicilio= @idDomicilio
+
+/*
+					select @id_usuario=id_usuario from T_REX.CLIENTE where id_cliente=@IdCliente
+				
+					if(@@ROWCOUNT = 0) 
+					begin
+						RAISERROR('usuario Inexistente',16 ,1);
+						return
+					end
+*/
+					update T_REX.USUARIO
+					set username = @user,
+						password = @pass
+					Where id_usuario= @id_usuario
+
+					
+				end
+			commit TRANSACTION [T]
+		end
+
+	end try
+	begin catch
+		ROLLBACK TRANSACTION [T]
+		set @out = ERROR_MESSAGE();
+	end catch
+
+END
+
+IF OBJECT_ID('T_REX.BajaProveedor') IS NOT NULL
+	DROP PROCEDURE [T_REX].BajaProveedor;
+GO
+CREATE PROCEDURE [T_REX].BajaProveedor
+	@out varchar(1000) OUTPUT,
+	@IdProveedor int
+AS
+
+BEGIN
+	
+	begin try
+		update T_REX.PROVEEDOR
+		set estado = '0'
+		Where id_proveedor = @IdProveedor
+
+		if(@@ROWCOUNT = 0) 
+		begin
+			RAISERROR('Provedor Inexistente',16 ,1)
+			return
+		end
+
+	end try
+	begin catch
+		ROLLBACK TRANSACTION [T]
+		set @out = ERROR_MESSAGE();
+	end catch
+
+END
