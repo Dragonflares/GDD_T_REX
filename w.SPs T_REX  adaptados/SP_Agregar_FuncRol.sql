@@ -4,7 +4,9 @@ IF OBJECT_ID('T_REX.SP_Agregar_FuncRol') IS NOT NULL
     DROP PROCEDURE T_REX.SP_Agregar_FuncRol
 GO
 
-CREATE PROCEDURE [T_REX].[SP_Agregar_FuncRol] @id_rol int, @id_func int
+CREATE PROCEDURE [T_REX].[SP_Agregar_FuncRol] 
+@id_rol int, 
+@id_func int
 as
 	declare @resultado varchar(10);
 
