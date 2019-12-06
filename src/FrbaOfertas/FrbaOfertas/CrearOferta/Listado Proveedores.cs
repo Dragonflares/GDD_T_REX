@@ -68,17 +68,15 @@ namespace FrbaOfertas.CrearOferta
 
         private void dgv_proveedores_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
+            if (e.RowIndex < 0)
             {
-                if (e.ColumnIndex == dgv_proveedores.Columns["Seleccionar"].Index)
-                {
-                    DataGridViewRow row = dgv_proveedores.Rows[e.RowIndex];
-                    int id = (int)row.Cells[0].Value;
-                    SqlCommand query = FrbaOfertas.Utils.Database.createCommand("SELECT f.descripcion FROM [GD2C2019].[T_REX].Funcionalidad f" + 
-                        " JOIN [GD2C2019].[T_REX].Funcionalidad_Rol fr on fr.id_funcionalidad = f.id_funcionalidad" +
-                        " JOIN [GD2C2019].[T_REX].Rol r on r.id_rol = fr.id_rol WHERE r.id_rol = @rol");
-                    query.Parameters.Add("@rol", SqlDbType.NChar).Value = id;
-                }
+                return;
+            }
+            if (e.ColumnIndex == dgv_proveedores.Columns["seleccionar"].Index)
+            {
+                int id = int.Parse(dgv_proveedores.Rows[e.RowIndex].Cells[0].Value.ToString());
+                //TODO llamar a DAO proveedor para conseguir el proveedor con el ID
+
             }
         }
 
