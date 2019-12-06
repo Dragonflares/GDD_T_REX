@@ -32,7 +32,7 @@ namespace FrbaOfertas.ComprarOferta
 
             if (!String.IsNullOrEmpty(textBox1.Text)) takeclient += " and lower(nombre) like '" + textBox1.Text.ToLower() + "%'";
             if (!String.IsNullOrEmpty(textBox2.Text)) takeclient += " and lower(apellido) like '" + textBox2.Text.ToLower() + "%'";
-            if (!String.IsNullOrEmpty(textBox3.Text)) takeclient += " and lower(mail) = '" + textBox3.Text + "%'";
+            if (!String.IsNullOrEmpty(textBox3.Text)) takeclient += " and lower(email) = '" + textBox3.Text + "%'";
             if (!String.IsNullOrEmpty(textBox4.Text)) takeclient += " and nro_documento LIKE '" + textBox4.Text + "%'";
 
             takeclient += "ORDER BY [id_cliente] ASC";
