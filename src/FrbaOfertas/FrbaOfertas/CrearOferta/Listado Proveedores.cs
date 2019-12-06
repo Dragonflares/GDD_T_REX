@@ -43,9 +43,27 @@ namespace FrbaOfertas.CrearOferta
             dgv_proveedores.DataSource = Database.getData(cmd);
         }
 
+        private void loadProveedores()
+        {
+            string takeprov = "SELECT p.id_proveedor as id, p.provee_rs as razon_social" +
+                ", p.provee_cuit as cuit, r.nombreDeRubro as rubro" +
+                " FROM [GD2C2019].[T_REX].[Proveedor] p JOIN [GD2C2019].[T_REX].[Rubro] r ON r.id_rubro = p.id_rubro" +
+                " WHERE p.estado = 1";
+
+            if (!String.IsNullOrEmpty(razonsocial.Text)) takeprov += " and lower(cli.nombre) like '" + razonsocial.Text.ToLower() + "%'";
+            if (!String.IsNullOrEmpty(comboBox1.Text)) takeprov += " and lower(rub.nombreDeRubro) = '" + comboBox1.Text.ToLower() + "'";
+            if (!String.IsNullOrEmpty(textBox3.Text)) takeprov += " and lower(cli.cuit) = '" + textBox3.Text + "%'";
+
+
+            takeprov += "ORDER BY [id_cliente] ASC";
+            SqlCommand takeClients = FrbaOfertas.Utils.Database.createCommand(takeprov);
+            DataTable table = Utils.Database.getData(takeClients);
+            this.dgv_proveedores.DataSource = table;
+        }
+
         private void btn_buscar_Click(object sender, EventArgs e)
         {
-
+            loadProveedores();
         }
 
         private void dgv_proveedores_CellContentClick(object sender, DataGridViewCellEventArgs e)
