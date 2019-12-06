@@ -28,12 +28,12 @@ namespace FrbaOfertas.ABMCliente
 
         private void cargarClientes()
         {
-            this.tablaClientes.DataSource = this.clienteDao.getClientes(this.nombre_text.Text, this.apellido_text.Text);
+            this.tablaClientes.DataSource = this.clienteDao.getClientes(this.nombre_text.Text, this.apellido_text.Text, null, null);
         }
 
         private void btn_buscar_Click(object sender, EventArgs e)
         {
-            this.tablaClientes.DataSource = this.clienteDao.getClientes(this.nombre_text.Text, this.apellido_text.Text);
+            this.tablaClientes.DataSource = this.clienteDao.getClientes(this.nombre_text.Text, this.apellido_text.Text, null, null);
         }
 
         private void btn_baja_Click(object sender, EventArgs e)
