@@ -97,6 +97,12 @@
     <Compile Include="CanjeCupon\CanjeCupon.Designer.cs">
       <DependentUpon>CanjeCupon.cs</DependentUpon>
     </Compile>
+    <Compile Include="CanjeCupon\Listado Proveedores.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CanjeCupon\Listado Proveedores.Designer.cs">
+      <DependentUpon>Listado Proveedores.cs</DependentUpon>
+    </Compile>
     <Compile Include="CanjeCupon\ListadoClientes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -120,6 +126,12 @@
     </Compile>
     <Compile Include="ComprarOferta\ComprarOferta.Designer.cs">
       <DependentUpon>ComprarOferta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ComprarOferta\ListadoClientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ComprarOferta\ListadoClientes.Designer.cs">
+      <DependentUpon>ListadoClientes.cs</DependentUpon>
     </Compile>
     <Compile Include="CrearOferta\CrearOferta.cs">
       <SubType>Form</SubType>
@@ -285,6 +297,9 @@
     <EmbeddedResource Include="CanjeCupon\CanjeCupon.resx">
       <DependentUpon>CanjeCupon.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CanjeCupon\Listado Proveedores.resx">
+      <DependentUpon>Listado Proveedores.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CanjeCupon\ListadoClientes.resx">
       <DependentUpon>ListadoClientes.cs</DependentUpon>
     </EmbeddedResource>
@@ -296,6 +311,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ComprarOferta\ComprarOferta.resx">
       <DependentUpon>ComprarOferta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ComprarOferta\ListadoClientes.resx">
+      <DependentUpon>ListadoClientes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CrearOferta\CrearOferta.resx">
       <DependentUpon>CrearOferta.cs</DependentUpon>
