@@ -16,7 +16,7 @@ namespace FrbaOfertas.Utils
         public Cliente getCliente(int id)
         {
             string cmd = "SELECT cli.[id_cliente], cli.[nombre], cli.[apellido], cli.[nro_documento], cli.[tipo_documento], cli.[fechaDeNacimiento], cli.[email], " +
-                "cli.[telefono], cli.[estado], cli.[creditoTotal], u.[id_usuario], u.[username], u.[password]," +
+                "cli.[telefono], cli.[baja_logica], cli.[creditoTotal], u.[id_usuario], u.[username], u.[password]," +
                 "d.[id_domicilio], d.[direc_calle], d.[direc_nro_piso], d.[direc_nro_depto], d.[direc_localidad], d.[codigoPostal] " +
                 "FROM [GD2C2019].[T_REX].[Cliente] cli " +
                 "INNER JOIN [GD2C2019].[T_REX].[USUARIO] u ON u.[id_usuario] = cli.[id_usuario] " +
@@ -56,7 +56,7 @@ namespace FrbaOfertas.Utils
         public List<Cliente> getClientes(string nombre, string apellido) 
         {
             string cmd = "SELECT cli.[id_cliente], cli.[nombre], cli.[apellido], cli.[nro_documento], cli.[tipo_documento], cli.[fechaDeNacimiento], cli.[email], " +
-                "cli.[telefono], cli.[estado], cli.[creditoTotal], u.[id_usuario], u.[username], u.[password]," +
+                "cli.[telefono], cli.[baja_logica], cli.[creditoTotal], u.[id_usuario], u.[username], u.[password]," +
                 "d.[id_domicilio], d.[direc_calle], d.[direc_nro_piso], d.[direc_nro_depto], d.[direc_localidad], d.[codigoPostal] " +
                 "FROM [GD2C2019].[T_REX].[Cliente] cli " +
                 "INNER JOIN [GD2C2019].[T_REX].[USUARIO] u ON u.[id_usuario] = cli.[id_usuario] " +
@@ -87,7 +87,7 @@ namespace FrbaOfertas.Utils
             cli.fechaNacimiento = DateTime.Parse(row["fechaDeNacimiento"].ToString());
             cli.mail = row["email"].ToString();
             cli.telefono = int.Parse(row["telefono"].ToString());
-            cli.estado = Boolean.Parse(row["estado"].ToString());
+            cli.estado = Boolean.Parse(row["baja_logica"].ToString());
             cli.credito = long.Parse(row["creditoTotal"].ToString());
 
             cli.usuario = new Usuario(int.Parse(row["id_usuario"].ToString()), row["username"].ToString(), row["password"].ToString());

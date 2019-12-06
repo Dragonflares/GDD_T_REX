@@ -451,9 +451,13 @@ INSERT INTO [T_REX].[FUNCIONALIDAD_ROL] (id_rol,id_funcionalidad) VALUES (3,6);	
 /*Creacion de Forma_pago*/
 
 INSERT INTO [T_REX].[FORMA_PAGO] (tipo_pago_desc)
-SELECT distinct Tipo_Pago_Desc
+SELECT distinct LOWER(Tipo_Pago_Desc)
 FROM gd_esquema.Maestra
 Where Tipo_Pago_Desc is not null
+
+/* agrego forma de pago debido*/
+INSERT INTO [T_REX].[FORMA_PAGO] (tipo_pago_desc) VALUES('debito')
+
 
 -------------------------------------------------------------------------------------------------------------------
 
@@ -1146,18 +1150,21 @@ AS
 BEGIN
 	
 	begin try
-		declare @idDomicilio int;
+		declare @idDomicilio int, @id_usuario int;
 	if(@Accion = 'A')
 
 		begin
 
-			declare @creditoInicial int=200, @id_cliente int,@id_usuario int, @fechaDeEntrada datetime2(3);
+			declare @creditoInicial int=200, @id_cliente int, @fechaDeEntrada datetime2(3);
 			begin TRANSACTION [T]
 
-				insert into T_REX.USUARIO(username, password) values (@user,@pass);
+				insert into T_REX.USUARIO(username, password) values (@user, CONVERT(varchar(64), HASHBYTES('SHA2_256', @pass), 2));
 				select @id_usuario=id_usuario from T_REX.USUARIO where username=@user;
-				if(@@ROWCOUNT = 0) RAISERROR('Usuario Inexistente',16 ,1)
-				
+				if(@@ROWCOUNT = 0) 
+				begin
+					RAISERROR('Usuario Inexistente',16 ,1)
+					return
+				end
 				insert into T_REX.ROL_USUARIO(id_usuario,id_rol) VALUES (@id_usuario,2);
 
 				insert into T_REX.DOMICILIO(direc_calle,direc_nro_piso,direc_localidad,codigoPostal,direc_nro_depto)
@@ -1166,23 +1173,23 @@ BEGIN
 				select @idDomicilio=max(id_domicilio) from T_REX.DOMICILIO where direc_calle=@Domicilio and direc_nro_piso=@NroPiso and direc_localidad=@Localidad and 
 				codigoPostal=@CodigoPostal and direc_nro_depto=@NroDpto
 
-				if(@@ROWCOUNT = 0) RAISERROR('Domicilio Inexistente',16 ,1)
-				if(EXISTS(select 1 from T_REX.CLIENTE where nro_documento=@Documento and tipo_documento=@TipoDocumento and email=@Mail))
+				if(@@ROWCOUNT = 0) 
+				begin
+					RAISERROR('Domicilio Inexistente',16 ,1)
+					return
+				end
+
+				if(EXISTS(select 1 from T_REX.CLIENTE where nro_documento=@Documento and tipo_documento=@TipoDocumento or email=@Mail))
 				begin
 					RAISERROR('ERROR: cliente duplicado', 16, 1)
 					return
 				end
 				else
 				begin
-					insert into T_REX.CLIENTE(Nombre,Apellido,nro_documento,tipo_documento,fechaDeNacimiento,email,telefono,creditoTotal)
-						values(@Nombre,@Apellido,@Documento,@TipoDocumento,@FechaNacimiento,@Mail,@Telefono,@creditoInicial)
+					insert into T_REX.CLIENTE(Nombre,Apellido,nro_documento,tipo_documento,fechaDeNacimiento,email,telefono,creditoTotal,id_domicilio,id_usuario)
+						values(@Nombre,@Apellido,@Documento,@TipoDocumento,@FechaNacimiento,@Mail,@Telefono,@creditoInicial,@idDomicilio,@id_usuario)
 				end
 
-/*				select @id_cliente=id_cliente from T_REX.CLIENTE where nro_documento=@Documento and tipo_documento=@TipoDocumento
-
-				insert into T_REX.CREDITO(fecha_credito,id_cliente,id_forma_pago,monto_credito,id_tarjeta)
-					values(@fechaDeEntrada ,@id_cliente,,@creditoInicial,)
-*/
 			commit TRANSACTION [T]
 		end
 	
@@ -1191,8 +1198,13 @@ BEGIN
 		begin
 			begin TRANSACTION [T]
 				select @idDomicilio=id_domicilio from T_REX.CLIENTE where id_cliente=@IdCliente
-				if(@@ROWCOUNT = 0) RAISERROR('Cliente Inexistente',16 ,1);
-				if(exists(select 1 from T_REX.CLIENTE where nro_documento=@Documento and tipo_documento=@TipoDocumento and email=@Mail and id_cliente!= @idCliente))
+				if(@@ROWCOUNT = 0) 
+				begin
+					RAISERROR('Cliente Inexistente',16 ,1);
+					return
+				end
+
+				if(exists(select 1 from T_REX.CLIENTE where (nro_documento=@Documento and tipo_documento=@TipoDocumento or email=@Mail) and id_cliente!= @idCliente))
 				begin
 					RAISERROR('ERROR: cliente duplicado', 16, 1)
 					return
@@ -1218,21 +1230,23 @@ BEGIN
 						direc_nro_depto = @NroDpto
 					Where id_domicilio= @idDomicilio
 
-					if(@@ROWCOUNT = 0) RAISERROR('Domicilio Inexistente',16 ,1)
+
+					select @id_usuario=id_usuario from T_REX.CLIENTE where id_cliente=@IdCliente
+				
+					if(@@ROWCOUNT = 0) 
+					begin
+						RAISERROR('usuario Inexistente',16 ,1);
+						return
+					end
+
+					update T_REX.USUARIO
+					set username = @user,
+						password = @pass
+					Where id_usuario= @id_usuario
+
+					
 				end
 			commit TRANSACTION [T]
-		end
-
-	else if(@Accion = 'B')
-
-		begin
-
-			update T_REX.CLIENTE
-			set estado = '0'
-			Where id_cliente = @IdCliente
-
-			if(@@ROWCOUNT = 0) RAISERROR('Cliente Inexistente',16 ,1)
-
 		end
 
 	end try
@@ -1255,10 +1269,14 @@ BEGIN
 	
 	begin try
 		update T_REX.CLIENTE
-		set estado = '0'
+		set baja_logica = '0'
 		Where id_cliente = @IdCliente
 
-		if(@@ROWCOUNT = 0) RAISERROR('Cliente Inexistente',16 ,1)
+		if(@@ROWCOUNT = 0) 
+		begin
+			RAISERROR('Cliente Inexistente',16 ,1)
+			return
+		end
 
 	end try
 	begin catch
