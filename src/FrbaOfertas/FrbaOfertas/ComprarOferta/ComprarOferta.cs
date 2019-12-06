@@ -7,20 +7,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FrbaOfertas.Models.Usuarios;
+using FrbaOfertas.Models.Roles;
+using FrbaOfertas.Utils;
 
 namespace FrbaOfertas.ComprarOferta
 {
     public partial class ComprarOferta : Form
     {
-        private string Rol;
-        public ComprarOferta(string _nombre_cliente, string _rol)
+        private Usuario user;
+        public ClienteDAO target;
+        public ComprarOferta(Usuario usuario)
         {
+            user = usuario;
             InitializeComponent();
-            Rol = _rol;
-            if (Rol == "Cliente")
+            if (user.rolActivo.id == 2)
             {
                 button1.Visible = false;
-                textBox3.Text = Rol;
+                textBox3.Text = user.cliente.nroDocumento.ToString();
             }
             button1.Enabled = false;
         }
@@ -66,6 +70,13 @@ namespace FrbaOfertas.ComprarOferta
                     if (c is MonthCalendar)
                         ((MonthCalendar)c).Visible = false;
                 });
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ListadoClientes pantalla = new ListadoClientes(this);
+            pantalla.Owner = this;
+            pantalla.ShowDialog();
         }
     }
 }

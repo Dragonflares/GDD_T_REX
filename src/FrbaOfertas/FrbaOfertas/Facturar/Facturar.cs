@@ -7,19 +7,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FrbaOfertas.Models.Usuarios;
+using FrbaOfertas.Models.Proveedores;
 
 namespace FrbaOfertas.Facturar
 {
     public partial class Facturar : Form
     {
-        public Facturar()
+        private Usuario user;
+        public Proveedor target;
+        public Facturar(Usuario admin)
         {
+            user = admin;
             InitializeComponent();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            new FrbaOfertas.Facturar.ListadoFacturable().Show();
+            ListadoFacturable pantalla = new ListadoFacturable();
+            pantalla.Owner = this;
+            pantalla.ShowDialog();
         }
 
         private void button1_Click(object sender, EventArgs e)
