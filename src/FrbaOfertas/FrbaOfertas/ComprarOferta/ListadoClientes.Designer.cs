@@ -1,4 +1,4 @@
-﻿namespace FrbaOfertas.CanjeCupon
+﻿namespace FrbaOfertas.ComprarOferta
 {
     partial class ListadoClientes
     {
@@ -47,7 +47,7 @@
             this.mail = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dni = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.credito = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Entregar = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.seleccionar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_clientes)).BeginInit();
             this.SuspendLayout();
@@ -101,7 +101,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(32, 47);
+            this.textBox1.Location = new System.Drawing.Point(176, 47);
             this.textBox1.Margin = new System.Windows.Forms.Padding(2);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(121, 20);
@@ -109,7 +109,7 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(176, 47);
+            this.textBox2.Location = new System.Drawing.Point(32, 47);
             this.textBox2.Margin = new System.Windows.Forms.Padding(2);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(121, 20);
@@ -167,7 +167,7 @@
             this.mail,
             this.dni,
             this.credito,
-            this.Entregar});
+            this.seleccionar});
             this.dgv_clientes.Location = new System.Drawing.Point(47, 166);
             this.dgv_clientes.Margin = new System.Windows.Forms.Padding(2);
             this.dgv_clientes.Name = "dgv_clientes";
@@ -247,16 +247,15 @@
             this.credito.ReadOnly = true;
             this.credito.Width = 60;
             // 
-            // Entregar
+            // seleccionar
             // 
-            this.Entregar.DataPropertyName = "Entregar";
-            this.Entregar.HeaderText = "Entregar";
-            this.Entregar.Name = "Entregar";
-            this.Entregar.ReadOnly = true;
-            this.Entregar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Entregar.Text = "Entregar";
-            this.Entregar.UseColumnTextForButtonValue = true;
-            this.Entregar.Width = 85;
+            this.seleccionar.HeaderText = "Seleccionar";
+            this.seleccionar.Name = "seleccionar";
+            this.seleccionar.ReadOnly = true;
+            this.seleccionar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.seleccionar.Text = "Seleccionar";
+            this.seleccionar.UseColumnTextForButtonValue = true;
+            this.seleccionar.Width = 85;
             // 
             // ListadoClientes
             // 
@@ -298,7 +297,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn mail;
         private System.Windows.Forms.DataGridViewTextBoxColumn dni;
         private System.Windows.Forms.DataGridViewTextBoxColumn credito;
-        private System.Windows.Forms.DataGridViewButtonColumn Entregar;
+        private System.Windows.Forms.DataGridViewButtonColumn seleccionar;
 
     }
 }

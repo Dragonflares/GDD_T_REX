@@ -39,8 +39,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dgv_clientes = new System.Windows.Forms.DataGridView();
-            this.btn_buscar = new System.Windows.Forms.Button();
-            this.btn_limpiar = new System.Windows.Forms.Button();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -48,6 +46,8 @@
             this.dni = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.credito = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.seleccionar = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.btn_buscar = new System.Windows.Forms.Button();
+            this.btn_limpiar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_clientes)).BeginInit();
             this.SuspendLayout();
@@ -101,7 +101,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(176, 47);
+            this.textBox1.Location = new System.Drawing.Point(32, 47);
             this.textBox1.Margin = new System.Windows.Forms.Padding(2);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(121, 20);
@@ -109,7 +109,7 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(32, 47);
+            this.textBox2.Location = new System.Drawing.Point(176, 47);
             this.textBox2.Margin = new System.Windows.Forms.Padding(2);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(121, 20);
@@ -178,26 +178,6 @@
             this.dgv_clientes.TabIndex = 30;
             this.dgv_clientes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_clientes_CellContentClick);
             // 
-            // btn_buscar
-            // 
-            this.btn_buscar.Location = new System.Drawing.Point(421, 117);
-            this.btn_buscar.Margin = new System.Windows.Forms.Padding(2);
-            this.btn_buscar.Name = "btn_buscar";
-            this.btn_buscar.Size = new System.Drawing.Size(134, 24);
-            this.btn_buscar.TabIndex = 29;
-            this.btn_buscar.Text = "Buscar";
-            this.btn_buscar.UseVisualStyleBackColor = true;
-            // 
-            // btn_limpiar
-            // 
-            this.btn_limpiar.Location = new System.Drawing.Point(77, 117);
-            this.btn_limpiar.Margin = new System.Windows.Forms.Padding(2);
-            this.btn_limpiar.Name = "btn_limpiar";
-            this.btn_limpiar.Size = new System.Drawing.Size(135, 24);
-            this.btn_limpiar.TabIndex = 28;
-            this.btn_limpiar.Text = "Limpiar";
-            this.btn_limpiar.UseVisualStyleBackColor = true;
-            // 
             // id
             // 
             this.id.DataPropertyName = "id";
@@ -208,6 +188,7 @@
             // 
             // nombre
             // 
+            this.nombre.DataPropertyName = "Nombre";
             this.nombre.HeaderText = "Nombre";
             this.nombre.Name = "nombre";
             this.nombre.ReadOnly = true;
@@ -215,6 +196,7 @@
             // 
             // apellido
             // 
+            this.apellido.DataPropertyName = "Apellido";
             this.apellido.HeaderText = "Apellido";
             this.apellido.Name = "apellido";
             this.apellido.ReadOnly = true;
@@ -222,6 +204,7 @@
             // 
             // mail
             // 
+            this.mail.DataPropertyName = "Mail";
             this.mail.HeaderText = "Mail";
             this.mail.Name = "mail";
             this.mail.ReadOnly = true;
@@ -229,6 +212,7 @@
             // 
             // dni
             // 
+            this.dni.DataPropertyName = "DNI";
             this.dni.HeaderText = "DNI";
             this.dni.Name = "dni";
             this.dni.ReadOnly = true;
@@ -236,6 +220,7 @@
             // 
             // credito
             // 
+            this.credito.DataPropertyName = "Crédito";
             this.credito.HeaderText = "Crédito";
             this.credito.Name = "credito";
             this.credito.ReadOnly = true;
@@ -243,6 +228,7 @@
             // 
             // seleccionar
             // 
+            this.seleccionar.DataPropertyName = "Seleccionar";
             this.seleccionar.HeaderText = "Seleccionar";
             this.seleccionar.Name = "seleccionar";
             this.seleccionar.ReadOnly = true;
@@ -250,6 +236,27 @@
             this.seleccionar.Text = "Seleccionar";
             this.seleccionar.UseColumnTextForButtonValue = true;
             this.seleccionar.Width = 85;
+            // 
+            // btn_buscar
+            // 
+            this.btn_buscar.Location = new System.Drawing.Point(421, 117);
+            this.btn_buscar.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_buscar.Name = "btn_buscar";
+            this.btn_buscar.Size = new System.Drawing.Size(134, 24);
+            this.btn_buscar.TabIndex = 29;
+            this.btn_buscar.Text = "Buscar";
+            this.btn_buscar.UseVisualStyleBackColor = true;
+            this.btn_buscar.Click += new System.EventHandler(this.btn_buscar_Click);
+            // 
+            // btn_limpiar
+            // 
+            this.btn_limpiar.Location = new System.Drawing.Point(77, 117);
+            this.btn_limpiar.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_limpiar.Name = "btn_limpiar";
+            this.btn_limpiar.Size = new System.Drawing.Size(135, 24);
+            this.btn_limpiar.TabIndex = 28;
+            this.btn_limpiar.Text = "Limpiar";
+            this.btn_limpiar.UseVisualStyleBackColor = true;
             // 
             // ListadoClientes
             // 

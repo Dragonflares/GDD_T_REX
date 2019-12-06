@@ -7,13 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FrbaOfertas.Models.Usuarios;
 
 namespace FrbaOfertas.CanjeCupon
 {
     public partial class CanjeCupon : Form
     {
-        public CanjeCupon()
+        private Usuario usuario;
+        public CanjeCupon(Usuario user)
         {
+            usuario = user;
             InitializeComponent();
         }
 

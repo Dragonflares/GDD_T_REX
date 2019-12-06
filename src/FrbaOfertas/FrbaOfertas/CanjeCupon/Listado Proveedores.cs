@@ -10,17 +10,33 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace FrbaOfertas.CrearOferta
+namespace FrbaOfertas.CanjeCupon
 {
     public partial class ListadoProveedor : Form
     {
-        public CrearOferta formularioAnterior;
-
-        public ListadoProveedor(CrearOferta form)
+        ProveedorDAO provDAO = new ProveedorDAO();
+        public ListadoProveedor()
         {
-            formularioAnterior = form;
             InitializeComponent();
             loadRubros();
+        }
+
+        private void loadProveedores()
+        {
+            string takeprov = "SELECT p.id_proveedor as id, p.provee_rs as razon_social" +
+                ", p.provee_cuit as cuit, r.nombreDeRubro as rubro" +
+                " FROM [GD2C2019].[T_REX].[Proveedor] p JOIN [GD2C2019].[T_REX].[Rubro] r ON r.id_rubro = p.id_rubro" +
+                " WHERE p.estado = 1";
+
+            if (!String.IsNullOrEmpty(razonsocial.Text)) takeprov += " and lower(p.nombre) like '" + razonsocial.Text.ToLower() + "%'";
+            if (!String.IsNullOrEmpty(comboBox1.Text)) takeprov += " and lower(r.nombreDeRubro) = '" + comboBox1.Text.ToLower() + "'";
+            if (!String.IsNullOrEmpty(textBox3.Text)) takeprov += " and lower(p.cuit) = '" + textBox3.Text + "%'";
+
+
+            takeprov += "ORDER BY [id] ASC";
+            SqlCommand takeClients = FrbaOfertas.Utils.Database.createCommand(takeprov);
+            DataTable table = Utils.Database.getData(takeClients);
+            this.dgv_proveedores.DataSource = table;
         }
 
         private void loadRubros()
@@ -43,28 +59,11 @@ namespace FrbaOfertas.CrearOferta
             dgv_proveedores.DataSource = Database.getData(cmd);
         }
 
-        private void loadProveedores()
-        {
-            string takeprov = "SELECT p.id_proveedor as id, p.provee_rs as razon_social" +
-                ", p.provee_cuit as cuit, r.nombreDeRubro as rubro" +
-                " FROM [GD2C2019].[T_REX].[Proveedor] p JOIN [GD2C2019].[T_REX].[Rubro] r ON r.id_rubro = p.id_rubro" +
-                " WHERE p.estado = 1";
-
-            if (!String.IsNullOrEmpty(razonsocial.Text)) takeprov += " and lower(p.nombre) like '" + razonsocial.Text.ToLower() + "%'";
-            if (!String.IsNullOrEmpty(comboBox1.Text)) takeprov += " and lower(r.nombreDeRubro) = '" + comboBox1.Text.ToLower() + "'";
-            if (!String.IsNullOrEmpty(textBox3.Text)) takeprov += " and lower(p.cuit) = '" + textBox3.Text + "%'";
-
-
-            takeprov += "ORDER BY [id] ASC";
-            SqlCommand takeClients = FrbaOfertas.Utils.Database.createCommand(takeprov);
-            DataTable table = Utils.Database.getData(takeClients);
-            this.dgv_proveedores.DataSource = table;
-        }
-
         private void btn_buscar_Click(object sender, EventArgs e)
         {
             loadProveedores();
         }
+
 
         private void dgv_proveedores_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -74,10 +73,13 @@ namespace FrbaOfertas.CrearOferta
                 {
                     DataGridViewRow row = dgv_proveedores.Rows[e.RowIndex];
                     int id = (int)row.Cells[0].Value;
-                    SqlCommand query = FrbaOfertas.Utils.Database.createCommand("SELECT f.descripcion FROM [GD2C2019].[T_REX].Funcionalidad f" + 
-                        " JOIN [GD2C2019].[T_REX].Funcionalidad_Rol fr on fr.id_funcionalidad = f.id_funcionalidad" +
-                        " JOIN [GD2C2019].[T_REX].Rol r on r.id_rol = fr.id_rol WHERE r.id_rol = @rol");
-                    query.Parameters.Add("@rol", SqlDbType.NChar).Value = id;
+                    //TODO agregar pedido a DAO Proveedor
+                    //Proveedor prov = provDAO.getProveedor(id);
+                    //Usuario user = userDAO.getUsuarioById(prov.usuario.id);
+                    //user.proveedor = prov;
+                    //CanjeCupon pantalla = new CanjeCupon(user);
+                    //pantalla.Owner = this;
+                    //pantalla.ShowDialog();
                 }
             }
         }

@@ -79,7 +79,7 @@ namespace FrbaOfertas
                 case "Facturacion Proveedor":
                 {
                     this.Hide();
-                    new Facturar.Facturar().Show();
+                    new Facturar.Facturar(user).Show();
                     break;
                 }
                 case "Publicar Oferta":
@@ -91,13 +91,13 @@ namespace FrbaOfertas
                 case "Listado Estadistico":
                 {
                     this.Hide();
-                    new ListadoEstadistico.ListadoEstadistico().Show();
+                    new ListadoEstadistico.ListadoEstadistico(user).Show();
                     break;
                 }
                 case "Comprar Oferta":
                 {
                     this.Hide();
-                    new ComprarOferta.ComprarOferta(user.nombre, user.rolActivo.nombre).Show();
+                    new ComprarOferta.ComprarOferta(user).Show();
                     break;
                 }
                 case "Cargar Credito":
@@ -109,7 +109,18 @@ namespace FrbaOfertas
                 case "Consumo Oferta":
                 {
                     this.Hide();
-                    new CanjeCupon.CanjeCupon().Show();
+                    if (user.rolActivo.id == 3)
+                    {
+                        CanjeCupon.CanjeCupon pantalla = new CanjeCupon.CanjeCupon(user);
+                        pantalla.Owner = this;
+                        pantalla.Show();
+                    }
+                    else
+                    {
+                        CanjeCupon.ListadoProveedor pantalla = new CanjeCupon.ListadoProveedor();
+                        pantalla.Owner = this;
+                        pantalla.Show();
+                    }
                     break;
                 }
                 default:

@@ -7,21 +7,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FrbaOfertas.Utils;
 using System.Data.SqlClient;
 
-namespace FrbaOfertas.CanjeCupon
+namespace FrbaOfertas.ComprarOferta
 {
     public partial class ListadoClientes : Form
     {
-        public ListadoClientes()
+        private ComprarOferta pantalla_Ant;
+        public ListadoClientes(ComprarOferta pantalla)
         {
+            pantalla_Ant = pantalla;
             InitializeComponent();
             loadClientes();
         }
 
         private void loadClientes()
         {
-            string takeclient = "SELECT cli.[id_cliente] as id, cli.[nombre] as Nombre, cli.[apellido] as Apellido " +
+            string takeclient = "SELECT cli.[id_cliente] as id, cli.[nombre] as Nombre, cli.[apellido] as Apellido " + 
                 ", cli.[nro_documento] as DNI, cli.[email] as Mail, " +
                 "cli.[creditoTotal] as Crédito " +
                 "FROM [GD2C2019].[T_REX].[Cliente] cli " +
@@ -44,18 +47,16 @@ namespace FrbaOfertas.CanjeCupon
             {
                 return;
             }
-            if (e.ColumnIndex == dgv_clientes.Columns["Entregar"].Index)
+            if (e.ColumnIndex == dgv_clientes.Columns["Seleccionar"].Index)
             {
-                MessageBox.Show("Cupón entregado con Éxito!", "Entrega realizada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
                 this.Close();
-                this.Owner.Enabled = true;
             }
         }
 
         private void btn_volver_Click(object sender, EventArgs e)
         {
             this.Close();
-            this.Owner.Enabled = true;
         }
 
         private void btn_buscar_Click(object sender, EventArgs e)

@@ -10,12 +10,14 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FrbaOfertas.Models.Usuarios;
 
 namespace FrbaOfertas.ListadoEstadistico
 {
     public partial class ListadoEstadistico : Form
     {
-        public ListadoEstadistico()
+        private Usuario admin;
+        public ListadoEstadistico(Usuario admin)
         {
             InitializeComponent(); InitializeComponent();
             semestre.Items.Add("1");
