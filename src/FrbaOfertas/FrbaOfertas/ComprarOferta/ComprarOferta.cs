@@ -10,13 +10,14 @@ using System.Windows.Forms;
 using FrbaOfertas.Models.Usuarios;
 using FrbaOfertas.Models.Roles;
 using FrbaOfertas.Utils;
+using FrbaOfertas.Models.Clientes;
 
 namespace FrbaOfertas.ComprarOferta
 {
     public partial class ComprarOferta : Form
     {
         private Usuario user;
-        public ClienteDAO target;
+        public Cliente target;
         public ComprarOferta(Usuario usuario)
         {
             user = usuario;
