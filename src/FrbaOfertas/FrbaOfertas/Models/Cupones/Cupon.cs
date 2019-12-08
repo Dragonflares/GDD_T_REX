@@ -16,7 +16,7 @@ namespace FrbaOfertas.Models.Cupones
         public decimal cupon_precio_oferta { get; set; }
         public decimal cupon_precio_lista { get; set; }
         public bool cupon_estado { get; set; }
-        public Cliente CLIENTE_DESTINO { get; set; }
+        public Cliente consumidor { get; set; }
         public Compra compra { get; set; }
 
         public Cupon()

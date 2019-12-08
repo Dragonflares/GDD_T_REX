@@ -15,6 +15,7 @@ namespace FrbaOfertas.CrearOferta
     public partial class ListadoProveedor : Form
     {
         public CrearOferta formularioAnterior;
+        public ProveedorDAO provDAO = new ProveedorDAO();
 
         public ListadoProveedor(CrearOferta form)
         {
@@ -41,9 +42,9 @@ namespace FrbaOfertas.CrearOferta
                 " FROM [GD2C2019].[T_REX].[Proveedor] p JOIN [GD2C2019].[T_REX].[Rubro] r ON r.id_rubro = p.id_rubro" +
                 " WHERE p.estado = 1";
 
-            if (!String.IsNullOrEmpty(razonsocial.Text)) takeprov += " and lower(p.nombre) like '" + razonsocial.Text.ToLower() + "%'";
-            if (!String.IsNullOrEmpty(comboBox1.Text)) takeprov += " and lower(r.nombreDeRubro) = '" + comboBox1.Text.ToLower() + "'";
-            if (!String.IsNullOrEmpty(textBox3.Text)) takeprov += " and lower(p.cuit) = '" + textBox3.Text + "%'";
+            if (!String.IsNullOrEmpty(razonsocial.Text)) takeprov += " and lower(p.nombre) like '%" + razonsocial.Text.ToLower() + "%'";
+            if (!String.IsNullOrEmpty(comboBox1.Text)) takeprov += " and lower(r.nombreDeRubro) = '%" + comboBox1.Text.ToLower() + "'";
+            if (!String.IsNullOrEmpty(textBox3.Text)) takeprov += " and lower(p.cuit) = '%" + textBox3.Text + "%'";
 
 
             takeprov += "ORDER BY [id] ASC";
@@ -59,9 +60,9 @@ namespace FrbaOfertas.CrearOferta
                 " FROM [GD2C2019].[T_REX].[Proveedor] p JOIN [GD2C2019].[T_REX].[Rubro] r ON r.id_rubro = p.id_rubro" +
                 " WHERE p.estado = 1";
 
-            if (!String.IsNullOrEmpty(razonsocial.Text)) takeprov += " and lower(p.nombre) like '" + razonsocial.Text.ToLower() + "%'";
-            if (!String.IsNullOrEmpty(comboBox1.Text)) takeprov += " and lower(r.nombreDeRubro) = '" + comboBox1.Text.ToLower() + "'";
-            if (!String.IsNullOrEmpty(textBox3.Text)) takeprov += " and lower(p.cuit) = '" + textBox3.Text + "%'";
+            if (!String.IsNullOrEmpty(razonsocial.Text)) takeprov += " and lower(p.nombre) like '%" + razonsocial.Text.ToLower() + "%'";
+            if (!String.IsNullOrEmpty(comboBox1.Text)) takeprov += " and lower(r.nombreDeRubro) = '%" + comboBox1.Text.ToLower() + "'";
+            if (!String.IsNullOrEmpty(textBox3.Text)) takeprov += " and lower(p.cuit) = '%" + textBox3.Text + "%'";
 
 
             takeprov += "ORDER BY [id] ASC";
@@ -85,7 +86,9 @@ namespace FrbaOfertas.CrearOferta
             {
                 int id = int.Parse(dgv_proveedores.Rows[e.RowIndex].Cells["id"].Value.ToString());
                 //TODO llamar a DAO proveedor para conseguir el proveedor con el ID
+                this.formularioAnterior.target = provDAO.getProveedor(id);
 
+                this.Close();
             }
         }
 
@@ -98,7 +101,9 @@ namespace FrbaOfertas.CrearOferta
         {
             DataTable dt = (DataTable)this.dgv_proveedores.DataSource;
             if (dt != null)
+            {
                 dt.Clear();
+            }
             this.Controls.Cast<Control>().ToList()
                 .Where(c => c is GroupBox)
                 .SelectMany(c => c.Controls.Cast<Control>().ToList())
@@ -111,6 +116,7 @@ namespace FrbaOfertas.CrearOferta
                     if (c is MonthCalendar)
                         ((MonthCalendar)c).Visible = false;
                 });
+            loadProveedores();
         }
     }
 }

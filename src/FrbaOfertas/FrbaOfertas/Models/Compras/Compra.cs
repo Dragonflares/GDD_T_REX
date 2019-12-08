@@ -13,8 +13,8 @@ namespace FrbaOfertas.Models.Compras
         public int id_compra { get; set; }
         public System.DateTime compra_fecha { get; set; }
         public decimal cantidad { get; set; }
-        public Cliente CLIENTE { get; set; }
-        public Oferta OFERTA { get; set; }
+        public Cliente cliente { get; set; }
+        public Oferta oferta { get; set; }
 
         public Compra()
         {

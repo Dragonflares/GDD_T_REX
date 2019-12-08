@@ -277,7 +277,10 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\ClienteDAO.cs" />
+    <Compile Include="Utils\CompraDAO.cs" />
+    <Compile Include="Utils\CuponDAO.cs" />
     <Compile Include="Utils\Database.cs" />
+    <Compile Include="Utils\OfertaDAO.cs" />
     <Compile Include="Utils\ProveedorDAO.cs" />
     <Compile Include="Utils\RolDAO.cs" />
     <Compile Include="Utils\UsuarioDAO.cs" />

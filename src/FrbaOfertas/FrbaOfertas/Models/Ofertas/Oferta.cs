@@ -18,8 +18,11 @@ namespace FrbaOfertas.Models.Ofertas
         public decimal precio_lista { get; set; }
         public int cantDisponible { get; set; }
         public int cant_max_porCliente { get; set; }
-        public Proveedor PROVEEDOR { get; set; }
+        public Proveedor proveedor { get; set; }
 
-        public Oferta() { }
+        public Oferta() 
+        {
+ 
+        }
     }
 }

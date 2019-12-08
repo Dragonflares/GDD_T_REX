@@ -9,20 +9,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FrbaOfertas.Models.Usuarios;
+using FrbaOfertas.Models.Proveedores;
 
 namespace FrbaOfertas.CrearOferta
 {
     public partial class CrearOferta : Form
     {
-        Usuario user;
+        private Usuario user;
+        public Proveedor target { get; set; }
         public CrearOferta(Usuario usuario)
         {
             InitializeComponent();
             user = usuario;
             if(user.rolActivo.id == 3)
             {
+                target = usuario.proveedor;
                 button1.Visible = false;
-                textBox2.Text = user.nombre;
+                textBox2.Text = target.razonSocial;
                 textBox2.Enabled = false;
             }
             textBox2.ReadOnly = true;
