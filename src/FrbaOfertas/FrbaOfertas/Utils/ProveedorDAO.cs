@@ -28,20 +28,20 @@ namespace FrbaOfertas.Utils
         public List<Proveedor> getProveedors(string razon_social, string cuit, int? idUsuario, int? idProveedor)
         {
             string cmd = "SELECT prov.[id_proveedor], prov.[provee_rs], prov.[provee_cuit], ru.[id_rubro], ru.[nombreDeRubro], prov.[email], " +
-                "prov.[telefono], prov.[estado], u.[id_usuario], u.[username], u.[password]," +
+                "prov.[provee_telefono], prov.[estado], u.[id_usuario], u.[username], u.[password]," +
                 "d.[id_domicilio], d.[direc_calle], d.[direc_nro_piso], d.[direc_nro_depto], d.[direc_localidad], d.[codigoPostal] " +
                 "FROM [GD2C2019].[T_REX].[Proveedor] prov " +
                 "INNER JOIN [GD2C2019].[T_REX].[RUBRO] ru ON ru.[id_rubro] = prov.[id_rubro] " +
                 "INNER JOIN [GD2C2019].[T_REX].[USUARIO] u ON u.[id_usuario] = prov.[id_usuario] " +
                 "INNER JOIN [GD2C2019].[T_REX].[DOMICILIO] d ON d.[id_domicilio] = prov.[id_domicilio] " +
-                "WHERE estado = 1";
+                "WHERE prov.estado = 1";
 
             if (!String.IsNullOrEmpty(razon_social)) cmd += " and lower(provee_rs) like '%" + razon_social.ToLower() + "%'";
             if (!String.IsNullOrEmpty(cuit)) cmd += " and lower(provee_cuit) like '%" + cuit.ToLower() + "%'";
             if (idUsuario != null) cmd += " and u.id_usuario = " + idUsuario;
             if (idProveedor != null) cmd += " and prov.id_proveedor = " + idProveedor;
 
-            cmd += "ORDER BY [nombre] ASC";
+            cmd += "ORDER BY [provee_rs] ASC";
 
             SqlCommand command = FrbaOfertas.Utils.Database.createCommand(cmd);
             DataTable table = Utils.Database.getData(command);
@@ -60,7 +60,7 @@ namespace FrbaOfertas.Utils
             prov.razonSocial = row["provee_rs"].ToString();
             prov.CUIT = row["provee_cuit"].ToString();
             prov.mail = row["email"].ToString();
-            prov.telefono = int.Parse(row["telefono"].ToString());
+            prov.telefono = int.Parse(row["provee_telefono"].ToString());
             prov.estado = Boolean.Parse(row["estado"].ToString());
 
             prov.usuario = new Usuario(int.Parse(row["id_usuario"].ToString()), row["username"].ToString(), row["password"].ToString());
@@ -89,7 +89,7 @@ namespace FrbaOfertas.Utils
 
         }
 
-        public void guardarProveedor(int? id, string nombre, string apellido, string email, int rubro, string telefono, string usuario, string contrasenia, string calle, string piso, string depto, string localidad, string codigoPostal)
+        public void guardarProveedor(int? id, string razonSocial, string CUIT, string email, int rubro, string telefono, string usuario, string contrasenia, string calle, string piso, string depto, string localidad, string codigoPostal)
         {
             SqlCommand sp = FrbaOfertas.Utils.Database.createCommand("[GD2C2019].[T_REX].AbmProveedor");
 
@@ -103,8 +103,8 @@ namespace FrbaOfertas.Utils
                 sp.Parameters.AddWithValue("Accion", 'A');
             }
 
-            sp.Parameters.AddWithValue("RazonSocial", nombre);
-            sp.Parameters.AddWithValue("CUIT", apellido);
+            sp.Parameters.AddWithValue("RazonSocial", razonSocial);
+            sp.Parameters.AddWithValue("CUIT", CUIT);
             sp.Parameters.AddWithValue("Mail", email);
             sp.Parameters.AddWithValue("Telefono", telefono);
             sp.Parameters.AddWithValue("Rubro", rubro);

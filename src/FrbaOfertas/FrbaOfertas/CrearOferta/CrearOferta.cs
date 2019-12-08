@@ -25,10 +25,16 @@ namespace FrbaOfertas.CrearOferta
             {
                 target = usuario.proveedor;
                 button1.Visible = false;
-                textBox2.Text = target.razonSocial;
+                setTargetName();
                 textBox2.Enabled = false;
             }
             textBox2.ReadOnly = true;
+        }
+
+
+        public void setTargetName()
+        {
+            textBox2.Text = target.razonSocial;
         }
 
         private void button2_Click(object sender, EventArgs e)

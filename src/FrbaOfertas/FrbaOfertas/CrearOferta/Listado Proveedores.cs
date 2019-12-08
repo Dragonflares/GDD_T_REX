@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FrbaOfertas.Models.Proveedores;
 
 namespace FrbaOfertas.CrearOferta
 {
@@ -85,9 +86,10 @@ namespace FrbaOfertas.CrearOferta
             if (e.ColumnIndex == dgv_proveedores.Columns["seleccionar"].Index)
             {
                 int id = int.Parse(dgv_proveedores.Rows[e.RowIndex].Cells["id"].Value.ToString());
-                //TODO llamar a DAO proveedor para conseguir el proveedor con el ID
-                this.formularioAnterior.target = provDAO.getProveedor(id);
-
+                //TODO llamar a DAO proveedor para conseguir el pro veedor con el ID
+                Proveedor target = provDAO.getProveedor(id);
+                this.formularioAnterior.target = target;
+                this.formularioAnterior.setTargetName();
                 this.Close();
             }
         }
