@@ -36,11 +36,20 @@ namespace FrbaOfertas.CrearOferta
 
         private void FormListadoProveedores_Load(object sender, EventArgs e)
         {
-            SqlCommand cmd = Database.createCommand("SELECT p.id_proveedor as id, p.provee_rs as razon_social" + 
+            string takeprov = "SELECT p.id_proveedor as id, p.provee_rs as razon_social" +
                 ", p.provee_cuit as cuit, r.nombreDeRubro as rubro" +
-                " FROM [GD2C2019].[T_REX].[Proveedor] p JOIN [GD2C2019].[T_REX].[Rubro] r ON r.id_rubro = p.id_rubro" + 
-                " WHERE p.estado = 1");
-            dgv_proveedores.DataSource = Database.getData(cmd);
+                " FROM [GD2C2019].[T_REX].[Proveedor] p JOIN [GD2C2019].[T_REX].[Rubro] r ON r.id_rubro = p.id_rubro" +
+                " WHERE p.estado = 1";
+
+            if (!String.IsNullOrEmpty(razonsocial.Text)) takeprov += " and lower(p.nombre) like '" + razonsocial.Text.ToLower() + "%'";
+            if (!String.IsNullOrEmpty(comboBox1.Text)) takeprov += " and lower(r.nombreDeRubro) = '" + comboBox1.Text.ToLower() + "'";
+            if (!String.IsNullOrEmpty(textBox3.Text)) takeprov += " and lower(p.cuit) = '" + textBox3.Text + "%'";
+
+
+            takeprov += "ORDER BY [id] ASC";
+            SqlCommand takeClients = FrbaOfertas.Utils.Database.createCommand(takeprov);
+            DataTable table = Utils.Database.getData(takeClients);
+            this.dgv_proveedores.DataSource = table;
         }
 
         private void loadProveedores()
@@ -74,7 +83,7 @@ namespace FrbaOfertas.CrearOferta
             }
             if (e.ColumnIndex == dgv_proveedores.Columns["seleccionar"].Index)
             {
-                int id = int.Parse(dgv_proveedores.Rows[e.RowIndex].Cells[0].Value.ToString());
+                int id = int.Parse(dgv_proveedores.Rows[e.RowIndex].Cells["id"].Value.ToString());
                 //TODO llamar a DAO proveedor para conseguir el proveedor con el ID
 
             }
