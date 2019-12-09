@@ -59,12 +59,16 @@ namespace FrbaOfertas.Login
                     cliente.tipoDocumento = comboBox1.Text;
                     cliente.nroDocumento = System.Convert.ToInt32(textBox2.Text);
                     cliente.telefono = System.Convert.ToInt32(telefono.Text);
+
                     SqlCommand query2 = Utils.Database.createCommand("SELECT max (id_domicilio) FROM [T_REX].Domicilio");
+
                     int idDom = Utils.Database.executeScalar(query2) + 1;
                     string calleBonita = calle.Text + numeroCalle.Text;
                     cliente.direccion = new Direccion(idDom, calleBonita,
                         piso.Text, codigoPostal.Text, localidad.Text, depto.Text);
+
                     Rol rolAct = new Rol(2, "Cliente");
+
                     SqlCommand query3 = Utils.Database.createCommand("SELECT max (id_usuario) FROM [T_REX].Usuario");
                     int trueUserId = Utils.Database.executeScalar(query3) + 1;
                     user = new Usuario(trueUserId, nombreUsuario.Text, contrasenia.Text, rolAct, cliente, null);
@@ -85,14 +89,35 @@ namespace FrbaOfertas.Login
                             MessageBox.Show("Contraseñas incorrectas.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
+                        SqlCommand query = Utils.Database.createCommand("SELECT max (id_cliente) FROM [T_REX].Cliente");
+                        id = Utils.Database.executeScalar(query) + 1;
+                        cliente = new Cliente();
+                        cliente.id = id;
+                        cliente.nombres = nombre.Text;
+                        cliente.apellido = apellido.Text;
+                        cliente.mail = mail.Text;
+                        cliente.tipoDocumento = comboBox1.Text;
+                        cliente.nroDocumento = System.Convert.ToInt32(textBox2.Text);
+                        cliente.telefono = System.Convert.ToInt32(telefono.Text);
+
+                        SqlCommand query2 = Utils.Database.createCommand("SELECT max (id_domicilio) FROM [T_REX].Domicilio");
+
+                        int idDom = Utils.Database.executeScalar(query2) + 1;
+                        string calleBonita = calle.Text + numeroCalle.Text;
+                        cliente.direccion = new Direccion(idDom, calleBonita,
+                            piso.Text, codigoPostal.Text, localidad.Text, depto.Text);
+
+                        Rol rolAct = new Rol(2, "Cliente");
 
                         int trueUserId = System.Convert.ToInt32(userid);
-                        Rol rolAct = new Rol(2, "Cliente");
+
                         user = new Usuario(trueUserId, nombreUsuario.Text, contrasenia.Text, rolAct, cliente, null);
                     }
                     
                 }
-                
+                cliDao.guardarCliente(null, cliente.nombres, cliente.apellido, cliente.tipoDocumento, cliente.nroDocumento,
+                    cliente.fechaNacimiento, cliente.mail, cliente.telefono, user.nombre, user.pass, cliente.direccion.calle,
+                    cliente.direccion.piso, cliente.direccion.departamento, cliente.direccion.localidad, cliente.direccion.codigopostal);
                 PantallaPrincipal pantalla = new PantallaPrincipal(user);
                 pantalla.Owner = this.Owner;
                 pantalla.Show();

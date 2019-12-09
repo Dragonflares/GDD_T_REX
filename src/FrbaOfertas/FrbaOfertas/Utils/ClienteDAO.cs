@@ -87,7 +87,7 @@ namespace FrbaOfertas.Utils
          
         }
 
-        public void guardarCliente(int? id, string nombre, string apellido, string tipoDni, string nroDni, DateTime fechaNac, string email, string telefono, string usuario, string contrasenia, string calle, string piso, string depto, string localidad, string codigoPostal) 
+        public void guardarCliente(int? id, string nombre, string apellido, string tipoDni, int nroDni, DateTime fechaNac, string email, int telefono, string usuario, string contrasenia, string calle, string piso, string depto, string localidad, string codigoPostal) 
         {
             SqlCommand sp = FrbaOfertas.Utils.Database.createCommand("[GD2C2019].[T_REX].AbmUsuario");
 

@@ -172,7 +172,7 @@ namespace FrbaOfertas.ABMCliente
                 int? idCliente = null;
                 if (this.cliente != null) { idCliente = this.cliente.id; } 
 
-                this.clienteDao.guardarCliente(idCliente, this.text_nombre.Text, this.text_apellido.Text, this.combo_tipo_dni.Text, this.text_nro_dni.Text, this.datepicker_fecha_nac.Value, this.text_email.Text, this.text_telefono.Text, this.text_usuario.Text, this.text_pass.Text, this.text_calle.Text, this.text_piso.Text, this.text_dto.Text,this.text_localidad.Text,this.text_cod_postal.Text);
+                this.clienteDao.guardarCliente(idCliente, this.text_nombre.Text, this.text_apellido.Text, this.combo_tipo_dni.Text, int.Parse(this.text_nro_dni.Text), this.datepicker_fecha_nac.Value, this.text_email.Text, int.Parse(this.text_telefono.Text), this.text_usuario.Text, this.text_pass.Text, this.text_calle.Text, this.text_piso.Text, this.text_dto.Text,this.text_localidad.Text,this.text_cod_postal.Text);
                 this.Close();
 
             }
