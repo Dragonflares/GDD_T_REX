@@ -17,15 +17,20 @@ namespace FrbaOfertas.Utils
     {
         public Proveedor getProveedor(int id)
         {
-            return this.getProveedors(null, null, null, id)[0];
+            return this.getProveedors(null, null, null, null, id)[0];
         }
 
         public Proveedor getProveedorXUsuario(int id)
         {
-            return this.getProveedors(null, null, id, null)[0];
+            return this.getProveedors(null, null, null, id, null)[0];
         }
 
-        public List<Proveedor> getProveedors(string razon_social, string cuit, int? idUsuario, int? idProveedor)
+        public Proveedor getProveedorXMail(string mail)
+        {
+            return this.getProveedors(null, null, mail, null, null)[0];
+        }
+
+        public List<Proveedor> getProveedors(string razon_social, string cuit, string mail, int? idUsuario, int? idProveedor)
         {
             string cmd = "SELECT prov.[id_proveedor], prov.[provee_rs], prov.[provee_cuit], ru.[id_rubro], ru.[nombreDeRubro], prov.[email], " +
                 "prov.[provee_telefono], prov.[estado], u.[id_usuario], u.[username], u.[password]," +
@@ -38,6 +43,7 @@ namespace FrbaOfertas.Utils
 
             if (!String.IsNullOrEmpty(razon_social)) cmd += " and lower(provee_rs) like '%" + razon_social.ToLower() + "%'";
             if (!String.IsNullOrEmpty(cuit)) cmd += " and lower(provee_cuit) like '%" + cuit.ToLower() + "%'";
+            if (!String.IsNullOrEmpty(mail)) cmd += " and lower(email) like '%" + mail.ToLower() + "%'";
             if (idUsuario != null) cmd += " and u.id_usuario = " + idUsuario;
             if (idProveedor != null) cmd += " and prov.id_proveedor = " + idProveedor;
 

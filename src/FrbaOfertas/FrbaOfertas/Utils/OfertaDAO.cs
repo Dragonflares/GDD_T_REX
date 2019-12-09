@@ -10,38 +10,50 @@ using FrbaOfertas.Models;
 using FrbaOfertas.Models.Cupones;
 using FrbaOfertas.Models.Compras;
 using System.Data.SqlTypes;
+using FrbaOfertas.Models.Proveedores;
+using FrbaOfertas.Models.Usuarios;
 
 namespace FrbaOfertas.Utils
 {
     public class OfertaDAO
     {
-        public Oferta getOferta(int id)
+        public Oferta getOferta(int id, bool cantidad)
         {
-            return this.getOfertas(null, null, null, id)[0];
+            return this.getOfertas(null, null, null, null, id, cantidad)[0];
         }
 
-        public Oferta getOfertaXUsuario(int id)
+        public Oferta getOfertaXPRubro(string rubro, bool cantidad)
         {
-            return this.getOfertas(null, null, id, null)[0];
+            return this.getOfertas(null, null, null, rubro, null, cantidad)[0];
         }
 
-        public List<Oferta> getOfertas(string razon_social, string cuit, int? idUsuario, int? idOferta)
+        public Oferta getOfertaXPRubro(string proveedor, bool cantidad)
         {
-            string cmd = "SELECT prov.[id_proveedor], prov.[provee_rs], prov.[provee_cuit], ru.[id_rubro], ru.[nombreDeRubro], prov.[email], " +
-                "prov.[telefono], prov.[estado], u.[id_usuario], u.[username], u.[password]," +
+            return this.getOfertas(null, null, proveedor, null, null, cantidad)[0];
+        }
+
+        public List<Oferta> getOfertas(string descripcion, string cuit, string razon_social, string rubro, int? idOferta, bool cantidad)
+        {
+            string cmd = "SELECT of.[id_oferta], of.[cod_oferta], of.[descripcion], of.[fecha_inicio], of.[fecha_fin], of.[precio_oferta], " +
+                "of.[precio_lista], of.[cantDisponible], of.[cant_max_porCliente], " +
+                "prov.[id_proveedor], prov.[provee_rs], prov.[provee_cuit], ru.[id_rubro], ru.[nombreDeRubro], prov.[email], " +
+                "prov.[provee_telefono], prov.[estado], u.[id_usuario], u.[username], u.[password]," +
                 "d.[id_domicilio], d.[direc_calle], d.[direc_nro_piso], d.[direc_nro_depto], d.[direc_localidad], d.[codigoPostal] " +
-                "FROM [GD2C2019].[T_REX].[Oferta] prov " +
-                "INNER JOIN [GD2C2019].[T_REX].[RUBRO] ru ON ru.[id_rubro] = prov.[id_rubro] " +
-                "INNER JOIN [GD2C2019].[T_REX].[USUARIO] u ON u.[id_usuario] = prov.[id_usuario] " +
-                "INNER JOIN [GD2C2019].[T_REX].[DOMICILIO] d ON d.[id_domicilio] = prov.[id_domicilio] " +
-                "WHERE estado = 1";
+                "d.[id_domicilio], d.[direc_calle], d.[direc_nro_piso], d.[direc_nro_depto], d.[direc_localidad], d.[codigoPostal] " +
+                "FROM [GD2C2019].[T_REX].[Oferta] of " +
+                "INNER JOIN [GD2C2019].[T_REX].[Proveedor] prov ON prov.id_proveedor = of.id_proveedor " +
+                "INNER JOIN [GD2C2019].[T_REX].[RUBRO] ru ON ru.[id_rubro] = of.[id_rubro] " +
+                "INNER JOIN [GD2C2019].[T_REX].[USUARIO] u ON u.[id_usuario] = of.[id_usuario] " +
+                "WHERE prov.estado = 1";
 
-            if (!String.IsNullOrEmpty(razon_social)) cmd += " and lower(provee_rs) like '%" + razon_social.ToLower() + "%'";
-            if (!String.IsNullOrEmpty(cuit)) cmd += " and lower(provee_cuit) like '%" + cuit.ToLower() + "%'";
-            if (idUsuario != null) cmd += " and u.id_usuario = " + idUsuario;
-            if (idOferta != null) cmd += " and prov.id_proveedor = " + idOferta;
+            if (!String.IsNullOrEmpty(descripcion)) cmd += " and lower(descripcion) like '%" + descripcion.ToLower() + "%'";
+            if (!String.IsNullOrEmpty(cuit)) cmd += " and lower(ofee_cuit) like '%" + cuit.ToLower() + "%'";
+            if (!String.IsNullOrEmpty(rubro)) cmd += " and lower(ru.nombreDeRubro) like '" + rubro.ToLower() + "'";
+            if (!String.IsNullOrEmpty(razon_social)) cmd += " and prov.razon_social like '%" + razon_social.ToLower() + "%'";
+            if (idOferta != null) cmd += " and of.id_oferta = " + idOferta;
+            if (cantidad) cmd += " and cantidad > 0";
 
-            cmd += "ORDER BY [nombre] ASC";
+            cmd += "ORDER BY [cod_oferta] ASC";
 
             SqlCommand command = FrbaOfertas.Utils.Database.createCommand(cmd);
             DataTable table = Utils.Database.getData(command);
@@ -55,19 +67,32 @@ namespace FrbaOfertas.Utils
 
         private Oferta createOfertaFromQueryResult(DataRow row)
         {
-            Oferta prov = new Oferta();
-            //prov.id = int.Parse(row["id_proveedor"].ToString());
-            //    prov.razonSocial = row["provee_rs"].ToString();
-            //prov.CUIT = row["provee_cuit"].ToString();
-            //prov.mail = row["email"].ToString();
-            //prov.telefono = int.Parse(row["telefono"].ToString());
-            //prov.estado = Boolean.Parse(row["estado"].ToString());
+            Oferta of = new Oferta();
+            of.id_oferta = int.Parse(row["id_oferta"].ToString());
+            of.cod_oferta = row["cod_oferta"].ToString();
+            of.descripcion = row["descripcion"].ToString();
+            of.fecha_inicio = DateTime.Parse(row["fecha_inicio"].ToString());
+            of.fecha_fin = DateTime.Parse(row["fecha_fin"].ToString());
+            of.precio_lista= int.Parse(row["precio_lista"].ToString());
+            of.precio_oferta = int.Parse(row["precio_oferta"].ToString());
+            of.cantDisponible = int.Parse(row["cantDisponible"].ToString());
+            of.cant_max_porCliente = int.Parse(row["cant_max_porCliente"].ToString());
+            
+            Proveedor juancito = new Proveedor();
+            juancito.id = int.Parse(row["id_proveedor"].ToString());
+            juancito.razonSocial = row["provee_rs"].ToString();
+            juancito.CUIT = row["provee_cuit"].ToString();
+            juancito.mail = row["email"].ToString();
+            juancito.telefono = int.Parse(row["provee_telefono"].ToString());
+            juancito.estado = Boolean.Parse(row["estado"].ToString());
 
-            //prov.usuario = new Usuario(int.Parse(row["id_usuario"].ToString()), row["username"].ToString(), row["password"].ToString());
-            //prov.direccion = new Direccion(int.Parse(row["id_domicilio"].ToString()), row["direc_calle"].ToString(), row["direc_nro_piso"].ToString(), row["codigoPostal"].ToString(), row["direc_localidad"].ToString(), row["direc_nro_depto"].ToString());
-            //prov.rubro = row["nombreDeRubro"].ToString();
+            juancito.usuario = new Usuario(int.Parse(row["id_usuario"].ToString()), row["username"].ToString(), row["password"].ToString());
+            juancito.direccion = new Direccion(int.Parse(row["id_domicilio"].ToString()), row["direc_calle"].ToString(), row["direc_nro_piso"].ToString(), row["codigoPostal"].ToString(), row["direc_localidad"].ToString(), row["direc_nro_depto"].ToString());
+            juancito.rubro = row["nombreDeRubro"].ToString();
 
-            return prov;
+            of.proveedor = juancito;
+
+            return of;
         }
 
         public void eliminarOferta(int id)
@@ -89,7 +114,8 @@ namespace FrbaOfertas.Utils
 
         }
 
-        public void guardarOferta(int? id, string nombre, string apellido, string email, int rubro, string telefono, string usuario, string contrasenia, string calle, string piso, string depto, string localidad, string codigoPostal)
+        public void guardarOferta(int? id, string descripcion, DateTime fecha_inicio, DateTime fecha_fin,
+            int precio_oferta, int precio_lista, int cantDisp, int cantMax, int id_proveedor)
         {
             SqlCommand sp = FrbaOfertas.Utils.Database.createCommand("[GD2C2019].[T_REX].ABMOferta");
 
@@ -103,18 +129,15 @@ namespace FrbaOfertas.Utils
                 sp.Parameters.AddWithValue("Accion", 'A');
             }
 
-            sp.Parameters.AddWithValue("RazonSocial", nombre);
-            sp.Parameters.AddWithValue("CUIT", apellido);
-            sp.Parameters.AddWithValue("Mail", email);
-            sp.Parameters.AddWithValue("Telefono", telefono);
-            sp.Parameters.AddWithValue("Rubro", rubro);
-            sp.Parameters.AddWithValue("Domicilio", calle);
-            sp.Parameters.AddWithValue("NroPiso", piso);
-            sp.Parameters.AddWithValue("NroDpto", depto);
-            sp.Parameters.AddWithValue("Localidad", localidad);
-            sp.Parameters.AddWithValue("CodigoPostal", codigoPostal);
-            sp.Parameters.AddWithValue("user", usuario);
-            sp.Parameters.AddWithValue("pass", contrasenia);
+            sp.Parameters.AddWithValue("Descripcion", descripcion);
+            sp.Parameters.AddWithValue("fecha_inicio", fecha_inicio);
+            sp.Parameters.AddWithValue("fecha_fin", fecha_fin);
+            sp.Parameters.AddWithValue("precio_oferta", precio_oferta);
+            sp.Parameters.AddWithValue("precio_lista", precio_lista);
+            sp.Parameters.AddWithValue("cantDisp", cantDisp);
+            sp.Parameters.AddWithValue("cantMax", cantMax);
+            sp.Parameters.AddWithValue("id_proveedor", id_proveedor);
+
 
             SqlParameter text = new SqlParameter("@out", SqlDbType.VarChar, 1000);
             text.Direction = ParameterDirection.Output;

@@ -39,13 +39,14 @@ namespace FrbaOfertas.CrearOferta
         private void FormListadoProveedores_Load(object sender, EventArgs e)
         {
             string takeprov = "SELECT p.id_proveedor as id, p.provee_rs as razon_social" +
-                ", p.provee_cuit as cuit, r.nombreDeRubro as rubro" +
+                ", p.provee_cuit as cuit, r.nombreDeRubro as rubro, p.email as email" +
                 " FROM [GD2C2019].[T_REX].[Proveedor] p JOIN [GD2C2019].[T_REX].[Rubro] r ON r.id_rubro = p.id_rubro" +
                 " WHERE p.estado = 1";
 
             if (!String.IsNullOrEmpty(razonsocial.Text)) takeprov += " and lower(p.nombre) like '%" + razonsocial.Text.ToLower() + "%'";
             if (!String.IsNullOrEmpty(comboBox1.Text)) takeprov += " and lower(r.nombreDeRubro) = '%" + comboBox1.Text.ToLower() + "'";
-            if (!String.IsNullOrEmpty(textBox3.Text)) takeprov += " and lower(p.cuit) = '%" + textBox3.Text + "%'";
+            if (!String.IsNullOrEmpty(textBox1.Text)) takeprov += " and lower(p.cuit) = '%" + textBox1.Text + "%'";
+            if (!String.IsNullOrEmpty(textBox5.Text)) takeprov += " and lower(p.email) = '%" + textBox5.Text + "%'";
 
 
             takeprov += "ORDER BY [id] ASC";
@@ -57,13 +58,14 @@ namespace FrbaOfertas.CrearOferta
         private void loadProveedores()
         {
             string takeprov = "SELECT p.id_proveedor as id, p.provee_rs as razon_social" +
-                ", p.provee_cuit as cuit, r.nombreDeRubro as rubro" +
+                ", p.provee_cuit as cuit, r.nombreDeRubro as rubro, p.email as email" +
                 " FROM [GD2C2019].[T_REX].[Proveedor] p JOIN [GD2C2019].[T_REX].[Rubro] r ON r.id_rubro = p.id_rubro" +
                 " WHERE p.estado = 1";
 
             if (!String.IsNullOrEmpty(razonsocial.Text)) takeprov += " and lower(p.nombre) like '%" + razonsocial.Text.ToLower() + "%'";
             if (!String.IsNullOrEmpty(comboBox1.Text)) takeprov += " and lower(r.nombreDeRubro) = '%" + comboBox1.Text.ToLower() + "'";
-            if (!String.IsNullOrEmpty(textBox3.Text)) takeprov += " and lower(p.cuit) = '%" + textBox3.Text + "%'";
+            if (!String.IsNullOrEmpty(textBox1.Text)) takeprov += " and lower(p.cuit) = '%" + textBox1.Text + "%'";
+            if (!String.IsNullOrEmpty(textBox5.Text)) takeprov += " and lower(p.email) = '%" + textBox5.Text + "%'";
 
 
             takeprov += "ORDER BY [id] ASC";
@@ -72,7 +74,7 @@ namespace FrbaOfertas.CrearOferta
             this.dgv_proveedores.DataSource = table;
         }
 
-        private void btn_buscar_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
             loadProveedores();
         }
@@ -86,7 +88,7 @@ namespace FrbaOfertas.CrearOferta
             if (e.ColumnIndex == dgv_proveedores.Columns["seleccionar"].Index)
             {
                 int id = int.Parse(dgv_proveedores.Rows[e.RowIndex].Cells["id"].Value.ToString());
-                //TODO llamar a DAO proveedor para conseguir el pro veedor con el ID
+                
                 Proveedor target = provDAO.getProveedor(id);
                 this.formularioAnterior.target = target;
                 this.formularioAnterior.setTargetName();
@@ -94,12 +96,7 @@ namespace FrbaOfertas.CrearOferta
             }
         }
 
-        private void btn_atras_Click(object sender, EventArgs e)
-        {           
-            this.Close();
-        }
-
-        private void btn_limpiar_Click(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e)
         {
             DataTable dt = (DataTable)this.dgv_proveedores.DataSource;
             if (dt != null)
@@ -119,6 +116,11 @@ namespace FrbaOfertas.CrearOferta
                         ((MonthCalendar)c).Visible = false;
                 });
             loadProveedores();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

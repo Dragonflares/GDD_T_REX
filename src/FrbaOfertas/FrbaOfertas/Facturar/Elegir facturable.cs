@@ -53,13 +53,14 @@ namespace FrbaOfertas.Facturar
         private void loadProveedores()
         {
             string takeprov = "SELECT p.id_proveedor as id, p.provee_rs as razon_social" +
-                ", p.provee_cuit as cuit, r.nombreDeRubro as rubro" +
+                ", p.provee_cuit as cuit, r.nombreDeRubro as rubro, p.email as email" +
                 " FROM [GD2C2019].[T_REX].[Proveedor] p JOIN [GD2C2019].[T_REX].[Rubro] r ON r.id_rubro = p.id_rubro" +
                 " WHERE p.estado = 1";
 
-            if (!String.IsNullOrEmpty(razonsocial.Text)) takeprov += " and lower(p.nombre) like '" + razonsocial.Text.ToLower() + "%'";
-            if (!String.IsNullOrEmpty(comboBox1.Text)) takeprov += " and lower(r.nombreDeRubro) = '" + comboBox1.Text.ToLower() + "'";
-            if (!String.IsNullOrEmpty(textBox5.Text)) takeprov += " and lower(p.cuit) = '" + textBox5.Text + "%'";
+            if (!String.IsNullOrEmpty(razonsocial.Text)) takeprov += " and lower(p.nombre) like '%" + razonsocial.Text.ToLower() + "%'";
+            if (!String.IsNullOrEmpty(comboBox1.Text)) takeprov += " and lower(r.nombreDeRubro) = '%" + comboBox1.Text.ToLower() + "'";
+            if (!String.IsNullOrEmpty(textBox1.Text)) takeprov += " and lower(p.cuit) = '%" + textBox1.Text + "%'";
+            if (!String.IsNullOrEmpty(textBox5.Text)) takeprov += " and lower(p.email) = '%" + textBox5.Text + "%'";
 
 
             takeprov += "ORDER BY [id] ASC";
@@ -90,6 +91,11 @@ namespace FrbaOfertas.Facturar
         private void button2_Click(object sender, EventArgs e)
         {
             loadProveedores();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
     }
