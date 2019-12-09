@@ -99,12 +99,29 @@ namespace FrbaOfertas.Login
             {
                 e.Handled = true;
             }
-            else if ((e.KeyChar == '-') && (((sender as TextBox).Text.IndexOf('-') == ((sender as TextBox).Text.Length - 1) )))
+            else if ((e.KeyChar == '-') && (hasTwo((sender as TextBox).Text) || (((sender as TextBox).Text.IndexOf('-') == ((sender as TextBox).Text.Length - 1)))))
             {
                 e.Handled = true;
             }
         }
 
+        public Boolean hasTwo(string lecturer)
+        {
+            int counter = 0;
+            foreach (char letter in lecturer)
+            {
+                if (letter == '-')
+                {
+                    counter++;
+                }
+            }
+            if (counter > 1)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
 
         // agregar evento de en cambio del texto de nombreUsuario, que haga una busqueda para completar y bloquear los campos de contraseña.
     }
