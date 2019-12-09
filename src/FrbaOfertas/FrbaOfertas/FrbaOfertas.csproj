@@ -216,6 +216,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Facturas\Factura.cs" />
+    <Compile Include="Models\Facturas\ItemFactura.cs" />
     <Compile Include="Models\FACTURA_PROVEEDOR.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -281,6 +282,7 @@
     <Compile Include="Utils\CompraDAO.cs" />
     <Compile Include="Utils\CuponDAO.cs" />
     <Compile Include="Utils\Database.cs" />
+    <Compile Include="Utils\FacturacionDAO.cs" />
     <Compile Include="Utils\FacturaDAO.cs" />
     <Compile Include="Utils\OfertaDAO.cs" />
     <Compile Include="Utils\ProveedorDAO.cs" />

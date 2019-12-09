@@ -92,7 +92,7 @@ namespace FrbaOfertas
                 }
                 case "Publicar Oferta":
                 {
-                    CrearOferta.CrearOferta pantallla = new CrearOferta.CrearOferta(user);
+                    CrearOferta.CrearOferta pantalla = new CrearOferta.CrearOferta(user);
                     pantalla.Owner = this;
                     pantalla.Show();
                     this.Hide();
