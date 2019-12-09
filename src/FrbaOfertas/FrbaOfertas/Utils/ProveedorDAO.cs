@@ -95,7 +95,7 @@ namespace FrbaOfertas.Utils
 
         }
 
-        public void guardarProveedor(int? id, string razonSocial, string CUIT, string email, int rubro, string telefono, string usuario, string contrasenia, string calle, string piso, string depto, string localidad, string codigoPostal)
+        public void guardarProveedor(int? id, string razonSocial, string CUIT, string email, string rubro, int telefono, string usuario, string contrasenia, string calle, string piso, string depto, string localidad, string codigoPostal)
         {
             SqlCommand sp = FrbaOfertas.Utils.Database.createCommand("[GD2C2019].[T_REX].AbmProveedor");
 

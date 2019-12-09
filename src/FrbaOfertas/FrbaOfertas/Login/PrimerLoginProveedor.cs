@@ -8,11 +8,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using FrbaOfertas.Models.Proveedores;
+using FrbaOfertas.Utils;
+using FrbaOfertas.Models.Usuarios;
+using FrbaOfertas.Models.Roles;
+using FrbaOfertas.Models;
+
 
 namespace FrbaOfertas.Login
 {
     public partial class PrimerLoginProveedor : Form
     {
+
+        ProveedorDAO provDAO = new ProveedorDAO();
+
         public PrimerLoginProveedor()
         {
             InitializeComponent();
@@ -48,10 +57,87 @@ namespace FrbaOfertas.Login
             }
             if (estanTodosLlenos)
             {
-                //PantallaPrincipal pantalla = new PantallaPrincipal("Proveedor", nombreUsuario.Text);
-                //pantalla.Owner = this.Owner;
-                //pantalla.Show();
-                //this.Close();
+                SqlCommand chequearUser = FrbaOfertas.Utils.Database.createCommand("SELECT u.id_usuario FROM [GD2C2019].[T_REX].Usuario u" +
+                                    " WHERE u.userName = @nombre");
+                chequearUser.Parameters.Add("@nombre", SqlDbType.NVarChar).Value = nombreUsuario.Text;
+                string userid = Database.executeScalar(chequearUser).ToString();
+                int id = 0;
+                Proveedor proveedor;
+                Usuario user = null;
+                if (userid == null)
+                {
+                    SqlCommand query = Utils.Database.createCommand("SELECT max (id_cliente) FROM [T_REX].Cliente");
+                    id = Utils.Database.executeScalar(query) + 1;
+                    proveedor = new Proveedor();
+                    proveedor.id = id;
+                    proveedor.razonSocial = razonSocial.Text;
+                    proveedor.CUIT = cuit.Text;
+                    proveedor.mail = mail.Text;
+                    proveedor.rubro = comboBox1.Text;
+                    proveedor.telefono = System.Convert.ToInt32(telefono.Text);
+
+                    SqlCommand query2 = Utils.Database.createCommand("SELECT max (id_domicilio) FROM [T_REX].Domicilio");
+
+                    int idDom = Utils.Database.executeScalar(query2) + 1;
+                    string calleBonita = calle.Text + numeroCalle.Text;
+                    proveedor.direccion = new Direccion(idDom, calleBonita,
+                        piso.Text, codigoPostal.Text, localidad.Text, depto.Text);
+
+                    Rol rolAct = new Rol(3, "Proveedor");
+
+                    SqlCommand query3 = Utils.Database.createCommand("SELECT max (id_usuario) FROM [T_REX].Usuario");
+                    int trueUserId = Utils.Database.executeScalar(query3) + 1;
+                    user = new Usuario(trueUserId, nombreUsuario.Text, contrasenia.Text, rolAct, null, proveedor);
+                }
+                else
+                {
+                    id = System.Convert.ToInt32(userid);
+                    proveedor = provDAO.getProveedor(id);
+                    if (proveedor != null)
+                    {
+                        MessageBox.Show("Este usuario ya tiene un perfil de Cliente asociado.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    else
+                    {
+                        if (contrasenia.Text != proveedor.usuario.pass)
+                        {
+                            MessageBox.Show("Contraseñas incorrectas.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        SqlCommand query = Utils.Database.createCommand("SELECT max (id_cliente) FROM [T_REX].Cliente");
+                        id = Utils.Database.executeScalar(query) + 1;
+                        proveedor = new Proveedor();
+                        proveedor.id = id;
+                        proveedor.razonSocial = razonSocial.Text;
+                        proveedor.CUIT = cuit.Text;
+                        proveedor.mail = mail.Text;
+                        proveedor.rubro = comboBox1.Text;
+                        proveedor.telefono = System.Convert.ToInt32(telefono.Text);
+
+                        SqlCommand query2 = Utils.Database.createCommand("SELECT max (id_domicilio) FROM [T_REX].Domicilio");
+
+                        int idDom = Utils.Database.executeScalar(query2) + 1;
+                        string calleBonita = calle.Text + numeroCalle.Text;
+                        proveedor.direccion = new Direccion(idDom, calleBonita,
+                            piso.Text, codigoPostal.Text, localidad.Text, depto.Text);
+
+                        Rol rolAct = new Rol(3, "Proveedor");
+
+                        int trueUserId = System.Convert.ToInt32(userid);
+
+                        user = new Usuario(trueUserId, nombreUsuario.Text, contrasenia.Text, rolAct, null, proveedor);
+                    }
+
+                }
+                provDAO.guardarProveedor(null, proveedor.razonSocial, proveedor.CUIT, proveedor.mail,
+                    proveedor.rubro, proveedor.telefono, user.nombre, user.pass, proveedor.direccion.calle,
+                    proveedor.direccion.piso, proveedor.direccion.departamento, proveedor.direccion.localidad,
+                    proveedor.direccion.codigopostal);
+                PantallaPrincipal pantalla = new PantallaPrincipal(user);
+                pantalla.Owner = this.Owner;
+                pantalla.Show();
+                this.Close();
             }
             else
             {
