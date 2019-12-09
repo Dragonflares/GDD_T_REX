@@ -54,7 +54,7 @@ namespace FrbaOfertas.Login
                     SqlCommand query3 = Utils.Database.createCommand("SELECT max (id_usuario) FROM [T_REX].Usuario");
                     int trueUserId = Utils.Database.executeScalar(query3) + 1;
                     user = new Usuario(trueUserId, nombreUsuario.Text, contrasenia.Text, rolAct, null, null);
-                    userDAO.guardarCliente(user.id, user.nombre, user.pass);
+                    userDAO.guardarUsuario(user.id, user.nombre, user.pass);
                 }
                 else
                 {

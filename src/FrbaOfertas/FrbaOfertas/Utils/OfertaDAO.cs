@@ -19,20 +19,16 @@ namespace FrbaOfertas.Utils
     {
         public Oferta getOferta(int id, bool cantidad)
         {
-            return this.getOfertas(null, null, null, null, id, cantidad)[0];
+            return this.getOfertas(null, null, id, cantidad)[0];
         }
 
-        public Oferta getOfertaXRubro(string rubro, bool cantidad)
-        {
-            return this.getOfertas(null, null, null, rubro, null, cantidad)[0];
-        }
 
         public Oferta getOfertaXProveedor(string proveedor, bool cantidad)
         {
-            return this.getOfertas(null, null, proveedor, null, null, cantidad)[0];
+            return this.getOfertas(null, proveedor, null, cantidad)[0];
         }
 
-        public List<Oferta> getOfertas(string descripcion, string cuit, string razon_social, string rubro, int? idOferta, bool cantidad)
+        public List<Oferta> getOfertas(string descripcion, string razon_social, int? idOferta, bool cantidad)
         {
             string cmd = "SELECT of.[id_oferta], of.[cod_oferta], of.[descripcion], of.[fecha_inicio], of.[fecha_fin], of.[precio_oferta], " +
                 "of.[precio_lista], of.[cantDisponible], of.[cant_max_porCliente], " +
@@ -47,8 +43,6 @@ namespace FrbaOfertas.Utils
                 "WHERE prov.estado = 1";
 
             if (!String.IsNullOrEmpty(descripcion)) cmd += " and lower(descripcion) like '%" + descripcion.ToLower() + "%'";
-            if (!String.IsNullOrEmpty(cuit)) cmd += " and lower(ofee_cuit) like '%" + cuit.ToLower() + "%'";
-            if (!String.IsNullOrEmpty(rubro)) cmd += " and lower(ru.nombreDeRubro) like '" + rubro.ToLower() + "'";
             if (!String.IsNullOrEmpty(razon_social)) cmd += " and prov.razon_social like '%" + razon_social.ToLower() + "%'";
             if (idOferta != null) cmd += " and of.id_oferta = " + idOferta;
             if (cantidad) cmd += " and cantidad > 0";

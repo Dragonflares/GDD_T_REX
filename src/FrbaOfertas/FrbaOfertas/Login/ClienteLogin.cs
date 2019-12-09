@@ -13,6 +13,8 @@ using FrbaOfertas.Utils;
 using FrbaOfertas.Models.Clientes;
 using FrbaOfertas.Models;
 using FrbaOfertas.Models.Roles;
+using FrbaOfertas.Models.Proveedores;
+
 
 namespace FrbaOfertas.Login
 {
@@ -42,14 +44,14 @@ namespace FrbaOfertas.Login
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            SqlCommand login = FrbaOfertas.Utils.Database.createCommand("[GD2C2019].[T_REX].LogearUsuario");
+            SqlCommand login = Database.createCommand("[GD2C2019].[T_REX].LogearUsuario");
             login.Parameters.AddWithValue("username", textBox1.Text);
             login.Parameters.AddWithValue("password", textBox2.Text);
             login.Parameters.AddWithValue("tipoUsuario", comboBox1.Text);
 
             try
             {
-                FrbaOfertas.Utils.Database.executeProcedure(login);
+                Database.executeProcedure(login);
                 //Utils.Database.executeProcedure(login);
                 Usuario user = userDAO.getUsuario(textBox1.Text);
                 user.rolActivo = rolDAO.getRol(comboBox1.Text);
@@ -64,6 +66,8 @@ namespace FrbaOfertas.Login
                     case "Proveedor":
                         {
                             //TODO Hace el ingreso de proveedor
+                            Proveedor proveedor = provDAO.getProveedorXUsuario(user.id);
+                            user.proveedor = proveedor;
                             break;
                         }
                     default:

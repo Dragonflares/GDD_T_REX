@@ -11,6 +11,7 @@ using FrbaOfertas.Models.Usuarios;
 using FrbaOfertas.Models.Roles;
 using FrbaOfertas.Utils;
 using FrbaOfertas.Models.Clientes;
+using System.Data.SqlClient;
 
 namespace FrbaOfertas.ComprarOferta
 {
@@ -24,15 +25,41 @@ namespace FrbaOfertas.ComprarOferta
             InitializeComponent();
             if (user.rolActivo.id == 2)
             {
+                target = user.cliente;
                 button1.Visible = false;
-                textBox3.Text = user.cliente.nroDocumento.ToString();
+                settarget();
             }
-            button1.Enabled = false;
+            textBox3.Enabled = false;
+            loadOfertas();
         }
 
         private void btn_buscar_Click(object sender, EventArgs e)
         {
+            loadOfertas();
+        }
 
+        public void settarget()
+        {
+            textBox3.Text = target.nroDocumento.ToString();
+        }
+
+        public void loadOfertas()
+        {
+            string takeoffer = "SELECT of.[id_oferta] as id, of.[descripcion] as Descripcion, of.[fecha_fin] as [fecha_de_fin], " +
+                "of.[precio_oferta] as precioOferta, of.[precio_lista] as precioLista, of.[cantDisponible] as cantidad, " +
+                "prov.[provee_rs] as proveedor " +
+                "FROM [GD2C2019].[T_REX].[Oferta] of " +
+                "INNER JOIN [GD2C2019].[T_REX].[Proveedor] prov ON prov.id_proveedor = of.id_proveedor " +
+                "WHERE prov.estado = 1 and cantidad > 0";
+
+            if (!String.IsNullOrEmpty(textBox2.Text)) takeoffer += " and lower(descripcion) like '%" + textBox2.Text.ToLower() + "%'";
+            if (!String.IsNullOrEmpty(textBox1.Text)) takeoffer += " and prov.razon_social like '%" + textBox1.Text.ToLower() + "%'";
+
+            takeoffer += "ORDER BY [cod_oferta] ASC";
+
+            SqlCommand takeOffers = FrbaOfertas.Utils.Database.createCommand(takeoffer);
+            DataTable table = Utils.Database.getData(takeOffers);
+            this.dgv_ofertas.DataSource = table;
         }
 
         private void dgv_clientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -41,9 +68,13 @@ namespace FrbaOfertas.ComprarOferta
             {
                 return;
             }
-            if (e.ColumnIndex == dgv_clientes.Columns["Comprar"].Index)
+            if (e.ColumnIndex == dgv_ofertas.Columns["Comprar"].Index)
             {
-                if (numericUpDown1.Value == 0)
+                if(String.IsNullOrEmpty(textBox3.Text))
+                {
+                    MessageBox.Show("Tiene que seleccionar el Cliente a comprar.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (numericUpDown1.Value == 0)
                 {
                     MessageBox.Show("Tiene que indicar una cantidad a comprar.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -56,7 +87,7 @@ namespace FrbaOfertas.ComprarOferta
 
         private void btn_limpiar_Click(object sender, EventArgs e)
         {
-            DataTable dt = (DataTable)this.dgv_clientes.DataSource;
+            DataTable dt = (DataTable)this.dgv_ofertas.DataSource;
             if (dt != null)
                 dt.Clear();
             this.Controls.Cast<Control>().ToList()
@@ -71,6 +102,7 @@ namespace FrbaOfertas.ComprarOferta
                     if (c is MonthCalendar)
                         ((MonthCalendar)c).Visible = false;
                 });
+            loadOfertas();
         }
 
         private void button1_Click(object sender, EventArgs e)

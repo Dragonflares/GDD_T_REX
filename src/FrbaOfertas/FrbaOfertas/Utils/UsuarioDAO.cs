@@ -53,7 +53,7 @@ namespace FrbaOfertas.Utils
             return user;
         }
 
-        public void eliminarCliente(int id)
+        public void eliminarUsuario(int id)
         {
             SqlCommand sp = FrbaOfertas.Utils.Database.createCommand("[GD2C2019].[T_REX].BajaUsuario");
             sp.Parameters.AddWithValue("IdUsuario", id);
@@ -72,7 +72,7 @@ namespace FrbaOfertas.Utils
 
         }
 
-        public void guardarCliente(int? id, string nombre, string pass)
+        public void guardarUsuario(int? id, string nombre, string pass)
         {
             SqlCommand sp = FrbaOfertas.Utils.Database.createCommand("[GD2C2019].[T_REX].AltaUsuario");
 

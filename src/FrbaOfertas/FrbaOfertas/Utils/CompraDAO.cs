@@ -15,5 +15,6 @@ namespace FrbaOfertas.Utils
 {
     public class CompraDAO
     {
+
     }
 }
