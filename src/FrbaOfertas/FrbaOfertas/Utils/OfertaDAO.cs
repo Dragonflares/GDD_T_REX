@@ -22,12 +22,12 @@ namespace FrbaOfertas.Utils
             return this.getOfertas(null, null, null, null, id, cantidad)[0];
         }
 
-        public Oferta getOfertaXPRubro(string rubro, bool cantidad)
+        public Oferta getOfertaXRubro(string rubro, bool cantidad)
         {
             return this.getOfertas(null, null, null, rubro, null, cantidad)[0];
         }
 
-        public Oferta getOfertaXPRubro(string proveedor, bool cantidad)
+        public Oferta getOfertaXProveedor(string proveedor, bool cantidad)
         {
             return this.getOfertas(null, null, proveedor, null, null, cantidad)[0];
         }
