@@ -95,13 +95,11 @@ namespace FrbaOfertas.Login
         private void cuit_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
-                (e.KeyChar != '.'))
+                (e.KeyChar != '-'))
             {
                 e.Handled = true;
             }
-
-            
-            if ((e.KeyChar == '-') && !(((sender as TextBox).Text.IndexOf('-') == ((sender as TextBox).Text.Length - 1) )))
+            else if ((e.KeyChar == '-') && (((sender as TextBox).Text.IndexOf('-') == ((sender as TextBox).Text.Length - 1) )))
             {
                 e.Handled = true;
             }
