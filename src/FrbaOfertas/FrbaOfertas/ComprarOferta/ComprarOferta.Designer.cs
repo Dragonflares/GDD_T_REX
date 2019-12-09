@@ -65,6 +65,7 @@
             this.btn_volver.TabIndex = 37;
             this.btn_volver.Text = "Volver";
             this.btn_volver.UseVisualStyleBackColor = true;
+            this.btn_volver.Click += new System.EventHandler(this.btn_volver_Click);
             // 
             // groupBox1
             // 
@@ -265,7 +266,7 @@
             // 
             // cantdisponible
             // 
-            this.cantdisponible.DataPropertyName = "cantidad";
+            this.cantdisponible.DataPropertyName = "cantdisponible";
             this.cantdisponible.HeaderText = "Cantidad Disponible";
             this.cantdisponible.Name = "cantdisponible";
             this.cantdisponible.ReadOnly = true;

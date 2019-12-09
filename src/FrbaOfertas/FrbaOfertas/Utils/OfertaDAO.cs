@@ -30,21 +30,21 @@ namespace FrbaOfertas.Utils
 
         public List<Oferta> getOfertas(string descripcion, string razon_social, int? idOferta, bool cantidad)
         {
-            string cmd = "SELECT of.[id_oferta], of.[cod_oferta], of.[descripcion], of.[fecha_inicio], of.[fecha_fin], of.[precio_oferta], " +
-                "of.[precio_lista], of.[cantDisponible], of.[cant_max_porCliente], " +
+            string cmd = "SELECT ofer.[id_oferta], ofer.[cod_oferta], ofer.[descripcion], ofer.[fecha_inicio], ofer.[fecha_fin], ofer.[precio_oferta], " +
+                "ofer.[precio_lista], ofer.[cantDisponible], ofer.[cant_max_porCliente], " +
                 "prov.[id_proveedor], prov.[provee_rs], prov.[provee_cuit], ru.[id_rubro], ru.[nombreDeRubro], prov.[email], " +
                 "prov.[provee_telefono], prov.[estado], u.[id_usuario], u.[username], u.[password]," +
                 "d.[id_domicilio], d.[direc_calle], d.[direc_nro_piso], d.[direc_nro_depto], d.[direc_localidad], d.[codigoPostal] " +
                 "d.[id_domicilio], d.[direc_calle], d.[direc_nro_piso], d.[direc_nro_depto], d.[direc_localidad], d.[codigoPostal] " +
-                "FROM [GD2C2019].[T_REX].[Oferta] of " +
-                "INNER JOIN [GD2C2019].[T_REX].[Proveedor] prov ON prov.id_proveedor = of.id_proveedor " +
-                "INNER JOIN [GD2C2019].[T_REX].[RUBRO] ru ON ru.[id_rubro] = of.[id_rubro] " +
-                "INNER JOIN [GD2C2019].[T_REX].[USUARIO] u ON u.[id_usuario] = of.[id_usuario] " +
+                "FROM [GD2C2019].[T_REX].[Oferta] ofer " +
+                "INNER JOIN [GD2C2019].[T_REX].[Proveedor] prov ON prov.id_proveedor = ofer.id_proveedor " +
+                "INNER JOIN [GD2C2019].[T_REX].[RUBRO] ru ON ru.[id_rubro] = ofer.[id_rubro] " +
+                "INNER JOIN [GD2C2019].[T_REX].[USUARIO] u ON u.[id_usuario] = ofer.[id_usuario] " +
                 "WHERE prov.estado = 1";
 
             if (!String.IsNullOrEmpty(descripcion)) cmd += " and lower(descripcion) like '%" + descripcion.ToLower() + "%'";
             if (!String.IsNullOrEmpty(razon_social)) cmd += " and prov.razon_social like '%" + razon_social.ToLower() + "%'";
-            if (idOferta != null) cmd += " and of.id_oferta = " + idOferta;
+            if (idOferta != null) cmd += " and ofer.id_oferta = " + idOferta;
             if (cantidad) cmd += " and cantidad > 0";
 
             cmd += "ORDER BY [cod_oferta] ASC";
@@ -67,7 +67,7 @@ namespace FrbaOfertas.Utils
             of.descripcion = row["descripcion"].ToString();
             of.fecha_inicio = DateTime.Parse(row["fecha_inicio"].ToString());
             of.fecha_fin = DateTime.Parse(row["fecha_fin"].ToString());
-            of.precio_lista= int.Parse(row["precio_lista"].ToString());
+            of.precio_lista = int.Parse(row["precio_lista"].ToString());
             of.precio_oferta = int.Parse(row["precio_oferta"].ToString());
             of.cantDisponible = int.Parse(row["cantDisponible"].ToString());
             of.cant_max_porCliente = int.Parse(row["cant_max_porCliente"].ToString());

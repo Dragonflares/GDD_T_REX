@@ -45,15 +45,15 @@ namespace FrbaOfertas.ComprarOferta
 
         public void loadOfertas()
         {
-            string takeoffer = "SELECT of.[id_oferta] as id, of.[descripcion] as Descripcion, of.[fecha_fin] as [fecha_de_fin], " +
-                "of.[precio_oferta] as precioOferta, of.[precio_lista] as precioLista, of.[cantDisponible] as cantidad, " +
+            string takeoffer = "SELECT ofer.[id_oferta] as id, ofer.[descripcion] as Descripcion, ofer.[fecha_fin] as [fecha_de_fin], " +
+                "ofer.[precio_oferta] as precioOferta, ofer.[precio_lista] as precioLista, ofer.[cantDisponible] as cantdisponible, " +
                 "prov.[provee_rs] as proveedor " +
-                "FROM [GD2C2019].[T_REX].[Oferta] of " +
-                "INNER JOIN [GD2C2019].[T_REX].[Proveedor] prov ON prov.id_proveedor = of.id_proveedor " +
-                "WHERE prov.estado = 1 and cantidad > 0";
+                "FROM [GD2C2019].[T_REX].[Oferta] ofer " +
+                "INNER JOIN [GD2C2019].[T_REX].[Proveedor] prov ON prov.id_proveedor = ofer.id_proveedor " +
+                "WHERE prov.estado = 1 and ofer.[cantDisponible] > 0";
 
             if (!String.IsNullOrEmpty(textBox2.Text)) takeoffer += " and lower(descripcion) like '%" + textBox2.Text.ToLower() + "%'";
-            if (!String.IsNullOrEmpty(textBox1.Text)) takeoffer += " and prov.razon_social like '%" + textBox1.Text.ToLower() + "%'";
+            if (!String.IsNullOrEmpty(textBox1.Text)) takeoffer += " and prov.provee_rs like '%" + textBox1.Text.ToLower() + "%'";
 
             takeoffer += "ORDER BY [cod_oferta] ASC";
 
@@ -68,7 +68,7 @@ namespace FrbaOfertas.ComprarOferta
             {
                 return;
             }
-            if (e.ColumnIndex == dgv_ofertas.Columns["Comprar"].Index)
+            if (e.ColumnIndex == dgv_ofertas.Columns["comprar_prod"].Index)
             {
                 if(String.IsNullOrEmpty(textBox3.Text))
                 {
@@ -110,6 +110,12 @@ namespace FrbaOfertas.ComprarOferta
             ListadoClientes pantalla = new ListadoClientes(this);
             pantalla.Owner = this;
             pantalla.ShowDialog();
+        }
+
+        private void btn_volver_Click(object sender, EventArgs e)
+        {
+            this.Owner.Show();
+            this.Close();
         }
     }
 }
