@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FrbaOfertas.Models.Compras;
 using FrbaOfertas.Models.Clientes;
+using FrbaOfertas.Models.Ofertas;
 
 namespace FrbaOfertas.Models.Cupones
 {
@@ -18,7 +19,7 @@ namespace FrbaOfertas.Models.Cupones
         public bool cupon_estado { get; set; }
         public Cliente consumidor { get; set; }
         public Compra compra { get; set; }
-
+        public Oferta oferta { get; set; }
         public Cupon()
         {
 

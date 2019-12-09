@@ -44,7 +44,7 @@ namespace FrbaOfertas
 
         private void button1_Click(object sender, EventArgs e)
         {
-            new Login.CambioPassword().Show(); //Hay que pasarle el cliente/proveedor
+            new Login.CambioPassword().ShowDialog(); //Hay que pasarle el cliente/proveedor
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -60,49 +60,66 @@ namespace FrbaOfertas
             {
                 case "ABM Rol":
                 {
+                    ABMRol.ABMRol pantalla = new ABMRol.ABMRol(this);
+                    pantalla.Owner = this;
+                    pantalla.Show();
                     this.Hide();
-                    new ABMRol.ABMRol(this).Show(); 
                     break;
                 }
                 case "ABM Clientes":
                 {
+                    ABMCliente.ListadoCliente pantalla = new ABMCliente.ListadoCliente();
+                    pantalla.Owner = this;
+                    pantalla.Show();
                     this.Hide();
-                    new ABMCliente.ListadoCliente().Show();
                     break;
                 }
                 case "ABM Proveedor":
                 {
+                    ABMProveedor.ABMProveedor pantalla = new ABMProveedor.ABMProveedor();
+                    pantalla.Owner = this;
+                    pantalla.Show();
                     this.Hide();
-                    new ABMProveedor.ABMProveedor().Show();
                     break;
                 }
                 case "Facturacion Proveedor":
                 {
+                    Facturar.Facturar pantalla = new Facturar.Facturar(user);
+                    pantalla.Owner = this;
+                    pantalla.Show();
                     this.Hide();
-                    new Facturar.Facturar(user).Show();
                     break;
                 }
                 case "Publicar Oferta":
                 {
-                    new CrearOferta.CrearOferta(user).Show();
+                    CrearOferta.CrearOferta pantallla = new CrearOferta.CrearOferta(user);
+                    pantalla.Owner = this;
+                    pantalla.Show();
                     this.Hide();
                     break;
                 }
                 case "Listado Estadistico":
                 {
+                    ListadoEstadistico.ListadoEstadistico pantalla = new ListadoEstadistico.ListadoEstadistico(user);
+                    pantalla.Owner = this;
+                    pantalla.Show();
                     this.Hide();
-                    new ListadoEstadistico.ListadoEstadistico(user).Show();
                     break;
                 }
                 case "Comprar Oferta":
                 {
+
+                    ComprarOferta.ComprarOferta pantalla = new ComprarOferta.ComprarOferta(user);
+                    pantalla.Owner = this;
+                    pantalla.Show();
                     this.Hide();
-                    new ComprarOferta.ComprarOferta(user).Show();
                     break;
                 }
                 case "Cargar Credito":
                 {
-                    new CargaCredito.CargaCredito(user).Show();
+                    CargaCredito.CargaCredito pantalla = new CargaCredito.CargaCredito(user);
+                    pantalla.Owner = this;
+                    pantalla.Show();
                     this.Hide();
                     break;
                 }

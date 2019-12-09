@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FrbaOfertas.Models.Ofertas;
 using FrbaOfertas.Models.Clientes;
+using FrbaOfertas.Models.Cupones;
 
 namespace FrbaOfertas.Models.Compras
 {
@@ -15,6 +16,7 @@ namespace FrbaOfertas.Models.Compras
         public decimal cantidad { get; set; }
         public Cliente cliente { get; set; }
         public Oferta oferta { get; set; }
+        public List<Cupon> cupones { get; set; }
 
         public Compra()
         {
