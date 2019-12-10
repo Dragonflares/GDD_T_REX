@@ -1433,11 +1433,12 @@ BEGIN
 	end catch
 
 END
-
-IF OBJECT_ID('T_REX.BajaProveedor') IS NOT NULL
-	DROP PROCEDURE [T_REX].BajaProveedor;
 GO
-CREATE PROCEDURE [T_REX].BajaProveedor
+
+IF OBJECT_ID('T_REX.DeshabilitarProveedor') IS NOT NULL
+	DROP PROCEDURE [T_REX].DeshabilitarProveedor;
+GO
+CREATE PROCEDURE [T_REX].DeshabilitarProveedor
 	@out varchar(1000) OUTPUT,
 	@IdProveedor int
 AS
@@ -1462,3 +1463,34 @@ BEGIN
 	end catch
 
 END
+GO
+
+IF OBJECT_ID('T_REX.HabilitarProveedor') IS NOT NULL
+	DROP PROCEDURE [T_REX].HabilitarProveedor;
+GO
+CREATE PROCEDURE [T_REX].HabilitarProveedor
+	@out varchar(1000) OUTPUT,
+	@IdProveedor int
+AS
+
+BEGIN
+	
+	begin try
+		update T_REX.PROVEEDOR
+		set estado = '1'
+		Where id_proveedor = @IdProveedor
+
+		if(@@ROWCOUNT = 0) 
+		begin
+			RAISERROR('Provedor Inexistente',16 ,1)
+			return
+		end
+
+	end try
+	begin catch
+		ROLLBACK TRANSACTION [T]
+		set @out = ERROR_MESSAGE();
+	end catch
+
+END
+GO

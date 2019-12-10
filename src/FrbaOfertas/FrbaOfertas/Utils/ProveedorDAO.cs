@@ -17,20 +17,20 @@ namespace FrbaOfertas.Utils
     {
         public Proveedor getProveedor(int id)
         {
-            return this.getProveedors(null, null, null, null, id)[0];
+            return this.getProveedores(null, null, null, null, null, null, id)[0];
         }
 
         public Proveedor getProveedorXUsuario(int id)
         {
-            return this.getProveedors(null, null, null, id, null)[0];
+            return this.getProveedores(null, null, null, null, null, id, null)[0];
         }
 
         public Proveedor getProveedorXMail(string mail)
         {
-            return this.getProveedors(null, null, mail, null, null)[0];
+            return this.getProveedores(null, null, mail, null, null, null, null)[0];
         }
 
-        public List<Proveedor> getProveedors(string razon_social, string cuit, string mail, int? idUsuario, int? idProveedor)
+        public List<Proveedor> getProveedores(string razon_social, string cuit, string mail, string nombreDeRubro, int? estado, int? idUsuario, int? idProveedor)
         {
             string cmd = "SELECT prov.[id_proveedor], prov.[provee_rs], prov.[provee_cuit], ru.[id_rubro], ru.[nombreDeRubro], prov.[email], " +
                 "prov.[provee_telefono], prov.[estado], u.[id_usuario], u.[username], u.[password]," +
@@ -39,11 +39,13 @@ namespace FrbaOfertas.Utils
                 "INNER JOIN [GD2C2019].[T_REX].[RUBRO] ru ON ru.[id_rubro] = prov.[id_rubro] " +
                 "INNER JOIN [GD2C2019].[T_REX].[USUARIO] u ON u.[id_usuario] = prov.[id_usuario] " +
                 "INNER JOIN [GD2C2019].[T_REX].[DOMICILIO] d ON d.[id_domicilio] = prov.[id_domicilio] " +
-                "WHERE prov.estado = 1";
+                "WHERE 1 = 1";
 
             if (!String.IsNullOrEmpty(razon_social)) cmd += " and lower(provee_rs) like '%" + razon_social.ToLower() + "%'";
             if (!String.IsNullOrEmpty(cuit)) cmd += " and lower(provee_cuit) like '%" + cuit.ToLower() + "%'";
             if (!String.IsNullOrEmpty(mail)) cmd += " and lower(email) like '%" + mail.ToLower() + "%'";
+            if (!String.IsNullOrEmpty(nombreDeRubro)) cmd += " and lower(nombreDeRubro) like '%" + nombreDeRubro.ToLower() + "%'";
+            if (estado != null) cmd += " and prov.estado = " + estado;
             if (idUsuario != null) cmd += " and u.id_usuario = " + idUsuario;
             if (idProveedor != null) cmd += " and prov.id_proveedor = " + idProveedor;
 
@@ -76,9 +78,28 @@ namespace FrbaOfertas.Utils
             return prov;
         }
 
-        public void eliminarProveedor(int id)
+        public void deshabilitarProveedor(int id)
         {
-            SqlCommand sp = FrbaOfertas.Utils.Database.createCommand("[GD2C2019].[T_REX].BajaProveedor");
+            SqlCommand sp = FrbaOfertas.Utils.Database.createCommand("[GD2C2019].[T_REX].DeshabilitarProveedor");
+            sp.Parameters.AddWithValue("IdProveedor", id);
+            //sp.Parameters.AddWithValue("Accion", 'B');
+
+            SqlParameter text = new SqlParameter("@out", SqlDbType.VarChar, 1000);
+            text.Direction = ParameterDirection.Output;
+            sp.Parameters.Add(text);
+
+            FrbaOfertas.Utils.Database.executeProcedure(sp);
+
+            if (!String.IsNullOrEmpty(text.Value.ToString()))
+            {
+                throw new Exception(text.Value.ToString());
+            }
+
+        }
+
+        public void habilitarProveedor(int id)
+        {
+            SqlCommand sp = FrbaOfertas.Utils.Database.createCommand("[GD2C2019].[T_REX].HabilitarProveedor");
             sp.Parameters.AddWithValue("IdProveedor", id);
             //sp.Parameters.AddWithValue("Accion", 'B');
 
