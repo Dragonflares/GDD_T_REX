@@ -38,7 +38,6 @@
             this.btn_baja = new System.Windows.Forms.Button();
             this.btn_alta = new System.Windows.Forms.Button();
             this.btn_modificar = new System.Windows.Forms.Button();
-            this.clienteBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.estadoDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.nombresDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -50,6 +49,7 @@
             this.direccionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fechaNacimientoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.creditoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clienteBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.tablaClientes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.clienteBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -149,10 +149,6 @@
             this.btn_modificar.UseVisualStyleBackColor = true;
             this.btn_modificar.Click += new System.EventHandler(this.btn_modificar_Click);
             // 
-            // clienteBindingSource
-            // 
-            this.clienteBindingSource.DataSource = typeof(FrbaOfertas.Models.Clientes.Cliente);
-            // 
             // idDataGridViewTextBoxColumn
             // 
             this.idDataGridViewTextBoxColumn.DataPropertyName = "id";
@@ -231,6 +227,10 @@
             this.creditoDataGridViewTextBoxColumn.Name = "creditoDataGridViewTextBoxColumn";
             this.creditoDataGridViewTextBoxColumn.ReadOnly = true;
             // 
+            // clienteBindingSource
+            // 
+            this.clienteBindingSource.DataSource = typeof(FrbaOfertas.Models.Clientes.Cliente);
+            // 
             // ListadoCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -247,6 +247,7 @@
             this.Controls.Add(this.tablaClientes);
             this.Name = "ListadoCliente";
             this.Text = "ABM Clientes";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ListadoCliente_FormClosed);
             this.Load += new System.EventHandler(this.ListadoCliente_Load);
             ((System.ComponentModel.ISupportInitialize)(this.tablaClientes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.clienteBindingSource)).EndInit();

@@ -82,5 +82,10 @@ namespace FrbaOfertas.ABMCliente
                 MessageBox.Show("Seleccione Un Cliente");
             }
         }
+
+        private void ListadoCliente_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Owner.Show();
+        }
     }
 }

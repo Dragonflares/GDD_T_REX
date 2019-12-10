@@ -14,6 +14,7 @@ namespace FrbaOfertas
 {
     public partial class PantallaPrincipal : Form
     {
+        private Boolean cerrandoSession = false;
         private Dictionary<String, Button> funcionalidades = new Dictionary<String, Button>();
         public Usuario user;
         public PantallaPrincipal(Usuario usuario)
@@ -49,7 +50,7 @@ namespace FrbaOfertas
 
         private void button2_Click(object sender, EventArgs e)
         {
-            
+            this.cerrandoSession = true;
             this.Owner.Show();
             this.Close();
         }
@@ -146,6 +147,14 @@ namespace FrbaOfertas
                     break;
                 }
 
+            }
+        }
+
+        private void PantallaPrincipal_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (!this.cerrandoSession)
+            {
+                Application.Exit();
             }
         }
     }
