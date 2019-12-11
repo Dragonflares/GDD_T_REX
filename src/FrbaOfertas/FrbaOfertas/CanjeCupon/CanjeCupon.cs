@@ -41,7 +41,7 @@ namespace FrbaOfertas.CanjeCupon
                 "INNER JOIN [GD2C2019].[T_REX].[Compra] comp ON comp.id_compra = cup.id_compra " +
                 "INNER JOIN [GD2C2019].[T_REX].[Cliente] cli ON cli.id_cliente = comp.id_cliente " +
                 "INNER JOIN [GD2C2019].[T_REX].[Usuario] u ON u.id_usuario = cli.id_usuario " +
-                "WHERE cup.cupon_estado = 1 and fechaVencimiento > GETDATE()";
+                "WHERE cup.cupon_estado = 1 and DATEADD(week, 2, comp.compra_fecha) > GETDATE()";
 
             if (!String.IsNullOrEmpty(textBox1.Text)) takecupon += " and lower(of.descripcion) like '%" + textBox1.Text.ToLower() + "%'";
 
