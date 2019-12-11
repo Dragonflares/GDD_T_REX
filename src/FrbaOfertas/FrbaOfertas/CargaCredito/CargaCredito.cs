@@ -9,11 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using FrbaOfertas.Models.Usuarios;
 using FrbaOfertas.Models.Clientes;
+using FrbaOfertas.Utils;
+
 
 namespace FrbaOfertas.CargaCredito
 {
     public partial class CargaCredito : Form
     {
+        public ClienteDAO cliDAO = new ClienteDAO();
         public Usuario user;
         public Cliente cliente;
         public CargaCredito(Usuario _user)
@@ -64,6 +67,7 @@ namespace FrbaOfertas.CargaCredito
             {
 
                 //#TODO agregar funcionalidad para que impacte cambios en base de datos(no hace falta realizar verificaciones)
+                cliDAO.modificarCredito(cliente.id, (int)numericUpDown1.Value); 
                 MessageBox.Show("Carga acreditada con exito", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Owner.Show();
                 this.Close();
@@ -84,7 +88,7 @@ namespace FrbaOfertas.CargaCredito
         public void setCliente(Cliente cli)
         {
             this.cliente = cli;
-            textBox1.Text = cliente.usuario.nombre;
+            textBox1.Text = cliente.nroDocumento.ToString();
         }
     }
 }

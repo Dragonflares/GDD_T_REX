@@ -12,11 +12,18 @@ using FrbaOfertas.Models.Roles;
 using FrbaOfertas.Utils;
 using FrbaOfertas.Models.Clientes;
 using System.Data.SqlClient;
+using FrbaOfertas.Models.Ofertas;
+using FrbaOfertas.Models.Compras;
+using FrbaOfertas.Models.Cupones;
+
 
 namespace FrbaOfertas.ComprarOferta
 {
     public partial class ComprarOferta : Form
     {
+        public OfertaDAO ofDAO = new OfertaDAO();
+        public CompraDAO compraDAO = new CompraDAO();
+        public CuponDAO cupDAO = new CuponDAO();
         private Usuario user;
         public Cliente target;
         public ComprarOferta(Usuario usuario)
@@ -80,7 +87,32 @@ namespace FrbaOfertas.ComprarOferta
                 }
                 else
                 {
+                    int id_oferta = int.Parse(dgv_ofertas.Rows[e.RowIndex].Cells["id"].Value.ToString());
+                    Oferta oferta = ofDAO.getOferta(id_oferta, true);
 
+                    Compra compra = new Compra();
+                    compra.cantidad = (int)numericUpDown1.Value;
+                    compra.compra_fecha = Database.getDateBeta();
+                    compra.oferta = oferta;
+                    compra.cliente = target;
+
+                    SqlCommand takeCompras = Database.createCommand("SELECT max (id_compra) FROM [T_REX].Compra");
+                    int id_compra_max = Database.executeScalar(takeCompras) + 1;
+                    compra.id_compra = id_compra_max;
+                    compraDAO.guardarCompra(compra);
+
+
+                    for (int i = 0; i < compra.cantidad; i++)
+                    {
+                        Cupon cupon = new Cupon();
+                        cupon.oferta = oferta;
+                        cupon.compra = compra;
+                        cupon.cupon_precio_lista = oferta.precio_lista;
+                        cupon.cupon_precio_oferta = oferta.precio_oferta;
+
+                        cupDAO.crearCupon(cupon);
+                    }
+                    
                     MessageBox.Show("Compra realizada con Éxito!", "Compra realizada", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }

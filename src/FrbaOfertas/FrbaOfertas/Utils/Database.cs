@@ -21,6 +21,16 @@ namespace FrbaOfertas.Utils
             return connection;
         }
 
+
+        public static DateTime getDateBeta()
+        {
+            DateTime localDate = DateTime.Parse(ConfigurationManager.AppSettings["current_date"].ToString());
+
+            return localDate;
+        }
+
+
+
         public static SqlCommand createCommand(String query)
         {
             return new SqlCommand(query, connection);
@@ -54,8 +64,7 @@ namespace FrbaOfertas.Utils
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.Message, "ERROR",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
             }
             connection.Close();
             return res;

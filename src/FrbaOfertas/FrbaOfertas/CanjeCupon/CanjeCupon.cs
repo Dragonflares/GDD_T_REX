@@ -83,7 +83,7 @@ namespace FrbaOfertas.CanjeCupon
             {
                 int id = int.Parse(dgv_cupon.Rows[e.RowIndex].Cells["id"].Value.ToString());
 
-                FrbaOfertas.CanjeCupon.ListadoClientes pantalla = new FrbaOfertas.CanjeCupon.ListadoClientes(int id);
+                ListadoClientes pantalla = new ListadoClientes(id);
                 pantalla.ShowDialog();
             }
         }

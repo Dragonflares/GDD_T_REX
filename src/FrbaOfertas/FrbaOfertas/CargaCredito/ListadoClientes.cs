@@ -8,12 +8,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using FrbaOfertas.Models.Clientes;
+using FrbaOfertas.Utils;
+
 
 namespace FrbaOfertas.CargaCredito
 {
     public partial class ListadoClientes : Form
     {
         public CargaCredito form_anterior;
+        public ClienteDAO cliDAO = new ClienteDAO();
+
 
         public ListadoClientes(CargaCredito ant)
         {
@@ -50,8 +55,7 @@ namespace FrbaOfertas.CargaCredito
             if (e.ColumnIndex == dgv_clientes.Columns["Seleccionar"].Index)
             {
                 int id_cliente = int.Parse(dgv_clientes.Rows[e.RowIndex].Cells["id"].Value.ToString());
-
-                MessageBox.Show("Carga acreditada con Éxito!", "Carga realizada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                form_anterior.setCliente(cliDAO.getCliente(id_cliente));
                 this.Close();
             }
         }

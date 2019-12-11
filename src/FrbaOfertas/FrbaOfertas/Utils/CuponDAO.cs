@@ -46,7 +46,6 @@ namespace FrbaOfertas.Utils
         {
             SqlCommand sp = FrbaOfertas.Utils.Database.createCommand("[GD2C2019].[T_REX].CrearCupon");
 
-            sp.Parameters.AddWithValue("FechaConsumo", cupon.cupon_fecha_deconsumo);
             sp.Parameters.AddWithValue("PrecioOferta", cupon.cupon_precio_oferta);
             sp.Parameters.AddWithValue("PrecioLista", cupon.cupon_precio_lista);
             sp.Parameters.AddWithValue("IdCompra", cupon.compra.id_compra);

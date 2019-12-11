@@ -10,7 +10,6 @@ using FrbaOfertas.Models;
 using FrbaOfertas.Models.Cupones;
 using FrbaOfertas.Models.Compras;
 using System.Data.SqlTypes;
-using FrbaOfertas.Models.Ofertas;
 
 namespace FrbaOfertas.Utils
 {

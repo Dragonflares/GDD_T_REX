@@ -11,7 +11,7 @@ using FrbaOfertas.Models;
 
 namespace FrbaOfertas.Utils
 {
-    class ClienteDAO
+    public class ClienteDAO
     {
         public Cliente getCliente(int id)
         {
