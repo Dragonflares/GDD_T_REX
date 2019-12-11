@@ -145,7 +145,7 @@ namespace FrbaOfertas.ABMProveedor
             }
             else
             {
-                MessageBox.Show("Seleccione Un Cliente");
+                MessageBox.Show("Seleccione Un Proveedor");
             }
         }
 

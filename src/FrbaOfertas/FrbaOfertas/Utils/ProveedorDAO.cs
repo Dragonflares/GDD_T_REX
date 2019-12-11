@@ -130,11 +130,11 @@ namespace FrbaOfertas.Utils
                 sp.Parameters.AddWithValue("Accion", 'A');
             }
 
-            sp.Parameters.AddWithValue("RazonSocial", razonSocial);
-            sp.Parameters.AddWithValue("CUIT", CUIT);
+            sp.Parameters.AddWithValue("Provee_rs", razonSocial);
+            sp.Parameters.AddWithValue("Provee_cuit", CUIT);
             sp.Parameters.AddWithValue("Mail", email);
             sp.Parameters.AddWithValue("Telefono", telefono);
-            sp.Parameters.AddWithValue("Rubro", rubro);
+            sp.Parameters.AddWithValue("NombreDeRubro", rubro);
             sp.Parameters.AddWithValue("Domicilio", calle);
             sp.Parameters.AddWithValue("NroPiso", piso);
             sp.Parameters.AddWithValue("NroDpto", depto);

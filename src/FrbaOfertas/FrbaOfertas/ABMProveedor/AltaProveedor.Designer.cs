@@ -65,14 +65,14 @@
             this.text_pass.Location = new System.Drawing.Point(275, 78);
             this.text_pass.Name = "text_pass";
             this.text_pass.Size = new System.Drawing.Size(100, 20);
-            this.text_pass.TabIndex = 67;
+            this.text_pass.TabIndex = 1;
             // 
             // text_cuit
             // 
             this.text_cuit.Location = new System.Drawing.Point(275, 113);
             this.text_cuit.Name = "text_cuit";
             this.text_cuit.Size = new System.Drawing.Size(100, 20);
-            this.text_cuit.TabIndex = 66;
+            this.text_cuit.TabIndex = 3;
             // 
             // label12
             // 
@@ -97,14 +97,14 @@
             this.text_email.Location = new System.Drawing.Point(139, 154);
             this.text_email.Name = "text_email";
             this.text_email.Size = new System.Drawing.Size(100, 20);
-            this.text_email.TabIndex = 61;
+            this.text_email.TabIndex = 4;
             // 
             // text_telefono
             // 
             this.text_telefono.Location = new System.Drawing.Point(279, 154);
             this.text_telefono.Name = "text_telefono";
             this.text_telefono.Size = new System.Drawing.Size(100, 20);
-            this.text_telefono.TabIndex = 60;
+            this.text_telefono.TabIndex = 5;
             // 
             // label7
             // 
@@ -129,14 +129,14 @@
             this.text_usuario.Location = new System.Drawing.Point(141, 78);
             this.text_usuario.Name = "text_usuario";
             this.text_usuario.Size = new System.Drawing.Size(100, 20);
-            this.text_usuario.TabIndex = 55;
+            this.text_usuario.TabIndex = 0;
             // 
             // text_razonsocial
             // 
             this.text_razonsocial.Location = new System.Drawing.Point(141, 113);
             this.text_razonsocial.Name = "text_razonsocial";
             this.text_razonsocial.Size = new System.Drawing.Size(100, 20);
-            this.text_razonsocial.TabIndex = 54;
+            this.text_razonsocial.TabIndex = 2;
             // 
             // label6
             // 
@@ -160,13 +160,10 @@
             // 
             this.combo_rubro.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.combo_rubro.FormattingEnabled = true;
-            this.combo_rubro.Items.AddRange(new object[] {
-            "DNI",
-            "CI"});
             this.combo_rubro.Location = new System.Drawing.Point(142, 203);
             this.combo_rubro.Name = "combo_rubro";
             this.combo_rubro.Size = new System.Drawing.Size(100, 21);
-            this.combo_rubro.TabIndex = 50;
+            this.combo_rubro.TabIndex = 6;
             // 
             // label5
             // 
@@ -192,7 +189,7 @@
             this.text_dto.Location = new System.Drawing.Point(339, 283);
             this.text_dto.Name = "text_dto";
             this.text_dto.Size = new System.Drawing.Size(37, 20);
-            this.text_dto.TabIndex = 81;
+            this.text_dto.TabIndex = 9;
             // 
             // label17
             // 
@@ -208,14 +205,14 @@
             this.text_piso.Location = new System.Drawing.Point(277, 283);
             this.text_piso.Name = "text_piso";
             this.text_piso.Size = new System.Drawing.Size(37, 20);
-            this.text_piso.TabIndex = 79;
+            this.text_piso.TabIndex = 8;
             // 
             // text_cod_postal
             // 
             this.text_cod_postal.Location = new System.Drawing.Point(277, 318);
             this.text_cod_postal.Name = "text_cod_postal";
             this.text_cod_postal.Size = new System.Drawing.Size(100, 20);
-            this.text_cod_postal.TabIndex = 78;
+            this.text_cod_postal.TabIndex = 11;
             // 
             // label8
             // 
@@ -240,14 +237,14 @@
             this.text_calle.Location = new System.Drawing.Point(143, 283);
             this.text_calle.Name = "text_calle";
             this.text_calle.Size = new System.Drawing.Size(100, 20);
-            this.text_calle.TabIndex = 75;
+            this.text_calle.TabIndex = 7;
             // 
             // text_localidad
             // 
             this.text_localidad.Location = new System.Drawing.Point(143, 318);
             this.text_localidad.Name = "text_localidad";
             this.text_localidad.Size = new System.Drawing.Size(100, 20);
-            this.text_localidad.TabIndex = 74;
+            this.text_localidad.TabIndex = 10;
             // 
             // label15
             // 
@@ -281,7 +278,7 @@
             this.btn_volver.Location = new System.Drawing.Point(152, 352);
             this.btn_volver.Name = "btn_volver";
             this.btn_volver.Size = new System.Drawing.Size(92, 34);
-            this.btn_volver.TabIndex = 70;
+            this.btn_volver.TabIndex = 13;
             this.btn_volver.Text = "Volver";
             this.btn_volver.UseVisualStyleBackColor = true;
             this.btn_volver.Click += new System.EventHandler(this.btn_volver_Click);
@@ -292,9 +289,10 @@
             this.btn_save.Name = "btn_save";
             this.btn_save.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.btn_save.Size = new System.Drawing.Size(92, 34);
-            this.btn_save.TabIndex = 69;
+            this.btn_save.TabIndex = 12;
             this.btn_save.Text = "Guardar";
             this.btn_save.UseVisualStyleBackColor = true;
+            this.btn_save.Click += new System.EventHandler(this.btn_save_Click);
             // 
             // lineShape1
             // 
