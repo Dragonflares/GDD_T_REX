@@ -34,14 +34,14 @@ namespace FrbaOfertas.CanjeCupon
 
         public void loadCuponesPorEntregar()
         {
-            string takecupon = "SELECT cup.id_cupon as id, cup.cupon_fecha_deconsumo as fechaVencimiento, " +
+            string takecupon = "SELECT cup.id_cupon as id, DATEADD(week, 2, comp.compra_fecha) as fechaVencimiento, " +
                 "offer.descripcion as descripcion, u.username as cliente " +
                 "FROM [GD2C2019].[T_REX].[Cupon] cup " + 
                 "INNER JOIN [GD2C2019].[T_REX].[Oferta] offer ON offer.id_oferta = cup.id_oferta " +
                 "INNER JOIN [GD2C2019].[T_REX].[Compra] comp ON comp.id_compra = cup.id_compra " +
                 "INNER JOIN [GD2C2019].[T_REX].[Cliente] cli ON cli.id_cliente = comp.id_cliente " +
                 "INNER JOIN [GD2C2019].[T_REX].[Usuario] u ON u.id_usuario = cli.id_usuario " +
-                "WHERE cup.cupon_estado = 1 and cup.cupon_fecha_deconsumo > GETDATE() ";
+                "WHERE cup.cupon_estado = 1 and fechaVencimiento > GETDATE()";
 
             if (!String.IsNullOrEmpty(textBox1.Text)) takecupon += " and lower(of.descripcion) like '%" + textBox1.Text.ToLower() + "%'";
 
