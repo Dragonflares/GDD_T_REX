@@ -152,6 +152,7 @@
             // 
             // codigo
             // 
+            this.codigo.DataPropertyName = "fechaVencimiento";
             this.codigo.HeaderText = "Fecha Vencimiento";
             this.codigo.Name = "codigo";
             this.codigo.ReadOnly = true;
