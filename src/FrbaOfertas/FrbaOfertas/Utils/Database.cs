@@ -64,7 +64,8 @@ namespace FrbaOfertas.Utils
             }
             catch (Exception exception)
             {
-                return null;
+                MessageBox.Show(exception.Message, "ERROR",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             connection.Close();
             return res;
@@ -84,8 +85,7 @@ namespace FrbaOfertas.Utils
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.Message, "ERROR",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
             }
             connection.Close();
             return res;
