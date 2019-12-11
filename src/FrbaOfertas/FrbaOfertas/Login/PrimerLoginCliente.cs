@@ -131,8 +131,12 @@ namespace FrbaOfertas.Login
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Owner.Show();
             this.Close();
+        }
+
+        private void PrimerLoginCliente_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Owner.Show();
         }
 
     }

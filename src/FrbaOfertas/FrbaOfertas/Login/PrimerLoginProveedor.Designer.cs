@@ -114,21 +114,21 @@
             this.nombreUsuario.Location = new System.Drawing.Point(36, 83);
             this.nombreUsuario.Name = "nombreUsuario";
             this.nombreUsuario.Size = new System.Drawing.Size(113, 20);
-            this.nombreUsuario.TabIndex = 5;
+            this.nombreUsuario.TabIndex = 0;
             // 
             // contrasenia
             // 
             this.contrasenia.Location = new System.Drawing.Point(36, 123);
             this.contrasenia.Name = "contrasenia";
             this.contrasenia.Size = new System.Drawing.Size(113, 20);
-            this.contrasenia.TabIndex = 6;
+            this.contrasenia.TabIndex = 1;
             // 
             // confirmContrasenia
             // 
             this.confirmContrasenia.Location = new System.Drawing.Point(178, 123);
             this.confirmContrasenia.Name = "confirmContrasenia";
             this.confirmContrasenia.Size = new System.Drawing.Size(113, 20);
-            this.confirmContrasenia.TabIndex = 8;
+            this.confirmContrasenia.TabIndex = 2;
             // 
             // textBox1
             // 
@@ -199,7 +199,7 @@
             this.razonSocial.Location = new System.Drawing.Point(36, 162);
             this.razonSocial.Name = "razonSocial";
             this.razonSocial.Size = new System.Drawing.Size(113, 20);
-            this.razonSocial.TabIndex = 19;
+            this.razonSocial.TabIndex = 3;
             // 
             // telefono
             // 
@@ -207,14 +207,14 @@
             this.telefono.MaxLength = 12;
             this.telefono.Name = "telefono";
             this.telefono.Size = new System.Drawing.Size(113, 20);
-            this.telefono.TabIndex = 20;
+            this.telefono.TabIndex = 5;
             // 
             // mail
             // 
             this.mail.Location = new System.Drawing.Point(178, 162);
             this.mail.Name = "mail";
             this.mail.Size = new System.Drawing.Size(113, 20);
-            this.mail.TabIndex = 21;
+            this.mail.TabIndex = 4;
             // 
             // label15
             // 
@@ -230,7 +230,7 @@
             this.calle.Location = new System.Drawing.Point(178, 214);
             this.calle.Name = "calle";
             this.calle.Size = new System.Drawing.Size(113, 20);
-            this.calle.TabIndex = 23;
+            this.calle.TabIndex = 6;
             // 
             // label16
             // 
@@ -246,21 +246,21 @@
             this.numeroCalle.Location = new System.Drawing.Point(178, 253);
             this.numeroCalle.Name = "numeroCalle";
             this.numeroCalle.Size = new System.Drawing.Size(113, 20);
-            this.numeroCalle.TabIndex = 25;
+            this.numeroCalle.TabIndex = 8;
             // 
             // codigoPostal
             // 
             this.codigoPostal.Location = new System.Drawing.Point(36, 253);
             this.codigoPostal.Name = "codigoPostal";
             this.codigoPostal.Size = new System.Drawing.Size(113, 20);
-            this.codigoPostal.TabIndex = 26;
+            this.codigoPostal.TabIndex = 7;
             // 
             // piso
             // 
             this.piso.Location = new System.Drawing.Point(178, 292);
             this.piso.Name = "piso";
             this.piso.Size = new System.Drawing.Size(113, 20);
-            this.piso.TabIndex = 28;
+            this.piso.TabIndex = 10;
             // 
             // label17
             // 
@@ -285,7 +285,7 @@
             this.depto.Location = new System.Drawing.Point(178, 331);
             this.depto.Name = "depto";
             this.depto.Size = new System.Drawing.Size(113, 20);
-            this.depto.TabIndex = 31;
+            this.depto.TabIndex = 12;
             // 
             // label19
             // 
@@ -301,14 +301,14 @@
             this.localidad.Location = new System.Drawing.Point(106, 370);
             this.localidad.Name = "localidad";
             this.localidad.Size = new System.Drawing.Size(113, 20);
-            this.localidad.TabIndex = 33;
+            this.localidad.TabIndex = 13;
             // 
             // cuit
             // 
             this.cuit.Location = new System.Drawing.Point(36, 331);
             this.cuit.Name = "cuit";
             this.cuit.Size = new System.Drawing.Size(113, 20);
-            this.cuit.TabIndex = 34;
+            this.cuit.TabIndex = 11;
             // 
             // registrarse
             // 
@@ -317,7 +317,7 @@
             this.registrarse.Location = new System.Drawing.Point(178, 419);
             this.registrarse.Name = "registrarse";
             this.registrarse.Size = new System.Drawing.Size(113, 30);
-            this.registrarse.TabIndex = 36;
+            this.registrarse.TabIndex = 14;
             this.registrarse.Text = "Registrarse";
             this.registrarse.UseVisualStyleBackColor = false;
             this.registrarse.Click += new System.EventHandler(this.registrarse_Click);
@@ -329,18 +329,19 @@
             this.button1.Location = new System.Drawing.Point(37, 419);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(113, 30);
-            this.button1.TabIndex = 37;
+            this.button1.TabIndex = 15;
             this.button1.Text = "Volver";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // comboBox1
             // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(36, 291);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(113, 21);
-            this.comboBox1.TabIndex = 38;
+            this.comboBox1.TabIndex = 9;
             // 
             // PrimerLoginProveedor
             // 
@@ -382,6 +383,7 @@
             this.Controls.Add(this.label1);
             this.Name = "PrimerLoginProveedor";
             this.Text = "Crear Proveedor";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PrimerLoginProveedor_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

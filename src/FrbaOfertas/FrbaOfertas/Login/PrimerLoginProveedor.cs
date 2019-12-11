@@ -147,7 +147,6 @@ namespace FrbaOfertas.Login
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Owner.Show();
             this.Close();
         }
 
@@ -207,6 +206,11 @@ namespace FrbaOfertas.Login
             }
             else
                 return false;
+        }
+
+        private void PrimerLoginProveedor_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Owner.Show();
         }
 
         // agregar evento de en cambio del texto de nombreUsuario, que haga una busqueda para completar y bloquear los campos de contraseña.

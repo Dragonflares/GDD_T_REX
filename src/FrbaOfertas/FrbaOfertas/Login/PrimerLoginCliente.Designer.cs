@@ -423,6 +423,7 @@
             this.Controls.Add(this.label1);
             this.Name = "PrimerLoginCliente";
             this.Text = "Registro cliente";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PrimerLoginCliente_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 
