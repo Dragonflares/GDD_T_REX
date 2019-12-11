@@ -30,7 +30,18 @@ namespace FrbaOfertas.Utils
             {
                 counter += compra.cantidad;
             }
-            return 0;
+            return counter;
+        }
+
+        public int cantidadDeOfertasCompradasPorEsteCliente(int id_oferta, int id_cliente)
+        {
+            List<Compra> comprasRealizadas = getComprasPorCliente(id_oferta, id_cliente);
+            int counter = 0;
+            foreach (Compra compra in comprasRealizadas)
+            {
+                counter += compra.cantidad;
+            }
+            return counter;
         }
 
         public int recaudacionTotalOfertaEnPeriodo(DateTime fecha_inicio, DateTime fecha_fin, Oferta oferta)
@@ -60,11 +71,32 @@ namespace FrbaOfertas.Utils
             
         }
 
+        
+
+        public List<Compra> getComprasPorCliente(int id_oferta, int id_cliente)
+        {
+            string cmd = "SELECT c.id_compra, c.compra_fecha, c.id_oferta, c.id_cliente, c.cantidad " +
+                "FROM [GD2C2019].[T_REX].[Compra] c " +
+                "WHERE 1=1 and c.id_cliente = " + id_cliente + " and c.id_oferta = " + id_oferta + " ";
+
+
+            cmd += "ORDER BY c.[id_compra] ASC";
+
+            SqlCommand command = FrbaOfertas.Utils.Database.createCommand(cmd);
+            DataTable table = Utils.Database.getData(command);
+
+            return table.Rows.Cast<DataRow>().
+                Select(row =>
+                {
+                    return this.createCompraFromQueryResult(row);
+                }).ToList<Compra>();
+        }
+
 
         private Compra createCompraFromQueryResult(DataRow row)
         {
             Compra compra = new Compra();
-            compra.id_compra = int.Parse(row["id_cliente"].ToString());
+            compra.id_compra = int.Parse(row["id_compra"].ToString());
             compra.cantidad = int.Parse(row["cantidad"].ToString());
             return compra;
         }
