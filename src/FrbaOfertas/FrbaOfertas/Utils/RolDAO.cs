@@ -77,7 +77,7 @@ namespace FrbaOfertas.Utils
         public void updateRol(int id, String nombre, DataTable Funcionalidades)
         {
 
-            SqlCommand cmd = Database.createCommand("[T_REX].UpdateRol");
+            SqlCommand cmd = Database.createCommand("[T_REX].AgregarFuncionalidadRol");
             cmd.Parameters.Add("@rol_id", SqlDbType.Int).Value = id;
             cmd.Parameters.Add("@nombre", SqlDbType.NVarChar).Value = nombre;
             cmd.Parameters.Add("@funcionalidades", SqlDbType.Structured).Value = Funcionalidades;

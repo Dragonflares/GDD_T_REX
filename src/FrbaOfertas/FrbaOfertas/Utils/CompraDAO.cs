@@ -10,6 +10,7 @@ using FrbaOfertas.Models;
 using FrbaOfertas.Models.Cupones;
 using FrbaOfertas.Models.Compras;
 using System.Data.SqlTypes;
+using FrbaOfertas.Models.Ofertas;
 
 namespace FrbaOfertas.Utils
 {
@@ -23,20 +24,70 @@ namespace FrbaOfertas.Utils
 
         public int cantidadDeUnaOfertaCompradasEnPeriodo(DateTime fecha_inicio, DateTime fecha_fin, int id_oferta)
         {
-            List<Compra> comprasRealizadas = getCompras(fecha_inicio, fecha_fin, id_oferta);
+            List<Compra> comprasRealizadas = getComprasPorOferta(fecha_inicio, fecha_fin, id_oferta);
+            int counter = 0;
+            foreach (Compra compra in comprasRealizadas)
+            {
+                counter += compra.cantidad;
+            }
             return 0;
         }
 
-        public int recaudacionTotalOfertaEnPeriodo(DateTime fecha_inicio, DateTime fecha_fin, int id_oferta)
+        public int recaudacionTotalOfertaEnPeriodo(DateTime fecha_inicio, DateTime fecha_fin, Oferta oferta)
         {
-            List<Compra> comprasRealizadas = getCompras(fecha_inicio, fecha_fin, id_oferta);
-            return 0;
+            int cantidadComprasRealizadas = cantidadDeUnaOfertaCompradasEnPeriodo(fecha_inicio, fecha_fin, oferta.id_oferta);
+
+            return (oferta.precio_oferta * cantidadComprasRealizadas);
         }
 
-        public List<Compra> getCompras(DateTime fecha_inicio, DateTime fecha_fin, int id_oferta)
+        public List<Compra> getComprasPorOferta(DateTime fecha_inicio, DateTime fecha_fin, int id_oferta)
         {
+            string cmd = "SELECT c.id_compra, c.compra_fecha, c.id_oferta, c.id_cliente, c.cantidad" +
+                "FROM [GD2C2019].[T_REX].[Compra] c " +
+                "WHERE 1=1 and c.id_oferta = " + id_oferta + "and c.compra_fecha between " + fecha_inicio + " and " + fecha_fin;
 
-            return null;
+
+            cmd += "ORDER BY c.[id_compra] ASC";
+
+            SqlCommand command = FrbaOfertas.Utils.Database.createCommand(cmd);
+            DataTable table = Utils.Database.getData(command);
+
+            return table.Rows.Cast<DataRow>().
+                Select(row =>
+                {
+                    return this.createCompraFromQueryResult(row);
+                }).ToList<Compra>();
+            
+        }
+
+
+        private Compra createCompraFromQueryResult(DataRow row)
+        {
+            Compra compra = new Compra();
+            compra.id_compra = int.Parse(row["id_cliente"].ToString());
+            compra.cantidad = int.Parse(row["cantidad"].ToString());
+            return compra;
+        }
+
+        public void guardarCompra(Compra compra)
+        {
+            SqlCommand sp = FrbaOfertas.Utils.Database.createCommand("[GD2C2019].[T_REX].CrearOferta");
+
+            sp.Parameters.AddWithValue("Id_Oferta", compra.oferta.id_oferta);
+            sp.Parameters.AddWithValue("Id_Cliente", compra.cliente.id);
+            sp.Parameters.AddWithValue("Fecha", compra.compra_fecha);
+            sp.Parameters.AddWithValue("Cantidad", compra.cantidad);
+
+            SqlParameter text = new SqlParameter("@out", SqlDbType.VarChar, 1000);
+            text.Direction = ParameterDirection.Output;
+            sp.Parameters.Add(text);
+
+            FrbaOfertas.Utils.Database.executeProcedure(sp);
+
+            if (!String.IsNullOrEmpty(text.Value.ToString()))
+            {
+                throw new Exception(text.Value.ToString());
+            }
         }
     }
 }
