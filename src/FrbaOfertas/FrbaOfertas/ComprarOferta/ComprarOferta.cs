@@ -80,6 +80,7 @@ namespace FrbaOfertas.ComprarOferta
                 }
                 else
                 {
+
                     MessageBox.Show("Compra realizada con Éxito!", "Compra realizada", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }

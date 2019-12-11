@@ -20,9 +20,11 @@ namespace FrbaOfertas.CargaCredito
         {
             InitializeComponent();
             user = _user;
-            if ("Cliente" == user.rolActivo.nombre)
+            textBox1.Enabled = false;
+            if (2 == user.rolActivo.id)
             {
-                this.cliente = user.cliente;
+                button2.Visible = false;
+                setCliente(user.cliente);
             }
         }
 
@@ -77,6 +79,12 @@ namespace FrbaOfertas.CargaCredito
         {
             new ListadoClientes(this).ShowDialog();
             
+        }
+
+        public void setCliente(Cliente cli)
+        {
+            this.cliente = cli;
+            textBox1.Text = cliente.usuario.nombre;
         }
     }
 }

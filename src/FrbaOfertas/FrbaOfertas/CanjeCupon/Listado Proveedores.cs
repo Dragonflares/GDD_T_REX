@@ -9,12 +9,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FrbaOfertas.Models.Proveedores;
+using FrbaOfertas.Models.Usuarios;
+
 
 namespace FrbaOfertas.CanjeCupon
 {
     public partial class ListadoProveedor : Form
     {
         ProveedorDAO provDAO = new ProveedorDAO();
+        UsuarioDAO userDAO = new UsuarioDAO();
         public ListadoProveedor()
         {
             InitializeComponent();
@@ -73,14 +77,15 @@ namespace FrbaOfertas.CanjeCupon
                 if (e.ColumnIndex == dgv_proveedores.Columns["Seleccionar"].Index)
                 {
                     DataGridViewRow row = dgv_proveedores.Rows[e.RowIndex];
-                    int id = (int)row.Cells[0].Value;
-                    //TODO agregar pedido a DAO Proveedor
-                    //Proveedor prov = provDAO.getProveedor(id);
-                    //Usuario user = userDAO.getUsuarioById(prov.usuario.id);
-                    //user.proveedor = prov;
-                    //CanjeCupon pantalla = new CanjeCupon(user);
-                    //pantalla.Owner = this;
-                    //pantalla.ShowDialog();
+                    int id_proveedor = int.Parse(dgv_proveedores.Rows[e.RowIndex].Cells["id"].Value.ToString());
+                    
+                    Proveedor prov = provDAO.getProveedor(id_proveedor);
+                    Usuario user = userDAO.getUsuarioById(prov.usuario.id);
+                    user.proveedor = prov;
+                    CanjeCupon pantalla = new CanjeCupon(user);
+                    pantalla.Owner = this;
+                    pantalla.Show();
+                    this.Hide();
                 }
             }
         }

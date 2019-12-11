@@ -8,13 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using FrbaOfertas.Utils;
+
 
 namespace FrbaOfertas.CanjeCupon
 {
     public partial class ListadoClientes : Form
     {
-        public ListadoClientes()
+        int id_cupon;
+        CuponDAO cuponDAO = new CuponDAO();
+
+        public ListadoClientes(int id)
         {
+            this.id_cupon = id;
             InitializeComponent();
             loadClientes();
         }
@@ -25,12 +31,12 @@ namespace FrbaOfertas.CanjeCupon
                 ", cli.[nro_documento] as DNI, cli.[email] as Mail, " +
                 "cli.[creditoTotal] as Crédito " +
                 "FROM [GD2C2019].[T_REX].[Cliente] cli " +
-                "WHERE 1=1";
+                "WHERE cli.baja_logica = 0 and cli.estado = 1";
 
             if (!String.IsNullOrEmpty(textBox1.Text)) takeclient += " and lower(nombre) like '" + textBox1.Text.ToLower() + "%'";
             if (!String.IsNullOrEmpty(textBox2.Text)) takeclient += " and lower(apellido) like '" + textBox2.Text.ToLower() + "%'";
             if (!String.IsNullOrEmpty(textBox3.Text)) takeclient += " and lower(email) = '" + textBox3.Text + "%'";
-            if (!String.IsNullOrEmpty(textBox4.Text)) takeclient += " and nro_documento LIKE '" + textBox4.Text + "%'";
+            if (!String.IsNullOrEmpty(textBox4.Text)) takeclient += " and nro_documento = " + textBox4.Text;
 
             takeclient += "ORDER BY [id_cliente] ASC";
             SqlCommand takeClients = FrbaOfertas.Utils.Database.createCommand(takeclient);
@@ -46,9 +52,10 @@ namespace FrbaOfertas.CanjeCupon
             }
             if (e.ColumnIndex == dgv_clientes.Columns["Entregar"].Index)
             {
+                int id_cliente = int.Parse(dgv_clientes.Rows[e.RowIndex].Cells["id"].Value.ToString());
+                cuponDAO.entregarCupon(id_cupon, id_cliente);
                 MessageBox.Show("Cupón entregado con Éxito!", "Entrega realizada", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
-                this.Owner.Enabled = true;
             }
         }
 

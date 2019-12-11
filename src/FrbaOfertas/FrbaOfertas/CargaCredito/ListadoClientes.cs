@@ -28,12 +28,12 @@ namespace FrbaOfertas.CargaCredito
                 ", cli.[nro_documento] as DNI, cli.[email] as Mail, " +
                 "cli.[creditoTotal] as Crédito " +
                 "FROM [GD2C2019].[T_REX].[Cliente] cli " +
-                "WHERE 1=1";
+                "WHERE cli.baja_logica = 0 and cli.estado = 1";
 
             if (!String.IsNullOrEmpty(textBox1.Text)) takeclient += " and lower(nombre) like '" + textBox1.Text.ToLower() + "%'";
             if (!String.IsNullOrEmpty(textBox2.Text)) takeclient += " and lower(apellido) like '" + textBox2.Text.ToLower() + "%'";
             if (!String.IsNullOrEmpty(textBox3.Text)) takeclient += " and lower(email) = '" + textBox3.Text + "%'";
-            if (!String.IsNullOrEmpty(textBox4.Text)) takeclient += " and nro_documento LIKE '" + textBox4.Text + "%'";
+            if (!String.IsNullOrEmpty(textBox4.Text)) takeclient += " and nro_documento " + textBox4.Text ;
 
             takeclient += "ORDER BY [id_cliente] ASC";
             SqlCommand takeClients = FrbaOfertas.Utils.Database.createCommand(takeclient);
@@ -47,9 +47,11 @@ namespace FrbaOfertas.CargaCredito
             {
                 return;
             }
-            if (e.ColumnIndex == dgv_clientes.Columns["Entregar"].Index)
+            if (e.ColumnIndex == dgv_clientes.Columns["Seleccionar"].Index)
             {
-                MessageBox.Show("Cupón entregado con Éxito!", "Entrega realizada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                int id_cliente = int.Parse(dgv_clientes.Rows[e.RowIndex].Cells["id"].Value.ToString());
+
+                MessageBox.Show("Carga acreditada con Éxito!", "Carga realizada", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
         }
