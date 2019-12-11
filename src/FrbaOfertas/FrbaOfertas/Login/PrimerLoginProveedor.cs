@@ -57,14 +57,20 @@ namespace FrbaOfertas.Login
             }
             if (estanTodosLlenos)
             {
-                SqlCommand chequearUser = FrbaOfertas.Utils.Database.createCommand("SELECT u.id_usuario FROM [GD2C2019].[T_REX].Usuario u" +
-                                    " WHERE u.userName = @nombre");
-                chequearUser.Parameters.Add("@nombre", SqlDbType.NVarChar).Value = nombreUsuario.Text;
-                string userid = Database.executeScalar(chequearUser).ToString();
+                SqlCommand chequearUser = FrbaOfertas.Utils.Database.createCommand("[GD2C2019].[T_REX].EisteUsuarioConNombre");
+
+                chequearUser.Parameters.AddWithValue("username", nombreUsuario.Text);
+                SqlParameter result = new SqlParameter("@out", SqlDbType.Bit, 1000);
+                result.Direction = ParameterDirection.Output;
+                chequearUser.Parameters.Add(result);
+
+                Database.executeProcedure(chequearUser);
+
+                Boolean result = (Boolean)result.Value;
                 int id = 0;
                 Proveedor proveedor;
                 Usuario user = null;
-                if (userid == null)
+                if (result)
                 {
                     SqlCommand query = Utils.Database.createCommand("SELECT max (id_cliente) FROM [T_REX].Cliente");
                     id = Utils.Database.executeScalar(query) + 1;
@@ -91,6 +97,10 @@ namespace FrbaOfertas.Login
                 }
                 else
                 {
+                    SqlCommand chequearUser = FrbaOfertas.Utils.Database.createCommand("SELECT u.id_usuario FROM [GD2C2019].[T_REX].Usuario u" +
+                    " WHERE u.userName = @nombre");
+                    chequearUser.Parameters.Add("@nombre", SqlDbType.NVarChar).Value = nombreUsuario.Text;
+                    string userid = Database.executeScalar(chequearUser).ToString();
                     id = System.Convert.ToInt32(userid);
                     proveedor = provDAO.getProveedor(id);
                     if (proveedor != null)
