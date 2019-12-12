@@ -9,17 +9,16 @@ using System.Data;
 
 namespace FrbaOfertas.Utils
 {
-    public class FacturaDAO
+    public class ItemFacturaDAO
     {
-        public void crearFactura(Factura factura)
+        public void crearItemFactura(ItemFactura itemFactura)
         {
-            SqlCommand sp = FrbaOfertas.Utils.Database.createCommand("[GD2C2019].[T_REX].CrearFactura");
+            SqlCommand sp = FrbaOfertas.Utils.Database.createCommand("[GD2C2019].[T_REX].CrearItemFactura");
 
-            sp.Parameters.AddWithValue("NroFactura", factura.nro_factura);
-            sp.Parameters.AddWithValue("ImporteFactura", factura.importe_fact);
-            sp.Parameters.AddWithValue("FechaInicio", factura.fecha_inicio);
-            sp.Parameters.AddWithValue("FechaFin", factura.fecha_fin);
-            sp.Parameters.AddWithValue("IdProveedor", factura.proveedor.id);
+            sp.Parameters.AddWithValue("IdFactura", itemFactura.factura.id_factura);
+            sp.Parameters.AddWithValue("Cantidad", itemFactura.cantidad);
+            sp.Parameters.AddWithValue("Importe", itemFactura.importe_oferta);
+            sp.Parameters.AddWithValue("IdOferta", itemFactura.oferta.id_oferta);
 
 
             SqlParameter text = new SqlParameter("@out", SqlDbType.VarChar, 1000);

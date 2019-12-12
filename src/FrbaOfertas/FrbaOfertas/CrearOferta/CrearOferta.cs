@@ -10,11 +10,15 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using FrbaOfertas.Models.Usuarios;
 using FrbaOfertas.Models.Proveedores;
+using FrbaOfertas.Models.Ofertas;
+using FrbaOfertas.Utils;
+
 
 namespace FrbaOfertas.CrearOferta
 {
     public partial class CrearOferta : Form
     {
+        public OfertaDAO offerDAO = new OfertaDAO();
         private Usuario user;
         public Proveedor target { get; set; }
         public CrearOferta(Usuario usuario)
@@ -49,6 +53,20 @@ namespace FrbaOfertas.CrearOferta
             }
             else
             {
+                Oferta oferta = new Oferta();
+                oferta.descripcion = textBox1.Text;
+                oferta.fecha_inicio = dateTimePicker1.Value;
+                oferta.fecha_fin = dateTimePicker2.Value;
+                oferta.precio_oferta = (int)numericUpDown2.Value;
+                oferta.precio_lista = (int)numericUpDown1.Value;
+                oferta.cantDisponible = (int)numericUpDown3.Value;
+                oferta.cant_max_porCliente = (int)numericUpDown4.Value;
+                oferta.proveedor = target;
+
+                offerDAO.guardarOferta(null, oferta.descripcion, oferta.fecha_inicio,
+                    oferta.fecha_fin, oferta.precio_oferta, oferta.precio_lista,
+                    oferta.cantDisponible, oferta.cant_max_porCliente, oferta.proveedor.id);
+
                 MessageBox.Show("La Oferta se ha publicado con éxito.", "Oferta creada", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }

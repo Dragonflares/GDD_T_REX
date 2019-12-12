@@ -9,17 +9,24 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using FrbaOfertas.Models.Usuarios;
 using FrbaOfertas.Models.Proveedores;
+using FrbaOfertas.Utils;
+
 
 namespace FrbaOfertas.Facturar
 {
     public partial class Facturar : Form
     {
+        public ItemFacturaDAO itemDAO = new ItemFacturaDAO();
+        public FacturaDAO factDAO = new FacturaDAO();
+        public CompraDAO compDAO = new CompraDAO();
+        public OfertaDAO offerDAO = new OfertaDAO();
         private Usuario user;
         public Proveedor target;
         public Facturar(Usuario admin)
         {
             user = admin;
             InitializeComponent();
+            textBox1.Enabled = false;
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -31,8 +38,8 @@ namespace FrbaOfertas.Facturar
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Close();
             this.Owner.Show();
+            this.Close();
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -63,9 +70,19 @@ namespace FrbaOfertas.Facturar
         {
             if (textBox1.Text == "")
             {
-                MessageBox.Show("Tiene que seleccionar a un proveedor para generar un listado de Ofertas.",
+                MessageBox.Show("Tiene que seleccionar a un proveedor para poder ver las Ofertas compradas.",
                     "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            else
+            {
+
+            }
+        }
+
+        public void settarget(Proveedor prov)
+        {
+            this.target = prov;
+            textBox1.Text = prov.razonSocial;
         }
     }
 }

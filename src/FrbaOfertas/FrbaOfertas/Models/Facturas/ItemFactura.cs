@@ -9,11 +9,11 @@ namespace FrbaOfertas.Models.Facturas
 {
     public class ItemFactura
     {
-        int id_item_factura { get; set; }
-        int id_factura { get; set; }
-        Oferta oferta { get; set; }
-        int importe_oferta { get; set; }
-        int cantidad { get; set; }
+        public int id_item_factura { get; set; }
+        public Factura factura { get; set; }
+        public Oferta oferta { get; set; }
+        public int importe_oferta { get; set; }
+        public int cantidad { get; set; }
 
         public ItemFactura() { }
     }

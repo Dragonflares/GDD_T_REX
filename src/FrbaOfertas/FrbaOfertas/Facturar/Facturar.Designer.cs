@@ -28,14 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgv_ofertas = new System.Windows.Forms.DataGridView();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cantidadRestante = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.precioOferta = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fechaInicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fechaFin = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -49,6 +42,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.comprador = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.precioOferta = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fechaCompra = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_ofertas)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -62,10 +60,9 @@
             this.dgv_ofertas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
             this.descripcion,
-            this.cantidadRestante,
+            this.comprador,
             this.precioOferta,
-            this.fechaInicio,
-            this.fechaFin});
+            this.fechaCompra});
             this.dgv_ofertas.Location = new System.Drawing.Point(26, 237);
             this.dgv_ofertas.Margin = new System.Windows.Forms.Padding(2);
             this.dgv_ofertas.Name = "dgv_ofertas";
@@ -73,46 +70,6 @@
             this.dgv_ofertas.RowTemplate.Height = 24;
             this.dgv_ofertas.Size = new System.Drawing.Size(543, 154);
             this.dgv_ofertas.TabIndex = 26;
-            // 
-            // id
-            // 
-            this.id.DataPropertyName = "id";
-            this.id.HeaderText = "id";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            this.id.Visible = false;
-            // 
-            // descripcion
-            // 
-            this.descripcion.HeaderText = "Descripcion";
-            this.descripcion.Name = "descripcion";
-            this.descripcion.ReadOnly = true;
-            // 
-            // cantidadRestante
-            // 
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cantidadRestante.DefaultCellStyle = dataGridViewCellStyle2;
-            this.cantidadRestante.HeaderText = "Cantidad Restante";
-            this.cantidadRestante.Name = "cantidadRestante";
-            this.cantidadRestante.ReadOnly = true;
-            // 
-            // precioOferta
-            // 
-            this.precioOferta.HeaderText = "Precio Oferta";
-            this.precioOferta.Name = "precioOferta";
-            this.precioOferta.ReadOnly = true;
-            // 
-            // fechaInicio
-            // 
-            this.fechaInicio.HeaderText = "Fecha Inicio";
-            this.fechaInicio.Name = "fechaInicio";
-            this.fechaInicio.ReadOnly = true;
-            // 
-            // fechaFin
-            // 
-            this.fechaFin.HeaderText = "Fecha Fin";
-            this.fechaFin.Name = "fechaFin";
-            this.fechaFin.ReadOnly = true;
             // 
             // button1
             // 
@@ -148,7 +105,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(73, 71);
+            this.button4.Location = new System.Drawing.Point(79, 71);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(139, 33);
             this.button4.TabIndex = 5;
@@ -240,6 +197,43 @@
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
+            // id
+            // 
+            this.id.DataPropertyName = "id";
+            this.id.HeaderText = "id";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            this.id.Visible = false;
+            // 
+            // descripcion
+            // 
+            this.descripcion.DataPropertyName = "descripcion";
+            this.descripcion.HeaderText = "Descripcion";
+            this.descripcion.Name = "descripcion";
+            this.descripcion.ReadOnly = true;
+            this.descripcion.Width = 165;
+            // 
+            // comprador
+            // 
+            this.comprador.DataPropertyName = "comprador";
+            this.comprador.HeaderText = "Comprador";
+            this.comprador.Name = "comprador";
+            this.comprador.ReadOnly = true;
+            // 
+            // precioOferta
+            // 
+            this.precioOferta.HeaderText = "Precio de Oferta";
+            this.precioOferta.Name = "precioOferta";
+            this.precioOferta.ReadOnly = true;
+            this.precioOferta.Width = 120;
+            // 
+            // fechaCompra
+            // 
+            this.fechaCompra.HeaderText = "Fecha de Compra";
+            this.fechaCompra.Name = "fechaCompra";
+            this.fechaCompra.ReadOnly = true;
+            this.fechaCompra.Width = 115;
+            // 
             // Facturar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -280,9 +274,8 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
         private System.Windows.Forms.DataGridViewTextBoxColumn descripcion;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cantidadRestante;
+        private System.Windows.Forms.DataGridViewTextBoxColumn comprador;
         private System.Windows.Forms.DataGridViewTextBoxColumn precioOferta;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fechaInicio;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fechaFin;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fechaCompra;
     }
 }
