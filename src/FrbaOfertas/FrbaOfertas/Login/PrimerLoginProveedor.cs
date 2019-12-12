@@ -26,6 +26,7 @@ namespace FrbaOfertas.Login
         {
             InitializeComponent();
             contrasenia.PasswordChar = '*';
+            confirmContrasenia.PasswordChar = '*';
             textBox1.Enabled = false;
             numeroCalle.KeyPress += numeroCalle_KeyPress;
             piso.KeyPress += piso_KeyPress;

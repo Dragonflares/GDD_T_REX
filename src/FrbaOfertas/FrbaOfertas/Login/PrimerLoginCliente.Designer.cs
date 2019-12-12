@@ -90,15 +90,15 @@
             // 
             // depto
             // 
-            this.depto.Location = new System.Drawing.Point(42, 399);
+            this.depto.Location = new System.Drawing.Point(184, 399);
             this.depto.Name = "depto";
             this.depto.Size = new System.Drawing.Size(113, 20);
-            this.depto.TabIndex = 66;
+            this.depto.TabIndex = 13;
             // 
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(39, 383);
+            this.label18.Location = new System.Drawing.Point(181, 383);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(74, 13);
             this.label18.TabIndex = 65;
@@ -107,7 +107,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(181, 383);
+            this.label17.Location = new System.Drawing.Point(39, 383);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(27, 13);
             this.label17.TabIndex = 64;
@@ -115,31 +115,31 @@
             // 
             // piso
             // 
-            this.piso.Location = new System.Drawing.Point(184, 399);
+            this.piso.Location = new System.Drawing.Point(42, 399);
             this.piso.Name = "piso";
             this.piso.Size = new System.Drawing.Size(113, 20);
-            this.piso.TabIndex = 63;
+            this.piso.TabIndex = 12;
             // 
             // localidad
             // 
             this.localidad.Location = new System.Drawing.Point(42, 438);
             this.localidad.Name = "localidad";
             this.localidad.Size = new System.Drawing.Size(113, 20);
-            this.localidad.TabIndex = 62;
+            this.localidad.TabIndex = 14;
             // 
             // codigoPostal
             // 
             this.codigoPostal.Location = new System.Drawing.Point(184, 438);
             this.codigoPostal.Name = "codigoPostal";
             this.codigoPostal.Size = new System.Drawing.Size(113, 20);
-            this.codigoPostal.TabIndex = 61;
+            this.codigoPostal.TabIndex = 15;
             // 
             // numeroCalle
             // 
             this.numeroCalle.Location = new System.Drawing.Point(184, 360);
             this.numeroCalle.Name = "numeroCalle";
             this.numeroCalle.Size = new System.Drawing.Size(113, 20);
-            this.numeroCalle.TabIndex = 60;
+            this.numeroCalle.TabIndex = 11;
             // 
             // label16
             // 
@@ -155,7 +155,7 @@
             this.calle.Location = new System.Drawing.Point(42, 360);
             this.calle.Name = "calle";
             this.calle.Size = new System.Drawing.Size(113, 20);
-            this.calle.TabIndex = 58;
+            this.calle.TabIndex = 10;
             // 
             // label15
             // 
@@ -171,21 +171,21 @@
             this.mail.Location = new System.Drawing.Point(42, 221);
             this.mail.Name = "mail";
             this.mail.Size = new System.Drawing.Size(113, 20);
-            this.mail.TabIndex = 56;
+            this.mail.TabIndex = 5;
             // 
             // apellido
             // 
             this.apellido.Location = new System.Drawing.Point(184, 182);
             this.apellido.Name = "apellido";
             this.apellido.Size = new System.Drawing.Size(113, 20);
-            this.apellido.TabIndex = 55;
+            this.apellido.TabIndex = 4;
             // 
             // nombre
             // 
             this.nombre.Location = new System.Drawing.Point(42, 182);
             this.nombre.Name = "nombre";
             this.nombre.Size = new System.Drawing.Size(113, 20);
-            this.nombre.TabIndex = 54;
+            this.nombre.TabIndex = 3;
             // 
             // label13
             // 
@@ -247,21 +247,21 @@
             this.confirmContrasenia.Location = new System.Drawing.Point(184, 143);
             this.confirmContrasenia.Name = "confirmContrasenia";
             this.confirmContrasenia.Size = new System.Drawing.Size(113, 20);
-            this.confirmContrasenia.TabIndex = 44;
+            this.confirmContrasenia.TabIndex = 2;
             // 
             // contrasenia
             // 
             this.contrasenia.Location = new System.Drawing.Point(42, 143);
             this.contrasenia.Name = "contrasenia";
             this.contrasenia.Size = new System.Drawing.Size(113, 20);
-            this.contrasenia.TabIndex = 43;
+            this.contrasenia.TabIndex = 1;
             // 
             // nombreUsuario
             // 
             this.nombreUsuario.Location = new System.Drawing.Point(42, 103);
             this.nombreUsuario.Name = "nombreUsuario";
             this.nombreUsuario.Size = new System.Drawing.Size(113, 20);
-            this.nombreUsuario.TabIndex = 42;
+            this.nombreUsuario.TabIndex = 0;
             // 
             // label5
             // 
@@ -315,7 +315,7 @@
             this.dateTimePicker1.Location = new System.Drawing.Point(184, 221);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(113, 20);
-            this.dateTimePicker1.TabIndex = 72;
+            this.dateTimePicker1.TabIndex = 6;
             this.dateTimePicker1.Value = new System.DateTime(1998, 3, 15, 0, 0, 0, 0);
             // 
             // button1
@@ -335,7 +335,7 @@
             this.telefono.Location = new System.Drawing.Point(112, 302);
             this.telefono.Name = "telefono";
             this.telefono.Size = new System.Drawing.Size(113, 20);
-            this.telefono.TabIndex = 75;
+            this.telefono.TabIndex = 9;
             // 
             // label9
             // 
@@ -351,15 +351,19 @@
             this.textBox2.Location = new System.Drawing.Point(184, 263);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(113, 20);
-            this.textBox2.TabIndex = 76;
+            this.textBox2.TabIndex = 8;
             // 
             // comboBox1
             // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "DNI",
+            "CI"});
             this.comboBox1.Location = new System.Drawing.Point(42, 262);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(113, 21);
-            this.comboBox1.TabIndex = 77;
+            this.comboBox1.TabIndex = 7;
             // 
             // label11
             // 

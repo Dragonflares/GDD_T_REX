@@ -24,6 +24,7 @@ namespace FrbaOfertas.Login
         {
             InitializeComponent();
             contrasenia.PasswordChar = '*';
+            confirmContrasenia.PasswordChar = '*';
             textBox1.Enabled = false;
         }
 
