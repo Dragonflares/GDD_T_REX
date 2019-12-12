@@ -1494,3 +1494,18 @@ BEGIN
 
 END
 GO
+
+IF OBJECT_ID('T_REX.ExisteUsuarioConNombre') IS NOT NULL
+	DROP PROCEDURE [T_REX].ExisteUsuarioConNombre;
+GO
+CREATE PROCEDURE [T_REX].ExisteUsuarioConNombre
+	@out bit OUTPUT,
+	@username nvarchar(255)
+AS
+BEGIN
+	IF(EXISTS(SELECT 1 FROM T_REX.USUARIO u WHERE u.username = @username))
+		set @out = 1
+	else
+		set @out = 0
+END
+GO

@@ -85,7 +85,8 @@ namespace FrbaOfertas.Utils
             }
             catch (Exception exception)
             {
-                return null;
+                MessageBox.Show(exception.Message, "ERROR",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             connection.Close();
             return res;

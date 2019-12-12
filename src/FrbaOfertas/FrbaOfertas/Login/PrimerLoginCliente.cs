@@ -40,7 +40,7 @@ namespace FrbaOfertas.Login
             }
             if (estanTodosLlenos)
             {
-                SqlCommand chequearUser = FrbaOfertas.Utils.Database.createCommand("[GD2C2019].[T_REX].EisteUsuarioConNombre");
+                SqlCommand chequearUser = FrbaOfertas.Utils.Database.createCommand("[GD2C2019].[T_REX].ExisteUsuarioConNombre");
 
                 chequearUser.Parameters.AddWithValue("username", nombreUsuario.Text);
                 SqlParameter result = new SqlParameter("@out", SqlDbType.Bit, 1000);
@@ -54,7 +54,7 @@ namespace FrbaOfertas.Login
                 int id = 0;
                 Cliente cliente;
                 Usuario user = null;
-                if (userid)
+                if (!userid)
                 {
                     SqlCommand query = Utils.Database.createCommand("SELECT max (id_cliente) FROM [T_REX].Cliente");
                     id = Utils.Database.executeScalar(query) + 1;
@@ -66,6 +66,7 @@ namespace FrbaOfertas.Login
                     cliente.tipoDocumento = comboBox1.Text;
                     cliente.nroDocumento = System.Convert.ToInt32(textBox2.Text);
                     cliente.telefono = System.Convert.ToInt32(telefono.Text);
+                    cliente.fechaNacimiento = dateTimePicker1.Value;
 
                     SqlCommand query2 = Utils.Database.createCommand("SELECT max (id_domicilio) FROM [T_REX].Domicilio");
 
