@@ -45,7 +45,7 @@ namespace FrbaOfertas
 
         private void button1_Click(object sender, EventArgs e)
         {
-            new Login.CambioPassword().ShowDialog(); //Hay que pasarle el cliente/proveedor
+            new Login.CambioPassword(this.user).ShowDialog();
         }
 
         private void button2_Click(object sender, EventArgs e)

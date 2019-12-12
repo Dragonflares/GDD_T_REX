@@ -473,6 +473,8 @@ VALUES('0000000000000000','No se tiene registro', 'No se tiene registro','No se 
 -- 37 PROVEEDORES
 
 -- Inserto en tabla temporal
+IF OBJECT_ID('tempdb.dbo.#Temp_Proveedor', 'U') IS NOT NULL
+  DROP TABLE #Temp_Proveedor;
 
 SELECT 
 	Provee_RS,
@@ -545,6 +547,8 @@ DROP TABLE #Temp_Proveedor
 --218 clientes
 
 -- Inserto en tabla temporal
+IF OBJECT_ID('tempdb.dbo.#Temp_cliente', 'U') IS NOT NULL
+  DROP TABLE #Temp_cliente;
 
 SELECT 
 	Cli_Nombre,
@@ -568,6 +572,8 @@ group by
 	Cli_Direccion
 
 -- Se busca inconsistencias en los datos con otra tabla temporal
+IF OBJECT_ID('tempdb.dbo.#Temp_cliente_incons', 'U') IS NOT NULL
+  DROP TABLE #Temp_cliente_incons;
 
 SELECT 
 	Cli_Nombre,
@@ -732,6 +738,8 @@ order by 1,4
 --84262 registros
 
 -- Inseto tabla temporal datos de ofertas
+IF OBJECT_ID('tempdb.dbo.#TEMP_Oferta', 'U') IS NOT NULL
+  DROP TABLE #TEMP_Oferta;
 
 select	a.Oferta_Codigo,
 		a.Oferta_Descripcion,
@@ -1507,5 +1515,25 @@ BEGIN
 		set @out = 1
 	else
 		set @out = 0
+END
+GO
+
+IF OBJECT_ID('T_REX.CambiarContrasenia') IS NOT NULL
+	DROP PROCEDURE [T_REX].CambiarContrasenia;
+GO
+CREATE PROCEDURE [T_REX].CambiarContrasenia
+	@IdUsuario int,
+	@Pass varchar(255),
+	@NewPass varchar(255)
+AS
+BEGIN
+	IF(EXISTS(SELECT 1 FROM [T_REX].USUARIO us WHERE us.id_usuario = @IdUsuario AND us.password = convert(varchar(64), HashBytes('SHA2_256', @Pass), 2)))
+	BEGIN
+		UPDATE [T_REX].USUARIO SET password = CONVERT(varchar(64), HASHBYTES('SHA2_256', @NewPass), 2) WHERE id_usuario = @IdUsuario
+	END
+	ELSE
+	BEGIN
+		RAISERROR('ERROR: Contraseña incorrecta.', 16, 1)
+	END			
 END
 GO

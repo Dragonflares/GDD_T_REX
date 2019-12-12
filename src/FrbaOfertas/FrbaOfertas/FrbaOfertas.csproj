@@ -353,6 +353,9 @@
     <EmbeddedResource Include="ListadoEstadistico\ListadoEstadistico.resx">
       <DependentUpon>ListadoEstadistico.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Login\CambioPassword.resx">
+      <DependentUpon>CambioPassword.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Login\ClienteLogin.resx">
       <DependentUpon>ClienteLogin.cs</DependentUpon>
     </EmbeddedResource>

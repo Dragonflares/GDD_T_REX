@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FrbaOfertas.Models.Usuarios;
+using FrbaOfertas.Utils;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,8 +14,11 @@ namespace FrbaOfertas.Login
 {
     public partial class CambioPassword : Form
     {
-        public CambioPassword()
+        UsuarioDAO userDao = new UsuarioDAO();
+        Usuario user = null;
+        public CambioPassword(Usuario user)
         {
+            this.user = user;
             InitializeComponent();
             textBox1.PasswordChar = '*';
             textBox2.PasswordChar = '*';
@@ -35,8 +40,17 @@ namespace FrbaOfertas.Login
             {
                 if (textBox2.Text == textBox3.Text)
                 {
-                    MessageBox.Show("Usted ha cambiado la contraseña con éxito.", "EXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.Close();
+                    try
+                    {
+                        this.userDao.cambiarContrasenia(user.id, this.textBox1.Text, this.textBox2.Text);
+                        MessageBox.Show("Usted ha cambiado la contraseña con éxito.", "EXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.Close();
+                    }
+                    catch (Exception exception)
+                    {
+                        MessageBox.Show(exception.Message, "ERROR",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {

@@ -43,7 +43,7 @@
             this.button1.Location = new System.Drawing.Point(157, 192);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(114, 32);
-            this.button1.TabIndex = 0;
+            this.button1.TabIndex = 3;
             this.button1.Text = "Cambiar contraseña";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -80,28 +80,28 @@
             this.textBox1.Location = new System.Drawing.Point(51, 54);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(168, 20);
-            this.textBox1.TabIndex = 4;
+            this.textBox1.TabIndex = 0;
             // 
             // textBox2
             // 
             this.textBox2.Location = new System.Drawing.Point(51, 98);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(168, 20);
-            this.textBox2.TabIndex = 5;
+            this.textBox2.TabIndex = 1;
             // 
             // textBox3
             // 
             this.textBox3.Location = new System.Drawing.Point(51, 142);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(168, 20);
-            this.textBox3.TabIndex = 6;
+            this.textBox3.TabIndex = 2;
             // 
             // button3
             // 
             this.button3.Location = new System.Drawing.Point(29, 192);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(114, 32);
-            this.button3.TabIndex = 8;
+            this.button3.TabIndex = 4;
             this.button3.Text = "Volver";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);

@@ -100,5 +100,16 @@ namespace FrbaOfertas.Utils
                 throw new Exception(text.Value.ToString());
             }
         }
+
+        public void cambiarContrasenia(int id, string pass, string newPass)
+        {
+            SqlCommand sp = FrbaOfertas.Utils.Database.createCommand("[GD2C2019].[T_REX].CambiarContrasenia");
+
+            sp.Parameters.AddWithValue("IdUsuario", id);
+            sp.Parameters.AddWithValue("Pass", pass);
+            sp.Parameters.AddWithValue("NewPass", newPass);
+
+            FrbaOfertas.Utils.Database.executeProcedure(sp);
+        }
     }
 }
