@@ -8,13 +8,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FrbaOfertas.Models.Proveedores;
+using FrbaOfertas.Utils;
 
 namespace FrbaOfertas.Facturar
 {
     public partial class ListadoFacturable : Form
     {
-        public ListadoFacturable()
+        public ProveedorDAO provDAO = new ProveedorDAO();
+        private Facturar formularioAnterior;
+        public ListadoFacturable(Facturar form)
         {
+            formularioAnterior = form;
             InitializeComponent();
             loadRubros();
             loadProveedores();
@@ -44,9 +49,11 @@ namespace FrbaOfertas.Facturar
             }
             if (e.ColumnIndex == dgv_proveedores.Columns["seleccionar"].Index)
             {
-                int id = int.Parse(dgv_proveedores.Rows[e.RowIndex].Cells[0].Value.ToString());
-                //TODO llamar a DAO proveedor para conseguir el proveedor con el ID
-                
+                int id = int.Parse(dgv_proveedores.Rows[e.RowIndex].Cells["id"].Value.ToString());
+
+                Proveedor target = provDAO.getProveedor(id);
+                this.formularioAnterior.settarget(target);
+                this.Close();
             }
         }
 
