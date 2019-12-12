@@ -31,7 +31,7 @@ namespace FrbaOfertas.Facturar
 
         private void button4_Click(object sender, EventArgs e)
         {
-            ListadoFacturable pantalla = new ListadoFacturable();
+            ListadoFacturable pantalla = new ListadoFacturable(this);
             pantalla.Owner = this;
             pantalla.ShowDialog();
         }
@@ -76,12 +76,13 @@ namespace FrbaOfertas.Facturar
             else
             {
                 string takeoffer = "SELECT comp.[id_compra] as id, ofer.[descripcion] as descripcion, comp.[compra_fecha] as [compraFecha], " +
-                "ofer.[precio_oferta] as precioOferta " +
+                "ofer.[precio_oferta] as precioOferta, cli.nro_documento as comprador " +
                 "FROM [GD2C2019].[T_REX].[Compra] comp " +
-                "INNER JOIN [GD2C2019].[T_REX].[Oferta] ofer ON ofer.id_oferta = comp.id_compra " +
+                "INNER JOIN [GD2C2019].[T_REX].[Oferta] ofer ON ofer.id_oferta = comp.id_oferta " +
                 "INNER JOIN [GD2C2019].[T_REX].[Proveedor] prov ON prov.id_proveedor = ofer.id_proveedor " +
+                "INNER JOIN [GD2C2019].[T_REX].[Cliente] cli ON cli.id_cliente = comp.id_cliente " +
                 "WHERE prov.id_proveedor = " + target.id +
-                " and comp.compra_fecha between " + dateTimePicker1.Value + " and " + dateTimePicker2.Value;
+                " and comp.compra_fecha between '" + dateTimePicker1.Text + "' and '" + dateTimePicker2.Text + "'";
 
                 SqlCommand takeOffers = FrbaOfertas.Utils.Database.createCommand(takeoffer);
                 DataTable table = Utils.Database.getData(takeOffers);

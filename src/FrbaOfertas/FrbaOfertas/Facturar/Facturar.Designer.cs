@@ -29,11 +29,6 @@
         private void InitializeComponent()
         {
             this.dgv_ofertas = new System.Windows.Forms.DataGridView();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.comprador = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.precioOferta = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fechaCompra = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -47,6 +42,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.comprador = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.precioOferta = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fechaCompra = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_ofertas)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -70,45 +70,6 @@
             this.dgv_ofertas.RowTemplate.Height = 24;
             this.dgv_ofertas.Size = new System.Drawing.Size(543, 154);
             this.dgv_ofertas.TabIndex = 26;
-            // 
-            // id
-            // 
-            this.id.DataPropertyName = "id";
-            this.id.HeaderText = "id";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            this.id.Visible = false;
-            // 
-            // descripcion
-            // 
-            this.descripcion.DataPropertyName = "descripcion";
-            this.descripcion.HeaderText = "Descripcion";
-            this.descripcion.Name = "descripcion";
-            this.descripcion.ReadOnly = true;
-            this.descripcion.Width = 165;
-            // 
-            // comprador
-            // 
-            this.comprador.DataPropertyName = "comprador";
-            this.comprador.HeaderText = "Comprador";
-            this.comprador.Name = "comprador";
-            this.comprador.ReadOnly = true;
-            // 
-            // precioOferta
-            // 
-            this.precioOferta.DataPropertyName = "precioOferta";
-            this.precioOferta.HeaderText = "Precio de Oferta";
-            this.precioOferta.Name = "precioOferta";
-            this.precioOferta.ReadOnly = true;
-            this.precioOferta.Width = 120;
-            // 
-            // fechaCompra
-            // 
-            this.fechaCompra.DataPropertyName = "fechaCompra";
-            this.fechaCompra.HeaderText = "Fecha de Compra";
-            this.fechaCompra.Name = "fechaCompra";
-            this.fechaCompra.ReadOnly = true;
-            this.fechaCompra.Width = 115;
             // 
             // button1
             // 
@@ -175,7 +136,8 @@
             // 
             // dateTimePicker2
             // 
-            this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePicker2.CustomFormat = "yyyy/MM/dd";
+            this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePicker2.Location = new System.Drawing.Point(107, 67);
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(131, 20);
@@ -183,7 +145,8 @@
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePicker1.CustomFormat = "yyyy/MM/dd";
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePicker1.Location = new System.Drawing.Point(107, 30);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(131, 20);
@@ -236,6 +199,45 @@
             this.button5.Text = "Limpiar";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // id
+            // 
+            this.id.DataPropertyName = "id";
+            this.id.HeaderText = "id";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            this.id.Visible = false;
+            // 
+            // descripcion
+            // 
+            this.descripcion.DataPropertyName = "descripcion";
+            this.descripcion.HeaderText = "Descripcion";
+            this.descripcion.Name = "descripcion";
+            this.descripcion.ReadOnly = true;
+            this.descripcion.Width = 165;
+            // 
+            // comprador
+            // 
+            this.comprador.DataPropertyName = "comprador";
+            this.comprador.HeaderText = "Comprador";
+            this.comprador.Name = "comprador";
+            this.comprador.ReadOnly = true;
+            // 
+            // precioOferta
+            // 
+            this.precioOferta.DataPropertyName = "precioOferta";
+            this.precioOferta.HeaderText = "Precio de Oferta";
+            this.precioOferta.Name = "precioOferta";
+            this.precioOferta.ReadOnly = true;
+            this.precioOferta.Width = 120;
+            // 
+            // fechaCompra
+            // 
+            this.fechaCompra.DataPropertyName = "compraFecha";
+            this.fechaCompra.HeaderText = "Fecha de Compra";
+            this.fechaCompra.Name = "fechaCompra";
+            this.fechaCompra.ReadOnly = true;
+            this.fechaCompra.Width = 115;
             // 
             // Facturar
             // 
