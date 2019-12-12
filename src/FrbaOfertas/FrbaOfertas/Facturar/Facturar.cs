@@ -101,16 +101,16 @@ namespace FrbaOfertas.Facturar
         private void button2_Click(object sender, EventArgs e)
         {
             Factura factura = new Factura();
-            SqlCommand query1 = Utils.Database.createCommand("SELECT max (id_factura) FROM [T_REX].Factura");
+            SqlCommand query1 = Utils.Database.createCommand("SELECT max (id_factura) FROM [T_REX].Factura_Proveedor");
             factura.id_factura = Utils.Database.executeScalar(query1) + 1;
-            SqlCommand query2 = Utils.Database.createCommand("SELECT max (nro_factura) FROM [T_REX].Factura");
+            SqlCommand query2 = Utils.Database.createCommand("SELECT max(cast((nro_factura) as int)) FROM [T_REX].Factura_Proveedor");
             factura.nro_factura = Utils.Database.executeScalar(query2) + 1;
             factura.tipo_fact = "B";
             factura.proveedor = target;
             factura.fecha_inicio = dateTimePicker1.Value;
             factura.fecha_fin = dateTimePicker2.Value;
-
-            string takeMoney = "SELECT SUM(cup.cupon_precio_oferta) FROM [GD2C2019].[T_REX].[CUPON] cup " +
+            string check = dateTimePicker1.Text;
+            string takeMoney = "SELECT cast(SUM(cup.cupon_precio_oferta) as int) FROM [GD2C2019].[T_REX].[CUPON] cup " +
                 "INNER JOIN [GD2C2019].[T_REX].[Compra] comp ON comp.id_compra = cup.id_compra " +
                 "INNER JOIN [GD2C2019].[T_REX].[Oferta] ofer ON ofer.id_oferta = comp.id_oferta " +
                 "INNER JOIN [GD2C2019].[T_REX].[Proveedor] prov ON prov.id_proveedor = ofer.id_proveedor  " +
@@ -153,10 +153,10 @@ namespace FrbaOfertas.Facturar
 
         private List<int> obtenerIdsOfertas()
         {       
-            string cmd = "SELECT DISTINCT(offer.id_oferta), offer.id_proveedor FROM [GD2C2019].[T_REX].OFERTA offer " +
+            string cmd = "SELECT DISTINCT(offer.id_oferta) FROM [GD2C2019].[T_REX].OFERTA offer " +
                 "JOIN [GD2C2019].[T_REX].COMPRA comp ON comp.id_oferta = offer.id_oferta " +
                 "WHERE offer.id_proveedor = " + target.id +
-                "AND comp.compra_fecha BETWEEN '" + dateTimePicker1.Text + "' AND '" + dateTimePicker2.Text + "'" +
+                " AND comp.compra_fecha BETWEEN '" + dateTimePicker1.Text + "' AND '" + dateTimePicker2.Text + "'" +
                 " ORDER BY offer.id_oferta";
 
             SqlCommand command = FrbaOfertas.Utils.Database.createCommand(cmd);

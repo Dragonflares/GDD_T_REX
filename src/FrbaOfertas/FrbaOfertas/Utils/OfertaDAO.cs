@@ -35,11 +35,11 @@ namespace FrbaOfertas.Utils
                 "prov.[id_proveedor], prov.[provee_rs], prov.[provee_cuit], ru.[id_rubro], ru.[nombreDeRubro], prov.[email], " +
                 "prov.[provee_telefono], prov.[estado], u.[id_usuario], u.[username], u.[password]," +
                 "d.[id_domicilio], d.[direc_calle], d.[direc_nro_piso], d.[direc_nro_depto], d.[direc_localidad], d.[codigoPostal] " +
-                "d.[id_domicilio], d.[direc_calle], d.[direc_nro_piso], d.[direc_nro_depto], d.[direc_localidad], d.[codigoPostal] " +
                 "FROM [GD2C2019].[T_REX].[Oferta] ofer " +
                 "INNER JOIN [GD2C2019].[T_REX].[Proveedor] prov ON prov.id_proveedor = ofer.id_proveedor " +
-                "INNER JOIN [GD2C2019].[T_REX].[RUBRO] ru ON ru.[id_rubro] = ofer.[id_rubro] " +
-                "INNER JOIN [GD2C2019].[T_REX].[USUARIO] u ON u.[id_usuario] = ofer.[id_usuario] " +
+                "INNER JOIN [GD2C2019].[T_REX].[RUBRO] ru ON ru.[id_rubro] = prov.[id_rubro] " +
+                "INNER JOIN [GD2C2019].[T_REX].[USUARIO] u ON u.[id_usuario] = prov.[id_usuario] " +
+                "INNER JOIN [GD2C2019].[T_REX].[DOMICILIO] d ON d.[id_domicilio] = prov.[id_domicilio] " +
                 "WHERE prov.estado = 1";
 
             if (!String.IsNullOrEmpty(descripcion)) cmd += " and lower(descripcion) like '%" + descripcion.ToLower() + "%'";
@@ -67,8 +67,9 @@ namespace FrbaOfertas.Utils
             of.descripcion = row["descripcion"].ToString();
             of.fecha_inicio = DateTime.Parse(row["fecha_inicio"].ToString());
             of.fecha_fin = DateTime.Parse(row["fecha_fin"].ToString());
-            of.precio_lista = int.Parse(row["precio_lista"].ToString());
-            of.precio_oferta = int.Parse(row["precio_oferta"].ToString());
+            of.precio_oferta = Decimal.ToInt32((decimal)row["precio_oferta"]);
+            of.precio_lista = Decimal.ToInt32((decimal)row["precio_lista"]);
+
             of.cantDisponible = int.Parse(row["cantDisponible"].ToString());
             of.cant_max_porCliente = int.Parse(row["cant_max_porCliente"].ToString());
             
