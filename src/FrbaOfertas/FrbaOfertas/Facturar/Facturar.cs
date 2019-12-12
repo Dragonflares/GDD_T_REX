@@ -11,6 +11,8 @@ using FrbaOfertas.Models.Usuarios;
 using FrbaOfertas.Models.Proveedores;
 using FrbaOfertas.Utils;
 using System.Data.SqlClient;
+using FrbaOfertas.Models.Facturas;
+
 
 namespace FrbaOfertas.Facturar
 {
@@ -98,7 +100,73 @@ namespace FrbaOfertas.Facturar
 
         private void button2_Click(object sender, EventArgs e)
         {
+            Factura factura = new Factura();
+            SqlCommand query1 = Utils.Database.createCommand("SELECT max (id_factura) FROM [T_REX].Factura");
+            factura.id_factura = Utils.Database.executeScalar(query1) + 1;
+            SqlCommand query2 = Utils.Database.createCommand("SELECT max (nro_factura) FROM [T_REX].Factura");
+            factura.nro_factura = Utils.Database.executeScalar(query2) + 1;
+            factura.tipo_fact = "B";
+            factura.proveedor = target;
+            factura.fecha_inicio = dateTimePicker1.Value;
+            factura.fecha_fin = dateTimePicker2.Value;
 
+            string takeMoney = "SELECT SUM(cup.cupon_precio_oferta) FROM [GD2C2019].[T_REX].[CUPON] cup " +
+                "INNER JOIN [GD2C2019].[T_REX].[Compra] comp ON comp.id_compra = cup.id_compra " +
+                "INNER JOIN [GD2C2019].[T_REX].[Oferta] ofer ON ofer.id_oferta = comp.id_oferta " +
+                "INNER JOIN [GD2C2019].[T_REX].[Proveedor] prov ON prov.id_proveedor = ofer.id_proveedor  " +
+                "WHERE prov.id_proveedor = " + target.id +
+                " and comp.compra_fecha between '" + dateTimePicker1.Text + "' and '" + dateTimePicker2.Text + "'";
+
+            SqlCommand takeMaCash = Database.createCommand(takeMoney);
+            factura.importe_fact = Database.executeScalar(takeMaCash);
+            List<int> idsOferta = obtenerIdsOfertas();
+
+            foreach (int id in idsOferta)
+            {
+                ItemFactura itemFactura = new ItemFactura();
+                itemFactura.factura = factura;
+                itemFactura.oferta = offerDAO.getOferta(id, false);
+                itemFactura.cantidad = compDAO.cantidadDeUnaOfertaCompradasEnPeriodo(dateTimePicker1.Value,
+                    dateTimePicker2.Value, itemFactura.oferta.id_oferta);
+                itemFactura.importe_oferta = compDAO.recaudacionTotalOfertaEnPeriodo(dateTimePicker1.Value,
+                    dateTimePicker2.Value, itemFactura.oferta);
+                //itemDAO.crearItemFactura(itemFactura);
+            }
+            //factDAO.crearFactura(factura);
+            new InfoFactura(factura).ShowDialog();
+            DataTable dt = (DataTable)this.dgv_ofertas.DataSource;
+            if (dt != null)
+                dt.Clear();
+            this.Controls.Cast<Control>().ToList()
+                .Where(c => c is GroupBox)
+                .SelectMany(c => c.Controls.Cast<Control>().ToList())
+                .ToList().ForEach(c =>
+                {
+                    if (c is ComboBox)
+                        ((ComboBox)c).SelectedIndex = -1;
+                    if (c is TextBox)
+                        c.Text = null;
+                    if (c is MonthCalendar)
+                        ((MonthCalendar)c).Visible = false;
+                });
+        }
+
+        private List<int> obtenerIdsOfertas()
+        {       
+            string cmd = "SELECT DISTINCT(offer.id_oferta), offer.id_proveedor FROM [GD2C2019].[T_REX].OFERTA offer " +
+                "JOIN [GD2C2019].[T_REX].COMPRA comp ON comp.id_oferta = offer.id_oferta " +
+                "WHERE offer.id_proveedor = " + target.id +
+                "AND comp.compra_fecha BETWEEN '" + dateTimePicker1.Text + "' AND '" + dateTimePicker2.Text + "'" +
+                " ORDER BY offer.id_oferta";
+
+            SqlCommand command = FrbaOfertas.Utils.Database.createCommand(cmd);
+            DataTable table = Utils.Database.getData(command);
+
+            return table.Rows.Cast<DataRow>().
+                Select(row =>
+                {
+                    return int.Parse(row["id_oferta"].ToString());
+                }).ToList<int>();
         }
     }
 }
