@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using FrbaOfertas.Models.Usuarios;
 using FrbaOfertas.Models.Proveedores;
 using FrbaOfertas.Utils;
-
+using System.Data.SqlClient;
 
 namespace FrbaOfertas.Facturar
 {
@@ -75,7 +75,17 @@ namespace FrbaOfertas.Facturar
             }
             else
             {
+                string takeoffer = "SELECT comp.[id_compra] as id, ofer.[descripcion] as descripcion, comp.[compra_fecha] as [compraFecha], " +
+                "ofer.[precio_oferta] as precioOferta " +
+                "FROM [GD2C2019].[T_REX].[Compra] comp " +
+                "INNER JOIN [GD2C2019].[T_REX].[Oferta] ofer ON ofer.id_oferta = comp.id_compra " +
+                "INNER JOIN [GD2C2019].[T_REX].[Proveedor] prov ON prov.id_proveedor = ofer.id_proveedor " +
+                "WHERE prov.id_proveedor = " + target.id +
+                " and comp.compra_fecha between " + dateTimePicker1.Value + " and " + dateTimePicker2.Value;
 
+                SqlCommand takeOffers = FrbaOfertas.Utils.Database.createCommand(takeoffer);
+                DataTable table = Utils.Database.getData(takeOffers);
+                this.dgv_ofertas.DataSource = table;
             }
         }
 
@@ -83,6 +93,11 @@ namespace FrbaOfertas.Facturar
         {
             this.target = prov;
             textBox1.Text = prov.razonSocial;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

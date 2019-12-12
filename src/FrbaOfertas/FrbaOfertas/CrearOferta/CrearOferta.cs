@@ -79,7 +79,7 @@ namespace FrbaOfertas.CrearOferta
 
         private void button1_Click(object sender, EventArgs e)
         {
-            new FrbaOfertas.CrearOferta.ListadoProveedor(this).Show();
+            new FrbaOfertas.CrearOferta.ListadoProveedor(this).ShowDialog();
         }
     }
 }

@@ -29,6 +29,11 @@
         private void InitializeComponent()
         {
             this.dgv_ofertas = new System.Windows.Forms.DataGridView();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.comprador = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.precioOferta = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fechaCompra = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -42,11 +47,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.comprador = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.precioOferta = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fechaCompra = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_ofertas)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -71,6 +71,45 @@
             this.dgv_ofertas.Size = new System.Drawing.Size(543, 154);
             this.dgv_ofertas.TabIndex = 26;
             // 
+            // id
+            // 
+            this.id.DataPropertyName = "id";
+            this.id.HeaderText = "id";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            this.id.Visible = false;
+            // 
+            // descripcion
+            // 
+            this.descripcion.DataPropertyName = "descripcion";
+            this.descripcion.HeaderText = "Descripcion";
+            this.descripcion.Name = "descripcion";
+            this.descripcion.ReadOnly = true;
+            this.descripcion.Width = 165;
+            // 
+            // comprador
+            // 
+            this.comprador.DataPropertyName = "comprador";
+            this.comprador.HeaderText = "Comprador";
+            this.comprador.Name = "comprador";
+            this.comprador.ReadOnly = true;
+            // 
+            // precioOferta
+            // 
+            this.precioOferta.DataPropertyName = "precioOferta";
+            this.precioOferta.HeaderText = "Precio de Oferta";
+            this.precioOferta.Name = "precioOferta";
+            this.precioOferta.ReadOnly = true;
+            this.precioOferta.Width = 120;
+            // 
+            // fechaCompra
+            // 
+            this.fechaCompra.DataPropertyName = "fechaCompra";
+            this.fechaCompra.HeaderText = "Fecha de Compra";
+            this.fechaCompra.Name = "fechaCompra";
+            this.fechaCompra.ReadOnly = true;
+            this.fechaCompra.Width = 115;
+            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(27, 396);
@@ -89,6 +128,7 @@
             this.button2.TabIndex = 28;
             this.button2.Text = "Facturar";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // groupBox1
             // 
@@ -196,43 +236,6 @@
             this.button5.Text = "Limpiar";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // id
-            // 
-            this.id.DataPropertyName = "id";
-            this.id.HeaderText = "id";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            this.id.Visible = false;
-            // 
-            // descripcion
-            // 
-            this.descripcion.DataPropertyName = "descripcion";
-            this.descripcion.HeaderText = "Descripcion";
-            this.descripcion.Name = "descripcion";
-            this.descripcion.ReadOnly = true;
-            this.descripcion.Width = 165;
-            // 
-            // comprador
-            // 
-            this.comprador.DataPropertyName = "comprador";
-            this.comprador.HeaderText = "Comprador";
-            this.comprador.Name = "comprador";
-            this.comprador.ReadOnly = true;
-            // 
-            // precioOferta
-            // 
-            this.precioOferta.HeaderText = "Precio de Oferta";
-            this.precioOferta.Name = "precioOferta";
-            this.precioOferta.ReadOnly = true;
-            this.precioOferta.Width = 120;
-            // 
-            // fechaCompra
-            // 
-            this.fechaCompra.HeaderText = "Fecha de Compra";
-            this.fechaCompra.Name = "fechaCompra";
-            this.fechaCompra.ReadOnly = true;
-            this.fechaCompra.Width = 115;
             // 
             // Facturar
             // 
