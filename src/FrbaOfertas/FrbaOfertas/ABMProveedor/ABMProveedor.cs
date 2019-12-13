@@ -22,6 +22,7 @@ namespace FrbaOfertas.ABMProveedor
         public ABMProveedor()
         {
             InitializeComponent();
+            text_cuit.KeyPress += cuit_KeyPress;
         }
 
         private void ABMProveedor_Load(object sender, EventArgs e)
@@ -149,5 +150,61 @@ namespace FrbaOfertas.ABMProveedor
             }
         }
 
+        private void cuit_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
+                (e.KeyChar != '-')) || ((hasTwo((sender as TextBox).Text) && char.IsDigit(text_cuit.Text.Last()))))
+            {
+                if (char.IsControl(e.KeyChar))
+                {
+                    e.Handled = false;
+                }
+                else
+                    e.Handled = true;
+            }
+            else if (char.IsDigit(e.KeyChar) && (cantNumeros(text_cuit.Text) == 2) && ((sender as TextBox).Text.IndexOf('-') < 0))
+            {
+                e.Handled = true;
+            }
+            else if (char.IsDigit(e.KeyChar) && (cantNumeros(text_cuit.Text) == 10) && !(hasTwo((sender as TextBox).Text)))
+            {
+                e.Handled = true;
+            }
+            else if ((e.KeyChar == '-') && (hasTwo((sender as TextBox).Text) || (((sender as TextBox).Text.IndexOf('-') == ((sender as TextBox).Text.Length - 1)))))
+            {
+                e.Handled = true;
+            }
+        }
+
+        public int cantNumeros(string lecturer)
+        {
+            int counter = 0;
+            foreach (char letter in lecturer)
+            {
+                if (char.IsDigit(letter))
+                {
+                    counter++;
+                }
+            }
+            return counter;
+        }
+
+        public Boolean hasTwo(string lecturer)
+        {
+            int counter = 0;
+            foreach (char letter in lecturer)
+            {
+                if (letter == '-')
+                {
+                    counter++;
+                }
+            }
+            if (counter > 1)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
     }
 }

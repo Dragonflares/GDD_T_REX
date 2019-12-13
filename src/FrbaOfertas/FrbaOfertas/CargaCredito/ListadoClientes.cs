@@ -25,6 +25,16 @@ namespace FrbaOfertas.CargaCredito
             InitializeComponent();
             this.form_anterior = ant;
             loadClientes();
+            textBox4.KeyPress += numeric_KeyPress;
+        }
+
+        private void numeric_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+
         }
 
         private void loadClientes()

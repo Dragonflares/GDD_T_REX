@@ -74,7 +74,7 @@
             this.registrarse.Location = new System.Drawing.Point(184, 474);
             this.registrarse.Name = "registrarse";
             this.registrarse.Size = new System.Drawing.Size(113, 30);
-            this.registrarse.TabIndex = 71;
+            this.registrarse.TabIndex = 16;
             this.registrarse.Text = "Registrarse";
             this.registrarse.UseVisualStyleBackColor = false;
             this.registrarse.Click += new System.EventHandler(this.registrarse_Click);
@@ -325,7 +325,7 @@
             this.button1.Location = new System.Drawing.Point(42, 474);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(113, 30);
-            this.button1.TabIndex = 73;
+            this.button1.TabIndex = 17;
             this.button1.Text = "Volver";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);

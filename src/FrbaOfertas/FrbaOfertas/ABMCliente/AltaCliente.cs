@@ -19,6 +19,7 @@ namespace FrbaOfertas.ABMCliente
         public AltaCliente()
         {
             InitializeComponent();
+            friendlyValidater();
         }
 
         public AltaCliente(Cliente cliente)
@@ -44,7 +45,37 @@ namespace FrbaOfertas.ABMCliente
             this.text_localidad.Text = cliente.direccion.localidad;
             this.text_cod_postal.Text = cliente.direccion.codigopostal;
 
+            friendlyValidater();
         }
+
+        private void friendlyValidater()
+        {
+            text_piso.KeyPress += numeric_KeyPress;
+            text_telefono.KeyPress += numeric_KeyPress;
+            text_nro_dni.KeyPress += numeric_KeyPress;
+            text_nombre.KeyPress += noNumber_KeyPress;
+            text_apellido.KeyPress += noNumber_KeyPress;
+            text_calle.KeyPress += noNumber_KeyPress;
+        }
+
+        private void numeric_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+
+        }
+
+        private void noNumber_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+
+        }
+
 
         private void Label1_Click(object sender, EventArgs e)
         {

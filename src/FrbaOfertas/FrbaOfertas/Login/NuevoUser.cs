@@ -28,6 +28,8 @@ namespace FrbaOfertas.Login
             InitializeComponent();
             textBox1.Text = rol;
             textBox1.Enabled = false;
+            contrasenia.PasswordChar = '*';
+            confirmContrasenia.PasswordChar = '*';
         }
 
         private void registrarse_Click(object sender, EventArgs e)
@@ -43,6 +45,11 @@ namespace FrbaOfertas.Login
             }
             if (estanTodosLlenos)
             {
+                if (contrasenia.Text != confirmContrasenia.Text)
+                {
+                    MessageBox.Show("Las contraseñas no coinciden.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
                 SqlCommand chequearUser = FrbaOfertas.Utils.Database.createCommand("SELECT u.id_usuario FROM [GD2C2019].[T_REX].Usuario u" +
                                     " WHERE u.userName = @nombre");
                 chequearUser.Parameters.Add("@nombre", SqlDbType.NVarChar).Value = nombreUsuario.Text;

@@ -119,12 +119,22 @@ namespace FrbaOfertas.Utils
         {
             SqlCommand cmd = Database.createCommand("[T_REX].InhabilitarRol");
             cmd.Parameters.Add("@rol_id", SqlDbType.Int).Value = rol.id;
+            Database.executeProcedure(cmd);
         }
 
         public void activar_rol(Rol rol)
         {
             SqlCommand cmd = Database.createCommand("[T_REX].ActivarRol");
             cmd.Parameters.Add("@rol_id", SqlDbType.Int).Value = rol.id;
+            Database.executeProcedure(cmd);
+        }
+
+        public void crearRol(Rol rol)
+        {
+            SqlCommand procedure = Utils.Database.createCommand("T_REX.AltaRol");
+            procedure.Parameters.Add("@nombre_rol", SqlDbType.NVarChar).Value = rol.nombre;
+            procedure.Parameters.Add("@activo", SqlDbType.Bit).Value = 1;
+            Utils.Database.executeProcedure(procedure);
         }
     }
 }

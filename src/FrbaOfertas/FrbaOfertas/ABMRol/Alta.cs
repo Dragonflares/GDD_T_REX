@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using FrbaOfertas.Models.Funcionalidades;
 using FrbaOfertas.Utils;
+using FrbaOfertas.Models.Roles;
+
 
 namespace FrbaOfertas.ABMRol
 {
@@ -25,6 +27,16 @@ namespace FrbaOfertas.ABMRol
             {
                 Funcionalidades.Items.Add(funcionalidad);
             }
+            NombreNuevoRol.KeyPress += noNumber_KeyPress;
+        }
+
+        private void noNumber_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -51,17 +63,17 @@ namespace FrbaOfertas.ABMRol
             {
                 try
                 {
-                    SqlCommand procedure = Utils.Database.createCommand("T_REX.AltaRol");
-                    procedure.Parameters.Add("@nombre_rol", SqlDbType.NVarChar).Value = NombreNuevoRol.Text;
-                    procedure.Parameters.Add("@activo", SqlDbType.Bit).Value = 1;
                     SqlCommand query = Utils.Database.createCommand("SELECT max (id_rol) FROM [T_REX].ROL");
-                    int id = Utils.Database.executeScalar(query);
-                    Utils.Database.executeProcedure(procedure);
-                    SqlCommand procedure2 = Utils.Database.createCommand("T_REX.AgregarFuncionalidadRol");
+                    int id = Utils.Database.executeScalar(query) + 1;
+
+                    Rol rol = new Rol(id, NombreNuevoRol.Text);
+                    rol.activo = true;
+
                     Funcionalidad funcionalidad = (Funcionalidad)Funcionalidades.SelectedItem;
-                    procedure2.Parameters.Add("@nombreNuevaFuncionalidadRol", SqlDbType.VarChar).Value = funcionalidad.nombre;
-                    procedure2.Parameters.Add("@rol_id", SqlDbType.Int).Value = id + 1;
-                    Utils.Database.executeProcedure(procedure2);
+
+                    rolDao.crearRol(rol);
+                    rolDao.agregarFuncionalidad(rol.id, funcionalidad);
+
                     MessageBox.Show("Alta realizada");
                 }
                 catch (Exception ex)

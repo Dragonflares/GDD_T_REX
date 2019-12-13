@@ -89,6 +89,25 @@ namespace FrbaOfertas.ComprarOferta
                 {
                     int id_oferta = int.Parse(dgv_ofertas.Rows[e.RowIndex].Cells["id"].Value.ToString());
                     Oferta oferta = ofDAO.getOferta(id_oferta, true);
+                    if (numericUpDown1.Value > oferta.cantDisponible)
+                    {
+                        MessageBox.Show("No puede indicar una cantidad mayor a la cantidad disponible.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    else if (numericUpDown1.Value > oferta.cant_max_porCliente)
+                    {
+                        MessageBox.Show("Está excediendo el máximo disponible para cada cliente de " + numericUpDown1.Value.ToString()
+                            + "!.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    else if (numericUpDown1.Value + compraDAO.cantidadDeOfertasCompradasPorEsteCliente(oferta.id_oferta, target.id) 
+                        > oferta.cant_max_porCliente)
+                    {
+                        MessageBox.Show("Está excediendo su máximo disponible de compra para esta oferta de" +
+                            (oferta.cant_max_porCliente - compraDAO.cantidadDeOfertasCompradasPorEsteCliente(oferta.id_oferta, target.id)).ToString() 
+                            + "!.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
 
                     Compra compra = new Compra();
                     compra.cantidad = (int)numericUpDown1.Value;

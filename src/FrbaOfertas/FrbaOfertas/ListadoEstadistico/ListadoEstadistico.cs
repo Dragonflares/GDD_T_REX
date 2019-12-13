@@ -24,7 +24,16 @@ namespace FrbaOfertas.ListadoEstadistico
             semestre.Items.Add("2");
             tipoListado.Items.Add("Proveedores con mayor porcentaje de descuento ofrecido en sus ofertas");
             tipoListado.Items.Add("Proveedores con mayor facturación");
+            anio.KeyPress += numeric_KeyPress;
 
+        }
+
+        private void numeric_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
 
         }
 

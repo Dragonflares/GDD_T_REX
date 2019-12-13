@@ -32,6 +32,16 @@ namespace FrbaOfertas.Login
             piso.KeyPress += piso_KeyPress;
             cuit.KeyPress += cuit_KeyPress;
             loadRubros();
+            calle.KeyPress += noNumber_KeyPress;
+        }
+
+        private void noNumber_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+
         }
 
         private void loadRubros()

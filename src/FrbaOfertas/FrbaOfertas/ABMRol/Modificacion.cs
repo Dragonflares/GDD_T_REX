@@ -30,6 +30,16 @@ namespace FrbaOfertas.ABMRol
             {
                 comboBoxFuncionalidades.Items.Add(funcionalidad);
             }
+            NombreTextBox.KeyPress += noNumber_KeyPress;
+        }
+
+        private void noNumber_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+
         }
 
         private void populateFuncionalidades(Rol rol)

@@ -26,6 +26,22 @@ namespace FrbaOfertas.Login
             contrasenia.PasswordChar = '*';
             confirmContrasenia.PasswordChar = '*';
             textBox1.Enabled = false;
+            numeroCalle.KeyPress += numeroCalle_KeyPress;
+            piso.KeyPress += piso_KeyPress;
+            telefono.KeyPress += telefono_KeyPress;
+            textBox2.KeyPress += telefono_KeyPress;
+            nombre.KeyPress += noNumber_KeyPress;
+            apellido.KeyPress += noNumber_KeyPress;
+            calle.KeyPress += noNumber_KeyPress;
+        }
+
+        private void noNumber_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+
         }
 
         private void registrarse_Click(object sender, EventArgs e)
@@ -41,6 +57,11 @@ namespace FrbaOfertas.Login
             }
             if (estanTodosLlenos)
             {
+                if (contrasenia.Text != confirmContrasenia.Text)
+                {
+                    MessageBox.Show("Las contraseñas no coinciden.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
                 SqlCommand chequearUser = FrbaOfertas.Utils.Database.createCommand("[GD2C2019].[T_REX].ExisteUsuarioConNombre");
 
                 chequearUser.Parameters.AddWithValue("username", nombreUsuario.Text);
@@ -145,6 +166,35 @@ namespace FrbaOfertas.Login
                 MessageBox.Show("Tiene que completar todos los campos para registrarse.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
+        private void telefono_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+
+        }
+
+        private void numeroCalle_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+
+        }
+
+        private void piso_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+
+        }
+
 
         private void button1_Click(object sender, EventArgs e)
         {

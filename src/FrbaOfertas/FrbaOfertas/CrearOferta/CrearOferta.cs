@@ -24,9 +24,11 @@ namespace FrbaOfertas.CrearOferta
         public CrearOferta(Usuario usuario)
         {
             InitializeComponent();
-            this.dateTimePicker1.MinDate = Database.getDateBeta();
-            this.dateTimePicker2.MinDate = Database.getDateBeta();
-
+            this.dateTimePicker2.MinDate = dateTimePicker1.Value;
+            numericUpDown1.Maximum = decimal.MaxValue;
+            numericUpDown2.Maximum = numericUpDown1.Value;
+            numericUpDown3.Maximum = decimal.MaxValue;
+            numericUpDown4.Maximum = numericUpDown3.Value;
             user = usuario;
             if(user.rolActivo.id == 3)
             {
