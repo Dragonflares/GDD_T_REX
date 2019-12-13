@@ -33,44 +33,48 @@ namespace FrbaOfertas.CargaCredito
 
         private void button3_Click(object sender, EventArgs e)
         {
-            this.Owner.Show();
             this.Close();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (comboBox1.Text == "")
+            if (combo_metodo_pago.Text == "")
             {
                 MessageBox.Show("Debe seleccionar un metodo de pago!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (textBox2.Text == "")
+            else if (text_titular.Text == "")
             {
                 MessageBox.Show("Debe indicar el DNI del titular de la tarjeta!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (textBox8.Text == "")
+            else if (text_banco.Text == "")
             {
                 MessageBox.Show("Debe indicar el banco de la tarjeta!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (textBox3.Text == "")
+            else if (text_numero_tarj.Text == "")
             {
                 MessageBox.Show("Debe indicar le numero de tarjeta!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (comboBox2.Text == "")
+            else if (combo_tipo_tarj.Text == "")
             {
                 MessageBox.Show("Debe indicar un tipo de tarjeta!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (numericUpDown1.Value < 1)
+            else if (text_monto.Value < 1)
             {
                 MessageBox.Show("No puede realizar una carga nula o negativa!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-
-                //#TODO agregar funcionalidad para que impacte cambios en base de datos(no hace falta realizar verificaciones)
-                cliDAO.modificarCredito(cliente.id, (int)numericUpDown1.Value); 
-                MessageBox.Show("Carga acreditada con exito", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Owner.Show();
-                this.Close();
+                try
+                {
+                    //#TODO agregar funcionalidad para que impacte cambios en base de datos(no hace falta realizar verificaciones)
+                    cliDAO.cargarCredito(cliente.id, (int)text_monto.Value, Database.getDateBeta(), this.combo_metodo_pago.Text, this.combo_tipo_tarj.Text, this.text_numero_tarj.Text, this.text_titular.Text, this.text_banco.Text);
+                    MessageBox.Show("Carga acreditada con exito", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -89,6 +93,21 @@ namespace FrbaOfertas.CargaCredito
         {
             this.cliente = cli;
             textBox1.Text = cliente.nroDocumento.ToString();
+        }
+
+        private void CargaCredito_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.Owner.Show();
+        }
+
+        private void combo_metodo_pago_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.combo_tipo_tarj.Text = this.combo_metodo_pago.Text;
+        }
+
+        private void combo_tipo_tarj_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.combo_metodo_pago.Text = this.combo_tipo_tarj.Text;
         }
     }
 }

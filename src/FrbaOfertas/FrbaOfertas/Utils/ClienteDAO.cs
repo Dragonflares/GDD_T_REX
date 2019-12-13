@@ -128,13 +128,18 @@ namespace FrbaOfertas.Utils
             }
         }
 
-        public void modificarCredito(int id_cliente, int monto)
+        public void cargarCredito(int id_cliente, int monto, DateTime fecha_credito, string forma_pago, string tipo_tarjeta, string nro_tarjeta, string titular_tarjeta, string banco_tarjeta)
         {
             SqlCommand sp = FrbaOfertas.Utils.Database.createCommand("[GD2C2019].[T_REX].CargarSaldo");
 
-
             sp.Parameters.AddWithValue("IdCliente", id_cliente);
             sp.Parameters.AddWithValue("Monto", monto);
+            sp.Parameters.AddWithValue("fecha_credito", fecha_credito);
+            sp.Parameters.AddWithValue("forma_pago", forma_pago);
+            sp.Parameters.AddWithValue("tipo_tarjeta", tipo_tarjeta);
+            sp.Parameters.AddWithValue("nro_tarjeta", nro_tarjeta);
+            sp.Parameters.AddWithValue("titular_tarjeta", titular_tarjeta);
+            sp.Parameters.AddWithValue("banco_tarjeta", banco_tarjeta);
 
             SqlParameter text = new SqlParameter("@out", SqlDbType.VarChar, 1000);
             text.Direction = ParameterDirection.Output;

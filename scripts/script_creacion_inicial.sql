@@ -456,7 +456,7 @@ FROM gd_esquema.Maestra
 Where Tipo_Pago_Desc is not null
 
 /* agrego forma de pago debido*/
-INSERT INTO [T_REX].[FORMA_PAGO] (tipo_pago_desc) VALUES('debito')
+INSERT INTO [T_REX].[FORMA_PAGO] (tipo_pago_desc) VALUES('débito')
 
 
 -------------------------------------------------------------------------------------------------------------------
@@ -1598,7 +1598,6 @@ GO
 
 --// Listado estadistico //--
 
-
 IF OBJECT_ID('T_REX.SP_TopProveedoresmayorporcentajedescuento') IS NOT NULL
     DROP PROCEDURE [T_REX].SP_TopProveedoresmayorporcentajedescuento
 GO
@@ -1617,5 +1616,81 @@ BEGIN
 	WHERE @anio=YEAR(o.fecha_inicio) and @trimestre=DATEPART(QUARTER,o.fecha_fin)
 	group by p.id_proveedor, p.provee_rs,p.provee_cuit,o.descripcion, convert( decimal(18,2), ((( o.precio_lista-o.precio_oferta)*100)/ o.precio_lista)), o.precio_lista
 	order by  [Porcentaje de descuento] desc, o.precio_lista desc
+END
+GO
+
+IF OBJECT_ID('T_REX.CargarSaldo') IS NOT NULL
+	DROP PROCEDURE [T_REX].CargarSaldo;
+GO
+
+CREATE PROCEDURE [T_REX].CargarSaldo
+	@IdCliente int,
+	@Monto int,
+	@fecha_credito datetime,
+	@forma_pago nvarchar (150),
+	@tipo_tarjeta nvarchar (150),
+	@nro_tarjeta nvarchar (150),
+	@titular_tarjeta nvarchar (150),
+	@banco_tarjeta nvarchar(150),
+	@out varchar(1000) OUTPUT
+AS
+BEGIN
+	IF( NOT EXISTS (SELECT 1 FROM [T_REX].CLIENTE WHERE id_cliente=@IdCliente) )
+	BEGIN
+		RAISERROR('ERROR: No existe cliente.', 16, 1)
+		return
+	END
+	DECLARE @id_forma_pago int, @id_tarjeta int, @titular_tarjeta_ex nvarchar (150), @banco_tarjeta_ex nvarchar(150), @tipo_tarjeta_ex nvarchar (150)
+
+	SELECT @id_forma_pago=id_forma_pago from T_REX.FORMA_PAGO where lower(tipo_pago_desc)=lower(@forma_pago);
+	if(@@ROWCOUNT = 0) 
+	begin
+		RAISERROR('Forma de pago Inexistente',16 ,1)
+		return
+	end
+	if(@forma_pago <> @tipo_tarjeta)
+	begin
+		RAISERROR('Forma de pago no coincide con tipo de tarjeta.',16 ,1)
+		return
+	end
+
+	BEGIN TRY
+		BEGIN TRANSACTION [T]
+		SELECT @id_tarjeta=id_tarjeta, @titular_tarjeta_ex=titular_tarjeta, @banco_tarjeta_ex=banco_tarjeta, @tipo_tarjeta_ex=tipo_tarjeta FROM T_REX.TARJETA WHERE nro_tarjeta=@nro_tarjeta;
+		if(@@ROWCOUNT > 0) 
+		begin
+			if(@titular_tarjeta_ex <> @titular_tarjeta)
+			begin
+				RAISERROR('Tarjeta invalida: Actualmente asignada a otro titular.',16 ,1)
+				return
+			end
+
+			if(@banco_tarjeta_ex <> @banco_tarjeta)
+			begin
+				RAISERROR('Tarjeta invalida: Actualmente asignada a otro banco.',16 ,1)
+				return
+			end
+
+			if(@tipo_tarjeta_ex <> @tipo_tarjeta)
+			begin
+				RAISERROR('Tarjeta invalida: Actualmente asignada a otro tipo de tarjeta.',16 ,1)
+				return
+			end
+		end
+		else
+		begin
+			INSERT INTO T_REX.TARJETA (nro_tarjeta, titular_tarjeta, banco_tarjeta, tipo_tarjeta) VALUES (@nro_tarjeta, @titular_tarjeta, @banco_tarjeta, @tipo_tarjeta)
+			select @id_tarjeta=max(id_tarjeta) from T_REX.TARJETA
+		end
+
+		INSERT INTO T_REX.CREDITO (fecha_credito, id_cliente, id_forma_pago, monto_credito, id_tarjeta) VALUES (@fecha_credito, @IdCliente, @id_forma_pago, @Monto, @id_tarjeta)
+		UPDATE T_REX.CLIENTE SET creditoTotal=(creditoTotal+@Monto) WHERE id_cliente=@IdCliente
+
+		COMMIT TRANSACTION [T]
+	END TRY
+	BEGIN CATCH
+		ROLLBACK TRANSACTION [T]
+		set @out = ERROR_MESSAGE();
+	END CATCH
 END
 GO

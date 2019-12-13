@@ -35,18 +35,18 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.text_titular = new System.Windows.Forms.TextBox();
+            this.text_numero_tarj = new System.Windows.Forms.TextBox();
+            this.text_banco = new System.Windows.Forms.TextBox();
+            this.combo_metodo_pago = new System.Windows.Forms.ComboBox();
+            this.combo_tipo_tarj = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.text_monto = new System.Windows.Forms.NumericUpDown();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.text_monto)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -113,55 +113,59 @@
             this.label9.TabIndex = 8;
             this.label9.Text = "Banco Tarjeta";
             // 
-            // textBox2
+            // text_titular
             // 
-            this.textBox2.Location = new System.Drawing.Point(178, 172);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 10;
+            this.text_titular.Location = new System.Drawing.Point(178, 172);
+            this.text_titular.Name = "text_titular";
+            this.text_titular.Size = new System.Drawing.Size(100, 20);
+            this.text_titular.TabIndex = 3;
             // 
-            // textBox3
+            // text_numero_tarj
             // 
-            this.textBox3.Location = new System.Drawing.Point(178, 228);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
-            this.textBox3.TabIndex = 11;
+            this.text_numero_tarj.Location = new System.Drawing.Point(178, 228);
+            this.text_numero_tarj.Name = "text_numero_tarj";
+            this.text_numero_tarj.Size = new System.Drawing.Size(100, 20);
+            this.text_numero_tarj.TabIndex = 5;
             // 
-            // textBox8
+            // text_banco
             // 
-            this.textBox8.Location = new System.Drawing.Point(42, 228);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(100, 20);
-            this.textBox8.TabIndex = 16;
+            this.text_banco.Location = new System.Drawing.Point(42, 228);
+            this.text_banco.Name = "text_banco";
+            this.text_banco.Size = new System.Drawing.Size(100, 20);
+            this.text_banco.TabIndex = 4;
             // 
-            // comboBox1
+            // combo_metodo_pago
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.combo_metodo_pago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.combo_metodo_pago.FormattingEnabled = true;
+            this.combo_metodo_pago.Items.AddRange(new object[] {
             "Crédito",
             "Débito"});
-            this.comboBox1.Location = new System.Drawing.Point(42, 171);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(100, 21);
-            this.comboBox1.TabIndex = 17;
+            this.combo_metodo_pago.Location = new System.Drawing.Point(42, 171);
+            this.combo_metodo_pago.Name = "combo_metodo_pago";
+            this.combo_metodo_pago.Size = new System.Drawing.Size(100, 21);
+            this.combo_metodo_pago.TabIndex = 2;
+            this.combo_metodo_pago.SelectedIndexChanged += new System.EventHandler(this.combo_metodo_pago_SelectedIndexChanged);
             // 
-            // comboBox2
+            // combo_tipo_tarj
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
+            this.combo_tipo_tarj.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.combo_tipo_tarj.FormattingEnabled = true;
+            this.combo_tipo_tarj.Items.AddRange(new object[] {
             "Crédito",
             "Débito"});
-            this.comboBox2.Location = new System.Drawing.Point(42, 287);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(100, 21);
-            this.comboBox2.TabIndex = 18;
+            this.combo_tipo_tarj.Location = new System.Drawing.Point(42, 287);
+            this.combo_tipo_tarj.Name = "combo_tipo_tarj";
+            this.combo_tipo_tarj.Size = new System.Drawing.Size(100, 21);
+            this.combo_tipo_tarj.TabIndex = 6;
+            this.combo_tipo_tarj.SelectedIndexChanged += new System.EventHandler(this.combo_tipo_tarj_SelectedIndexChanged);
             // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(177, 341);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(92, 34);
-            this.button1.TabIndex = 19;
+            this.button1.TabIndex = 8;
             this.button1.Text = "Cargar crédito";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -171,24 +175,24 @@
             this.button3.Location = new System.Drawing.Point(54, 341);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(92, 34);
-            this.button3.TabIndex = 21;
+            this.button3.TabIndex = 9;
             this.button3.Text = "Volver";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // numericUpDown1
+            // text_monto
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(177, 288);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(101, 20);
-            this.numericUpDown1.TabIndex = 22;
+            this.text_monto.Location = new System.Drawing.Point(177, 288);
+            this.text_monto.Name = "text_monto";
+            this.text_monto.Size = new System.Drawing.Size(101, 20);
+            this.text_monto.TabIndex = 7;
             // 
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(111, 90);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 23;
+            this.textBox1.TabIndex = 0;
             // 
             // label4
             // 
@@ -204,7 +208,7 @@
             this.button2.Location = new System.Drawing.Point(111, 116);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(100, 25);
-            this.button2.TabIndex = 25;
+            this.button2.TabIndex = 1;
             this.button2.Text = "Seleccionar";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
@@ -217,14 +221,14 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.text_monto);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.comboBox2);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.textBox8);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.combo_tipo_tarj);
+            this.Controls.Add(this.combo_metodo_pago);
+            this.Controls.Add(this.text_banco);
+            this.Controls.Add(this.text_numero_tarj);
+            this.Controls.Add(this.text_titular);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label6);
@@ -234,8 +238,9 @@
             this.Controls.Add(this.label1);
             this.Name = "CargaCredito";
             this.Text = "CargaCredito";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CargaCredito_FormClosing);
             this.Load += new System.EventHandler(this.CargaCredito_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.text_monto)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -250,14 +255,14 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox8;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.TextBox text_titular;
+        private System.Windows.Forms.TextBox text_numero_tarj;
+        private System.Windows.Forms.TextBox text_banco;
+        private System.Windows.Forms.ComboBox combo_metodo_pago;
+        private System.Windows.Forms.ComboBox combo_tipo_tarj;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown text_monto;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button2;
