@@ -29,6 +29,22 @@ namespace FrbaOfertas.Utils
                 }).ToList<Rol>()[0];
         }
 
+        public Rol getRolxID(int id_rol)
+        {
+            string cmd = "SELECT r.[id_rol], r.[nombre]" +
+                " FROM [GD2C2019].[T_REX].[Rol] r" +
+                " WHERE r.id_rol = " + id_rol + "";
+
+            SqlCommand command = FrbaOfertas.Utils.Database.createCommand(cmd);
+            DataTable table = Utils.Database.getData(command);
+
+            return table.Rows.Cast<DataRow>().
+                Select(row =>
+                {
+                    return this.createRolFromQueryResult(row);
+                }).ToList<Rol>()[0];
+        }
+
         private Rol createRolFromQueryResult(DataRow row)
         {
             Rol rol = new Rol(int.Parse(row["id_rol"].ToString()),
@@ -74,19 +90,41 @@ namespace FrbaOfertas.Utils
             return Database.getData(cmd);
         }
 
-        public void updateRol(int id, String nombre, DataTable Funcionalidades)
+        public void agregarFuncionalidad(int id, Funcionalidad funcionalidad)
         {
-
             SqlCommand cmd = Database.createCommand("[T_REX].AgregarFuncionalidadRol");
             cmd.Parameters.Add("@rol_id", SqlDbType.Int).Value = id;
-            cmd.Parameters.Add("@nombre", SqlDbType.NVarChar).Value = nombre;
-            cmd.Parameters.Add("@funcionalidades", SqlDbType.Structured).Value = Funcionalidades;
+            cmd.Parameters.Add("@funcionalidad", SqlDbType.Int).Value = funcionalidad.id;
             Database.executeProcedure(cmd);
         }
 
+        public void sacarFuncionalidad(int id, Funcionalidad funcionalidad)
+        {
+            SqlCommand cmd = Database.createCommand("[T_REX].QuitarFuncionalidadRol");
+            cmd.Parameters.Add("@rol_id", SqlDbType.Int).Value = id;
+            cmd.Parameters.Add("@funcionalidad", SqlDbType.Int).Value = funcionalidad.id;
+            Database.executeProcedure(cmd);
+        }
+
+        public void cambiarNombreRol(int id, String nombre)
+        {
+            SqlCommand cmd = Database.createCommand("[T_REX].CambiarNombreRol");
+            cmd.Parameters.Add("@rol_id", SqlDbType.Int).Value = id;
+            cmd.Parameters.Add("@nombre", SqlDbType.NVarChar).Value = nombre;
+            Database.executeProcedure(cmd);
+        }
+
+
         public void borrar_rol(Rol rol)
         {
+            SqlCommand cmd = Database.createCommand("[T_REX].InhabilitarRol");
+            cmd.Parameters.Add("@rol_id", SqlDbType.Int).Value = rol.id;
+        }
 
+        public void activar_rol(Rol rol)
+        {
+            SqlCommand cmd = Database.createCommand("[T_REX].ActivarRol");
+            cmd.Parameters.Add("@rol_id", SqlDbType.Int).Value = rol.id;
         }
     }
 }

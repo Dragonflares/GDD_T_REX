@@ -10,17 +10,19 @@ using System.Windows.Forms;
 using FrbaOfertas.Models.Roles;
 using FrbaOfertas.Models.Funcionalidades;
 using FrbaOfertas.Utils;
+using FrbaOfertas.Models.Usuarios;
+
 
 namespace FrbaOfertas.ABMRol
 {
     public partial class ABMRol : Form
     {
-        public PantallaPrincipal form_anterior { get; set; }
+        public Usuario user { get; set; }
         RolDAO rolDao = new RolDAO();
-        public ABMRol(PantallaPrincipal pantalla)
+        public ABMRol(Usuario _user)
         {
             InitializeComponent();
-            form_anterior = pantalla;
+            this.user = _user;
         }
 
         private void HomeRol_Load(object sender, EventArgs e)
@@ -37,6 +39,17 @@ namespace FrbaOfertas.ABMRol
         {
             int linea = int.Parse(dgvRoles.SelectedCells[0].Value.ToString());
             dgvFuncionalidades.DataSource = rolDao.getFuncionalidades(linea);
+            Rol rol = rolDao.getRolxID(linea);
+            if (rol == user.rolActivo)
+            {
+                btnBorrarRol.Visible = false;
+                btnModificar.Visible = false;
+            }
+            else
+            {
+                btnBorrarRol.Visible = true;
+                btnModificar.Visible = true;
+            }
         }
 
         private void btnCrear_Click(object sender, EventArgs e)
@@ -88,19 +101,16 @@ namespace FrbaOfertas.ABMRol
 
                 if (MessageBox.Show(mensaje, "ABM Rol", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes) //si selecciona que si
                 {
-                    if (form_anterior.user.rolActivo.nombre == rol_seleccionado.nombre) //si el rol del login es igual al rol que quiere deshabilitar
+                    if (user.rolActivo.activo) //si el rol del login es igual al rol que quiere deshabilitar
                     {
-                        if (MessageBox.Show("¿Está a punto de inhabilitar el Rol en el que se encuentra logueado, se cerrará la sesión al finalizar, desea continuar?", "ABM Rol", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
-                        {
-                            rolDao.borrar_rol(rol_seleccionado);
-                            Application.Exit();
-                            Application.Restart();
-                        }
+                        MessageBox.Show("Operacion exitosa");
+                        rolDao.borrar_rol(rol_seleccionado);
+                        this.cargarDatos();
                     }
                     else
                     {
                         MessageBox.Show("Operacion exitosa");
-                        rolDao.borrar_rol(rol_seleccionado);
+                        rolDao.activar_rol(rol_seleccionado);
                         this.cargarDatos();
                     }
 
@@ -111,7 +121,7 @@ namespace FrbaOfertas.ABMRol
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
-            form_anterior.Show();
+            this.Owner.Show();
             this.Close();
         }
     }

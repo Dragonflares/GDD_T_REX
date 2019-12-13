@@ -190,13 +190,14 @@ namespace FrbaOfertas.Login
 
         private void cuit_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if ((!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) || cantNumeros(cuit.Text) == 11)
+            if ((!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
+                (e.KeyChar != '-')) || (cantNumeros(cuit.Text) > 10) || ((hasTwo((sender as TextBox).Text) && char.IsDigit(cuit.Text.Last()))))
             {
                 e.Handled = true;
             }
-            else if (cantNumeros(cuit.Text) == 2 || cantNumeros(cuit.Text) == 10)
+            else if ((e.KeyChar == '-') && (hasTwo((sender as TextBox).Text) || (((sender as TextBox).Text.IndexOf('-') == ((sender as TextBox).Text.Length - 1)))))
             {
-                cuit.Text += '-';
+                e.Handled = true;
             }
         }
 
@@ -211,6 +212,24 @@ namespace FrbaOfertas.Login
                 }
             }
             return counter;
+        }
+
+        public Boolean hasTwo(string lecturer)
+        {
+            int counter = 0;
+            foreach (char letter in lecturer)
+            {
+                if (letter == '-')
+                {
+                    counter++;
+                }
+            }
+            if (counter > 1)
+            {
+                return true;
+            }
+            else
+                return false;
         }
 
         private void PrimerLoginProveedor_FormClosed(object sender, FormClosedEventArgs e)
