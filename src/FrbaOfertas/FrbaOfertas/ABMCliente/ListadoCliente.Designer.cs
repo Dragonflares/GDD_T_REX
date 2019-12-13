@@ -30,14 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.tablaClientes = new System.Windows.Forms.DataGridView();
-            this.l_nombre = new System.Windows.Forms.Label();
-            this.l_apellido = new System.Windows.Forms.Label();
-            this.nombre_text = new System.Windows.Forms.TextBox();
-            this.apellido_text = new System.Windows.Forms.TextBox();
-            this.btn_buscar = new System.Windows.Forms.Button();
-            this.btn_baja = new System.Windows.Forms.Button();
-            this.btn_alta = new System.Windows.Forms.Button();
-            this.btn_modificar = new System.Windows.Forms.Button();
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.estadoDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.nombresDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -50,8 +42,24 @@
             this.fechaNacimientoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.creditoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clienteBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.nombre_text = new System.Windows.Forms.TextBox();
+            this.apellido_text = new System.Windows.Forms.TextBox();
+            this.btn_buscar = new System.Windows.Forms.Button();
+            this.btn_baja = new System.Windows.Forms.Button();
+            this.btn_alta = new System.Windows.Forms.Button();
+            this.btn_modificar = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btn_limpiar = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.tablaClientes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.clienteBindingSource)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tablaClientes
@@ -71,83 +79,11 @@
             this.fechaNacimientoDataGridViewTextBoxColumn,
             this.creditoDataGridViewTextBoxColumn});
             this.tablaClientes.DataSource = this.clienteBindingSource;
-            this.tablaClientes.Location = new System.Drawing.Point(12, 137);
+            this.tablaClientes.Location = new System.Drawing.Point(12, 144);
             this.tablaClientes.Name = "tablaClientes";
             this.tablaClientes.ReadOnly = true;
             this.tablaClientes.Size = new System.Drawing.Size(764, 228);
             this.tablaClientes.TabIndex = 0;
-            // 
-            // l_nombre
-            // 
-            this.l_nombre.AutoSize = true;
-            this.l_nombre.Location = new System.Drawing.Point(24, 32);
-            this.l_nombre.Name = "l_nombre";
-            this.l_nombre.Size = new System.Drawing.Size(44, 13);
-            this.l_nombre.TabIndex = 1;
-            this.l_nombre.Text = "Nombre";
-            // 
-            // l_apellido
-            // 
-            this.l_apellido.AutoSize = true;
-            this.l_apellido.Location = new System.Drawing.Point(243, 31);
-            this.l_apellido.Name = "l_apellido";
-            this.l_apellido.Size = new System.Drawing.Size(44, 13);
-            this.l_apellido.TabIndex = 2;
-            this.l_apellido.Text = "Apellido";
-            // 
-            // nombre_text
-            // 
-            this.nombre_text.Location = new System.Drawing.Point(27, 49);
-            this.nombre_text.Name = "nombre_text";
-            this.nombre_text.Size = new System.Drawing.Size(129, 20);
-            this.nombre_text.TabIndex = 3;
-            // 
-            // apellido_text
-            // 
-            this.apellido_text.Location = new System.Drawing.Point(246, 48);
-            this.apellido_text.Name = "apellido_text";
-            this.apellido_text.Size = new System.Drawing.Size(138, 20);
-            this.apellido_text.TabIndex = 4;
-            // 
-            // btn_buscar
-            // 
-            this.btn_buscar.Location = new System.Drawing.Point(12, 108);
-            this.btn_buscar.Name = "btn_buscar";
-            this.btn_buscar.Size = new System.Drawing.Size(75, 23);
-            this.btn_buscar.TabIndex = 5;
-            this.btn_buscar.Text = "Buscar";
-            this.btn_buscar.UseVisualStyleBackColor = true;
-            this.btn_buscar.Click += new System.EventHandler(this.btn_buscar_Click);
-            // 
-            // btn_baja
-            // 
-            this.btn_baja.Location = new System.Drawing.Point(463, 395);
-            this.btn_baja.Name = "btn_baja";
-            this.btn_baja.Size = new System.Drawing.Size(75, 23);
-            this.btn_baja.TabIndex = 6;
-            this.btn_baja.Text = "Baja";
-            this.btn_baja.UseVisualStyleBackColor = true;
-            this.btn_baja.Click += new System.EventHandler(this.btn_baja_Click);
-            // 
-            // btn_alta
-            // 
-            this.btn_alta.Location = new System.Drawing.Point(246, 395);
-            this.btn_alta.Name = "btn_alta";
-            this.btn_alta.Size = new System.Drawing.Size(75, 23);
-            this.btn_alta.TabIndex = 7;
-            this.btn_alta.Text = "Alta";
-            this.btn_alta.UseVisualStyleBackColor = true;
-            this.btn_alta.Click += new System.EventHandler(this.btn_alta_Click);
-            // 
-            // btn_modificar
-            // 
-            this.btn_modificar.Location = new System.Drawing.Point(358, 395);
-            this.btn_modificar.Name = "btn_modificar";
-            this.btn_modificar.Size = new System.Drawing.Size(75, 23);
-            this.btn_modificar.TabIndex = 8;
-            this.btn_modificar.Text = "Modificar";
-            this.btn_modificar.UseVisualStyleBackColor = true;
-            this.btn_modificar.Click += new System.EventHandler(this.btn_modificar_Click);
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -231,19 +167,167 @@
             // 
             this.clienteBindingSource.DataSource = typeof(FrbaOfertas.Models.Clientes.Cliente);
             // 
+            // nombre_text
+            // 
+            this.nombre_text.Location = new System.Drawing.Point(32, 47);
+            this.nombre_text.Name = "nombre_text";
+            this.nombre_text.Size = new System.Drawing.Size(117, 20);
+            this.nombre_text.TabIndex = 3;
+            // 
+            // apellido_text
+            // 
+            this.apellido_text.Location = new System.Drawing.Point(176, 47);
+            this.apellido_text.Name = "apellido_text";
+            this.apellido_text.Size = new System.Drawing.Size(120, 20);
+            this.apellido_text.TabIndex = 4;
+            // 
+            // btn_buscar
+            // 
+            this.btn_buscar.Location = new System.Drawing.Point(517, 116);
+            this.btn_buscar.Name = "btn_buscar";
+            this.btn_buscar.Size = new System.Drawing.Size(147, 23);
+            this.btn_buscar.TabIndex = 5;
+            this.btn_buscar.Text = "Buscar";
+            this.btn_buscar.UseVisualStyleBackColor = true;
+            this.btn_buscar.Click += new System.EventHandler(this.btn_buscar_Click);
+            // 
+            // btn_baja
+            // 
+            this.btn_baja.Location = new System.Drawing.Point(229, 395);
+            this.btn_baja.Name = "btn_baja";
+            this.btn_baja.Size = new System.Drawing.Size(121, 33);
+            this.btn_baja.TabIndex = 6;
+            this.btn_baja.Text = "Baja";
+            this.btn_baja.UseVisualStyleBackColor = true;
+            this.btn_baja.Click += new System.EventHandler(this.btn_baja_Click);
+            // 
+            // btn_alta
+            // 
+            this.btn_alta.Location = new System.Drawing.Point(601, 395);
+            this.btn_alta.Name = "btn_alta";
+            this.btn_alta.Size = new System.Drawing.Size(123, 33);
+            this.btn_alta.TabIndex = 7;
+            this.btn_alta.Text = "Alta";
+            this.btn_alta.UseVisualStyleBackColor = true;
+            this.btn_alta.Click += new System.EventHandler(this.btn_alta_Click);
+            // 
+            // btn_modificar
+            // 
+            this.btn_modificar.Location = new System.Drawing.Point(417, 395);
+            this.btn_modificar.Name = "btn_modificar";
+            this.btn_modificar.Size = new System.Drawing.Size(121, 33);
+            this.btn_modificar.TabIndex = 8;
+            this.btn_modificar.Text = "Modificar";
+            this.btn_modificar.UseVisualStyleBackColor = true;
+            this.btn_modificar.Click += new System.EventHandler(this.btn_modificar_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.textBox4);
+            this.groupBox1.Controls.Add(this.textBox3);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.apellido_text);
+            this.groupBox1.Controls.Add(this.nombre_text);
+            this.groupBox1.Location = new System.Drawing.Point(80, 11);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox1.Size = new System.Drawing.Size(633, 100);
+            this.groupBox1.TabIndex = 33;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Filtros de Cliente";
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(463, 47);
+            this.textBox4.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(121, 20);
+            this.textBox4.TabIndex = 18;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(319, 47);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(121, 20);
+            this.textBox3.TabIndex = 17;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(316, 32);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(26, 13);
+            this.label4.TabIndex = 13;
+            this.label4.Text = "Mail";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(173, 32);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(44, 13);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Apellido";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(460, 32);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(26, 13);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "DNI";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(29, 32);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(44, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Nombre";
+            // 
+            // btn_limpiar
+            // 
+            this.btn_limpiar.Location = new System.Drawing.Point(142, 115);
+            this.btn_limpiar.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_limpiar.Name = "btn_limpiar";
+            this.btn_limpiar.Size = new System.Drawing.Size(135, 24);
+            this.btn_limpiar.TabIndex = 32;
+            this.btn_limpiar.Text = "Limpiar";
+            this.btn_limpiar.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(53, 395);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(119, 33);
+            this.button1.TabIndex = 34;
+            this.button1.Text = "Volver";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // ListadoCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(808, 430);
+            this.ClientSize = new System.Drawing.Size(808, 452);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.btn_limpiar);
             this.Controls.Add(this.btn_modificar);
             this.Controls.Add(this.btn_alta);
             this.Controls.Add(this.btn_baja);
             this.Controls.Add(this.btn_buscar);
-            this.Controls.Add(this.apellido_text);
-            this.Controls.Add(this.nombre_text);
-            this.Controls.Add(this.l_apellido);
-            this.Controls.Add(this.l_nombre);
             this.Controls.Add(this.tablaClientes);
             this.Name = "ListadoCliente";
             this.Text = "ABM Clientes";
@@ -251,8 +335,9 @@
             this.Load += new System.EventHandler(this.ListadoCliente_Load);
             ((System.ComponentModel.ISupportInitialize)(this.tablaClientes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.clienteBindingSource)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -260,8 +345,6 @@
 
         private System.Windows.Forms.DataGridView tablaClientes;
         private System.Windows.Forms.BindingSource clienteBindingSource;
-        private System.Windows.Forms.Label l_nombre;
-        private System.Windows.Forms.Label l_apellido;
         private System.Windows.Forms.TextBox nombre_text;
         private System.Windows.Forms.TextBox apellido_text;
         private System.Windows.Forms.Button btn_buscar;
@@ -279,5 +362,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn direccionDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn fechaNacimientoDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn creditoDataGridViewTextBoxColumn;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btn_limpiar;
+        private System.Windows.Forms.Button button1;
     }
 }
