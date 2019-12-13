@@ -37,10 +37,10 @@ namespace FrbaOfertas.ABMRol
 
         private void dgvRoles_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            int linea = int.Parse(dgvRoles.SelectedCells[0].Value.ToString());
+            int linea = int.Parse(dgvRoles.Rows[e.RowIndex].Cells["id"].Value.ToString());
             dgvFuncionalidades.DataSource = rolDao.getFuncionalidades(linea);
             Rol rol = rolDao.getRolxID(linea);
-            if (rol == user.rolActivo)
+            if (rol.id == user.rolActivo.id)
             {
                 btnBorrarRol.Visible = false;
                 btnModificar.Visible = false;

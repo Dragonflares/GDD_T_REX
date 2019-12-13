@@ -31,6 +31,7 @@ namespace FrbaOfertas.Login
             numeroCalle.KeyPress += numeroCalle_KeyPress;
             piso.KeyPress += piso_KeyPress;
             cuit.KeyPress += cuit_KeyPress;
+            telefono.KeyPress += telefono_KeyPress;
             loadRubros();
             calle.KeyPress += noNumber_KeyPress;
         }
