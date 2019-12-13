@@ -1019,26 +1019,26 @@ IF OBJECT_ID('T_REX.AgregarfuncionalidadRol') IS NOT NULL
 GO
 
 CREATE PROCEDURE [T_REX].AgregarfuncionalidadRol
-@id_rol int, 
-@id_func int
+@rol_id int, 
+@funcionalidad int
 as
 	declare @resultado varchar(10);
 
-	if not exists (select 1 from [T_REX].FUNCIONALIDAD_ROL where id_rol=@id_rol and id_funcionalidad=@id_func)
+	if not exists (select 1 from [T_REX].FUNCIONALIDAD_ROL where id_rol=@rol_id and id_funcionalidad=@funcionalidad)
 		begin
 			insert into [T_REX].FUNCIONALIDAD_ROL (id_rol,id_funcionalidad)
-			values (@id_rol,@id_func);
+			values (@rol_id,@funcionalidad);
 
 			set @resultado='OK';
 		end
 	else
 		begin
-		if exists (select 1 from [T_REX].FUNCIONALIDAD_ROL  where id_rol=@id_rol and id_funcionalidad=@id_func)
+		if exists (select 1 from [T_REX].FUNCIONALIDAD_ROL  where id_rol=@rol_id and id_funcionalidad=@funcionalidad)
 			begin
 				update [T_REX].FUNCIONALIDAD_ROL
 				set estado = '1'
-				where id_rol=@id_rol 
-				and id_funcionalidad=@id_func;
+				where id_rol=@rol_id 
+				and id_funcionalidad=@funcionalidad;
 
 				set @resultado='OK';
 			end
@@ -1055,14 +1055,14 @@ IF OBJECT_ID('T_REX.QuitarFuncionalidadRol') IS NOT NULL
 GO
 
 CREATE PROCEDURE [T_REX].QuitarFuncionalidadRol
-@id_rol int, 
-@id_funcionalidad int
+@rol_id int, 
+@funcionalidad int
 as
-	if exists (select 1 from [T_REX].FUNCIONALIDAD_ROL where id_rol=@id_rol and id_funcionalidad=@id_funcionalidad and estado='1')
+	if exists (select 1 from [T_REX].FUNCIONALIDAD_ROL where id_rol=@rol_id and id_funcionalidad=@funcionalidad and estado='1')
 	begin
 		update [T_REX].FUNCIONALIDAD_ROL 
 		set estado = '0'
-		where id_funcionalidad=@id_funcionalidad and id_rol=@id_rol;
+		where id_funcionalidad=@funcionalidad and id_rol=@rol_id;
 	end
 GO
 
@@ -1073,20 +1073,20 @@ IF OBJECT_ID('T_REX.InhabilitarRol') IS NOT NULL
 GO
 
 CREATE PROCEDURE [T_REX].InhabilitarRol 
-@id_rol int
+@rol_id int
 AS
 	declare @resultado varchar(10);
 	if not exists (select 1 from [T_REX].ROL_USUARIO ru
 				   inner join [T_REX].USUARIO u on ru.id_usuario=u.id_usuario
-				   where ru.id_rol=@id_rol )
+				   where ru.id_rol=@rol_id )
 	begin
 		update [T_REX].ROL_USUARIO 
 		set activo='0'
-		where [id_rol]=@id_rol;
+		where [id_rol]=@rol_id;
 
 		update [T_REX].ROL
 		set estado = '1'
-		where id_rol=@id_rol;
+		where id_rol=@rol_id;
 
 		set @resultado='OK'
 	end
@@ -1103,11 +1103,11 @@ IF OBJECT_ID('T_REX.ActivarRol') IS NOT NULL
 GO
 
 CREATE PROCEDURE [T_REX].ActivarRol  
-@id_Rol int
+@rol_id int
 as
 	update [T_REX].ROL
 	set estado = '1'
-	where id_rol=@id_Rol
+	where id_rol=@rol_id
 
 go
 
