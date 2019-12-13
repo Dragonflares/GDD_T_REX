@@ -24,8 +24,8 @@ namespace FrbaOfertas.CrearOferta
         public CrearOferta(Usuario usuario)
         {
             InitializeComponent();
-            this.dateTimePicker1.MinDate = DateTime.Today; // SACAR DE ARCHIVO DE CONFIG
-            this.dateTimePicker2.MinDate = DateTime.Today; // SACAR DE ARCHIVO DE CONFIG
+            this.dateTimePicker1.MinDate = Database.getDateBeta();
+            this.dateTimePicker2.MinDate = Database.getDateBeta();
 
             user = usuario;
             if(user.rolActivo.id == 3)
