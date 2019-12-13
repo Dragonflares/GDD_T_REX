@@ -1595,3 +1595,27 @@ BEGIN
 	END
 END
 GO
+
+--// Listado estadistico //--
+
+
+IF OBJECT_ID('T_REX.SP_TopProveedoresmayorporcentajedescuento') IS NOT NULL
+    DROP PROCEDURE [T_REX].SP_TopProveedoresmayorporcentajedescuento
+GO
+
+CREATE PROCEDURE [T_REX].SP_TopProveedoresmayorporcentajedescuento ( @anio int, @trimestre int)
+AS 
+BEGIN
+	SELECT TOP 5
+			p.id_proveedor, 
+			p.provee_rs,
+			p.provee_cuit,
+			o.descripcion,
+			convert( decimal(18,2), ((( o.precio_lista-o.precio_oferta)*100)/ o.precio_lista)) as "Porcentaje de descuento"
+	from T_REX.PROVEEDOR p	
+	inner join T_REX.OFERTA o on p.id_proveedor=o.id_proveedor
+	WHERE @anio=YEAR(o.fecha_inicio) and @trimestre=DATEPART(QUARTER,o.fecha_fin)
+	group by p.id_proveedor, p.provee_rs,p.provee_cuit,o.descripcion, convert( decimal(18,2), ((( o.precio_lista-o.precio_oferta)*100)/ o.precio_lista)), o.precio_lista
+	order by  [Porcentaje de descuento] desc, o.precio_lista desc
+END
+GO
