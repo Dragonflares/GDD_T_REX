@@ -23,7 +23,7 @@ namespace FrbaOfertas.ABMRol
             InitializeComponent();
             this.rol = _rol;
             NombreTextBox.Text = rol.nombre;
-            btn_activar.Visible = rol.activo;
+            btn_activar.Visible = !rol.activo;
             populateFuncionalidades(rol);
             var funcionalidades = rolDao.getFuncionalidades();
             foreach (Funcionalidad funcionalidad in funcionalidades)
@@ -65,12 +65,7 @@ namespace FrbaOfertas.ABMRol
 
         private void btn_activar_Click(object sender, EventArgs e)
         {
-            SqlCommand procedure = Utils.Database.createCommand("T_REX.AltaRol");
-            procedure.Parameters.Add("@nombre_rol", SqlDbType.NVarChar).Value = NombreTextBox.Text;
-            procedure.Parameters.Add("@activo", SqlDbType.Bit).Value = 1;
-            Utils.Database.executeProcedure(procedure);
-
-           
+            rolDao.activar_rol(rol);
             MessageBox.Show("Se activo el rol");
         }
 
@@ -104,7 +99,42 @@ namespace FrbaOfertas.ABMRol
 
                     DataTable dt = table_funcionalidades.DataSource as DataTable;
                     DataTable funcionalidades = dt.Copy();
-                    rolDao.updateRol(rol.id, NombreTextBox.Text, funcionalidades);
+                    List<Funcionalidad> funcsNuevas = funcionalidades.Rows.Cast<DataRow>().
+                        Select(row =>
+                        {
+                            Funcionalidad func = new Funcionalidad(
+                                int.Parse(row["id"].ToString()),
+                                row["Funcionalidad"].ToString());
+                            return func;
+                        }).ToList<Funcionalidad>();
+                    DataTable funcionalidadesViejas = rolDao.getFuncionalidadesXRol(rol);
+                    List<Funcionalidad> funcsViejas = funcionalidadesViejas.Rows.Cast<DataRow>().
+                        Select(row =>
+                        {
+                            Funcionalidad func = new Funcionalidad(
+                                int.Parse(row["id"].ToString()),
+                                row["Funcionalidad"].ToString());
+                            return func;
+                        }).ToList<Funcionalidad>();
+
+                    foreach (Funcionalidad funcX in funcsNuevas)
+                    {
+                        if (!funcsViejas.Contains(funcX))
+                        {
+                            rolDao.agregarFuncionalidad(rol.id, funcX);
+                        }
+                    }
+                    foreach (Funcionalidad funcZ in funcsViejas)
+                    {
+                        if (!funcsNuevas.Contains(funcZ))
+                        {
+                            rolDao.sacarFuncionalidad(rol.id, funcZ);
+                        }
+                    }
+                    if (NombreTextBox.Text != rol.nombre)
+                    {
+                        rolDao.cambiarNombreRol(rol.id, NombreTextBox.Text);
+                    }
                 }
                 catch (Exception ex)
                 {

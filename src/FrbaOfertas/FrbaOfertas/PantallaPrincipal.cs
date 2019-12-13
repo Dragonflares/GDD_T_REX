@@ -61,7 +61,7 @@ namespace FrbaOfertas
             {
                 case "ABM Rol":
                 {
-                    ABMRol.ABMRol pantalla = new ABMRol.ABMRol(this);
+                    ABMRol.ABMRol pantalla = new ABMRol.ABMRol(user);
                     pantalla.Owner = this;
                     pantalla.Show();
                     this.Hide();
