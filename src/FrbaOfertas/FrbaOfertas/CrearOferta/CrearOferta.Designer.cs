@@ -30,10 +30,12 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button4 = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
             this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
+            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
@@ -49,8 +51,6 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
@@ -92,31 +92,38 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Información de la Oferta";
             // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(39, 366);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(128, 31);
+            this.button4.TabIndex = 14;
+            this.button4.Text = "Volver";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(262, 334);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(105, 24);
+            this.label9.TabIndex = 17;
+            this.label9.Text = "dejar en 0 para no limitar \r\nlas compras por cliente";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // numericUpDown4
             // 
             this.numericUpDown4.Location = new System.Drawing.Point(264, 311);
-            this.numericUpDown4.Maximum = this.numericUpDown3.Value;
+            this.numericUpDown4.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numericUpDown4.Name = "numericUpDown4";
             this.numericUpDown4.Size = new System.Drawing.Size(98, 20);
-            this.numericUpDown4.TabIndex = 16;
-            // 
-            // numericUpDown3
-            // 
-            this.numericUpDown3.Location = new System.Drawing.Point(53, 311);
-            this.numericUpDown3.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDown3.Name = "numericUpDown3";
-            this.numericUpDown3.Size = new System.Drawing.Size(98, 20);
-            this.numericUpDown3.TabIndex = 13;
-            this.numericUpDown3.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDown3.Maximum = int.MaxValue;
+            this.numericUpDown4.TabIndex = 12;
             // 
             // label8
             // 
@@ -132,10 +139,33 @@
             this.button2.Location = new System.Drawing.Point(254, 366);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(128, 31);
-            this.button2.TabIndex = 14;
+            this.button2.TabIndex = 13;
             this.button2.Text = "Publicar Oferta";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // numericUpDown3
+            // 
+            this.numericUpDown3.Location = new System.Drawing.Point(53, 311);
+            this.numericUpDown3.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
+            this.numericUpDown3.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown3.Name = "numericUpDown3";
+            this.numericUpDown3.Size = new System.Drawing.Size(98, 20);
+            this.numericUpDown3.TabIndex = 11;
+            this.numericUpDown3.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown3.ValueChanged += new System.EventHandler(this.numericUpDown3_ValueChanged);
             // 
             // label7
             // 
@@ -162,7 +192,11 @@
             // numericUpDown2
             // 
             this.numericUpDown2.Location = new System.Drawing.Point(22, 104);
-            this.numericUpDown2.Maximum = this.numericUpDown1.Value;
+            this.numericUpDown2.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
             this.numericUpDown2.Minimum = new decimal(new int[] {
             1,
             0,
@@ -170,19 +204,22 @@
             0});
             this.numericUpDown2.Name = "numericUpDown2";
             this.numericUpDown2.Size = new System.Drawing.Size(87, 20);
-            this.numericUpDown2.TabIndex = 12;
+            this.numericUpDown2.TabIndex = 10;
             this.numericUpDown2.ThousandsSeparator = true;
             this.numericUpDown2.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDown2.Maximum = int.MaxValue;
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Maximum = int.MaxValue;
             this.numericUpDown1.Location = new System.Drawing.Point(22, 49);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
             this.numericUpDown1.Minimum = new decimal(new int[] {
             1,
             0,
@@ -190,7 +227,7 @@
             0});
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(87, 20);
-            this.numericUpDown1.TabIndex = 11;
+            this.numericUpDown1.TabIndex = 9;
             this.numericUpDown1.ThousandsSeparator = true;
             this.numericUpDown1.Value = new decimal(new int[] {
             1,
@@ -244,6 +281,7 @@
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(96, 20);
             this.dateTimePicker1.TabIndex = 7;
+            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // label4
             // 
@@ -296,27 +334,6 @@
             this.textBox1.Size = new System.Drawing.Size(129, 20);
             this.textBox1.TabIndex = 1;
             // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(262, 334);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(105, 24);
-            this.label9.TabIndex = 17;
-            this.label9.Text = "dejar en 0 para no limitar \r\nlas compras por cliente";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(39, 366);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(128, 31);
-            this.button4.TabIndex = 19;
-            this.button4.Text = "Volver";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
             // CrearOferta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -325,6 +342,7 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "CrearOferta";
             this.Text = "CrearOferta";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CrearOferta_FormClosed);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();

@@ -24,6 +24,9 @@ namespace FrbaOfertas.CrearOferta
         public CrearOferta(Usuario usuario)
         {
             InitializeComponent();
+            this.dateTimePicker1.MinDate = DateTime.Today; // SACAR DE ARCHIVO DE CONFIG
+            this.dateTimePicker2.MinDate = DateTime.Today; // SACAR DE ARCHIVO DE CONFIG
+
             user = usuario;
             if(user.rolActivo.id == 3)
             {
@@ -51,6 +54,10 @@ namespace FrbaOfertas.CrearOferta
             {
                 MessageBox.Show("Debe indicar un Proveedor.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            else if (this.dateTimePicker1.Value > this.dateTimePicker2.Value)
+            {
+                MessageBox.Show("Fecha inicio debe ser menor a Fecha fin.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             else
             {
                 Oferta oferta = new Oferta();
@@ -73,13 +80,27 @@ namespace FrbaOfertas.CrearOferta
 
         private void button4_Click(object sender, EventArgs e)
         {
-            this.Owner.Show();
             this.Close();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             new FrbaOfertas.CrearOferta.ListadoProveedor(this).ShowDialog();
+        }
+
+        private void CrearOferta_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Owner.Show();
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            this.dateTimePicker2.MinDate = this.dateTimePicker1.Value;
+        }
+
+        private void numericUpDown3_ValueChanged(object sender, EventArgs e)
+        {
+            this.numericUpDown4.Maximum = this.numericUpDown3.Value;
         }
     }
 }

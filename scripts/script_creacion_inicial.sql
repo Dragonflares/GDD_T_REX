@@ -1537,3 +1537,56 @@ BEGIN
 	END			
 END
 GO
+
+IF OBJECT_ID('T_REX.ABMOferta') IS NOT NULL
+	DROP PROCEDURE [T_REX].ABMOferta;
+GO
+CREATE PROCEDURE [T_REX].ABMOferta
+	@IdOferta int = NULL,
+	@Accion varchar(1),
+	@Descripcion nvarchar(255),
+	@fecha_inicio datetime,
+	@fecha_fin datetime,
+	@precio_oferta decimal(30,2),
+	@precio_lista decimal(30,2),
+	@cantDisp int,
+	@cantMax int,
+	@id_proveedor int,
+	@out varchar(1000) OUTPUT
+AS
+BEGIN
+	IF( NOT EXISTS (SELECT 1 FROM [T_REX].PROVEEDOR WHERE id_proveedor=@id_proveedor) )
+	BEGIN
+		RAISERROR('ERROR: No existe proveedor.', 16, 1)
+		return
+	END
+
+	IF(@Accion = 'A')
+	BEGIN
+		INSERT INTO [T_REX].OFERTA (
+					cod_oferta,
+					descripcion,
+					fecha_inicio,
+					fecha_fin,
+					precio_oferta,
+					precio_lista,
+					cantDisponible,
+					cant_max_porCliente,
+					id_proveedor) VALUES (NULL, @Descripcion, @fecha_inicio, @fecha_fin, @precio_oferta, @precio_lista, @cantDisp, @cantMax, @id_proveedor);
+	END
+	ELSE IF(@Accion = 'M')
+	BEGIN
+		IF(NOT EXISTS (SELECT 1 FROM [T_REX].OFERTA WHERE id_oferta = @IdOferta))
+		BEGIN
+			RAISERROR('ERROR: No existe oferta.', 16, 1)
+			return
+		END
+		ELSE
+		BEGIN
+			UPDATE [T_REX].OFERTA SET descripcion=@Descripcion, fecha_inicio=@fecha_inicio, fecha_fin=@fecha_fin, 
+			precio_oferta=@precio_oferta, precio_lista=@precio_lista, cantDisponible=@cantDisp, cant_max_porCliente=@cantMax, @id_proveedor=@id_proveedor
+			WHERE id_oferta = @IdOferta;
+		END
+	END
+END
+GO
