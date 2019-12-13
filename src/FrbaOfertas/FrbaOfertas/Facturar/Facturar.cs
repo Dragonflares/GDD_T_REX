@@ -29,6 +29,7 @@ namespace FrbaOfertas.Facturar
             user = admin;
             InitializeComponent();
             textBox1.Enabled = false;
+            dateTimePicker2.MinDate = dateTimePicker1.Value;
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -130,9 +131,9 @@ namespace FrbaOfertas.Facturar
                     dateTimePicker2.Value, itemFactura.oferta.id_oferta);
                 itemFactura.importe_oferta = compDAO.recaudacionTotalOfertaEnPeriodo(dateTimePicker1.Value,
                     dateTimePicker2.Value, itemFactura.oferta);
-                //itemDAO.crearItemFactura(itemFactura);
+                itemDAO.crearItemFactura(itemFactura);
             }
-            //factDAO.crearFactura(factura);
+            factDAO.crearFactura(factura);
             new InfoFactura(factura).ShowDialog();
             DataTable dt = (DataTable)this.dgv_ofertas.DataSource;
             if (dt != null)

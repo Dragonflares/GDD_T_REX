@@ -190,33 +190,27 @@ namespace FrbaOfertas.Login
 
         private void cuit_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
-                (e.KeyChar != '-'))
+            if ((!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) || cantNumeros(cuit.Text) == 11)
             {
                 e.Handled = true;
             }
-            else if ((e.KeyChar == '-') && (hasTwo((sender as TextBox).Text) || (((sender as TextBox).Text.IndexOf('-') == ((sender as TextBox).Text.Length - 1)))))
+            else if (cantNumeros(cuit.Text) == 2 || cantNumeros(cuit.Text) == 10)
             {
-                e.Handled = true;
+                cuit.Text += '-';
             }
         }
 
-        public Boolean hasTwo(string lecturer)
+        public int cantNumeros(string lecturer)
         {
             int counter = 0;
             foreach (char letter in lecturer)
             {
-                if (letter == '-')
+                if (char.IsDigit(letter))
                 {
                     counter++;
                 }
             }
-            if (counter > 1)
-            {
-                return true;
-            }
-            else
-                return false;
+            return counter;
         }
 
         private void PrimerLoginProveedor_FormClosed(object sender, FormClosedEventArgs e)
