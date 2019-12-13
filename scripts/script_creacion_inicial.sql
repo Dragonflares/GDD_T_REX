@@ -1011,98 +1011,69 @@ END
 
 --//---------- ROLES ----------//
 
--- Habilitar un rol -- [T_REX].SP_HabilitarRol
 
-IF OBJECT_ID('T_REX.SP_HabilitarRol') IS NOT NULL
-    DROP PROCEDURE T_REX.SP_HabilitarRol
+--- AGREGAR FUNCIONALIDAD AL ROL / [T_REX].AgregarfuncionalidadRol
+
+IF OBJECT_ID('T_REX.AgregarfuncionalidadRol') IS NOT NULL
+    DROP PROCEDURE [T_REX].AgregarfuncionalidadRol
 GO
 
-CREATE PROCEDURE [T_REX].[SP_HabilitarRol]  @id_Rol int
+CREATE PROCEDURE [T_REX].AgregarfuncionalidadRol
+@id_rol int, 
+@id_func int
 as
-	update [T_REX].ROL
-	set estado = '1'
-	where id_rol=@id_Rol
+	declare @resultado varchar(10);
 
-go
+	if not exists (select 1 from [T_REX].FUNCIONALIDAD_ROL where id_rol=@id_rol and id_funcionalidad=@id_func)
+		begin
+			insert into [T_REX].FUNCIONALIDAD_ROL (id_rol,id_funcionalidad)
+			values (@id_rol,@id_func);
 
--- Modificar rol [T_REX].[UpdateRol]
+			set @resultado='OK';
+		end
+	else
+		begin
+		if exists (select 1 from [T_REX].FUNCIONALIDAD_ROL  where id_rol=@id_rol and id_funcionalidad=@id_func)
+			begin
+				update [T_REX].FUNCIONALIDAD_ROL
+				set estado = '1'
+				where id_rol=@id_rol 
+				and id_funcionalidad=@id_func;
 
-IF OBJECT_ID('T_REX.UpdateRol') IS NOT NULL
-    DROP PROCEDURE [T_REX].[UpdateRol]
-GO
-
-CREATE PROCEDURE [T_REX].[UpdateRol]
-	@idRol int,
-	@nombre varchar(50),
-	@estado bit
-as 
-begin
-	UPDATE [T_REX].ROL 
-	SET nombre=@nombre, 
-	estado=@estado
-	WHERE id_rol=@idRol
-
-end
-go
-
--- TODOS LOS ROLES [T_REX].SP_GetAll_Roles
-
-IF OBJECT_ID('T_REX.SP_GetAllRoles') IS NOT NULL
-    DROP PROCEDURE [T_REX].[SP_GetAllRoles]
-GO
-
-CREATE PROCEDURE [T_REX].[SP_GetAllRoles]
-as
-	select * from [T_REX].ROL
-
-go
-
--- Eliminar rol del usuario [T_REX].SP_Eliminar_RolDeUsuario
-
-IF OBJECT_ID('T_REX.SP_Eliminar_RolDeUsuario') IS NOT NULL
-    DROP PROCEDURE [T_REX].SP_Eliminar_RolDeUsuario
-GO
-
-CREATE PROCEDURE [T_REX].SP_Eliminar_RolDeUsuario
-	@id_rol int,
-	@id_usuario int
-as
-begin
-	delete from [T_REX].ROL_USUARIO 
-	where id_rol=@id_rol AND id_usuario=@id_usuario; 
-end
-go
-
--- Alta ROL		[T_REX].[SP_Alta_NuevoRol]
-
-IF OBJECT_ID('T_REX.[SP_Alta_NuevoRol]') IS NOT NULL
-    DROP PROCEDURE [T_REX].[SP_Alta_NuevoRol]
-GO
-CREATE PROCEDURE [T_REX].[SP_Alta_NuevoRol] @nombre nvarchar(50)
-AS
-	declare @resultado nvarchar(10)
-	if not exists (select 1 from [T_REX].ROL where nombre=@nombre)
-		BEGIN
-			insert into [T_REX].ROL (nombre)
-			values (@nombre)
-			
-			SELECT @resultado = max(id_rol)
-			from [T_REX].ROL
-
-		END
-	else set @resultado = 'ERROR'
-
+				set @resultado='OK';
+			end
+		else set @resultado='ERROR';
+		end
+	
 	select @resultado;
+GO
 
+-- Quitar funcionalidad a un rol // [T_REX].QuitarFuncionalidadRol
+
+IF OBJECT_ID('T_REX.QuitarFuncionalidadRol') IS NOT NULL
+    DROP PROCEDURE [T_REX].QuitarFuncionalidadRol
+GO
+
+CREATE PROCEDURE [T_REX].QuitarFuncionalidadRol
+@id_rol int, 
+@id_funcionalidad int
+as
+	if exists (select 1 from [T_REX].FUNCIONALIDAD_ROL where id_rol=@id_rol and id_funcionalidad=@id_funcionalidad and estado='1')
+	begin
+		update [T_REX].FUNCIONALIDAD_ROL 
+		set estado = '0'
+		where id_funcionalidad=@id_funcionalidad and id_rol=@id_rol;
+	end
 GO
 
 -- Baja logica Rol - [T_REX].SP_Inhabilitar_Rol
 
-IF OBJECT_ID('T_REX.SP_Inhabilitar_Rol') IS NOT NULL
-    DROP PROCEDURE [T_REX].SP_Inhabilitar_Rol
+IF OBJECT_ID('T_REX.InhabilitarRol') IS NOT NULL
+    DROP PROCEDURE [T_REX].InhabilitarRol
 GO
 
-CREATE PROCEDURE [T_REX].SP_Inhabilitar_Rol @id_rol int
+CREATE PROCEDURE [T_REX].InhabilitarRol 
+@id_rol int
 AS
 	declare @resultado varchar(10);
 	if not exists (select 1 from [T_REX].ROL_USUARIO ru
@@ -1125,6 +1096,40 @@ AS
 
 GO
 
+-- ACTIVAR ROL // T_REX.ActivarRol
+
+IF OBJECT_ID('T_REX.ActivarRol') IS NOT NULL
+    DROP PROCEDURE T_REX.ActivarRol
+GO
+
+CREATE PROCEDURE [T_REX].ActivarRol  
+@id_Rol int
+as
+	update [T_REX].ROL
+	set estado = '1'
+	where id_rol=@id_Rol
+
+go
+
+-- CAMBIAR NOMBRE ROL // T_REX.CambiarNombreRol
+
+IF OBJECT_ID('T_REX.CambiarNombreRol') IS NOT NULL
+    DROP PROCEDURE T_REX.CambiarNombreRol
+GO
+
+
+CREATE PROCEDURE T_REX.CambiarNombreRol
+@rol_id int,
+@nombre varchar(50)
+
+AS 
+BEGIN
+	UPDATE T_REX.ROL
+	SET nombre=@nombre
+	WHERE id_rol=@rol_id
+
+END
+GO
 
 /*********************************/
 /********************************/
