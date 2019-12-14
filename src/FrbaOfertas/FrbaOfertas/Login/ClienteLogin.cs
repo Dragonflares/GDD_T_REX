@@ -54,7 +54,7 @@ namespace FrbaOfertas.Login
                 Database.executeProcedure(login);
                 //Utils.Database.executeProcedure(login);
                 Usuario user = userDAO.getUsuario(textBox1.Text);
-                if (user.pass == "1234")
+                if (textBox2.Text == "1234")
                 {
                     if (MessageBox.Show("Su contraseña es insegura, ya que es la contraseña que se le da a los nuevos usuarios"
                         + ", ¿desea cambiarla? \n Este mensaje se seguirá mostrando hasta que cambie su contraseña", "Advertencia",
