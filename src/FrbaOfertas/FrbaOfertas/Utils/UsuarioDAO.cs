@@ -133,6 +133,26 @@ namespace FrbaOfertas.Utils
             FrbaOfertas.Utils.Database.executeProcedure(sp);
         }
 
+        public void cambiarContraseñaAdmin(int id, string pass)
+        {
+            SqlCommand sp = FrbaOfertas.Utils.Database.createCommand("[GD2C2019].[T_REX].CambiarContraseniaModoAdmin");
+
+            sp.Parameters.AddWithValue("IdUsuario", id);
+            sp.Parameters.AddWithValue("Pass", pass);
+
+            FrbaOfertas.Utils.Database.executeProcedure(sp);
+        }
+
+        public void cambiarUsernameModoAdmin(int id, string nombre)
+        {
+            SqlCommand sp = FrbaOfertas.Utils.Database.createCommand("[GD2C2019].[T_REX].CambiarUsernameModoAdmin");
+
+            sp.Parameters.AddWithValue("IdUsuario", id);
+            sp.Parameters.AddWithValue("Nombre", nombre);
+
+            FrbaOfertas.Utils.Database.executeProcedure(sp);
+        }
+
         public void agregarRolAUsuario(Usuario user, Rol rol)
         {
             SqlCommand sp = FrbaOfertas.Utils.Database.createCommand("[GD2C2019].[T_REX].AgregarRolAUsuario");

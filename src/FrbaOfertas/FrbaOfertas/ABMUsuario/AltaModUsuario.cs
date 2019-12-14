@@ -26,7 +26,6 @@ namespace FrbaOfertas.ABMUsuario
             InitializeComponent();
             target = user;
             nombreUsuario.Text = target.nombre;
-            contrasenia.Text = target.pass;
             if (target.estado == 1)
             {
                 textBox1.Text = "Habilitado";
@@ -56,10 +55,33 @@ namespace FrbaOfertas.ABMUsuario
         private void registrarse_Click(object sender, EventArgs e)
         {
             if (theresAnUser)
-                userDAO.guardarUsuario(target.id, nombreUsuario.Text, contrasenia.Text);
+            {
+                if (target.nombre != nombreUsuario.Text)
+                {
+                    userDAO.cambiarUsernameModoAdmin(target.id, nombreUsuario.Text);
+                    if (contrasenia.Text != "")
+                    {
+                        userDAO.cambiarContraseñaAdmin(target.id, contrasenia.Text);
+                    }
+                }
+                else
+                {
+                    if (contrasenia.Text != "")
+                    {
+                        userDAO.cambiarContraseñaAdmin(target.id, contrasenia.Text);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No habia cambios que guardar...", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                    }
+
+                }
+            }
             else
+            {
                 userDAO.guardarUsuario(null, nombreUsuario.Text, contrasenia.Text);
-            MessageBox.Show("Usuario guardado con éxito.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Usuario guardado con éxito.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
