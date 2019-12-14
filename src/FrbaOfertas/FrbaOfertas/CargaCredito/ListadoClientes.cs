@@ -43,7 +43,7 @@ namespace FrbaOfertas.CargaCredito
                 ", cli.[nro_documento] as DNI, cli.[email] as Mail, " +
                 "cli.[creditoTotal] as Crédito " +
                 "FROM [GD2C2019].[T_REX].[Cliente] cli " +
-                "WHERE cli.baja_logica = 0 and cli.estado = 1";
+                "WHERE cli.baja_logica = 1 and cli.estado = 1";
 
             if (!String.IsNullOrEmpty(textBox1.Text)) takeclient += " and lower(nombre) like '" + textBox1.Text.ToLower() + "%'";
             if (!String.IsNullOrEmpty(textBox2.Text)) takeclient += " and lower(apellido) like '" + textBox2.Text.ToLower() + "%'";
