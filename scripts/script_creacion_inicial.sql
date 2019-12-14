@@ -1011,6 +1011,23 @@ BEGIN
 END	
 
 
+-- BAJA USUARIO // T_REX.BajaUsuario
+
+IF OBJECT_ID('T_REX.BajaUsuario') IS NOT NULL
+    DROP PROCEDURE T_REX.BajaUsuario
+GO
+
+CREATE PROCEDURE T_REX.BajaUsuario
+@IdUsuario int
+AS
+BEGIN
+	UPDATE [T_REX].Usuario
+	SET estado='0'
+	where id_usuario=@IdUsuario
+END
+
+GO
+
 --//---------- ROLES ----------//
 
 
