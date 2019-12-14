@@ -1707,11 +1707,11 @@ GO
 --//---------- Listado Estadistico ----------//
 
 --1--
-IF OBJECT_ID('T_REX.SP_TopProveedoresmayorporcentajedescuento') IS NOT NULL
-    DROP PROCEDURE [T_REX].SP_TopProveedoresmayorporcentajedescuento
+IF OBJECT_ID('T_REX.ProveedoresConMasDescuento') IS NOT NULL
+    DROP PROCEDURE [T_REX].ProveedoresConMasDescuento
 GO
 
-CREATE PROCEDURE [T_REX].SP_TopProveedoresmayorporcentajedescuento ( @anio int, @semestre int)
+CREATE PROCEDURE [T_REX].ProveedoresConMasDescuento ( @anio int, @semestre int)
 AS 
 BEGIN
 	select top 5 
@@ -1728,10 +1728,10 @@ END
 GO
 
 --2--
-IF OBJECT_ID('T_REX.ProveedorMayorFacturacion') IS NOT NULL
-    DROP PROCEDURE T_REX.ProveedorMayorFacturacion
+IF OBJECT_ID('T_REX.ProveedoresConMayorFacturacion') IS NOT NULL
+    DROP PROCEDURE [T_REX].ProveedoresConMayorFacturacion
 GO
-CREATE PROCEDURE T_REX.ProveedorMayorFacturacion ( @anio int, @semestre int)
+CREATE PROCEDURE [T_REX].ProveedoresConMayorFacturacion ( @anio int, @semestre int)
 AS 
 BEGIN
 	SELECT top 5
