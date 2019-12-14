@@ -97,6 +97,18 @@
     <Compile Include="ABMRol\Modificacion.Designer.cs">
       <DependentUpon>Modificacion.cs</DependentUpon>
     </Compile>
+    <Compile Include="ABMUsuario\AltaModUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABMUsuario\AltaModUsuario.Designer.cs">
+      <DependentUpon>AltaModUsuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ABMUsuario\ListadoUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABMUsuario\ListadoUsuario.Designer.cs">
+      <DependentUpon>ListadoUsuario.cs</DependentUpon>
+    </Compile>
     <Compile Include="CanjeCupon\CanjeCupon.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -322,6 +334,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ABMRol\Modificacion.resx">
       <DependentUpon>Modificacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABMUsuario\AltaModUsuario.resx">
+      <DependentUpon>AltaModUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABMUsuario\ListadoUsuario.resx">
+      <DependentUpon>ListadoUsuario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CanjeCupon\CanjeCupon.resx">
       <DependentUpon>CanjeCupon.cs</DependentUpon>
