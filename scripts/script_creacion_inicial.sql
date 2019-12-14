@@ -1742,7 +1742,7 @@ BEGIN
 			f.importe_fact as 'Mayor facturacion'
 	from T_REX.PROVEEDOR p
 	INNER JOIN T_REX.FACTURA_PROVEEDOR f on p.id_proveedor=f.id_proveedor
-	WHERE @anio=YEAR(f.fecha_fin) and @semestre=DATEPART(QUARTER,f.fecha_fin)
+	WHERE @anio=YEAR(f.fecha_fin) and @semestre=((DATEPART(QUARTER,f.fecha_inicio)/3)+1)
 	group by p.id_proveedor, p.provee_rs, p.provee_cuit, f.importe_fact 
 	order by f.importe_fact desc
 END
