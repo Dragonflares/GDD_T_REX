@@ -50,18 +50,26 @@ namespace FrbaOfertas.Login
                     MessageBox.Show("Las contraseñas no coinciden.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                SqlCommand chequearUser = FrbaOfertas.Utils.Database.createCommand("SELECT u.id_usuario FROM [GD2C2019].[T_REX].Usuario u" +
-                                    " WHERE u.userName = @nombre");
-                chequearUser.Parameters.Add("@nombre", SqlDbType.NVarChar).Value = nombreUsuario.Text;
-                string userid = Database.executeScalar(chequearUser).ToString();
+                SqlCommand chequearUser = FrbaOfertas.Utils.Database.createCommand("[GD2C2019].[T_REX].ExisteUsuarioConNombre");
+
+                chequearUser.Parameters.AddWithValue("username", nombreUsuario.Text);
+                SqlParameter result = new SqlParameter("@out", SqlDbType.Bit, 1000);
+                result.Direction = ParameterDirection.Output;
+                chequearUser.Parameters.Add(result);
+
+                Database.executeProcedure(chequearUser);
+
+                Boolean userid = (Boolean)result.Value;
+
+                int id = 0;
                 Usuario user = null;
-                if (userid == null)
+                if (!userid)
                 {
-                    Rol rolAct = new Rol(2, "Cliente");
+                    Rol rolAct = rolDAO.getRol(rol);
                     SqlCommand query3 = Utils.Database.createCommand("SELECT max (id_usuario) FROM [T_REX].Usuario");
                     int trueUserId = Utils.Database.executeScalar(query3) + 1;
                     user = new Usuario(trueUserId, nombreUsuario.Text, contrasenia.Text, rolAct, null, null);
-                    userDAO.guardarUsuario(user.id, user.nombre, user.pass);
+                    userDAO.guardarUsuario(null, user.nombre, user.pass);
                 }
                 else
                 {
@@ -75,7 +83,7 @@ namespace FrbaOfertas.Login
                     Rol rolAct = rolDAO.getRol(rol);
                     user = new Usuario(trueUserId, nombreUsuario.Text, contrasenia.Text, rolAct, null, null);
                 }
-
+                userDAO.agregarRolAUsuario(user, user.rolActivo);
                 PantallaPrincipal pantalla = new PantallaPrincipal(user);
                 pantalla.Owner = this.Owner;
                 pantalla.Show();
