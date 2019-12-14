@@ -1133,20 +1133,24 @@ BEGIN
 END
 GO
 
--- ACTIVAR ROL //  [T_REX].ActivarRol
+-- ALTA ROL // T_REX.AltaRol
 
-IF OBJECT_ID('T_REX.ActivarRol') IS NOT NULL
-    DROP PROCEDURE [T_REX].ActivarRol
+IF OBJECT_ID('T_REX.AltaRol') IS NOT NULL
+    DROP PROCEDURE T_REX.AltaRol
 GO
 
-CREATE PROCEDURE T_REX.ActivarRol
-@rol_id int
-as
-	update [T_REX].ROL
-	set estado = '1'
-	where id_rol=@rol_id
 
-go
+CREATE PROCEDURE T_REX.AltaRol
+	@nombre_rol varchar(50),
+	@activo bit 
+AS
+BEGIN
+	INSERT INTO T_REX.ROL (nombre, estado)
+	VALUES (@nombre_rol,@activo)
+	
+END
+GO
+
 
 /*********************************/
 /********************************/
