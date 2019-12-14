@@ -1028,6 +1028,21 @@ END
 
 GO
 
+-- HABILITAR USUARIO // [T_REX].HabilitarUsuario
+
+IF OBJECT_ID('T_REX.HabilitarUsuario') IS NOT NULL
+    DROP PROCEDURE [T_REX].HabilitarUsuario
+GO
+
+CREATE PROCEDURE [T_REX].HabilitarUsuario
+@IdUsuario int
+as
+	update [T_REX].USUARIO
+	set estado = '1'
+	where id_usuario=@IdUsuario
+
+go
+
 --//---------- ROL ----------//
 
 
