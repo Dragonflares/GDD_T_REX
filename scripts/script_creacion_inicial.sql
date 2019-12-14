@@ -1714,17 +1714,16 @@ GO
 CREATE PROCEDURE [T_REX].SP_TopProveedoresmayorporcentajedescuento ( @anio int, @semestre int)
 AS 
 BEGIN
-	SELECT TOP 5
-			p.id_proveedor, 
-			p.provee_rs,
-			p.provee_cuit,
-			o.descripcion,
-			convert( decimal(18,2), ((( o.precio_lista-o.precio_oferta)*100)/ o.precio_lista)) as "Porcentaje de descuento"
-	from T_REX.PROVEEDOR p	
-	inner join T_REX.OFERTA o on p.id_proveedor=o.id_proveedor
-	WHERE @anio=YEAR(o.fecha_inicio) and @semestre=DATEPART(QUARTER,o.fecha_fin)
-	group by p.id_proveedor, p.provee_rs,p.provee_cuit,o.descripcion, convert( decimal(18,2), ((( o.precio_lista-o.precio_oferta)*100)/ o.precio_lista)), o.precio_lista
-	order by  [Porcentaje de descuento] desc, o.precio_lista desc
+	select top 5 
+		p.id_proveedor,
+		p.provee_rs,
+		p.provee_cuit,
+		convert( decimal(18,2), ((( avg(o.precio_lista)-avg(o.precio_oferta))*100)/ avg(precio_lista))) as "Mayor Porcentaje de descuento"
+	from T_REX.OFERTA o
+	inner join T_REX.PROVEEDOR p on p.id_proveedor=o.id_proveedor
+	WHERE @anio=YEAR(o.fecha_inicio) and @semestre=((DATEPART(QUARTER,o.fecha_inicio)/3)+1)
+	group by p.id_proveedor, p.provee_rs,p.provee_cuit
+	order by [Mayor Porcentaje de descuento] desc, avg(precio_lista) desc
 END
 GO
 
