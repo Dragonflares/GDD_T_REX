@@ -62,8 +62,8 @@ namespace FrbaOfertas.ListadoEstadistico
         {
 
             gridResultados.Columns.Clear();
-            if (checkearFiltros())
-            {
+          //  if (checkearFiltros())
+         //   {
 
                 //TODO separar en clases
                 switch (tipoListado.Text)
@@ -86,11 +86,11 @@ namespace FrbaOfertas.ListadoEstadistico
                 if (gridResultados.Rows.Count == 0)
                     MessageBox.Show("No se han encontrado datos.", "",
                         System.Windows.Forms.MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            else
-            {
-                MessageBox.Show("Los filtros ingresados son inválidos.", "Error", System.Windows.Forms.MessageBoxButtons.OK);
-            }
+         //   }
+         //   else
+//{
+        //        MessageBox.Show("Los filtros ingresados son inválidos.", "Error", System.Windows.Forms.MessageBoxButtons.OK);
+          //  }
         }
 
         private object proveedoresConMayorPorcentajeDeDescuento(string anio, string semestre)
