@@ -183,6 +183,11 @@
             // text_monto
             // 
             this.text_monto.Location = new System.Drawing.Point(177, 288);
+            this.text_monto.Maximum = new decimal(new int[] {
+            1316134911,
+            2328,
+            0,
+            0});
             this.text_monto.Name = "text_monto";
             this.text_monto.Size = new System.Drawing.Size(101, 20);
             this.text_monto.TabIndex = 7;

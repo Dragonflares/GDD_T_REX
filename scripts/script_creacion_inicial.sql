@@ -1825,3 +1825,125 @@ BEGIN
 	END CATCH
 END
 GO
+
+-- CREACION STRING RANDOM PARA CODIGO
+IF OBJECT_ID('T_REX.getNewID', 'V') IS NOT NULL
+	DROP VIEW [T_REX].getNewID;
+GO
+
+CREATE VIEW [T_REX].getNewID as select newid() as new_id
+GO
+
+IF OBJECT_ID('T_REX.RANDOM_STRING') IS NOT NULL
+	DROP FUNCTION [T_REX].RANDOM_STRING;
+GO
+
+CREATE FUNCTION [T_REX].RANDOM_STRING (@Length int)
+RETURNS VARCHAR(255)
+AS
+ BEGIN
+	DECLARE @ret VARCHAR(255);
+	SELECT @ret = t.Random FROM (
+	 SELECT (
+		SELECT
+			c1 AS [text()]
+		FROM
+			(
+			SELECT TOP (@Length) c1
+			FROM
+			  (
+			VALUES
+			  ('A'), ('B'), ('C'), ('D'), ('E'), ('F'), ('G'), ('H'), ('I'), ('J'),
+			  ('K'), ('L'), ('M'), ('N'), ('O'), ('P'), ('Q'), ('R'), ('S'), ('T'),
+			  ('U'), ('V'), ('W'), ('X'), ('Y'), ('Z'), ('0'), ('1'), ('2'), ('3'),
+			  ('4'), ('5'), ('6'), ('7'), ('8'), ('9')	
+			  ) AS T1(c1)
+			ORDER BY ABS(CHECKSUM( (select new_id from [T_REX].getNewID) ))
+			) AS T2
+		FOR XML PATH('')
+		) Random ) t
+	RETURN @ret;
+ END
+GO
+
+-- COMPRA
+IF OBJECT_ID('T_REX.CrearCompra') IS NOT NULL
+	DROP PROCEDURE [T_REX].CrearCompra;
+GO
+CREATE PROCEDURE [T_REX].CrearCompra
+	@IdOferta int,
+	@IdCliente int,
+	@Fecha datetime,
+	@Cantidad int,
+	@IdOut int OUTPUT,
+	@out varchar(1000) OUTPUT
+AS
+BEGIN
+	DECLARE @Monto int, @CantidadCompradosPorCliente int, @MaxPorCliente int, @CreditoCliente int, @PrecioOferta decimal (20,2), @PrecioLista decimal (20,2)
+	
+	SELECT @CreditoCliente=creditoTotal FROM [T_REX].CLIENTE WHERE id_cliente=@IdCliente
+	IF(@@ROWCOUNT = 0) 
+	BEGIN
+		RAISERROR('ERROR: No existe cliente.', 16, 1)
+		return
+	END
+
+	-- ESTA BIEN QUE VALIDE LA CANTIDAD DISPONIBLE Y EL MAX POR CLIENTE ASI??
+	SELECT @MaxPorCliente=cant_max_porCliente FROM [T_REX].OFERTA WHERE id_oferta=@IdOferta AND cantDisponible >= @Cantidad AND cant_max_porCliente >= @Cantidad
+	IF(@@ROWCOUNT = 0)
+	BEGIN
+		RAISERROR('ERROR: Asegurese que existe la oferta con cantidad disponible que no supere el maximo permitido por cliente.', 16, 1)
+		return
+	END
+
+	IF( NOT EXISTS (SELECT 1 FROM [T_REX].OFERTA WHERE id_oferta=@IdOferta AND fecha_inicio <= @Fecha AND @Fecha <= fecha_fin) )
+	BEGIN
+		RAISERROR('ERROR: La oferta no esta vigente.', 16, 1)
+		return
+	END
+
+	SELECT @Monto=(precio_oferta * @Cantidad), @PrecioOferta=precio_oferta, @PrecioLista=precio_lista FROM [T_REX].OFERTA WHERE id_oferta=@IdOferta
+
+	IF(@CreditoCliente < @Monto)
+	BEGIN
+		RAISERROR('ERROR: Credito insuficiente.', 16, 1)
+		return
+	END
+
+	SELECT @CantidadCompradosPorCliente=SUM(cantidad) from [T_REX].COMPRA WHERE id_cliente=@IdCliente AND id_oferta=@IdOferta
+
+	IF( (@CantidadCompradosPorCliente + @Cantidad) > @MaxPorCliente)
+	BEGIN
+		RAISERROR('ERROR: Supera el Maximo de cupones permitido por cliente.', 16, 1)
+		return
+	END
+
+	BEGIN TRY
+		BEGIN TRANSACTION [T]
+
+			UPDATE [T_REX].OFERTA SET cantDisponible=(cantDisponible - @Cantidad) WHERE id_oferta = @IdOferta
+
+			UPDATE T_REX.CLIENTE SET creditoTotal=(creditoTotal - @Monto) WHERE id_cliente=@IdCliente
+
+			INSERT INTO [T_REX].COMPRA (compra_fecha, id_cliente, id_oferta, cantidad) VALUES (@Fecha, @IdCliente, @IdOferta, @Cantidad)
+			SELECT @IdOut = MAX(id_compra) FROM [T_REX].COMPRA
+
+			DECLARE @i int
+			SET @i = 1
+			WHILE (@i <= @Cantidad)
+			BEGIN
+
+				INSERT INTO [T_REX].CUPON (cupon_codigo, cupon_precio_oferta, cupon_precio_lista, cupon_estado, id_compra, id_oferta)
+				VALUES ([T_REX].RANDOM_STRING(12), @PrecioOferta, @PrecioLista, 1, @IdOut, @IdOferta)
+
+				SET @i = @i + 1
+			END
+
+		COMMIT TRANSACTION [T]
+	END TRY
+	BEGIN CATCH
+		ROLLBACK TRANSACTION [T]
+		set @out = ERROR_MESSAGE();
+	END CATCH
+END
+GO

@@ -68,6 +68,7 @@ namespace FrbaOfertas.CargaCredito
                 {
                     //#TODO agregar funcionalidad para que impacte cambios en base de datos(no hace falta realizar verificaciones)
                     cliDAO.cargarCredito(cliente.id, (int)text_monto.Value, Database.getDateBeta(), this.combo_metodo_pago.Text, this.combo_tipo_tarj.Text, this.text_numero_tarj.Text, this.text_titular.Text, this.text_banco.Text);
+                    this.cliente.credito += (int)text_monto.Value;
                     MessageBox.Show("Carga acreditada con exito", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
                 }

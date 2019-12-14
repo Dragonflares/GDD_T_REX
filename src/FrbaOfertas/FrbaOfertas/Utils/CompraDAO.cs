@@ -105,10 +105,14 @@ namespace FrbaOfertas.Utils
         {
             SqlCommand sp = FrbaOfertas.Utils.Database.createCommand("[GD2C2019].[T_REX].CrearCompra");
 
-            sp.Parameters.AddWithValue("Id_Oferta", compra.oferta.id_oferta);
-            sp.Parameters.AddWithValue("Id_Cliente", compra.cliente.id);
+            sp.Parameters.AddWithValue("IdOferta", compra.oferta.id_oferta);
+            sp.Parameters.AddWithValue("IdCliente", compra.cliente.id);
             sp.Parameters.AddWithValue("Fecha", compra.compra_fecha);
             sp.Parameters.AddWithValue("Cantidad", compra.cantidad);
+
+            SqlParameter Id = new SqlParameter("@IdOut", SqlDbType.Int);
+            Id.Direction = ParameterDirection.Output;
+            sp.Parameters.Add(Id);
 
             SqlParameter text = new SqlParameter("@out", SqlDbType.VarChar, 1000);
             text.Direction = ParameterDirection.Output;
@@ -119,6 +123,11 @@ namespace FrbaOfertas.Utils
             if (!String.IsNullOrEmpty(text.Value.ToString()))
             {
                 throw new Exception(text.Value.ToString());
+            }
+
+            if (Id != null)
+            {
+                compra.id_compra = (int)Id.Value;
             }
         }
     }

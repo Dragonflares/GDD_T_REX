@@ -122,24 +122,12 @@ namespace FrbaOfertas.ComprarOferta
                     compra.oferta = oferta;
                     compra.cliente = target;
 
-                    SqlCommand takeCompras = Database.createCommand("SELECT max (id_compra) FROM [T_REX].Compra");
-                    int id_compra_max = Database.executeScalar(takeCompras) + 1;
-                    compra.id_compra = id_compra_max;
                     compraDAO.guardarCompra(compra);
 
-
-                    for (int i = 0; i < compra.cantidad; i++)
-                    {
-                        Cupon cupon = new Cupon();
-                        cupon.oferta = oferta;
-                        cupon.compra = compra;
-                        cupon.cupon_precio_lista = oferta.precio_lista;
-                        cupon.cupon_precio_oferta = oferta.precio_oferta;
-
-                        cupDAO.crearCupon(cupon);
-                    }
                     target.credito -= (int)(oferta.precio_oferta * numericUpDown1.Value);
-                    cliDAO.pagar(target.id, (int)(oferta.precio_oferta * numericUpDown1.Value));
+                    oferta.cantDisponible -= (int)numericUpDown1.Value;
+                    this.text_credito.Text = target.credito.ToString();
+                    this.dgv_ofertas.Rows[e.RowIndex].Cells["cantdisponible"].Value = oferta.cantDisponible;
                     MessageBox.Show("Compra realizada con Éxito!", "Compra realizada", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
