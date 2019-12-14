@@ -49,8 +49,8 @@ namespace FrbaOfertas.ABMUsuario
                 try
                 {
                     int id = (Int32)this.dgv_clientes.SelectedRows[0].Cells["id"].Value;
-                    Usuario target = userDAO.getUsuarioById(id, this);
-                    new AltaModUsuario(target).ShowDialog();
+                    Usuario target = userDAO.getUsuarioById(id);
+                    new AltaModUsuario(target, this).ShowDialog();
 
                 }
                 catch (SqlException exception)

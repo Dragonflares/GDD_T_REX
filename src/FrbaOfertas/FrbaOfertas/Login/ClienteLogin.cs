@@ -60,9 +60,9 @@ namespace FrbaOfertas.Login
                         + ", ¿desea cambiarla? \n Este mensaje se seguirá mostrando hasta que cambie su contraseña", "Advertencia",
                         MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                     {
-                        CambioPassword pantalla = new CambioPassword(user);
-                        pantalla.Owner = this;
-                        pantalla.ShowDialog();
+                        CambioPassword pantallaB = new CambioPassword(user);
+                        pantallaB.Owner = this;
+                        pantallaB.ShowDialog();
                     }
                 }
                 user.rolActivo = rolDAO.getRol(comboBox1.Text);
