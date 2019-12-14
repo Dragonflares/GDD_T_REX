@@ -20,10 +20,6 @@ namespace FrbaOfertas.ListadoEstadistico
         public ListadoEstadistico(Usuario admin)
         {
             InitializeComponent(); InitializeComponent();
-            semestre.Items.Add("1");
-            semestre.Items.Add("2");
-            tipoListado.Items.Add("Proveedores con mayor porcentaje de descuento ofrecido en sus ofertas");
-            tipoListado.Items.Add("Proveedores con mayor facturación");
             anio.KeyPress += numeric_KeyPress;
 
         }
@@ -70,7 +66,7 @@ namespace FrbaOfertas.ListadoEstadistico
             {
 
                 //TODO separar en clases
-                switch (tipoListado.SelectedItem.ToString())
+                switch (tipoListado.Text)
                 {
                     case "Proveedores con mayor facturación":
                         gridResultados.DataSource = proveedoresConMayorFacturacion(anio.Text, semestre.SelectedItem.ToString());
