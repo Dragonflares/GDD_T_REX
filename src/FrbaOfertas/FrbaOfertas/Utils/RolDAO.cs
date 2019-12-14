@@ -92,7 +92,7 @@ namespace FrbaOfertas.Utils
 
         public void agregarFuncionalidad(int id, Funcionalidad funcionalidad)
         {
-            SqlCommand cmd = Database.createCommand("[T_REX].AgregarFuncionalidadRol");
+            SqlCommand cmd = Database.createCommand("[T_REX].AgregarfuncionalidadRol");
             cmd.Parameters.Add("@rol_id", SqlDbType.Int).Value = id;
             cmd.Parameters.Add("@funcionalidad", SqlDbType.Int).Value = funcionalidad.id;
             Database.executeProcedure(cmd);
