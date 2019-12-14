@@ -1028,7 +1028,7 @@ END
 
 GO
 
---//---------- ROLES ----------//
+--//---------- ROL ----------//
 
 
 --- AGREGAR FUNCIONALIDAD AL ROL / [T_REX].AgregarfuncionalidadRol
@@ -1169,9 +1169,7 @@ END
 GO
 
 
-/*********************************/
-/********************************/
-/* ABM CLIENTE*/
+--//---------- CLIENTE ----------//
 
 IF OBJECT_ID('T_REX.AbmUsuario') IS NOT NULL
 	DROP PROCEDURE [T_REX].AbmUsuario;
@@ -1338,9 +1336,7 @@ BEGIN
 END
 
 
-/*********************************/
-/********************************/
-/* ABM PROVEEDOR */
+--//---------- PROVEEDOR ----------//
 
 IF OBJECT_ID('T_REX.AbmProveedor') IS NOT NULL
 	DROP PROCEDURE [T_REX].AbmProveedor;
@@ -1634,7 +1630,7 @@ BEGIN
 END
 GO
 
---// Listado estadistico //--
+--//---------- Listado Estadistico ----------//
 
 IF OBJECT_ID('T_REX.SP_TopProveedoresmayorporcentajedescuento') IS NOT NULL
     DROP PROCEDURE [T_REX].SP_TopProveedoresmayorporcentajedescuento
@@ -1656,6 +1652,8 @@ BEGIN
 	order by  [Porcentaje de descuento] desc, o.precio_lista desc
 END
 GO
+
+--//---------- CREDITO ----------//
 
 IF OBJECT_ID('T_REX.CargarSaldo') IS NOT NULL
 	DROP PROCEDURE [T_REX].CargarSaldo;
