@@ -17,18 +17,18 @@ namespace FrbaOfertas.Utils
 {
     public class OfertaDAO
     {
-        public Oferta getOferta(int id, bool cantidad)
+        public Oferta getOferta(int id, bool disponible)
         {
-            return this.getOfertas(null, null, id, cantidad)[0];
+            return this.getOfertas(null, null, id, disponible)[0];
         }
 
 
-        public Oferta getOfertaXProveedor(string proveedor, bool cantidad)
+        public Oferta getOfertaXProveedor(string proveedor, bool disponible)
         {
-            return this.getOfertas(null, proveedor, null, cantidad)[0];
+            return this.getOfertas(null, proveedor, null, disponible)[0];
         }
 
-        public List<Oferta> getOfertas(string descripcion, string razon_social, int? idOferta, bool cantidad)
+        public List<Oferta> getOfertas(string descripcion, string razon_social, int? idOferta, bool disponible)
         {
             string cmd = "SELECT ofer.[id_oferta], ofer.[cod_oferta], ofer.[descripcion], ofer.[fecha_inicio], ofer.[fecha_fin], ofer.[precio_oferta], " +
                 "ofer.[precio_lista], ofer.[cantDisponible], ofer.[cant_max_porCliente], " +
@@ -45,7 +45,7 @@ namespace FrbaOfertas.Utils
             if (!String.IsNullOrEmpty(descripcion)) cmd += " and lower(descripcion) like '%" + descripcion.ToLower() + "%'";
             if (!String.IsNullOrEmpty(razon_social)) cmd += " and prov.razon_social like '%" + razon_social.ToLower() + "%'";
             if (idOferta != null) cmd += " and ofer.id_oferta = " + idOferta;
-            if (cantidad) cmd += " and cantidad > 0";
+            if (disponible) cmd += " and ofer.cantDisponible > 0";
 
             cmd += "ORDER BY [cod_oferta] ASC";
 

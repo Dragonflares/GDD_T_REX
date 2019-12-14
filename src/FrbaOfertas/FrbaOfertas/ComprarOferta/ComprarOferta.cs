@@ -49,6 +49,7 @@ namespace FrbaOfertas.ComprarOferta
         public void settarget()
         {
             textBox3.Text = target.nroDocumento.ToString();
+            this.text_credito.Text = target.credito.ToString();
         }
 
         public void loadOfertas()
@@ -58,12 +59,13 @@ namespace FrbaOfertas.ComprarOferta
                 "prov.[provee_rs] as proveedor " +
                 "FROM [GD2C2019].[T_REX].[Oferta] ofer " +
                 "INNER JOIN [GD2C2019].[T_REX].[Proveedor] prov ON prov.id_proveedor = ofer.id_proveedor " +
-                "WHERE prov.estado = 1 and ofer.[cantDisponible] > 0";
+                "WHERE prov.estado = 1 and ofer.[cantDisponible] > 0 " +
+                " AND ofer.[fecha_inicio] <= '" + Database.getDateBeta().ToString() + "' AND '" + Database.getDateBeta().ToString() + "' <= ofer.[fecha_fin]";
 
             if (!String.IsNullOrEmpty(textBox2.Text)) takeoffer += " and lower(descripcion) like '%" + textBox2.Text.ToLower() + "%'";
-            if (!String.IsNullOrEmpty(textBox1.Text)) takeoffer += " and prov.provee_rs like '%" + textBox1.Text.ToLower() + "%'";
+            if (!String.IsNullOrEmpty(textBox1.Text)) takeoffer += " and lower(prov.provee_rs) like '%" + textBox1.Text.ToLower() + "%'";
 
-            takeoffer += "ORDER BY [cod_oferta] ASC";
+            takeoffer += "ORDER BY ofer.[fecha_fin] ASC";
 
             SqlCommand takeOffers = FrbaOfertas.Utils.Database.createCommand(takeoffer);
             DataTable table = Utils.Database.getData(takeOffers);
@@ -172,8 +174,12 @@ namespace FrbaOfertas.ComprarOferta
 
         private void btn_volver_Click(object sender, EventArgs e)
         {
-            this.Owner.Show();
             this.Close();
+        }
+
+        private void ComprarOferta_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Owner.Show();
         }
     }
 }

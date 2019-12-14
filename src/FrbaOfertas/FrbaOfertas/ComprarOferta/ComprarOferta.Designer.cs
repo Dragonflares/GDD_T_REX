@@ -37,11 +37,6 @@
             this.btn_buscar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.dgv_ofertas = new System.Windows.Forms.DataGridView();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fechafin = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -50,6 +45,13 @@
             this.proveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cantdisponible = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.comprar_prod = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.text_credito = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_ofertas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -166,58 +168,6 @@
             this.dgv_ofertas.TabIndex = 35;
             this.dgv_ofertas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_clientes_CellContentClick);
             // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.Location = new System.Drawing.Point(544, 93);
-            this.numericUpDown1.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown1.TabIndex = 38;
-            this.numericUpDown1.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(541, 77);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(99, 13);
-            this.label2.TabIndex = 39;
-            this.label2.Text = "Cantidad a comprar";
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(544, 29);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(120, 20);
-            this.textBox3.TabIndex = 40;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(541, 13);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(39, 13);
-            this.label4.TabIndex = 41;
-            this.label4.Text = "Cliente";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(544, 55);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(120, 19);
-            this.button1.TabIndex = 42;
-            this.button1.Text = "Seleccionar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // id
             // 
             this.id.DataPropertyName = "id";
@@ -282,11 +232,82 @@
             this.comprar_prod.UseColumnTextForButtonValue = true;
             this.comprar_prod.Width = 50;
             // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(608, 93);
+            this.numericUpDown1.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(56, 20);
+            this.numericUpDown1.TabIndex = 38;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(615, 77);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(49, 13);
+            this.label2.TabIndex = 39;
+            this.label2.Text = "Cantidad";
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(544, 29);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(120, 20);
+            this.textBox3.TabIndex = 40;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(541, 13);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(39, 13);
+            this.label4.TabIndex = 41;
+            this.label4.Text = "Cliente";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(544, 55);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(120, 19);
+            this.button1.TabIndex = 42;
+            this.button1.Text = "Seleccionar";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // text_credito
+            // 
+            this.text_credito.Enabled = false;
+            this.text_credito.Location = new System.Drawing.Point(544, 93);
+            this.text_credito.Name = "text_credito";
+            this.text_credito.Size = new System.Drawing.Size(50, 20);
+            this.text_credito.TabIndex = 43;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(541, 77);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(40, 13);
+            this.label5.TabIndex = 44;
+            this.label5.Text = "Crédito";
+            // 
             // ComprarOferta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(711, 376);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.text_credito);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.textBox3);
@@ -297,6 +318,7 @@
             this.Controls.Add(this.dgv_ofertas);
             this.Name = "ComprarOferta";
             this.Text = "ComprarOferta";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ComprarOferta_FormClosed);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_ofertas)).EndInit();
@@ -330,5 +352,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn proveedor;
         private System.Windows.Forms.DataGridViewTextBoxColumn cantdisponible;
         private System.Windows.Forms.DataGridViewButtonColumn comprar_prod;
+        private System.Windows.Forms.TextBox text_credito;
+        private System.Windows.Forms.Label label5;
     }
 }
