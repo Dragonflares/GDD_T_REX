@@ -141,6 +141,14 @@ namespace FrbaOfertas
                     }
                     break;
                 }
+                case "ABM Usuario":
+                {
+                    this.Hide();
+                    ABMUsuario.ListadoUsuario pantalla = new ABMUsuario.ListadoUsuario();
+                    pantalla.Owner = this;
+                    pantalla.Show();
+                    break;
+                }
                 default:
                 {
                     MessageBox.Show("Debe seleccionar una funcionalidad!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);

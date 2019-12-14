@@ -14,6 +14,7 @@ namespace FrbaOfertas.Models.Usuarios
         public int id{ get; set; }
         public string nombre { get; set; }
         public string pass { get; set; }
+        public int estado { get; set; }
         public Rol rolActivo { get; set; }
         public Cliente cliente { get; set; }
         public Proveedor proveedor { get; set; }
