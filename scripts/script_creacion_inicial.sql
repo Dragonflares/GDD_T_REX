@@ -913,7 +913,7 @@ order by a.Factura_Nro;
 
 
 /*##########################################################################################################
-										SPs y FN													
+											SPs 													
 ##########################################################################################################*/
 
 --//---------- USUARIO ----------//
@@ -1042,6 +1042,21 @@ as
 	where id_usuario=@IdUsuario
 
 go
+
+-- AGREGAR ROL A USUARIO // [T_REX].AgregarRolUsuario
+
+IF OBJECT_ID('T_REX.AgregarRolUsuario') IS NOT NULL
+	DROP PROCEDURE [T_REX].AgregarRolUsuario;
+GO
+CREATE PROCEDURE [T_REX].AgregarRolUsuario
+	@IdUsuario int,
+	@IdRol int
+AS
+BEGIN
+	INSERT INTO [T_REX].ROL_USUARIO (id_usuario, id_rol, activo)
+	VALUES (@idUsuario, @IdRol, '1');
+END
+GO
 
 --//---------- ROL ----------//
 
