@@ -64,7 +64,7 @@ IF NOT EXISTS (
 BEGIN
 CREATE TABLE [T_REX].[ROL] (
 		id_rol int IDENTITY(1,1) PRIMARY KEY NOT NULL,
-		nombre nvarchar (50) NOT NULL,
+		nombre nvarchar (50) UNIQUE NOT NULL,
 		estado bit NOT NULL DEFAULT 1
 );
 END
@@ -1908,7 +1908,6 @@ BEGIN
 		return
 	END
 
-	-- ESTA BIEN QUE VALIDE LA CANTIDAD DISPONIBLE Y EL MAX POR CLIENTE ASI??
 	SELECT @MaxPorCliente=cant_max_porCliente FROM [T_REX].OFERTA WHERE id_oferta=@IdOferta AND cantDisponible >= @Cantidad AND cant_max_porCliente >= @Cantidad
 	IF(@@ROWCOUNT = 0)
 	BEGIN
