@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using FrbaOfertas.Models.Usuarios;
 using FrbaOfertas.Models.Proveedores;
 using System.Data.SqlClient;
+using FrbaOfertas.Utils;
 
 
 namespace FrbaOfertas.CanjeCupon
@@ -27,7 +28,6 @@ namespace FrbaOfertas.CanjeCupon
 
         private void btn_volver_Click(object sender, EventArgs e)
         {
-            this.Owner.Show();
             this.Close();
         }
 
@@ -40,10 +40,10 @@ namespace FrbaOfertas.CanjeCupon
                 "INNER JOIN [GD2C2019].[T_REX].[Compra] comp ON comp.id_compra = cup.id_compra " +
                 "INNER JOIN [GD2C2019].[T_REX].[Cliente] cli ON cli.id_cliente = comp.id_cliente " +
                 "INNER JOIN [GD2C2019].[T_REX].[Usuario] u ON u.id_usuario = cli.id_usuario " +
-                "WHERE cup.cupon_estado = 1 and DATEADD(week, 2, comp.compra_fecha) > GETDATE() " +
+                "WHERE cup.cupon_estado = 1 and DATEADD(week, 2, comp.compra_fecha) > '"+ Database.getDateBeta() +"' " +
                 "and offer.id_proveedor = " + usuario.proveedor.id;
 
-            if (!String.IsNullOrEmpty(textBox1.Text)) takecupon += " and lower(of.descripcion) like '%" + textBox1.Text.ToLower() + "%'";
+            if (!String.IsNullOrEmpty(textBox1.Text)) takecupon += " and lower(offer.descripcion) like '%" + textBox1.Text.ToLower() + "%'";
 
 
 
@@ -91,6 +91,11 @@ namespace FrbaOfertas.CanjeCupon
         private void btn_buscar_Click(object sender, EventArgs e)
         {
             loadCuponesPorEntregar();
+        }
+
+        private void CanjeCupon_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Owner.Show();
         }
     }
 }
