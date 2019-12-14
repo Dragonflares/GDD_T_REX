@@ -104,6 +104,9 @@
             // 
             this.semestre.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.semestre.FormattingEnabled = true;
+            this.semestre.Items.AddRange(new object[] {
+            "1",
+            "2"});
             this.semestre.Location = new System.Drawing.Point(358, 71);
             this.semestre.Name = "semestre";
             this.semestre.Size = new System.Drawing.Size(63, 21);
@@ -153,6 +156,9 @@
             // 
             this.tipoListado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.tipoListado.FormattingEnabled = true;
+            this.tipoListado.Items.AddRange(new object[] {
+            "Proveedores con mayor porcentaje de descuento ofrecido en sus ofertas",
+            "Proveedores con mayor facturación"});
             this.tipoListado.Location = new System.Drawing.Point(156, 23);
             this.tipoListado.Name = "tipoListado";
             this.tipoListado.Size = new System.Drawing.Size(318, 21);
