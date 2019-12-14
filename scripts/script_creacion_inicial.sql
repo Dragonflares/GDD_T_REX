@@ -1706,6 +1706,7 @@ GO
 
 --//---------- Listado Estadistico ----------//
 
+--1--
 IF OBJECT_ID('T_REX.SP_TopProveedoresmayorporcentajedescuento') IS NOT NULL
     DROP PROCEDURE [T_REX].SP_TopProveedoresmayorporcentajedescuento
 GO
@@ -1724,6 +1725,26 @@ BEGIN
 	WHERE @anio=YEAR(o.fecha_inicio) and @trimestre=DATEPART(QUARTER,o.fecha_fin)
 	group by p.id_proveedor, p.provee_rs,p.provee_cuit,o.descripcion, convert( decimal(18,2), ((( o.precio_lista-o.precio_oferta)*100)/ o.precio_lista)), o.precio_lista
 	order by  [Porcentaje de descuento] desc, o.precio_lista desc
+END
+GO
+
+--2--
+IF OBJECT_ID('T_REX.ProveedorMayorFacturacion') IS NOT NULL
+    DROP PROCEDURE T_REX.ProveedorMayorFacturacion
+GO
+CREATE PROCEDURE T_REX.ProveedorMayorFacturacion ( @anio int, @trimestre int)
+AS 
+BEGIN
+	SELECT top 5
+			p.id_proveedor,
+			p.provee_rs,
+			p.provee_cuit,
+			f.importe_fact as 'Mayor facturacion'
+	from T_REX.PROVEEDOR p
+	INNER JOIN T_REX.FACTURA_PROVEEDOR f on p.id_proveedor=f.id_proveedor
+	WHERE @anio=YEAR(f.fecha_fin) and @trimestre=DATEPART(QUARTER,f.fecha_fin)
+	group by p.id_proveedor, p.provee_rs, p.provee_cuit, f.importe_fact 
+	order by f.importe_fact desc
 END
 GO
 
