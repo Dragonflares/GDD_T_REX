@@ -37,6 +37,13 @@
             this.btn_buscar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.dgv_ofertas = new System.Windows.Forms.DataGridView();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.text_credito = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fechafin = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -45,13 +52,6 @@
             this.proveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cantdisponible = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.comprar_prod = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.text_credito = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_ofertas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -168,70 +168,6 @@
             this.dgv_ofertas.TabIndex = 35;
             this.dgv_ofertas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_clientes_CellContentClick);
             // 
-            // id
-            // 
-            this.id.DataPropertyName = "id";
-            this.id.HeaderText = "id";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            this.id.Visible = false;
-            // 
-            // descripcion
-            // 
-            this.descripcion.DataPropertyName = "Descripcion";
-            this.descripcion.HeaderText = "Descripcion";
-            this.descripcion.Name = "descripcion";
-            this.descripcion.ReadOnly = true;
-            // 
-            // fechafin
-            // 
-            this.fechafin.DataPropertyName = "fecha_de_fin";
-            this.fechafin.HeaderText = "Fecha de Fin";
-            this.fechafin.Name = "fechafin";
-            this.fechafin.ReadOnly = true;
-            this.fechafin.Width = 95;
-            // 
-            // preciolista
-            // 
-            this.preciolista.DataPropertyName = "precioLista";
-            this.preciolista.HeaderText = "Precio Lista";
-            this.preciolista.Name = "preciolista";
-            this.preciolista.ReadOnly = true;
-            this.preciolista.Width = 95;
-            // 
-            // preciooferta
-            // 
-            this.preciooferta.DataPropertyName = "precioOferta";
-            this.preciooferta.HeaderText = "Precio Oferta";
-            this.preciooferta.Name = "preciooferta";
-            this.preciooferta.ReadOnly = true;
-            this.preciooferta.Width = 95;
-            // 
-            // proveedor
-            // 
-            this.proveedor.DataPropertyName = "proveedor";
-            this.proveedor.HeaderText = "Proveedor";
-            this.proveedor.Name = "proveedor";
-            this.proveedor.ReadOnly = true;
-            // 
-            // cantdisponible
-            // 
-            this.cantdisponible.DataPropertyName = "cantdisponible";
-            this.cantdisponible.HeaderText = "Cantidad Disponible";
-            this.cantdisponible.Name = "cantdisponible";
-            this.cantdisponible.ReadOnly = true;
-            this.cantdisponible.Width = 125;
-            // 
-            // comprar_prod
-            // 
-            this.comprar_prod.HeaderText = "Comprar";
-            this.comprar_prod.Name = "comprar_prod";
-            this.comprar_prod.ReadOnly = true;
-            this.comprar_prod.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.comprar_prod.Text = "Comprar";
-            this.comprar_prod.UseColumnTextForButtonValue = true;
-            this.comprar_prod.Width = 50;
-            // 
             // numericUpDown1
             // 
             this.numericUpDown1.Location = new System.Drawing.Point(608, 93);
@@ -301,6 +237,70 @@
             this.label5.TabIndex = 44;
             this.label5.Text = "Crédito";
             // 
+            // id
+            // 
+            this.id.DataPropertyName = "id";
+            this.id.HeaderText = "id";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            this.id.Visible = false;
+            // 
+            // descripcion
+            // 
+            this.descripcion.DataPropertyName = "Descripcion";
+            this.descripcion.HeaderText = "Descripcion";
+            this.descripcion.Name = "descripcion";
+            this.descripcion.ReadOnly = true;
+            // 
+            // fechafin
+            // 
+            this.fechafin.DataPropertyName = "fecha_de_fin";
+            this.fechafin.HeaderText = "Fecha de Fin";
+            this.fechafin.Name = "fechafin";
+            this.fechafin.ReadOnly = true;
+            this.fechafin.Width = 95;
+            // 
+            // preciolista
+            // 
+            this.preciolista.DataPropertyName = "precioLista";
+            this.preciolista.HeaderText = "Precio Lista";
+            this.preciolista.Name = "preciolista";
+            this.preciolista.ReadOnly = true;
+            this.preciolista.Width = 95;
+            // 
+            // preciooferta
+            // 
+            this.preciooferta.DataPropertyName = "precioOferta";
+            this.preciooferta.HeaderText = "Precio Oferta";
+            this.preciooferta.Name = "preciooferta";
+            this.preciooferta.ReadOnly = true;
+            this.preciooferta.Width = 95;
+            // 
+            // proveedor
+            // 
+            this.proveedor.DataPropertyName = "proveedor";
+            this.proveedor.HeaderText = "Proveedor";
+            this.proveedor.Name = "proveedor";
+            this.proveedor.ReadOnly = true;
+            // 
+            // cantdisponible
+            // 
+            this.cantdisponible.DataPropertyName = "cantdisponible";
+            this.cantdisponible.HeaderText = "Cantidad Disponible";
+            this.cantdisponible.Name = "cantdisponible";
+            this.cantdisponible.ReadOnly = true;
+            this.cantdisponible.Width = 125;
+            // 
+            // comprar_prod
+            // 
+            this.comprar_prod.HeaderText = "Comprar";
+            this.comprar_prod.Name = "comprar_prod";
+            this.comprar_prod.ReadOnly = true;
+            this.comprar_prod.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.comprar_prod.Text = "Comprar";
+            this.comprar_prod.UseColumnTextForButtonValue = true;
+            this.comprar_prod.Width = 55;
+            // 
             // ComprarOferta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -344,6 +344,8 @@
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox text_credito;
+        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
         private System.Windows.Forms.DataGridViewTextBoxColumn descripcion;
         private System.Windows.Forms.DataGridViewTextBoxColumn fechafin;
@@ -352,7 +354,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn proveedor;
         private System.Windows.Forms.DataGridViewTextBoxColumn cantdisponible;
         private System.Windows.Forms.DataGridViewButtonColumn comprar_prod;
-        private System.Windows.Forms.TextBox text_credito;
-        private System.Windows.Forms.Label label5;
     }
 }

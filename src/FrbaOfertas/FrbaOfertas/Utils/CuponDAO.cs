@@ -27,9 +27,8 @@ namespace FrbaOfertas.Utils
 
             sp.Parameters.AddWithValue("id_cupon", id_cupon);
             sp.Parameters.AddWithValue("id_consumidor", id_consumidor);
- 
-
-
+            sp.Parameters.AddWithValue("fecha_consumo", Database.getDateBeta());
+            
             SqlParameter text = new SqlParameter("@out", SqlDbType.VarChar, 1000);
             text.Direction = ParameterDirection.Output;
             sp.Parameters.Add(text);
