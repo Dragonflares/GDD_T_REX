@@ -1651,6 +1651,10 @@ BEGIN
 END
 GO
 
+
+--//---------- OFERTA ----------//
+
+
 IF OBJECT_ID('T_REX.ABMOferta') IS NOT NULL
 	DROP PROCEDURE [T_REX].ABMOferta;
 GO
@@ -1865,7 +1869,9 @@ AS
  END
 GO
 
--- COMPRA
+--//---------- COMPRA ----------//
+
+
 IF OBJECT_ID('T_REX.CrearCompra') IS NOT NULL
 	DROP PROCEDURE [T_REX].CrearCompra;
 GO
