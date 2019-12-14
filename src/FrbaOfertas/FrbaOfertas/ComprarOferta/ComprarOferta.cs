@@ -24,6 +24,7 @@ namespace FrbaOfertas.ComprarOferta
         public OfertaDAO ofDAO = new OfertaDAO();
         public CompraDAO compraDAO = new CompraDAO();
         public CuponDAO cupDAO = new CuponDAO();
+        public ClienteDAO cliDAO = new ClienteDAO();
         private Usuario user;
         public Cliente target;
         public ComprarOferta(Usuario usuario)
@@ -108,7 +109,11 @@ namespace FrbaOfertas.ComprarOferta
                             + "!.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
-
+                    else if (target.credito < (oferta.precio_oferta * numericUpDown1.Value))
+                    {
+                        MessageBox.Show("Usted no dispone de suficiente crédito para realizar esta compra.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                     Compra compra = new Compra();
                     compra.cantidad = (int)numericUpDown1.Value;
                     compra.compra_fecha = Database.getDateBeta();
@@ -131,7 +136,8 @@ namespace FrbaOfertas.ComprarOferta
 
                         cupDAO.crearCupon(cupon);
                     }
-                    
+                    target.credito -= (int)(oferta.precio_oferta * numericUpDown1.Value);
+                    cliDAO.pagar(target.id, (int)(oferta.precio_oferta * numericUpDown1.Value));
                     MessageBox.Show("Compra realizada con Éxito!", "Compra realizada", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }

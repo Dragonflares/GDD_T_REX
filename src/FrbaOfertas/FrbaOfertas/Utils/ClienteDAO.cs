@@ -152,5 +152,24 @@ namespace FrbaOfertas.Utils
                 throw new Exception(text.Value.ToString());
             }
         }
+
+        public void pagar(int id_cliente, int monto)
+        {
+            SqlCommand sp = FrbaOfertas.Utils.Database.createCommand("[GD2C2019].[T_REX].Pagar");
+
+            sp.Parameters.AddWithValue("IdCliente", id_cliente);
+            sp.Parameters.AddWithValue("Monto", monto);
+
+            SqlParameter text = new SqlParameter("@out", SqlDbType.VarChar, 1000);
+            text.Direction = ParameterDirection.Output;
+            sp.Parameters.Add(text);
+
+            FrbaOfertas.Utils.Database.executeProcedure(sp);
+
+            if (!String.IsNullOrEmpty(text.Value.ToString()))
+            {
+                throw new Exception(text.Value.ToString());
+            }
+        }
     }
 }
