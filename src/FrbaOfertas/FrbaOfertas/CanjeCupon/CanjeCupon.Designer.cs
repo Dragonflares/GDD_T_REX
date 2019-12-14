@@ -47,7 +47,7 @@
             // btn_volver
             // 
             this.btn_volver.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_volver.Location = new System.Drawing.Point(36, 344);
+            this.btn_volver.Location = new System.Drawing.Point(36, 410);
             this.btn_volver.Margin = new System.Windows.Forms.Padding(2);
             this.btn_volver.Name = "btn_volver";
             this.btn_volver.Size = new System.Drawing.Size(135, 30);
@@ -72,13 +72,13 @@
             this.dgv_cupon.Name = "dgv_cupon";
             this.dgv_cupon.ReadOnly = true;
             this.dgv_cupon.RowTemplate.Height = 24;
-            this.dgv_cupon.Size = new System.Drawing.Size(494, 154);
+            this.dgv_cupon.Size = new System.Drawing.Size(607, 218);
             this.dgv_cupon.TabIndex = 30;
             this.dgv_cupon.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_cupon_CellContentClick);
             // 
             // btn_buscar
             // 
-            this.btn_buscar.Location = new System.Drawing.Point(323, 58);
+            this.btn_buscar.Location = new System.Drawing.Point(373, 58);
             this.btn_buscar.Margin = new System.Windows.Forms.Padding(2);
             this.btn_buscar.Name = "btn_buscar";
             this.btn_buscar.Size = new System.Drawing.Size(134, 24);
@@ -89,7 +89,7 @@
             // 
             // btn_limpiar
             // 
-            this.btn_limpiar.Location = new System.Drawing.Point(322, 30);
+            this.btn_limpiar.Location = new System.Drawing.Point(372, 30);
             this.btn_limpiar.Margin = new System.Windows.Forms.Padding(2);
             this.btn_limpiar.Name = "btn_limpiar";
             this.btn_limpiar.Size = new System.Drawing.Size(135, 24);
@@ -106,7 +106,7 @@
             this.groupBox1.Controls.Add(this.btn_buscar);
             this.groupBox1.Location = new System.Drawing.Point(37, 27);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(493, 105);
+            this.groupBox1.Size = new System.Drawing.Size(606, 105);
             this.groupBox1.TabIndex = 32;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtro de Busqueda";
@@ -137,6 +137,7 @@
             // 
             // descripcion
             // 
+            this.descripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.descripcion.DataPropertyName = "descripcion";
             this.descripcion.HeaderText = "Producto";
             this.descripcion.Name = "descripcion";
@@ -144,19 +145,19 @@
             // 
             // cliente
             // 
+            this.cliente.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.cliente.DataPropertyName = "cliente";
             this.cliente.HeaderText = "Cliente Comprador";
             this.cliente.Name = "cliente";
             this.cliente.ReadOnly = true;
-            this.cliente.Width = 120;
             // 
             // codigo
             // 
+            this.codigo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.codigo.DataPropertyName = "fechaVencimiento";
             this.codigo.HeaderText = "Fecha Vencimiento";
             this.codigo.Name = "codigo";
             this.codigo.ReadOnly = true;
-            this.codigo.Width = 130;
             // 
             // Entregar
             // 
@@ -173,12 +174,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(566, 399);
+            this.ClientSize = new System.Drawing.Size(698, 451);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btn_volver);
             this.Controls.Add(this.dgv_cupon);
             this.Name = "CanjeCupon";
             this.Text = "Buscar Cupones";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CanjeCupon_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_cupon)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
