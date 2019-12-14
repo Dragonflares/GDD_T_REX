@@ -103,7 +103,7 @@ namespace FrbaOfertas.Utils
 
         public void guardarCompra(Compra compra)
         {
-            SqlCommand sp = FrbaOfertas.Utils.Database.createCommand("[GD2C2019].[T_REX].CrearOferta");
+            SqlCommand sp = FrbaOfertas.Utils.Database.createCommand("[GD2C2019].[T_REX].CrearCompra");
 
             sp.Parameters.AddWithValue("Id_Oferta", compra.oferta.id_oferta);
             sp.Parameters.AddWithValue("Id_Cliente", compra.cliente.id);
