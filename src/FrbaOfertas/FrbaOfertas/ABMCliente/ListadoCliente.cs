@@ -38,9 +38,10 @@ namespace FrbaOfertas.ABMCliente
 
         private void cargarClientes()
         {
-            string cmd = "SELECT cli.[id_cliente], cli.[nombre], cli.[apellido], cli.[nro_documento], cli.[tipo_documento], cli.[fechaDeNacimiento], cli.[email], " +
-                "cli.[telefono], cli.[baja_logica], cli.[creditoTotal], u.[id_usuario], u.[username], u.[password]," +
-                "d.[id_domicilio], d.[direc_calle], d.[direc_nro_piso], d.[direc_nro_depto], d.[direc_localidad], d.[codigoPostal] " +
+            string cmd = "SELECT cli.[id_cliente] as id, cli.[nombre] as nombres, cli.[apellido] as apellido, cli.[nro_documento] as nroDocumento" + 
+                ", cli.[tipo_documento] as tipoDocumento, cli.[fechaDeNacimiento] as fechaNacimiento, cli.[email] as mail, " +
+                "cli.[telefono] as telefono, cli.[baja_logica] as estado , cli.[creditoTotal] as credito, " +
+                "d.[direc_calle] as direccion " +
                 "FROM [GD2C2019].[T_REX].[Cliente] cli " +
                 "INNER JOIN [GD2C2019].[T_REX].[USUARIO] u ON u.[id_usuario] = cli.[id_usuario] " +
                 "INNER JOIN [GD2C2019].[T_REX].[DOMICILIO] d ON d.[id_domicilio] = cli.[id_domicilio] " +
@@ -60,9 +61,10 @@ namespace FrbaOfertas.ABMCliente
 
         private void btn_buscar_Click(object sender, EventArgs e)
         {
-            string cmd = "SELECT cli.[id_cliente], cli.[nombre], cli.[apellido], cli.[nro_documento], cli.[tipo_documento], cli.[fechaDeNacimiento], cli.[email], " +
-                "cli.[telefono], cli.[baja_logica], cli.[creditoTotal], u.[id_usuario], u.[username], u.[password]," +
-                "d.[id_domicilio], d.[direc_calle], d.[direc_nro_piso], d.[direc_nro_depto], d.[direc_localidad], d.[codigoPostal] " +
+            string cmd = "SELECT cli.[id_cliente] as id, cli.[nombre] as nombres, cli.[apellido] as apellido, cli.[nro_documento] as nroDocumento" +
+                ", cli.[tipo_documento] as tipoDocumento, cli.[fechaDeNacimiento] as fechaNacimiento, cli.[email] as mail, " +
+                "cli.[telefono] as telefono, cli.[baja_logica] as estado , cli.[creditoTotal] as credito, " +
+                "d.[direc_calle] as direccion " +
                 "FROM [GD2C2019].[T_REX].[Cliente] cli " +
                 "INNER JOIN [GD2C2019].[T_REX].[USUARIO] u ON u.[id_usuario] = cli.[id_usuario] " +
                 "INNER JOIN [GD2C2019].[T_REX].[DOMICILIO] d ON d.[id_domicilio] = cli.[id_domicilio] " +
@@ -77,7 +79,7 @@ namespace FrbaOfertas.ABMCliente
 
             SqlCommand command = FrbaOfertas.Utils.Database.createCommand(cmd);
 
-            this.tablaClientes.DataSource = Utils.Database.getData(command);
+            this.tablaClientes.DataSource = Utils.Database.getData(command); 
         }
 
         private void btn_baja_Click(object sender, EventArgs e)

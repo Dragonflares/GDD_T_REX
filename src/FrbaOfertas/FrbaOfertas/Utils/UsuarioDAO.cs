@@ -53,7 +53,7 @@ namespace FrbaOfertas.Utils
             Usuario user = new Usuario(int.Parse(row["id_usuario"].ToString()),
                 row["username"].ToString(),
                 row["password"].ToString());
-            user.estado = int.Parse(row["estado"].ToString());
+            user.estado = ((bool)row["estado"])? 1 : 0;
             return user;
         }
 

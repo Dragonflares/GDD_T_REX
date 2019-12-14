@@ -430,11 +430,13 @@ INSERT INTO [T_REX].[FUNCIONALIDAD] (descripcion) VALUES ('Publicar Oferta'); --
 INSERT INTO [T_REX].[FUNCIONALIDAD] (descripcion) VALUES ('Consumo Oferta'); --7
 INSERT INTO [T_REX].[FUNCIONALIDAD] (descripcion) VALUES ('Facturacion Proveedor'); --8
 INSERT INTO [T_REX].[FUNCIONALIDAD] (descripcion) VALUES ('Listado Estadistico');  --9
+INSERT INTO [T_REX].[FUNCIONALIDAD] (descripcion) VALUES ('ABM Usuario');  --10
 
 -----------------------------------------------------------------------------------------------------------------
 
 /*Creacion de Funcionalidad_Rol*/
 
+INSERT INTO [T_REX].[FUNCIONALIDAD_ROL] (id_rol,id_funcionalidad) VALUES (1,10);-- Admin ABM Usuario
 INSERT INTO [T_REX].[FUNCIONALIDAD_ROL] (id_rol,id_funcionalidad) VALUES (1,1);	-- Admin ABM ROL -
 INSERT INTO [T_REX].[FUNCIONALIDAD_ROL] (id_rol,id_funcionalidad) VALUES (1,2);	-- Admin ABM CLIENTES - 
 INSERT INTO [T_REX].[FUNCIONALIDAD_ROL] (id_rol,id_funcionalidad) VALUES (1,3); --	Admin ABM PROVEEDOR -

@@ -30,7 +30,7 @@ namespace FrbaOfertas.ABMUsuario
             if (!String.IsNullOrEmpty(textBox2.Text)) takeusers += " WHERE lower(u.username) like '%" + textBox2.Text.ToLower() + "%'";
 
 
-            takeusers += "ORDER BY u.[id_usuario] ASC";
+            takeusers += " ORDER BY u.[id_usuario] ASC";
             SqlCommand takeClients = FrbaOfertas.Utils.Database.createCommand(takeusers);
             DataTable table = Utils.Database.getData(takeClients);
             this.dgv_clientes.DataSource = table;
