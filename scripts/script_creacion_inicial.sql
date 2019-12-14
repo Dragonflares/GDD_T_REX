@@ -1205,7 +1205,7 @@ CREATE PROCEDURE [T_REX].AbmUsuario
 	@Localidad nvarchar(255),
 	@CodigoPostal nvarchar(50),
 	@user nvarchar(255),
-	@pass varchar(255),
+	@pass varchar(255) = NULL,
 	@Accion varchar(1),
 	@out varchar(1000) OUTPUT,
 	@IdCliente int = NULL
@@ -1218,7 +1218,11 @@ BEGIN
 	if(@Accion = 'A')
 
 		begin
-
+			if(@pass is null)
+			begin
+				RAISERROR('Tiene que elegir una password.',16 ,1)
+				return
+			end
 			declare @creditoInicial int=200, @id_cliente int, @fechaDeEntrada datetime2(3);
 			begin TRANSACTION [T]
 
@@ -1303,11 +1307,19 @@ BEGIN
 						return
 					end
 
-					update T_REX.USUARIO
-					set username = @user,
-						password = @pass
-					Where id_usuario= @id_usuario
-
+					if(@pass is null)
+					begin
+						update T_REX.USUARIO
+						set username = @user
+						Where id_usuario= @id_usuario
+					end
+					else
+					begin
+						update T_REX.USUARIO
+						set username = @user,
+							password = CONVERT(varchar(64), HASHBYTES('SHA2_256', @pass), 2)
+						Where id_usuario= @id_usuario
+					end
 					
 				end
 			commit TRANSACTION [T]
@@ -1321,10 +1333,10 @@ BEGIN
 
 END
 
-IF OBJECT_ID('T_REX.BajaCliente') IS NOT NULL
-	DROP PROCEDURE [T_REX].BajaCliente;
+IF OBJECT_ID('T_REX.DeshabilitarCliente') IS NOT NULL
+	DROP PROCEDURE [T_REX].DeshabilitarCliente;
 GO
-CREATE PROCEDURE [T_REX].BajaCliente
+CREATE PROCEDURE [T_REX].DeshabilitarCliente
 	@out varchar(1000) OUTPUT,
 	@IdCliente int
 AS
@@ -1349,7 +1361,36 @@ BEGIN
 	end catch
 
 END
+GO
 
+IF OBJECT_ID('T_REX.HabilitarCliente') IS NOT NULL
+	DROP PROCEDURE [T_REX].HabilitarCliente;
+GO
+CREATE PROCEDURE [T_REX].HabilitarCliente
+	@out varchar(1000) OUTPUT,
+	@IdCliente int
+AS
+
+BEGIN
+	
+	begin try
+		update T_REX.CLIENTE
+		set baja_logica = '1'
+		Where id_cliente = @IdCliente
+
+		if(@@ROWCOUNT = 0) 
+		begin
+			RAISERROR('Cliente Inexistente',16 ,1)
+			return
+		end
+
+	end try
+	begin catch
+		ROLLBACK TRANSACTION [T]
+		set @out = ERROR_MESSAGE();
+	end catch
+
+END
 
 --//---------- PROVEEDOR ----------//
 
@@ -1369,7 +1410,7 @@ CREATE PROCEDURE [T_REX].AbmProveedor
 	@Localidad nvarchar(255),
 	@CodigoPostal nvarchar(50),
 	@user nvarchar(255),
-	@pass varchar(255),
+	@pass varchar(255) = NULL,
 	@Accion varchar(1),
 	@out varchar(1000) OUTPUT,
 	@IdProveedor int = NULL
@@ -1382,7 +1423,11 @@ BEGIN
 	if(@Accion = 'A')
 
 		begin
-
+			if(@pass is null)
+			begin
+				RAISERROR('Tiene que elegir una password.',16 ,1)
+				return
+			end
 			declare @id_proveedor int;
 			begin TRANSACTION [T]
 
@@ -1445,6 +1490,12 @@ BEGIN
 					return
 				end
 
+				if(@Mail = 'No definido') 
+				begin
+					RAISERROR('ERROR: Ingrese un email valido', 16, 1)
+					return
+				end
+
 				if(exists(select 1 from T_REX.PROVEEDOR where (provee_rs=@Provee_rs and provee_cuit=@Provee_cuit or email=@Mail) and id_proveedor!= @IdProveedor))
 				begin
 					RAISERROR('ERROR: Proveedor duplicado', 16, 1)
@@ -1478,11 +1529,19 @@ BEGIN
 						return
 					end
 */
-					update T_REX.USUARIO
-					set username = @user,
-						password = @pass
-					Where id_usuario= @id_usuario
-
+					if(@pass is null)
+					begin
+						update T_REX.USUARIO
+						set username = @user
+						Where id_usuario= @id_usuario
+					end
+					else
+					begin
+						update T_REX.USUARIO
+						set username = @user,
+							password = CONVERT(varchar(64), HASHBYTES('SHA2_256', @pass), 2)
+						Where id_usuario= @id_usuario
+					end
 					
 				end
 			commit TRANSACTION [T]

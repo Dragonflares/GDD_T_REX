@@ -141,7 +141,7 @@ namespace FrbaOfertas.Utils
             sp.Parameters.AddWithValue("Localidad", localidad);
             sp.Parameters.AddWithValue("CodigoPostal", codigoPostal);
             sp.Parameters.AddWithValue("user", usuario);
-            sp.Parameters.AddWithValue("pass", contrasenia);
+            sp.Parameters.AddWithValue("pass", contrasenia); // Puede ser NULL en caso de modificacion.
 
             SqlParameter text = new SqlParameter("@out", SqlDbType.VarChar, 1000);
             text.Direction = ParameterDirection.Output;

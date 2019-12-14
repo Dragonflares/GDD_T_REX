@@ -165,5 +165,13 @@ namespace FrbaOfertas
                 Application.Exit();
             }
         }
+
+        private void comboBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Space)
+            {
+                this.button3.PerformClick();
+            }
+        }
     }
 }

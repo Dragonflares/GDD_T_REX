@@ -88,11 +88,20 @@ namespace FrbaOfertas.ABMCliente
             {
                 try 
                 {
-
-                    int id = (Int32)this.tablaClientes.SelectedRows[0].Cells[0].Value;
-                    this.clienteDao.eliminarCliente(id);
-                    this.cargarClientes();
-
+                    int id = (Int32)this.tablaClientes.SelectedRows[0].Cells["id"].Value;
+                    
+                    if ((Boolean)this.tablaClientes.SelectedRows[0].Cells["habilitado"].Value)
+                    {
+                        this.clienteDao.deshabilitarCliente(id);
+                        this.tablaClientes.SelectedRows[0].Cells["habilitado"].Value = false;
+                        this.btn_baja.Text = "Habilitar";
+                    }
+                    else
+                    {
+                        this.clienteDao.habilitarCliente(id);
+                        this.tablaClientes.SelectedRows[0].Cells["habilitado"].Value = true;
+                        this.btn_baja.Text = "Deshabilitar";
+                    }
                 }
                 catch (SqlException exception)
                 {
@@ -138,6 +147,21 @@ namespace FrbaOfertas.ABMCliente
         {
             this.Owner.Show();
             this.Close();
+        }
+
+        private void tablaClientes_SelectionChanged(object sender, EventArgs e)
+        {
+            if (this.tablaClientes.SelectedRows.Count > 0)
+            {
+                if ((Boolean)this.tablaClientes.SelectedRows[0].Cells["habilitado"].Value)
+                {
+                    this.btn_baja.Text = "Deshabilitar";
+                }
+                else
+                {
+                    this.btn_baja.Text = "Habilitar";
+                }
+            }
         }
     }
 }

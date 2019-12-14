@@ -151,5 +151,13 @@ namespace FrbaOfertas.Login
                 label5.Visible = true;
             }
         }
+
+        private void comboBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Space)
+            {
+                this.button1.PerformClick();
+            }
+        }
     }
 }

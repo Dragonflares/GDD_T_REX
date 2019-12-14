@@ -98,7 +98,7 @@ namespace FrbaOfertas.ABMCliente
             this.combo_tipo_dni.Location = new System.Drawing.Point(42, 189);
             this.combo_tipo_dni.Name = "combo_tipo_dni";
             this.combo_tipo_dni.Size = new System.Drawing.Size(99, 21);
-            this.combo_tipo_dni.TabIndex = 18;
+            this.combo_tipo_dni.TabIndex = 5;
             this.combo_tipo_dni.SelectedIndexChanged += new System.EventHandler(this.ComboBox1_SelectedIndexChanged);
             // 
             // text_nro_dni
@@ -106,7 +106,7 @@ namespace FrbaOfertas.ABMCliente
             this.text_nro_dni.Location = new System.Drawing.Point(174, 190);
             this.text_nro_dni.Name = "text_nro_dni";
             this.text_nro_dni.Size = new System.Drawing.Size(100, 20);
-            this.text_nro_dni.TabIndex = 30;
+            this.text_nro_dni.TabIndex = 6;
             this.text_nro_dni.TextChanged += new System.EventHandler(this.TextBox8_TextChanged);
             // 
             // text_usuario
@@ -114,7 +114,7 @@ namespace FrbaOfertas.ABMCliente
             this.text_usuario.Location = new System.Drawing.Point(42, 73);
             this.text_usuario.Name = "text_usuario";
             this.text_usuario.Size = new System.Drawing.Size(99, 20);
-            this.text_usuario.TabIndex = 29;
+            this.text_usuario.TabIndex = 0;
             this.text_usuario.TextChanged += new System.EventHandler(this.TextBox3_TextChanged);
             // 
             // text_nombre
@@ -122,7 +122,7 @@ namespace FrbaOfertas.ABMCliente
             this.text_nombre.Location = new System.Drawing.Point(42, 112);
             this.text_nombre.Name = "text_nombre";
             this.text_nombre.Size = new System.Drawing.Size(99, 20);
-            this.text_nombre.TabIndex = 28;
+            this.text_nombre.TabIndex = 2;
             this.text_nombre.TextChanged += new System.EventHandler(this.TextBox2_TextChanged);
             // 
             // label9
@@ -169,7 +169,7 @@ namespace FrbaOfertas.ABMCliente
             this.text_email.Location = new System.Drawing.Point(42, 229);
             this.text_email.Name = "text_email";
             this.text_email.Size = new System.Drawing.Size(99, 20);
-            this.text_email.TabIndex = 38;
+            this.text_email.TabIndex = 7;
             this.text_email.TextChanged += new System.EventHandler(this.TextBox4_TextChanged);
             // 
             // text_telefono
@@ -177,7 +177,7 @@ namespace FrbaOfertas.ABMCliente
             this.text_telefono.Location = new System.Drawing.Point(174, 229);
             this.text_telefono.Name = "text_telefono";
             this.text_telefono.Size = new System.Drawing.Size(100, 20);
-            this.text_telefono.TabIndex = 37;
+            this.text_telefono.TabIndex = 8;
             this.text_telefono.TextChanged += new System.EventHandler(this.TextBox5_TextChanged);
             // 
             // label7
@@ -206,7 +206,7 @@ namespace FrbaOfertas.ABMCliente
             this.text_credito.Name = "text_credito";
             this.text_credito.ReadOnly = true;
             this.text_credito.Size = new System.Drawing.Size(100, 20);
-            this.text_credito.TabIndex = 40;
+            this.text_credito.TabIndex = 9;
             // 
             // label11
             // 
@@ -221,15 +221,17 @@ namespace FrbaOfertas.ABMCliente
             // 
             this.text_pass.Location = new System.Drawing.Point(174, 73);
             this.text_pass.Name = "text_pass";
+            this.text_pass.PasswordChar = '*';
             this.text_pass.Size = new System.Drawing.Size(100, 20);
-            this.text_pass.TabIndex = 44;
+            this.text_pass.TabIndex = 1;
+            this.text_pass.Enter += new System.EventHandler(this.text_pass_Enter);
             // 
             // text_apellido
             // 
             this.text_apellido.Location = new System.Drawing.Point(174, 112);
             this.text_apellido.Name = "text_apellido";
             this.text_apellido.Size = new System.Drawing.Size(100, 20);
-            this.text_apellido.TabIndex = 43;
+            this.text_apellido.TabIndex = 3;
             // 
             // label12
             // 
@@ -256,7 +258,7 @@ namespace FrbaOfertas.ABMCliente
             this.button3.Location = new System.Drawing.Point(42, 447);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(92, 34);
-            this.button3.TabIndex = 46;
+            this.button3.TabIndex = 16;
             this.button3.Text = "Volver";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
@@ -267,7 +269,7 @@ namespace FrbaOfertas.ABMCliente
             this.btn_save.Name = "btn_save";
             this.btn_save.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.btn_save.Size = new System.Drawing.Size(92, 34);
-            this.btn_save.TabIndex = 45;
+            this.btn_save.TabIndex = 15;
             this.btn_save.Text = "Guardar";
             this.btn_save.UseVisualStyleBackColor = true;
             this.btn_save.Click += new System.EventHandler(this.btn_save_Click);
@@ -279,7 +281,7 @@ namespace FrbaOfertas.ABMCliente
             this.datepicker_fecha_nac.Location = new System.Drawing.Point(111, 151);
             this.datepicker_fecha_nac.Name = "datepicker_fecha_nac";
             this.datepicker_fecha_nac.Size = new System.Drawing.Size(100, 20);
-            this.datepicker_fecha_nac.TabIndex = 47;
+            this.datepicker_fecha_nac.TabIndex = 4;
             this.datepicker_fecha_nac.Value = new System.DateTime(1999, 12, 4, 0, 0, 0, 0);
             // 
             // text_piso
@@ -287,14 +289,14 @@ namespace FrbaOfertas.ABMCliente
             this.text_piso.Location = new System.Drawing.Point(144, 40);
             this.text_piso.Name = "text_piso";
             this.text_piso.Size = new System.Drawing.Size(37, 20);
-            this.text_piso.TabIndex = 57;
+            this.text_piso.TabIndex = 11;
             // 
             // text_cod_postal
             // 
             this.text_cod_postal.Location = new System.Drawing.Point(144, 79);
             this.text_cod_postal.Name = "text_cod_postal";
             this.text_cod_postal.Size = new System.Drawing.Size(100, 20);
-            this.text_cod_postal.TabIndex = 56;
+            this.text_cod_postal.TabIndex = 14;
             // 
             // label8
             // 
@@ -319,14 +321,14 @@ namespace FrbaOfertas.ABMCliente
             this.text_calle.Location = new System.Drawing.Point(12, 40);
             this.text_calle.Name = "text_calle";
             this.text_calle.Size = new System.Drawing.Size(99, 20);
-            this.text_calle.TabIndex = 53;
+            this.text_calle.TabIndex = 10;
             // 
             // text_localidad
             // 
             this.text_localidad.Location = new System.Drawing.Point(12, 79);
             this.text_localidad.Name = "text_localidad";
             this.text_localidad.Size = new System.Drawing.Size(99, 20);
-            this.text_localidad.TabIndex = 52;
+            this.text_localidad.TabIndex = 13;
             // 
             // label15
             // 
@@ -351,7 +353,7 @@ namespace FrbaOfertas.ABMCliente
             this.text_dto.Location = new System.Drawing.Point(207, 40);
             this.text_dto.Name = "text_dto";
             this.text_dto.Size = new System.Drawing.Size(37, 20);
-            this.text_dto.TabIndex = 59;
+            this.text_dto.TabIndex = 12;
             // 
             // label17
             // 

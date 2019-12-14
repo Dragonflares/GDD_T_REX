@@ -16,20 +16,23 @@ namespace FrbaOfertas.ABMCliente
     {
         ClienteDAO clienteDao = new ClienteDAO();
         Cliente cliente = null;
+        private string nuevaPass = null;
+        private string defaultPassText = "******";
         public AltaCliente()
         {
             InitializeComponent();
             friendlyValidater();
+            this.text_pass.TextChanged += new System.EventHandler(this.text_pass_TextChanged);
         }
 
         public AltaCliente(Cliente cliente)
         {
             InitializeComponent();
-
             this.cliente = cliente;
+            this.text_pass.Text = this.defaultPassText; // Esto tiene que ponerse antes de que se asigne el EventHandler
+            this.text_pass.TextChanged += new System.EventHandler(this.text_pass_TextChanged);
 
             this.text_usuario.Text = cliente.usuario.nombre;
-            this.text_pass.Text = cliente.usuario.pass;
             this.text_nombre.Text = cliente.nombres;
             this.text_apellido.Text = cliente.apellido;
             this.text_telefono.Text = cliente.telefono.ToString();
@@ -201,11 +204,18 @@ namespace FrbaOfertas.ABMCliente
             else
             {
                 int? idCliente = null;
-                if (this.cliente != null) { idCliente = this.cliente.id; } 
-
-                this.clienteDao.guardarCliente(idCliente, this.text_nombre.Text, this.text_apellido.Text, this.combo_tipo_dni.Text, int.Parse(this.text_nro_dni.Text), this.datepicker_fecha_nac.Value, this.text_email.Text, int.Parse(this.text_telefono.Text), this.text_usuario.Text, this.text_pass.Text, this.text_calle.Text, this.text_piso.Text, this.text_dto.Text,this.text_localidad.Text,this.text_cod_postal.Text);
-                this.Close();
-
+                if (this.cliente != null) { idCliente = this.cliente.id; }
+                try
+                {
+                    this.clienteDao.guardarCliente(idCliente, this.text_nombre.Text, this.text_apellido.Text, this.combo_tipo_dni.Text, int.Parse(this.text_nro_dni.Text), this.datepicker_fecha_nac.Value, this.text_email.Text, int.Parse(this.text_telefono.Text), this.text_usuario.Text, this.nuevaPass, this.text_calle.Text, this.text_piso.Text, this.text_dto.Text, this.text_localidad.Text, this.text_cod_postal.Text);
+                    MessageBox.Show("Cliente guardado con exito", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.Message, "ERROR",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -225,6 +235,19 @@ namespace FrbaOfertas.ABMCliente
                 || String.IsNullOrEmpty(this.text_cod_postal.Text)
                 || String.IsNullOrEmpty(this.text_nro_dni.Text);
                 
+        }
+
+        private void text_pass_TextChanged(object sender, EventArgs e)
+        {
+            this.nuevaPass = this.text_pass.Text;
+        }
+
+        private void text_pass_Enter(object sender, EventArgs e)
+        {
+            if(this.text_pass.Text == this.defaultPassText) 
+            {
+                this.text_pass.Clear();
+            }
         }
     }
 }

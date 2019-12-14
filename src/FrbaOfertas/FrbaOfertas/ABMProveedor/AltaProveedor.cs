@@ -18,21 +18,25 @@ namespace FrbaOfertas.ABMProveedor
         RubroDAO rubroDao = new RubroDAO();
         ProveedorDAO proveedorDao = new ProveedorDAO();
         Proveedor proveedor = null;
+        private string nuevaPass = null;
+        private string defaultPassText = "******";
 
         public AltaProveedor()
         {
             InitializeComponent();
             this.cargarRubros();
+            this.text_pass.TextChanged += new System.EventHandler(this.text_pass_TextChanged);
         }
 
         public AltaProveedor(Proveedor proveedor)
         {
             InitializeComponent();
             this.cargarRubros();
+            this.text_pass.Text = this.defaultPassText; // Esto tiene que ponerse antes de que se asigne el EventHandler
+            this.text_pass.TextChanged += new System.EventHandler(this.text_pass_TextChanged);
 
             this.proveedor = proveedor;
             this.text_usuario.Text = proveedor.usuario.nombre;
-            this.text_pass.Text = proveedor.usuario.pass;
             this.text_razonsocial.Text = proveedor.razonSocial;
             this.text_cuit.Text = proveedor.CUIT;
             this.text_telefono.Text = proveedor.telefono.ToString();
@@ -70,10 +74,17 @@ namespace FrbaOfertas.ABMProveedor
             {
                 int? idProveedor = null;
                 if (this.proveedor != null) { idProveedor = this.proveedor.id; }
-
-                this.proveedorDao.guardarProveedor(idProveedor, this.text_razonsocial.Text, this.text_cuit.Text, this.text_email.Text, this.combo_rubro.Text, int.Parse(this.text_telefono.Text), this.text_usuario.Text, this.text_pass.Text, this.text_calle.Text, this.text_piso.Text, this.text_dto.Text, this.text_localidad.Text, this.text_cod_postal.Text);
-                
-                this.Close();
+                try
+                {
+                    this.proveedorDao.guardarProveedor(idProveedor, this.text_razonsocial.Text, this.text_cuit.Text, this.text_email.Text, this.combo_rubro.Text, int.Parse(this.text_telefono.Text), this.text_usuario.Text, this.nuevaPass, this.text_calle.Text, this.text_piso.Text, this.text_dto.Text, this.text_localidad.Text, this.text_cod_postal.Text);
+                    MessageBox.Show("Proveedor guardado con exito", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.Message, "ERROR",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
 
             }
         }
@@ -93,6 +104,19 @@ namespace FrbaOfertas.ABMProveedor
                 || String.IsNullOrEmpty(this.text_localidad.Text)
                 || String.IsNullOrEmpty(this.text_cod_postal.Text);
 
+        }
+
+        private void text_pass_TextChanged(object sender, EventArgs e)
+        {
+            this.nuevaPass = this.text_pass.Text;
+        }
+
+        private void text_pass_Enter(object sender, EventArgs e)
+        {
+            if (this.text_pass.Text == this.defaultPassText)
+            {
+                this.text_pass.Clear();
+            }
         }
     }
 }

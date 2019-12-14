@@ -68,9 +68,9 @@ namespace FrbaOfertas.Utils
             return cli;
         }
 
-        public void eliminarCliente(int id)
+        public void deshabilitarCliente(int id)
         {
-            SqlCommand sp = FrbaOfertas.Utils.Database.createCommand("[GD2C2019].[T_REX].BajaCliente");
+            SqlCommand sp = FrbaOfertas.Utils.Database.createCommand("[GD2C2019].[T_REX].DeshabilitarCliente");
             sp.Parameters.AddWithValue("IdCliente", id);
             //sp.Parameters.AddWithValue("Accion", 'B');
 
@@ -85,6 +85,25 @@ namespace FrbaOfertas.Utils
                 throw new Exception(text.Value.ToString());
             }
          
+        }
+
+        public void habilitarCliente(int id)
+        {
+            SqlCommand sp = FrbaOfertas.Utils.Database.createCommand("[GD2C2019].[T_REX].HabilitarCliente");
+            sp.Parameters.AddWithValue("IdCliente", id);
+            //sp.Parameters.AddWithValue("Accion", 'B');
+
+            SqlParameter text = new SqlParameter("@out", SqlDbType.VarChar, 1000);
+            text.Direction = ParameterDirection.Output;
+            sp.Parameters.Add(text);
+
+            FrbaOfertas.Utils.Database.executeProcedure(sp);
+
+            if (!String.IsNullOrEmpty(text.Value.ToString()))
+            {
+                throw new Exception(text.Value.ToString());
+            }
+
         }
 
         public void guardarCliente(int? id, string nombre, string apellido, string tipoDni, int nroDni, DateTime fechaNac, string email, int telefono, string usuario, string contrasenia, string calle, string piso, string depto, string localidad, string codigoPostal) 
@@ -114,8 +133,8 @@ namespace FrbaOfertas.Utils
             sp.Parameters.AddWithValue("Localidad", localidad);
             sp.Parameters.AddWithValue("CodigoPostal", codigoPostal);
             sp.Parameters.AddWithValue("user", usuario);
-            sp.Parameters.AddWithValue("pass", contrasenia);
-
+            sp.Parameters.AddWithValue("pass", contrasenia); // Puede ser NULL en caso de modificacion.
+            
             SqlParameter text = new SqlParameter("@out", SqlDbType.VarChar, 1000);
             text.Direction = ParameterDirection.Output;
             sp.Parameters.Add(text);
