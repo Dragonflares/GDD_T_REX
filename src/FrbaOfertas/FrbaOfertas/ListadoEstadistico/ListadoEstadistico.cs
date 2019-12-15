@@ -19,7 +19,7 @@ namespace FrbaOfertas.ListadoEstadistico
         private Usuario admin;
         public ListadoEstadistico(Usuario admin)
         {
-            InitializeComponent(); InitializeComponent();
+            InitializeComponent();
             anio.KeyPress += numeric_KeyPress;
 
         }
@@ -62,10 +62,22 @@ namespace FrbaOfertas.ListadoEstadistico
         {
 
             gridResultados.Columns.Clear();
-          //  if (checkearFiltros())
-         //   {
-
-                //TODO separar en clases
+            Boolean estanTodosLlenos = true;
+            foreach (Control x in this.Controls)
+            {
+                if (x is TextBox && x.Text == "")
+                {
+                    estanTodosLlenos = false;
+                    break;
+                }
+                else if (x is ComboBox && x.Text == "")
+                {
+                    estanTodosLlenos = false;
+                    break;
+                }
+            }
+            if (estanTodosLlenos)
+            {
                 switch (tipoListado.Text)
                 {
                     case "Proveedores con mayor facturación":
@@ -86,11 +98,11 @@ namespace FrbaOfertas.ListadoEstadistico
                 if (gridResultados.Rows.Count == 0)
                     MessageBox.Show("No se han encontrado datos.", "",
                         System.Windows.Forms.MessageBoxButtons.OK, MessageBoxIcon.Warning);
-         //   }
-         //   else
-//{
-        //        MessageBox.Show("Los filtros ingresados son inválidos.", "Error", System.Windows.Forms.MessageBoxButtons.OK);
-          //  }
+            }
+            else
+            {
+                MessageBox.Show("Los filtros ingresados son inválidos.", "Error", System.Windows.Forms.MessageBoxButtons.OK);
+            }
         }
 
         private object proveedoresConMayorPorcentajeDeDescuento(string anio, string semestre)

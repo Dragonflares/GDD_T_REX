@@ -54,6 +54,11 @@ namespace FrbaOfertas.Login
                     estanTodosLlenos = false;
                     break;
                 }
+                else if (x is ComboBox && x.Text == "")
+                {
+                    estanTodosLlenos = false;
+                    break;
+                }
             }
             if (estanTodosLlenos)
             {
