@@ -23,8 +23,6 @@ namespace FrbaOfertas.ABMRol
         {
             InitializeComponent();
             this.user = _user;
-            btnBorrarRol.Visible = false;
-            btnModificar.Visible = false;
         }
 
         private void HomeRol_Load(object sender, EventArgs e)
@@ -35,6 +33,8 @@ namespace FrbaOfertas.ABMRol
         public void cargarDatos()
         {
             dgvRoles.DataSource = rolDao.listarDatos();
+            btnBorrarRol.Visible = false;
+            btnModificar.Visible = false;
         }
 
         private void dgvRoles_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -105,7 +105,7 @@ namespace FrbaOfertas.ABMRol
 
                 if (MessageBox.Show(mensaje, "ABM Rol", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes) //si selecciona que si
                 {
-                    if (user.rolActivo.activo) //si el rol del login es igual al rol que quiere deshabilitar
+                    if (rol_seleccionado.activo) //si el rol del login es igual al rol que quiere deshabilitar
                     {
                         MessageBox.Show("Operacion exitosa");
                         rolDao.borrar_rol(rol_seleccionado);
