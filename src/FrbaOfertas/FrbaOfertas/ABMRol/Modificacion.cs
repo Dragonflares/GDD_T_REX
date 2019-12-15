@@ -129,14 +129,32 @@ namespace FrbaOfertas.ABMRol
 
                     foreach (Funcionalidad funcX in funcsNuevas)
                     {
-                        if (!funcsViejas.Contains(funcX))
+                        bool failsafe = false;
+                        foreach (Funcionalidad funcZ in funcsViejas)
+                        {
+                            if (funcZ.id == funcX.id)
+                            {
+                                failsafe = true;
+                                break;
+                            }
+                        }
+                        if (failsafe)
                         {
                             rolDao.agregarFuncionalidad(rol.id, funcX);
                         }
                     }
                     foreach (Funcionalidad funcZ in funcsViejas)
                     {
-                        if (!funcsNuevas.Contains(funcZ))
+                        bool failsafe = false;
+                        foreach (Funcionalidad funcX in funcsViejas)
+                        {
+                            if (funcZ.id == funcX.id)
+                            {
+                                failsafe = true;
+                                break;
+                            }
+                        }
+                        if (failsafe)
                         {
                             rolDao.sacarFuncionalidad(rol.id, funcZ);
                         }
