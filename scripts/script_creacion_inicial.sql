@@ -2131,6 +2131,8 @@ BEGIN
 END
 GO
 
+--//---------- Factura ----------//
+
 IF OBJECT_ID('T_REX.CrearFactura') IS NOT NULL
 	DROP PROCEDURE [T_REX].CrearFactura;
 GO
@@ -2196,5 +2198,65 @@ BEGIN
 		ROLLBACK TRANSACTION [T]
 		set @out = ERROR_MESSAGE();
 	END CATCH
+END
+GO
+
+
+--//---------- Item Factura ----------//
+
+
+IF OBJECT_ID('T_REX.CrearItemFactura') IS NOT NULL
+	DROP PROCEDURE [T_REX].CrearItemFactura;
+GO
+CREATE PROCEDURE [T_REX].CrearItemFactura
+	@IdFactura int,
+	@Cantidad decimal (15,0),
+	@Importe decimal (20,2),
+	@IdOferta int,
+	@out  varchar(1000) OUTPUT
+AS
+BEGIN
+		
+	IF( NOT EXISTS (SELECT 1 FROM [T_REX].FACTURA_PROVEEDOR WHERE id_factura=@IdFactura) )
+	BEGIN
+		RAISERROR('ERROR: No existe factura.', 16, 1)
+		return
+	END
+
+	IF( NOT EXISTS (SELECT 1 FROM [T_REX].OFERTA WHERE id_oferta=@IdOferta) )
+	BEGIN
+		RAISERROR('ERROR: No existe oferta.', 16, 1)
+		return
+	END
+	
+	
+	BEGIN TRY
+		BEGIN TRANSACTION [T]
+		
+		IF(@Importe = 0)
+		BEGIN
+			RAISERROR('ERROR: El importe dado es nulo.', 16, 1)
+			return
+		END
+
+		IF(@Cantidad = 0)
+		BEGIN
+			RAISERROR('ERROR: La cantidad dada es nulo.', 16, 1)
+			return
+		END
+		
+		-- INSERT ITEM FACTURA
+
+		INSERT INTO [T_REX].ITEM_FACTURA (importe_oferta, cantidad, id_factura, id_oferta)
+		VALUES ( @Importe, @Cantidad, @IdFactura, @IdOferta)
+					
+		COMMIT TRANSACTION [T]
+	
+	END TRY
+	BEGIN CATCH
+		ROLLBACK TRANSACTION [T]
+		set @out = ERROR_MESSAGE();
+	END CATCH
+
 END
 GO
