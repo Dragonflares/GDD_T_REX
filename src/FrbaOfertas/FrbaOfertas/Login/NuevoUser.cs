@@ -81,7 +81,7 @@ namespace FrbaOfertas.Login
                 }
                 else
                 {
-                    user = userDAO.getUsuarioById(System.Convert.ToInt32(userid));
+                    user = userDAO.getUsuario(nombreUsuario.Text);
                     if (contrasenia.Text != user.pass)
                     {
                         MessageBox.Show("Contraseñas incorrectas.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
