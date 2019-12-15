@@ -200,6 +200,7 @@ namespace FrbaOfertas.ABMCliente
             {
                 MessageBox.Show("LLenar campos vacios");
             }
+
             else
             {
                 Boolean estanTodosLlenos = true;
@@ -237,6 +238,7 @@ namespace FrbaOfertas.ABMCliente
                     MessageBox.Show("Tiene que completar todos los campos para registrarse.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+
         }
 
 

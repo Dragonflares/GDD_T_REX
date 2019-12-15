@@ -49,7 +49,7 @@ namespace FrbaOfertas.ABMCliente
 
             if (!String.IsNullOrEmpty(nombre_text.Text)) cmd += " and lower(nombre) like '%" + nombre_text.Text.ToLower() + "%'";
             if (!String.IsNullOrEmpty(apellido_text.Text)) cmd += " and lower(apellido) like '%" + apellido_text.Text.ToLower() + "%'";
-            if (!String.IsNullOrEmpty(textBox3.Text)) cmd += " and lower(cli.email) = '%" + textBox3.Text + "%'";
+            if (!String.IsNullOrEmpty(textBox3.Text)) cmd += " and lower(email) like '%" + textBox3.Text.ToLower() + "%'";
             if (!String.IsNullOrEmpty(textBox4.Text)) cmd += " and nro_documento = " + textBox4.Text;
 
             cmd += "ORDER BY cli.[id_cliente] ASC";
@@ -72,14 +72,15 @@ namespace FrbaOfertas.ABMCliente
 
             if (!String.IsNullOrEmpty(nombre_text.Text)) cmd += " and lower(nombre) like '%" + nombre_text.Text.ToLower() + "%'";
             if (!String.IsNullOrEmpty(apellido_text.Text)) cmd += " and lower(apellido) like '%" + apellido_text.Text.ToLower() + "%'";
-            if (!String.IsNullOrEmpty(textBox3.Text)) cmd += " and lower(email) = '" + textBox3.Text + "%'";
-            if (!String.IsNullOrEmpty(textBox4.Text)) cmd += " and nro_documento = '" + textBox4.Text + "'";
+            if (!String.IsNullOrEmpty(textBox3.Text)) cmd += " and lower(cli.email) like '%" + textBox3.Text.ToLower() + "%'";
+            if (!String.IsNullOrEmpty(textBox4.Text)) cmd += " and nro_documento = " + textBox4.Text;
 
             cmd += "ORDER BY cli.[id_cliente] ASC";
 
             SqlCommand command = FrbaOfertas.Utils.Database.createCommand(cmd);
 
             this.tablaClientes.DataSource = Utils.Database.getData(command); 
+
         }
 
         private void btn_baja_Click(object sender, EventArgs e)
@@ -178,7 +179,7 @@ namespace FrbaOfertas.ABMCliente
                     if (c is MonthCalendar)
                         ((MonthCalendar)c).Visible = false;
                 });
-
+            cargarClientes();
         }
     }
 }
