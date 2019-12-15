@@ -91,5 +91,11 @@ namespace FrbaOfertas.ABMUsuario
                 });
             loadUsuarios();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            new AltaModUsuario().ShowDialog();
+            this.loadUsuarios();
+        }
     }
 }
