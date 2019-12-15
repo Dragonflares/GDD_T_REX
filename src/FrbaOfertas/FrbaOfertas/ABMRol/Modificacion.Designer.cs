@@ -41,7 +41,6 @@
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.btn_atras = new System.Windows.Forms.Button();
             this.idFunc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.idRolFuncionalidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Funcionalidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Eliminar = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.table_funcionalidades)).BeginInit();
@@ -109,7 +108,6 @@
             this.table_funcionalidades.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.table_funcionalidades.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.idFunc,
-            this.idRolFuncionalidad,
             this.Funcionalidad,
             this.Eliminar});
             this.table_funcionalidades.Location = new System.Drawing.Point(27, 106);
@@ -160,13 +158,6 @@
             this.idFunc.HeaderText = "id";
             this.idFunc.Name = "idFunc";
             this.idFunc.Visible = false;
-            // 
-            // idRolFuncionalidad
-            // 
-            this.idRolFuncionalidad.DataPropertyName = "rol_funcionalidad_id";
-            this.idRolFuncionalidad.HeaderText = "id_rol_funcionalidad";
-            this.idRolFuncionalidad.Name = "idRolFuncionalidad";
-            this.idRolFuncionalidad.Visible = false;
             // 
             // Funcionalidad
             // 
@@ -221,7 +212,6 @@
         private System.Windows.Forms.ErrorProvider errorProvider;
         private System.Windows.Forms.Button btn_atras;
         private System.Windows.Forms.DataGridViewTextBoxColumn idFunc;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idRolFuncionalidad;
         private System.Windows.Forms.DataGridViewTextBoxColumn Funcionalidad;
         private System.Windows.Forms.DataGridViewButtonColumn Eliminar;
     }
