@@ -66,8 +66,8 @@ namespace FrbaOfertas.CrearOferta
                 oferta.descripcion = textBox1.Text;
                 oferta.fecha_inicio = dateTimePicker1.Value;
                 oferta.fecha_fin = dateTimePicker2.Value;
-                oferta.precio_oferta = (int)numericUpDown2.Value;
-                oferta.precio_lista = (int)numericUpDown1.Value;
+                oferta.precio_oferta = numericUpDown2.Value;
+                oferta.precio_lista = numericUpDown1.Value;
                 oferta.cantDisponible = (int)numericUpDown3.Value;
                 oferta.cant_max_porCliente = (int)numericUpDown4.Value;
                 oferta.proveedor = target;

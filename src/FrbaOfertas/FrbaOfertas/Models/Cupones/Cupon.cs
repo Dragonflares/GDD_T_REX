@@ -14,8 +14,8 @@ namespace FrbaOfertas.Models.Cupones
         public int id_cupon { get; set; }
         public string cupon_codigo { get; set; }
         public System.DateTime cupon_fecha_deconsumo { get; set; }
-        public int cupon_precio_oferta { get; set; }
-        public int cupon_precio_lista { get; set; }
+        public decimal cupon_precio_oferta { get; set; }
+        public decimal cupon_precio_lista { get; set; }
         public bool cupon_estado { get; set; }
         public Cliente consumidor { get; set; }
         public Compra compra { get; set; }

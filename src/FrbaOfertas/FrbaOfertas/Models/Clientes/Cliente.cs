@@ -19,7 +19,7 @@ namespace FrbaOfertas.Models.Clientes
         public Direccion direccion { get; set; }
         public DateTime fechaNacimiento { get; set; }
         public Boolean estado { get; set; } //Baja_logica
-        public long credito { get; set; }
+        public decimal credito { get; set; }
         public Usuario usuario { get; set; }
 
         public Cliente() { }

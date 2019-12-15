@@ -110,7 +110,7 @@ namespace FrbaOfertas.Utils
         }
 
         public void guardarOferta(int? id, string descripcion, DateTime fecha_inicio, DateTime fecha_fin,
-            int precio_oferta, int precio_lista, int cantDisp, int cantMax, int id_proveedor)
+            decimal precio_oferta, decimal precio_lista, int cantDisp, int cantMax, int id_proveedor)
         {
             SqlCommand sp = FrbaOfertas.Utils.Database.createCommand("[GD2C2019].[T_REX].ABMOferta");
 

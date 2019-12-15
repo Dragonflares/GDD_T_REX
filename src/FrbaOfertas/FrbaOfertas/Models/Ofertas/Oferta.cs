@@ -14,8 +14,8 @@ namespace FrbaOfertas.Models.Ofertas
         public string descripcion { get; set; }
         public System.DateTime fecha_inicio { get; set; }
         public System.DateTime fecha_fin { get; set; }
-        public int precio_oferta { get; set; }
-        public int precio_lista { get; set; }
+        public decimal precio_oferta { get; set; }
+        public decimal precio_lista { get; set; }
         public int cantDisponible { get; set; }
         public int cant_max_porCliente { get; set; }
         public Proveedor proveedor { get; set; }

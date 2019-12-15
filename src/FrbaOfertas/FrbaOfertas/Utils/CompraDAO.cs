@@ -43,7 +43,7 @@ namespace FrbaOfertas.Utils
             return counter;
         }
 
-        public int recaudacionTotalOfertaEnPeriodo(DateTime fecha_inicio, DateTime fecha_fin, Oferta oferta)
+        public decimal recaudacionTotalOfertaEnPeriodo(DateTime fecha_inicio, DateTime fecha_fin, Oferta oferta)
         {
             int cantidadComprasRealizadas = cantidadDeUnaOfertaCompradasEnPeriodo(fecha_inicio, fecha_fin, oferta.id_oferta);
 
