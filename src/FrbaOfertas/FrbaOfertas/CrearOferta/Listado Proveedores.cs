@@ -32,6 +32,7 @@ namespace FrbaOfertas.CrearOferta
             SqlCommand obtenerRubros = FrbaOfertas.Utils.Database.createCommand("SELECT r.nombreDeRubro FROM [GD2C2019].[T_REX].Rubro r");
             DataTable tablaFunc = Utils.Database.getData(obtenerRubros);
 
+            comboBox1.Items.Add("");
             foreach (DataRow row in tablaFunc.Rows)
             {
                 comboBox1.Items.Add(row["nombreDeRubro"]);
@@ -40,21 +41,7 @@ namespace FrbaOfertas.CrearOferta
 
         private void FormListadoProveedores_Load(object sender, EventArgs e)
         {
-            string takeprov = "SELECT p.id_proveedor as id, p.provee_rs as razon_social" +
-                ", p.provee_cuit as cuit, r.nombreDeRubro as rubro, p.email as email" +
-                " FROM [GD2C2019].[T_REX].[Proveedor] p JOIN [GD2C2019].[T_REX].[Rubro] r ON r.id_rubro = p.id_rubro" +
-                " WHERE p.estado = 1";
-
-            if (!String.IsNullOrEmpty(razonsocial.Text)) takeprov += " and lower(p.provee_rs) like '%" + razonsocial.Text.ToLower() + "%'";
-            if (!String.IsNullOrEmpty(comboBox1.Text)) takeprov += " and lower(r.nombreDeRubro) = '%" + comboBox1.Text.ToLower() + "'";
-            if (!String.IsNullOrEmpty(textBox1.Text)) takeprov += " and lower(p.cuit) = '%" + textBox1.Text + "%'";
-            if (!String.IsNullOrEmpty(textBox5.Text)) takeprov += " and lower(p.email) = '%" + textBox5.Text + "%'";
-
-
-            takeprov += "ORDER BY [id] ASC";
-            SqlCommand takeClients = FrbaOfertas.Utils.Database.createCommand(takeprov);
-            DataTable table = Utils.Database.getData(takeClients);
-            this.dgv_proveedores.DataSource = table;
+            this.loadProveedores();
         }
 
         private void loadProveedores()
@@ -65,12 +52,12 @@ namespace FrbaOfertas.CrearOferta
                 " WHERE p.estado = 1";
 
             if (!String.IsNullOrEmpty(razonsocial.Text)) takeprov += " and lower(p.provee_rs) like '%" + razonsocial.Text.ToLower() + "%'";
-            if (!String.IsNullOrEmpty(comboBox1.Text)) takeprov += " and lower(r.nombreDeRubro) = '%" + comboBox1.Text.ToLower() + "'";
-            if (!String.IsNullOrEmpty(textBox1.Text)) takeprov += " and lower(p.cuit) = '%" + textBox1.Text + "%'";
-            if (!String.IsNullOrEmpty(textBox5.Text)) takeprov += " and lower(p.email) = '%" + textBox5.Text + "%'";
+            if (!String.IsNullOrEmpty(comboBox1.Text)) takeprov += " and lower(r.nombreDeRubro) = '" + comboBox1.Text.ToLower() + "'";
+            if (!String.IsNullOrEmpty(textBox1.Text)) takeprov += " and lower(p.email) like '%" + textBox1.Text + "%'";
+            if (!String.IsNullOrEmpty(textBox5.Text)) takeprov += " and lower(p.provee_cuit) = '" + textBox5.Text + "'";
 
 
-            takeprov += "ORDER BY [id] ASC";
+            takeprov += "ORDER BY [razon_social] ASC";
             SqlCommand takeClients = FrbaOfertas.Utils.Database.createCommand(takeprov);
             DataTable table = Utils.Database.getData(takeClients);
             this.dgv_proveedores.DataSource = table;
