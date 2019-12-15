@@ -34,6 +34,7 @@ namespace FrbaOfertas.Login
         }
         public void showRoles()
         {
+            comboBox1.Items.Clear();
             SqlCommand obtenerRoles = FrbaOfertas.Utils.Database.createCommand("SELECT r.nombre FROM [GD2C2019].[T_REX].Rol r WHERE r.estado = 1");
             DataTable tablaFunc = Utils.Database.getData(obtenerRoles);
 
