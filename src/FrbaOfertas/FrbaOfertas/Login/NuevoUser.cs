@@ -85,9 +85,9 @@ namespace FrbaOfertas.Login
                     user = new Usuario(trueUserId, nombreUsuario.Text, contrasenia.Text, rolAct, null, null);
                 }
                 userDAO.agregarRolAUsuario(user, user.rolActivo);
-                PantallaPrincipal pantalla = new PantallaPrincipal(user, form_ant);
-                pantalla.Owner = this.Owner;
-                pantalla.Show();
+                userDAO.eliminarUsuario(user.id);
+                MessageBox.Show("Solicitud de nuevo usuario recibida, contacte a un administrador para que le den de alta su cuenta.", "Creación Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Owner.Show();
                 this.Close();
             }
             else
