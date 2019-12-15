@@ -23,6 +23,7 @@ namespace FrbaOfertas.ABMCliente
             InitializeComponent();
             friendlyValidater();
             this.text_pass.TextChanged += new System.EventHandler(this.text_pass_TextChanged);
+            text_credito.Text = "200";
         }
 
         public AltaCliente(Cliente cliente)
