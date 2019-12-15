@@ -1471,9 +1471,9 @@ BEGIN
 END
 
 IF OBJECT_ID('T_REX.DeshabilitarCliente') IS NOT NULL
-	DROP PROCEDURE [T_REX].DeshabilitarCliente;
+	DROP PROCEDURE T_REX.DeshabilitarCliente;
 GO
-CREATE PROCEDURE [T_REX].DeshabilitarCliente
+CREATE PROCEDURE T_REX.DeshabilitarCliente
 	@out varchar(1000) OUTPUT,
 	@IdCliente int
 AS
