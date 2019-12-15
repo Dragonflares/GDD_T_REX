@@ -196,27 +196,49 @@ namespace FrbaOfertas.ABMCliente
 
         private void btn_save_Click(object sender, EventArgs e)
         {
-            if(this.formEsInvalido()) 
+            if (this.formEsInvalido())
             {
                 MessageBox.Show("LLenar campos vacios");
             }
             else
             {
-                int? idCliente = null;
-                if (this.cliente != null) { idCliente = this.cliente.id; }
-                try
+                Boolean estanTodosLlenos = true;
+                foreach (Control x in this.Controls)
                 {
-                    this.clienteDao.guardarCliente(idCliente, this.text_nombre.Text, this.text_apellido.Text, this.combo_tipo_dni.Text, int.Parse(this.text_nro_dni.Text), this.datepicker_fecha_nac.Value, this.text_email.Text, int.Parse(this.text_telefono.Text), this.text_usuario.Text, this.nuevaPass, this.text_calle.Text, this.text_piso.Text, this.text_dto.Text, this.text_localidad.Text, this.text_cod_postal.Text);
-                    MessageBox.Show("Cliente guardado con exito", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.Close();
+                    if (x is TextBox && x.Text == "")
+                    {
+                        estanTodosLlenos = false;
+                        break;
+                    }
+                    else if (x is ComboBox && x.Text == "")
+                    {
+                        estanTodosLlenos = false;
+                        break;
+                    }
                 }
-                catch (Exception exception)
+                if (estanTodosLlenos)
                 {
-                    MessageBox.Show(exception.Message, "ERROR",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    int? idCliente = null;
+                    if (this.cliente != null) { idCliente = this.cliente.id; }
+                    try
+                    {
+                        this.clienteDao.guardarCliente(idCliente, this.text_nombre.Text, this.text_apellido.Text, this.combo_tipo_dni.Text, int.Parse(this.text_nro_dni.Text), this.datepicker_fecha_nac.Value, this.text_email.Text, int.Parse(this.text_telefono.Text), this.text_usuario.Text, this.nuevaPass, this.text_calle.Text, this.text_piso.Text, this.text_dto.Text, this.text_localidad.Text, this.text_cod_postal.Text);
+                        MessageBox.Show("Cliente guardado con exito", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.Close();
+                    }
+                    catch (Exception exception)
+                    {
+                        MessageBox.Show(exception.Message, "ERROR",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Tiene que completar todos los campos para registrarse.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
+
 
         private Boolean formEsInvalido()
         {

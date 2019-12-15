@@ -24,7 +24,7 @@ namespace FrbaOfertas.ABMCliente
 
         private void numeric_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            if ((!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) || textBox4.TextLength > 8)
             {
                 e.Handled = true;
             }
@@ -49,8 +49,8 @@ namespace FrbaOfertas.ABMCliente
 
             if (!String.IsNullOrEmpty(nombre_text.Text)) cmd += " and lower(nombre) like '%" + nombre_text.Text.ToLower() + "%'";
             if (!String.IsNullOrEmpty(apellido_text.Text)) cmd += " and lower(apellido) like '%" + apellido_text.Text.ToLower() + "%'";
-            if (!String.IsNullOrEmpty(textBox3.Text)) cmd += " and lower(email) = '" + textBox3.Text + "%'";
-            if (!String.IsNullOrEmpty(textBox4.Text)) cmd += " and nro_documento = '" + textBox4.Text + "'";
+            if (!String.IsNullOrEmpty(textBox3.Text)) cmd += " and lower(cli.email) = '%" + textBox3.Text + "%'";
+            if (!String.IsNullOrEmpty(textBox4.Text)) cmd += " and nro_documento = " + textBox4.Text;
 
             cmd += "ORDER BY cli.[id_cliente] ASC";
 
@@ -162,6 +162,23 @@ namespace FrbaOfertas.ABMCliente
                     this.btn_baja.Text = "Habilitar";
                 }
             }
+        }
+
+        private void btn_limpiar_Click(object sender, EventArgs e)
+        {
+            this.Controls.Cast<Control>().ToList()
+                .Where(c => c is GroupBox)
+                .SelectMany(c => c.Controls.Cast<Control>().ToList())
+                .ToList().ForEach(c =>
+                {
+                    if (c is ComboBox)
+                        ((ComboBox)c).SelectedIndex = -1;
+                    if (c is TextBox)
+                        c.Text = null;
+                    if (c is MonthCalendar)
+                        ((MonthCalendar)c).Visible = false;
+                });
+
         }
     }
 }
