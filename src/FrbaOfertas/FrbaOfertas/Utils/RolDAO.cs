@@ -76,7 +76,8 @@ namespace FrbaOfertas.Utils
             SqlCommand cmd = Database.createCommand("SELECT f.id_funcionalidad as id, f.descripcion as Funcionalidad" +
                 " FROM [GD2C2019].[T_REX].Funcionalidad f" +
                 " JOIN [GD2C2019].[T_REX].Funcionalidad_Rol fr on fr.id_funcionalidad = f.id_funcionalidad" +
-                " JOIN [GD2C2019].[T_REX].Rol r on r.id_rol = fr.id_rol WHERE r.id_rol = @rol");
+                " JOIN [GD2C2019].[T_REX].Rol r on r.id_rol = fr.id_rol WHERE r.id_rol = @rol" + 
+                " AND fr.estado = 1");
             cmd.Parameters.Add("@rol",SqlDbType.Int).Value = rol;
             return Database.getData(cmd);
         }
@@ -92,7 +93,8 @@ namespace FrbaOfertas.Utils
         {
             SqlCommand cmd = Database.createCommand("SELECT f.id_funcionalidad as id, f.descripcion as Funcionalidad FROM [GD2C2019].[T_REX].Funcionalidad f" +
                 " JOIN [GD2C2019].[T_REX].Funcionalidad_Rol fr on fr.id_funcionalidad = f.id_funcionalidad" +
-                " JOIN [GD2C2019].[T_REX].Rol r on r.id_rol = fr.id_rol WHERE r.nombre = @rol");
+                " JOIN [GD2C2019].[T_REX].Rol r on r.id_rol = fr.id_rol WHERE r.nombre = @rol" +
+                " AND fr.estado = 1");
             cmd.Parameters.Add("@rol", SqlDbType.NVarChar).Value = rol.nombre;
             return Database.getData(cmd);
         }

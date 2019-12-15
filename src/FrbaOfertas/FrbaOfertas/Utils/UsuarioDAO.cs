@@ -81,16 +81,7 @@ namespace FrbaOfertas.Utils
             sp.Parameters.AddWithValue("IdUsuario", id);
             //sp.Parameters.AddWithValue("Accion", 'B');
 
-            SqlParameter text = new SqlParameter("@out", SqlDbType.VarChar, 1000);
-            text.Direction = ParameterDirection.Output;
-            sp.Parameters.Add(text);
-
             FrbaOfertas.Utils.Database.executeProcedure(sp);
-
-            if (!String.IsNullOrEmpty(text.Value.ToString()))
-            {
-                throw new Exception(text.Value.ToString());
-            }
         }
 
         public void guardarUsuario(int? id, string nombre, string pass)

@@ -107,7 +107,17 @@ namespace FrbaOfertas.ABMRol
                 try
                 {
 
-                    DataTable dt = table_funcionalidades.DataSource as DataTable;
+                    DataTable dt = new DataTable();
+                    dt.Columns.Add("id");
+                    dt.Columns.Add("Funcionalidad");
+
+                    foreach (DataGridViewRow rowGrid in table_funcionalidades.Rows)
+                    {
+                        DataRow row = dt.NewRow();
+                        row["id"] = rowGrid.Cells[1].Value;
+                        row["Funcionalidad"] = rowGrid.Cells[2].Value;
+                        dt.Rows.Add(row);
+                    }
                     DataTable funcionalidades = dt.Copy();
                     List<Funcionalidad> funcsNuevas = funcionalidades.Rows.Cast<DataRow>().
                         Select(row =>
@@ -146,7 +156,7 @@ namespace FrbaOfertas.ABMRol
                     foreach (Funcionalidad funcZ in funcsViejas)
                     {
                         bool failsafe = false;
-                        foreach (Funcionalidad funcX in funcsViejas)
+                        foreach (Funcionalidad funcX in funcsNuevas)
                         {
                             if (funcZ.id == funcX.id)
                             {
@@ -163,6 +173,7 @@ namespace FrbaOfertas.ABMRol
                     {
                         rolDao.cambiarNombreRol(rol.id, NombreTextBox.Text);
                     }
+                    MessageBox.Show("Rol modificado", "ABM Rol", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
