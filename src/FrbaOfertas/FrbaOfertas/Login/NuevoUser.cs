@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,6 +13,8 @@ using FrbaOfertas.Utils;
 using FrbaOfertas.Models.Clientes;
 using FrbaOfertas.Models;
 using FrbaOfertas.Models.Roles;
+using System.Security.Cryptography;
+
 
 namespace FrbaOfertas.Login
 {
@@ -46,6 +48,11 @@ namespace FrbaOfertas.Login
             }
             if (estanTodosLlenos)
             {
+                if (nombreUsuario.Text == "admin")
+                {
+                    MessageBox.Show("El administrador no puede tener más de un rol.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
                 if (contrasenia.Text != confirmContrasenia.Text)
                 {
                     MessageBox.Show("Las contraseñas no coinciden.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);

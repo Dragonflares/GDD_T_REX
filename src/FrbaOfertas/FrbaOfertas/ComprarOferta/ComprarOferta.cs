@@ -54,13 +54,14 @@ namespace FrbaOfertas.ComprarOferta
 
         public void loadOfertas()
         {
+            string fecha = Database.getDateBeta().ToString("yyyy/MM/dd");
             string takeoffer = "SELECT ofer.[id_oferta] as id, ofer.[descripcion] as Descripcion, ofer.[fecha_fin] as [fecha_de_fin], " +
                 "ofer.[precio_oferta] as precioOferta, ofer.[precio_lista] as precioLista, ofer.[cantDisponible] as cantdisponible, " +
                 "prov.[provee_rs] as proveedor " +
                 "FROM [GD2C2019].[T_REX].[Oferta] ofer " +
                 "INNER JOIN [GD2C2019].[T_REX].[Proveedor] prov ON prov.id_proveedor = ofer.id_proveedor " +
                 "WHERE prov.estado = 1 and ofer.[cantDisponible] > 0 " +
-                " AND ofer.[fecha_inicio] <= '" + Database.getDateBeta().ToString() + "' AND '" + Database.getDateBeta().ToString() + "' <= ofer.[fecha_fin]";
+                " AND ofer.[fecha_inicio] <= '" + fecha + "' AND '" + fecha + "' <= ofer.[fecha_fin]";
 
             if (!String.IsNullOrEmpty(textBox2.Text)) takeoffer += " and lower(descripcion) like '%" + textBox2.Text.ToLower() + "%'";
             if (!String.IsNullOrEmpty(textBox1.Text)) takeoffer += " and lower(prov.provee_rs) like '%" + textBox1.Text.ToLower() + "%'";
