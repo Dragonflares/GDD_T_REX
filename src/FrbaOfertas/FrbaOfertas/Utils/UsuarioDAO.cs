@@ -155,7 +155,7 @@ namespace FrbaOfertas.Utils
 
         public void agregarRolAUsuario(Usuario user, Rol rol)
         {
-            SqlCommand sp = FrbaOfertas.Utils.Database.createCommand("[GD2C2019].[T_REX].AgregarRolAUsuario");
+            SqlCommand sp = FrbaOfertas.Utils.Database.createCommand("[GD2C2019].[T_REX].AgregarRolUsuario");
 
             sp.Parameters.AddWithValue("IdUsuario", user.id);
             sp.Parameters.AddWithValue("IdRol", rol.id);
