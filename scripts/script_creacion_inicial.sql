@@ -1386,7 +1386,7 @@ BEGIN
 
 				if(EXISTS(select 1 from T_REX.CLIENTE where nro_documento=@Documento and tipo_documento=@TipoDocumento or email=@Mail))
 				begin
-					RAISERROR('ERROR: cliente duplicado', 16, 1)
+					RAISERROR('ERROR: cliente duplicado, email o documento ya existente', 16, 1)
 					return
 				end
 				else
@@ -1411,7 +1411,7 @@ BEGIN
 
 				if(exists(select 1 from T_REX.CLIENTE where (nro_documento=@Documento and tipo_documento=@TipoDocumento or email=@Mail) and id_cliente!= @idCliente))
 				begin
-					RAISERROR('ERROR: cliente duplicado', 16, 1)
+					RAISERROR('ERROR: cliente duplicado, email o documento ya existente', 16, 1)
 					return
 				end
 				else
@@ -1598,7 +1598,7 @@ BEGIN
 
 				if(EXISTS(select 1 from T_REX.PROVEEDOR where provee_rs=@Provee_rs and provee_cuit=@Provee_cuit or email=@Mail))
 				begin
-					RAISERROR('ERROR: proveedor duplicado', 16, 1)
+					RAISERROR('ERROR: proveedor duplicado, email o razon social/cuit ya existente', 16, 1)
 					return
 				end
 				else
@@ -1635,7 +1635,7 @@ BEGIN
 
 				if(exists(select 1 from T_REX.PROVEEDOR where (provee_rs=@Provee_rs and provee_cuit=@Provee_cuit or email=@Mail) and id_proveedor!= @IdProveedor))
 				begin
-					RAISERROR('ERROR: Proveedor duplicado', 16, 1)
+					RAISERROR('ERROR: Proveedor duplicado, email o razon social/cuit ya existente', 16, 1)
 					return
 				end
 				else

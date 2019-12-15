@@ -58,7 +58,6 @@ namespace FrbaOfertas.ABMCliente
             text_nro_dni.KeyPress += numeric_KeyPress;
             text_nombre.KeyPress += noNumber_KeyPress;
             text_apellido.KeyPress += noNumber_KeyPress;
-            text_calle.KeyPress += noNumber_KeyPress;
         }
 
         private void numeric_KeyPress(object sender, KeyPressEventArgs e)

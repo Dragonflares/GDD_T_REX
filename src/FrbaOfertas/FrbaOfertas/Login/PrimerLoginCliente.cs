@@ -33,7 +33,6 @@ namespace FrbaOfertas.Login
             textBox2.KeyPress += telefono_KeyPress;
             nombre.KeyPress += noNumber_KeyPress;
             apellido.KeyPress += noNumber_KeyPress;
-            calle.KeyPress += noNumber_KeyPress;
         }
 
         private void noNumber_KeyPress(object sender, KeyPressEventArgs e)

@@ -34,7 +34,6 @@ namespace FrbaOfertas.Login
             cuit.KeyPress += cuit_KeyPress;
             telefono.KeyPress += telefono_KeyPress;
             loadRubros();
-            calle.KeyPress += noNumber_KeyPress;
         }
 
         private void noNumber_KeyPress(object sender, KeyPressEventArgs e)
