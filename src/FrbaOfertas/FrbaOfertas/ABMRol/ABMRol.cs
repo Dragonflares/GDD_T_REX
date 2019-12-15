@@ -105,7 +105,7 @@ namespace FrbaOfertas.ABMRol
 
                 if (MessageBox.Show(mensaje, "ABM Rol", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes) //si selecciona que si
                 {
-                    if (user.rolActivo.activo) //si el rol del login es igual al rol que quiere deshabilitar
+                    if (rol_seleccionado.activo) //si el rol del login es igual al rol que quiere deshabilitar
                     {
                         MessageBox.Show("Operacion exitosa");
                         rolDao.borrar_rol(rol_seleccionado);
