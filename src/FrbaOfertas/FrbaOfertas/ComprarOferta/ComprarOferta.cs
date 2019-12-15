@@ -97,23 +97,27 @@ namespace FrbaOfertas.ComprarOferta
                         MessageBox.Show("No puede indicar una cantidad mayor a la cantidad disponible.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
+                    else if (oferta.cant_max_porCliente == 0)
+                    {
+
+                    }
+                    else if (target.credito < (oferta.precio_oferta * numericUpDown1.Value))
+                    {
+                        MessageBox.Show("Usted no dispone de suficiente crédito para realizar esta compra.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                     else if (numericUpDown1.Value > oferta.cant_max_porCliente)
                     {
                         MessageBox.Show("Está excediendo el máximo disponible para cada cliente de " + numericUpDown1.Value.ToString()
                             + "!.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
-                    else if (numericUpDown1.Value + compraDAO.cantidadDeOfertasCompradasPorEsteCliente(oferta.id_oferta, target.id) 
+                    else if (numericUpDown1.Value + compraDAO.cantidadDeOfertasCompradasPorEsteCliente(oferta.id_oferta, target.id)
                         > oferta.cant_max_porCliente)
                     {
                         MessageBox.Show("Está excediendo su máximo disponible de compra para esta oferta de" +
-                            (oferta.cant_max_porCliente - compraDAO.cantidadDeOfertasCompradasPorEsteCliente(oferta.id_oferta, target.id)).ToString() 
+                            (oferta.cant_max_porCliente - compraDAO.cantidadDeOfertasCompradasPorEsteCliente(oferta.id_oferta, target.id)).ToString()
                             + "!.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    else if (target.credito < (oferta.precio_oferta * numericUpDown1.Value))
-                    {
-                        MessageBox.Show("Usted no dispone de suficiente crédito para realizar esta compra.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
                     Compra compra = new Compra();
