@@ -244,7 +244,8 @@ CREATE TABLE [T_REX].[COMPRA] (
 		compra_fecha datetime2(3) NOT NULL,
 		id_oferta int FOREIGN KEY REFERENCES [T_REX].OFERTA(id_oferta) NOT NULL,
 		id_cliente int FOREIGN KEY REFERENCES [T_REX].CLIENTE(id_cliente) NOT NULL,
-		cantidad decimal (15,0) NOT NULL
+		cantidad decimal (15,0) NOT NULL,
+		facturado bit NOT NULL DEFAULT 0
 );
 END
 GO
@@ -936,44 +937,14 @@ BEGIN
 		return
 	END
 	
-	IF(@tipoUsuario = 'Cliente')
+	IF(NOT EXISTS(SELECT 1 FROM [T_REX].USUARIO us 
+		inner join  [T_REX].ROL_USUARIO ru on us.id_usuario=ru.id_usuario
+		inner join T_REX.ROL r on ru.id_rol=r.id_rol
+		where us.username=@username and r.nombre=@tipoUsuario))
 	BEGIN
-		IF(NOT EXISTS(SELECT 1 FROM [T_REX].USUARIO us JOIN [T_REX].CLIENTE cli ON (us.id_usuario = cli.id_usuario) WHERE us.username = @username))
-		BEGIN	
-			RAISERROR('ERROR: USUARIO incorrecto, no existe ningun cliente con este username', 16, 1)
-			return
-		END
+		RAISERROR('ERROR: No existe usuario para ese rol', 16, 1)
+		return
 	END
-	ELSE 
-	BEGIN
-		IF(@tipoUsuario = 'Proveedor')
-		BEGIN	
-			IF(NOT EXISTS(SELECT 1 FROM [T_REX].USUARIO us JOIN [T_REX].PROVEEDOR provee ON (us.id_usuario = provee.id_usuario) WHERE us.username = @username))
-			BEGIN		
-				RAISERROR('ERROR: USUARIO incorrecto, no existe ningun proveedor con este username', 16, 1)
-				return
-			END
-		END	
-		ELSE 
-		BEGIN
-		IF(@tipoUsuario = 'Administrativo')
-		BEGIN
-			IF(EXISTS(SELECT 1 FROM [T_REX].USUARIO us JOIN [T_REX].PROVEEDOR provee ON (us.id_usuario = provee.id_usuario) WHERE us.username = @username) OR
-				EXISTS(SELECT 1 FROM [T_REX].USUARIO us JOIN [T_REX].CLIENTE cli ON (us.id_usuario = cli.id_usuario) WHERE us.username = @username))
-				BEGIN
-				RAISERROR('ERROR: USUARIO incorrecto, no existe ningun administrativo con este username', 16, 1)
-				return
-				END
-		END
-		ELSE
-		BEGIN
-			RAISERROR('ERROR: USUARIO incorrecto, no coincide el rol con este username', 16, 1)
-			return
-		END
-		END
-		
-	END
-
 
 	IF(EXISTS(SELECT 1 FROM [T_REX].USUARIO us WHERE us.username = @username AND us.estado = 0))
 	BEGIN
@@ -2162,11 +2133,12 @@ BEGIN
 			INNER JOIN T_REX.COMPRA cp ON cp.id_compra=c.id_compra
 			INNER JOIN T_REX.OFERTA o ON c.id_oferta=o.id_oferta
 			WHERE o.id_proveedor=@IdProveedor 
+			AND cp.facturado = 0
 			AND cp.compra_fecha BETWEEN @FechaDesde AND @FechaHasta
 
-		IF(@ImporteFactura = 0)
+		IF(@ImporteFactura IS NULL OR @ImporteFactura = 0)
 		BEGIN
-			RAISERROR('ERROR: El importe a facturar en el periodo dado es nulo.', 16, 1)
+			RAISERROR('ERROR: No se han encontrado ofertas disponibles para facturar en el periodo indicado.', 16, 1)
 			return
 		END
 
@@ -2185,75 +2157,22 @@ BEGIN
 			from T_REX.CUPON c
 			INNER JOIN T_REX.COMPRA cp ON cp.id_compra=c.id_compra
 			INNER JOIN T_REX.OFERTA o ON c.id_oferta=o.id_oferta
-			WHERE o.id_proveedor=@IdProveedor 
+			WHERE o.id_proveedor=@IdProveedor
+			AND cp.facturado = 0 
 			AND cp.compra_fecha BETWEEN @FechaDesde AND @FechaHasta
 			GROUP BY o.id_oferta
 
+		UPDATE [T_REX].COMPRA SET facturado = 1 
+		FROM [T_REX].COMPRA c
+		INNER JOIN [T_REX].OFERTA o ON c.id_oferta = o.id_oferta
+		WHERE o.id_proveedor=@IdProveedor
+		AND c.compra_fecha BETWEEN @FechaDesde AND @FechaHasta
+
 		COMMIT TRANSACTION [T]
 	END TRY
 	BEGIN CATCH
 		ROLLBACK TRANSACTION [T]
 		set @out = ERROR_MESSAGE();
 	END CATCH
-END
-GO
-
-
---//---------- Item Factura ----------//
-
-
-IF OBJECT_ID('T_REX.CrearItemFactura') IS NOT NULL
-	DROP PROCEDURE [T_REX].CrearItemFactura;
-GO
-CREATE PROCEDURE [T_REX].CrearItemFactura
-	@IdFactura int,
-	@Cantidad decimal (15,0),
-	@Importe decimal (20,2),
-	@IdOferta int,
-	@out  varchar(1000) OUTPUT
-AS
-BEGIN
-		
-	IF( NOT EXISTS (SELECT 1 FROM [T_REX].FACTURA_PROVEEDOR WHERE id_factura=@IdFactura) )
-	BEGIN
-		RAISERROR('ERROR: No existe factura.', 16, 1)
-		return
-	END
-
-	IF( NOT EXISTS (SELECT 1 FROM [T_REX].OFERTA WHERE id_oferta=@IdOferta) )
-	BEGIN
-		RAISERROR('ERROR: No existe oferta.', 16, 1)
-		return
-	END
-	
-	
-	BEGIN TRY
-		BEGIN TRANSACTION [T]
-		
-		IF(@Importe = 0)
-		BEGIN
-			RAISERROR('ERROR: El importe dado es nulo.', 16, 1)
-			return
-		END
-
-		IF(@Cantidad = 0)
-		BEGIN
-			RAISERROR('ERROR: La cantidad dada es nulo.', 16, 1)
-			return
-		END
-		
-		-- INSERT ITEM FACTURA
-
-		INSERT INTO [T_REX].ITEM_FACTURA (importe_oferta, cantidad, id_factura, id_oferta)
-		VALUES ( @Importe, @Cantidad, @IdFactura, @IdOferta)
-					
-		COMMIT TRANSACTION [T]
-	
-	END TRY
-	BEGIN CATCH
-		ROLLBACK TRANSACTION [T]
-		set @out = ERROR_MESSAGE();
-	END CATCH
-
 END
 GO

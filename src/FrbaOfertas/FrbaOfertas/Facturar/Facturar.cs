@@ -84,6 +84,7 @@ namespace FrbaOfertas.Facturar
                 "INNER JOIN [GD2C2019].[T_REX].[Proveedor] prov ON prov.id_proveedor = ofer.id_proveedor " +
                 "INNER JOIN [GD2C2019].[T_REX].[Cliente] cli ON cli.id_cliente = comp.id_cliente " +
                 "WHERE prov.id_proveedor = " + target.id +
+                " and comp.facturado = 0" +
                 " and comp.compra_fecha between '" + date_desde.Text + "' and '" + date_hasta.Text + "'";
 
                 SqlCommand takeOffers = FrbaOfertas.Utils.Database.createCommand(takeoffer);
