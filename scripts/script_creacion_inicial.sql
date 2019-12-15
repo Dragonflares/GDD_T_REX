@@ -978,7 +978,29 @@ BEGIN
 		END			
 	END		
 END	
+GO
 
+IF OBJECT_ID('T_REX.ValidarContrasenia') IS NOT NULL
+    DROP PROCEDURE T_REX.ValidarContrasenia
+GO
+
+CREATE PROCEDURE T_REX.ValidarContrasenia
+@Username varchar(255),
+@Password varchar(255),
+@out bit OUTPUT
+AS
+BEGIN
+	IF(EXISTS(SELECT 1 FROM [T_REX].USUARIO us WHERE us.username = @Username AND us.password = convert(varchar(64), HashBytes('SHA2_256', @Password), 2)))
+	BEGIN
+		SET @out=1
+	END
+	ELSE
+	BEGIN
+		SET @out=0
+	END
+END
+
+GO
 
 -- BAJA USUARIO // T_REX.BajaUsuario
 

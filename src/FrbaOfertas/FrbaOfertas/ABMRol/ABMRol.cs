@@ -125,8 +125,12 @@ namespace FrbaOfertas.ABMRol
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
-            this.Owner.Show();
             this.Close();
+        }
+
+        private void ABMRol_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Owner.Show();
         }
     }
 }

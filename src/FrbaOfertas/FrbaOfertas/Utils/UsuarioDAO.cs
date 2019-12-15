@@ -144,5 +144,20 @@ namespace FrbaOfertas.Utils
 
             FrbaOfertas.Utils.Database.executeProcedure(sp);
         }
+
+        public Boolean validarContrasenia(string username, string password)
+        {
+            SqlCommand sp = FrbaOfertas.Utils.Database.createCommand("[GD2C2019].[T_REX].ValidarContrasenia");
+            sp.Parameters.AddWithValue("Username", username);
+            sp.Parameters.AddWithValue("Password", password);
+
+            SqlParameter result = new SqlParameter("@out", SqlDbType.Bit);
+            result.Direction = ParameterDirection.Output;
+            sp.Parameters.Add(result);
+
+            FrbaOfertas.Utils.Database.executeProcedure(sp);
+
+            return (Boolean)result.Value;
+        }
     }
 }

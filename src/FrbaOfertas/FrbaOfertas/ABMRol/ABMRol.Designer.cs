@@ -152,6 +152,7 @@
             this.Controls.Add(this.label1);
             this.Name = "ABMRol";
             this.Text = "ABM Rol";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ABMRol_FormClosed);
             this.Load += new System.EventHandler(this.HomeRol_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvFuncionalidades)).EndInit();
             this.groupBox1.ResumeLayout(false);

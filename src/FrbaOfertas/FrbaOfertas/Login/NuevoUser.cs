@@ -82,11 +82,14 @@ namespace FrbaOfertas.Login
                 else
                 {
                     user = userDAO.getUsuario(nombreUsuario.Text);
-                    if (contrasenia.Text != user.pass)
+                    
+                    if (!userDAO.validarContrasenia(nombreUsuario.Text, contrasenia.Text))
                     {
                         MessageBox.Show("Contraseñas incorrectas.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
+                    MessageBox.Show("Funciono OK", "Creación Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                     int trueUserId = System.Convert.ToInt32(userid);
                     Rol rolAct = rolDAO.getRol(rol);
                     user = new Usuario(trueUserId, nombreUsuario.Text, contrasenia.Text, rolAct, null, null);
@@ -94,7 +97,6 @@ namespace FrbaOfertas.Login
                 userDAO.agregarRolAUsuario(user, user.rolActivo);
                 userDAO.eliminarUsuario(user.id);
                 MessageBox.Show("Solicitud de nuevo usuario recibida, contacte a un administrador para que le den de alta su cuenta.", "Creación Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Owner.Show();
                 this.Close();
             }
             else
