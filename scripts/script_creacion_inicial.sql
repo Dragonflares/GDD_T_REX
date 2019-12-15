@@ -2105,6 +2105,8 @@ BEGIN
 END
 GO
 
+--//---------- CUPON ----------//
+
 IF OBJECT_ID('T_REX.EntregarCupon') IS NOT NULL
 	DROP PROCEDURE [T_REX].EntregarCupon;
 GO
