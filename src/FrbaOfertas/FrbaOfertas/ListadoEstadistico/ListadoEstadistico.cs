@@ -19,7 +19,7 @@ namespace FrbaOfertas.ListadoEstadistico
         private Usuario admin;
         public ListadoEstadistico(Usuario admin)
         {
-            InitializeComponent(); InitializeComponent();
+            InitializeComponent();
             anio.KeyPress += numeric_KeyPress;
 
         }
