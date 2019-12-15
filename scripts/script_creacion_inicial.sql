@@ -1145,6 +1145,52 @@ BEGIN
 
 END
 
+-- CAMBIAR CONTRASEÑA
+
+IF OBJECT_ID('T_REX.CambiarContrasenia') IS NOT NULL
+	DROP PROCEDURE [T_REX].CambiarContrasenia;
+GO
+CREATE PROCEDURE [T_REX].CambiarContrasenia
+	@IdUsuario int,
+	@Pass varchar(255),
+	@NewPass varchar(255)
+AS
+BEGIN
+	IF(EXISTS(SELECT 1 FROM [T_REX].USUARIO us WHERE us.id_usuario = @IdUsuario AND us.password = convert(varchar(64), HashBytes('SHA2_256', @Pass), 2)))
+	BEGIN
+		UPDATE [T_REX].USUARIO SET password = CONVERT(varchar(64), HASHBYTES('SHA2_256', @NewPass), 2) WHERE id_usuario = @IdUsuario
+	END
+	ELSE
+	BEGIN
+		RAISERROR('ERROR: Contraseña incorrecta.', 16, 1)
+	END			
+END
+GO
+
+-- CAMBIAR CONTRASEÑA MODO ADMIN
+
+IF OBJECT_ID('T_REX.CambiarContraseniaModoAdmin') IS NOT NULL
+	DROP PROCEDURE [T_REX].CambiarContraseniaModoAdmin;
+GO
+CREATE PROCEDURE [T_REX].CambiarContraseniaModoAdmin
+	@IdUsuario int,
+	@Pass varchar(255)
+AS
+BEGIN
+	IF(EXISTS(	SELECT 1 FROM [T_REX].USUARIO us WHERE us.id_usuario = @IdUsuario )	)
+	BEGIN
+		UPDATE [T_REX].USUARIO 
+		SET password = CONVERT(varchar(64), HASHBYTES('SHA2_256', @Pass), 2) 
+		WHERE id_usuario = @IdUsuario
+	END
+	ELSE
+	BEGIN
+		RAISERROR('ERROR: Usuario incorrecto', 16, 1)
+	END			
+END
+GO
+
+
 --//---------- ROL ----------//
 
 
@@ -1202,7 +1248,7 @@ as
 	end
 GO
 
--- Baja logica Rol - [T_REX].SP_Inhabilitar_Rol
+-- Baja logica tabla Rol_Usuario y tabla Rol - [T_REX].SP_Inhabilitar_Rol
 
 IF OBJECT_ID('T_REX.InhabilitarRol') IS NOT NULL
     DROP PROCEDURE [T_REX].InhabilitarRol
@@ -1213,11 +1259,15 @@ CREATE PROCEDURE [T_REX].InhabilitarRol
 AS
 	declare @resultado varchar(10);
 	if not exists (select 1 from [T_REX].ROL_USUARIO ru
-				   inner join [T_REX].USUARIO u on ru.id_usuario=u.id_usuario
+				   inner join [T_REX].ROL r on ru.id_rol=r.id_rol
 				   where ru.id_rol=@rol_id )
 	begin
 		update [T_REX].ROL_USUARIO 
 		set activo='0'
+		where [id_rol]=@rol_id;
+
+		update [T_REX].ROL
+		set estado='0'
 		where [id_rol]=@rol_id;
 
 		set @resultado='OK'
@@ -1729,25 +1779,7 @@ BEGIN
 END
 GO
 
-IF OBJECT_ID('T_REX.CambiarContrasenia') IS NOT NULL
-	DROP PROCEDURE [T_REX].CambiarContrasenia;
-GO
-CREATE PROCEDURE [T_REX].CambiarContrasenia
-	@IdUsuario int,
-	@Pass varchar(255),
-	@NewPass varchar(255)
-AS
-BEGIN
-	IF(EXISTS(SELECT 1 FROM [T_REX].USUARIO us WHERE us.id_usuario = @IdUsuario AND us.password = convert(varchar(64), HashBytes('SHA2_256', @Pass), 2)))
-	BEGIN
-		UPDATE [T_REX].USUARIO SET password = CONVERT(varchar(64), HASHBYTES('SHA2_256', @NewPass), 2) WHERE id_usuario = @IdUsuario
-	END
-	ELSE
-	BEGIN
-		RAISERROR('ERROR: Contraseña incorrecta.', 16, 1)
-	END			
-END
-GO
+
 
 
 --//---------- OFERTA ----------//
