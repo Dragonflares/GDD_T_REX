@@ -11,7 +11,7 @@ namespace FrbaOfertas.Models.Facturas
     {
         public int id_factura { get; set; }
         public int nro_factura { get; set; }
-        public int importe_fact { get; set; }
+        public double importe_fact { get; set; }
         public string tipo_fact { get; set; }
         public System.DateTime fecha_inicio { get; set; }
         public System.DateTime fecha_fin { get; set; }

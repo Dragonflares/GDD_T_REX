@@ -31,22 +31,22 @@
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.razonsocial = new System.Windows.Forms.TextBox();
+            this.text_email = new System.Windows.Forms.TextBox();
+            this.combo_rubro = new System.Windows.Forms.ComboBox();
+            this.text_cuit = new System.Windows.Forms.TextBox();
+            this.text_razonsocial = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.dgv_proveedores = new System.Windows.Forms.DataGridView();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.razon_social = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cuit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.rubro = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.email = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.seleccionar = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_proveedores)).BeginInit();
             this.SuspendLayout();
@@ -66,10 +66,10 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Controls.Add(this.textBox1);
-            this.groupBox2.Controls.Add(this.comboBox1);
-            this.groupBox2.Controls.Add(this.textBox5);
-            this.groupBox2.Controls.Add(this.razonsocial);
+            this.groupBox2.Controls.Add(this.text_email);
+            this.groupBox2.Controls.Add(this.combo_rubro);
+            this.groupBox2.Controls.Add(this.text_cuit);
+            this.groupBox2.Controls.Add(this.text_razonsocial);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.label7);
@@ -92,37 +92,38 @@
             this.label1.TabIndex = 15;
             this.label1.Text = "Email";
             // 
-            // textBox1
+            // text_email
             // 
-            this.textBox1.Location = new System.Drawing.Point(381, 72);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(124, 20);
-            this.textBox1.TabIndex = 14;
+            this.text_email.Location = new System.Drawing.Point(381, 72);
+            this.text_email.Margin = new System.Windows.Forms.Padding(2);
+            this.text_email.Name = "text_email";
+            this.text_email.Size = new System.Drawing.Size(124, 20);
+            this.text_email.TabIndex = 14;
             // 
-            // comboBox1
+            // combo_rubro
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(381, 28);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(124, 21);
-            this.comboBox1.TabIndex = 13;
+            this.combo_rubro.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.combo_rubro.FormattingEnabled = true;
+            this.combo_rubro.Location = new System.Drawing.Point(381, 28);
+            this.combo_rubro.Name = "combo_rubro";
+            this.combo_rubro.Size = new System.Drawing.Size(124, 21);
+            this.combo_rubro.TabIndex = 13;
             // 
-            // textBox5
+            // text_cuit
             // 
-            this.textBox5.Location = new System.Drawing.Point(103, 69);
-            this.textBox5.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(124, 20);
-            this.textBox5.TabIndex = 12;
+            this.text_cuit.Location = new System.Drawing.Point(103, 69);
+            this.text_cuit.Margin = new System.Windows.Forms.Padding(2);
+            this.text_cuit.Name = "text_cuit";
+            this.text_cuit.Size = new System.Drawing.Size(124, 20);
+            this.text_cuit.TabIndex = 12;
             // 
-            // razonsocial
+            // text_razonsocial
             // 
-            this.razonsocial.Location = new System.Drawing.Point(103, 29);
-            this.razonsocial.Margin = new System.Windows.Forms.Padding(2);
-            this.razonsocial.Name = "razonsocial";
-            this.razonsocial.Size = new System.Drawing.Size(124, 20);
-            this.razonsocial.TabIndex = 1;
+            this.text_razonsocial.Location = new System.Drawing.Point(103, 29);
+            this.text_razonsocial.Margin = new System.Windows.Forms.Padding(2);
+            this.text_razonsocial.Name = "text_razonsocial";
+            this.text_razonsocial.Size = new System.Drawing.Size(124, 20);
+            this.text_razonsocial.TabIndex = 1;
             // 
             // label5
             // 
@@ -175,28 +176,6 @@
             this.dgv_proveedores.TabIndex = 35;
             this.dgv_proveedores.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_proveedores_CellContentClick);
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(459, 174);
-            this.button2.Margin = new System.Windows.Forms.Padding(2);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(134, 24);
-            this.button2.TabIndex = 34;
-            this.button2.Text = "Buscar";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(21, 174);
-            this.button3.Margin = new System.Windows.Forms.Padding(2);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(135, 24);
-            this.button3.TabIndex = 33;
-            this.button3.Text = "Limpiar";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
             // razon_social
             // 
             this.razon_social.DataPropertyName = "razon_social";
@@ -245,6 +224,28 @@
             this.seleccionar.UseColumnTextForButtonValue = true;
             this.seleccionar.Width = 90;
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(459, 174);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(134, 24);
+            this.button2.TabIndex = 34;
+            this.button2.Text = "Buscar";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(21, 174);
+            this.button3.Margin = new System.Windows.Forms.Padding(2);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(135, 24);
+            this.button3.TabIndex = 33;
+            this.button3.Text = "Limpiar";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // ListadoFacturable
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -268,9 +269,9 @@
 
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox razonsocial;
+        private System.Windows.Forms.ComboBox combo_rubro;
+        private System.Windows.Forms.TextBox text_cuit;
+        private System.Windows.Forms.TextBox text_razonsocial;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
@@ -278,7 +279,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox text_email;
         private System.Windows.Forms.DataGridViewTextBoxColumn razon_social;
         private System.Windows.Forms.DataGridViewTextBoxColumn cuit;
         private System.Windows.Forms.DataGridViewTextBoxColumn rubro;

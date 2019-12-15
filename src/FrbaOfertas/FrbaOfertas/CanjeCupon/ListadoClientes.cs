@@ -62,10 +62,18 @@ namespace FrbaOfertas.CanjeCupon
             }
             if (e.ColumnIndex == dgv_clientes.Columns["Entregar"].Index)
             {
-                int id_cliente = int.Parse(dgv_clientes.Rows[e.RowIndex].Cells["id"].Value.ToString());
-                cuponDAO.entregarCupon(id_cupon, id_cliente);
-                MessageBox.Show("Cupón entregado con Éxito!", "Entrega realizada", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close();
+                try
+                {
+                    int id_cliente = int.Parse(dgv_clientes.Rows[e.RowIndex].Cells["id"].Value.ToString());
+                    cuponDAO.entregarCupon(id_cupon, id_cliente);
+                    MessageBox.Show("Cupón entregado con Éxito!", "Entrega realizada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.Message, "ERROR",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 

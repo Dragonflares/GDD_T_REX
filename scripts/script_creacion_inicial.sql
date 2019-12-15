@@ -811,19 +811,17 @@ insert into [T_REX].[COMPRA] (
 		id_cliente,
 		id_oferta,
 		cantidad)
-select
-		a.Oferta_Fecha_Compra,
-		c.id_cliente,
-		o.id_oferta,
-		count(*) 
-from [gd_esquema].[Maestra] a
-inner join [T_REX].[CLIENTE] c on a.Cli_Dni=c.nro_documento 
-inner join [T_REX].[OFERTA] o on a.Oferta_Codigo=o.cod_oferta
-where a.Oferta_Fecha_Compra is not null
-group by a.Oferta_Fecha_Compra,
-		c.id_cliente,
-		o.id_oferta
-order by 1,2
+select Oferta_Fecha_Compra, 
+	(select id_cliente from T_REX.CLIENTE where nro_documento= Cli_Dni), 
+	(select id_oferta from T_REX.OFERTA where cod_oferta=Oferta_Codigo), 
+	count(*) 
+from gd_esquema.Maestra 
+where Oferta_Entregado_Fecha is null 
+	and Oferta_Codigo is not NULL
+	and Factura_Nro is null  
+	and Factura_Fecha is null
+group by Cli_Dni, Oferta_Codigo, Oferta_Fecha_Compra
+order by Oferta_Fecha_Compra asc, Oferta_Codigo;
 
 ----------------------------------------------------------------------------------------------------------------
 /*Migracion cupon*/
@@ -2130,5 +2128,73 @@ BEGIN
 	END
 
 	UPDATE T_REX.CUPON SET cupon_fecha_deconsumo=@fecha_consumo, id_consumidor=@id_consumidor, cupon_estado=0 WHERE id_cupon=@id_cupon
+END
+GO
+
+IF OBJECT_ID('T_REX.CrearFactura') IS NOT NULL
+	DROP PROCEDURE [T_REX].CrearFactura;
+GO
+CREATE PROCEDURE [T_REX].CrearFactura
+	@IdProveedor int,
+	@FechaDesde datetime,
+	@FechaHasta datetime,
+	@IdOut int OUTPUT,
+	@out varchar(1000) OUTPUT
+AS
+BEGIN
+	DECLARE @ImporteFactura decimal (20,2), @NroFactura int
+	
+	IF( NOT EXISTS (SELECT 1 FROM [T_REX].PROVEEDOR WHERE id_proveedor=@IdProveedor) )
+	BEGIN
+		RAISERROR('ERROR: No existe proveedor.', 16, 1)
+		return
+	END
+
+	IF(@FechaDesde > @FechaHasta)
+	BEGIN
+		RAISERROR('ERROR: Fecha desde tiene que ser menor a fecha hasta.', 16, 1)
+		return
+	END
+
+	BEGIN TRY
+		BEGIN TRANSACTION [T]
+		
+		SELECT @ImporteFactura = sum(c.cupon_precio_oferta) FROM T_REX.CUPON c
+			INNER JOIN T_REX.COMPRA cp ON cp.id_compra=c.id_compra
+			INNER JOIN T_REX.OFERTA o ON c.id_oferta=o.id_oferta
+			WHERE o.id_proveedor=@IdProveedor 
+			AND cp.compra_fecha BETWEEN @FechaDesde AND @FechaHasta
+
+		IF(@ImporteFactura = 0)
+		BEGIN
+			RAISERROR('ERROR: El importe a facturar en el periodo dado es nulo.', 16, 1)
+			return
+		END
+
+		SELECT @NroFactura = max(cast((nro_factura) as int))+1 FROM [T_REX].Factura_Proveedor
+
+		-- INSERT FACTURA
+		INSERT INTO [T_REX].FACTURA_PROVEEDOR (nro_factura, importe_fact, tipo_factura, fecha_inicio, fecha_fin, id_proveedor)
+		VALUES ( @NroFactura, @ImporteFactura, 'B', @FechaDesde, @FechaHasta, @IdProveedor )
+
+		-- GET ID_FACTURA
+		SELECT @IdOut = max(id_factura) FROM [T_REX].FACTURA_PROVEEDOR
+
+		-- INSERT ITEMs FACTURA
+		INSERT INTO [T_REX].ITEM_FACTURA (importe_oferta, cantidad, id_factura, id_oferta)
+			select sum(c.cupon_precio_oferta) importe_oferta, count(c.id_cupon) cantidad, @IdOut id_factura, o.id_oferta 
+			from T_REX.CUPON c
+			INNER JOIN T_REX.COMPRA cp ON cp.id_compra=c.id_compra
+			INNER JOIN T_REX.OFERTA o ON c.id_oferta=o.id_oferta
+			WHERE o.id_proveedor=@IdProveedor 
+			AND cp.compra_fecha BETWEEN @FechaDesde AND @FechaHasta
+			GROUP BY o.id_oferta
+
+		COMMIT TRANSACTION [T]
+	END TRY
+	BEGIN CATCH
+		ROLLBACK TRANSACTION [T]
+		set @out = ERROR_MESSAGE();
+	END CATCH
 END
 GO

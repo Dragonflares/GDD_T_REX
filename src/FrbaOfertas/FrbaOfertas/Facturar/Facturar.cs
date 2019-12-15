@@ -29,7 +29,7 @@ namespace FrbaOfertas.Facturar
             user = admin;
             InitializeComponent();
             text_proveedor.Enabled = false;
-            date_hasta.MinDate = date_desde.Value;
+            date_desde.Value = Database.getDateBeta(); // No es necesario asignar fecha_hasta ya que se hace en el evento de change.
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -78,7 +78,7 @@ namespace FrbaOfertas.Facturar
             else
             {
                 string takeoffer = "SELECT comp.[id_compra] as id, ofer.[descripcion] as descripcion, comp.[compra_fecha] as [compraFecha], " +
-                "ofer.[precio_oferta] as precioOferta, cli.nro_documento as comprador " +
+                "ofer.[precio_oferta] as precioOferta, comp.[cantidad] as cantidad, cli.nro_documento as comprador " +
                 "FROM [GD2C2019].[T_REX].[Compra] comp " +
                 "INNER JOIN [GD2C2019].[T_REX].[Oferta] ofer ON ofer.id_oferta = comp.id_oferta " +
                 "INNER JOIN [GD2C2019].[T_REX].[Proveedor] prov ON prov.id_proveedor = ofer.id_proveedor " +
@@ -100,73 +100,25 @@ namespace FrbaOfertas.Facturar
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Factura factura = new Factura();
-            SqlCommand query1 = Utils.Database.createCommand("SELECT max (id_factura) FROM [T_REX].Factura_Proveedor");
-            factura.id_factura = Utils.Database.executeScalar(query1) + 1;
-            SqlCommand query2 = Utils.Database.createCommand("SELECT max(cast((nro_factura) as int)) FROM [T_REX].Factura_Proveedor");
-            factura.nro_factura = Utils.Database.executeScalar(query2) + 1;
-            factura.tipo_fact = "B";
-            factura.proveedor = target;
-            factura.fecha_inicio = date_desde.Value;
-            factura.fecha_fin = date_hasta.Value;
-            string check = date_desde.Text;
-            string takeMoney = "SELECT cast(SUM(cup.cupon_precio_oferta) as int) FROM [GD2C2019].[T_REX].[CUPON] cup " +
-                "INNER JOIN [GD2C2019].[T_REX].[Compra] comp ON comp.id_compra = cup.id_compra " +
-                "INNER JOIN [GD2C2019].[T_REX].[Oferta] ofer ON ofer.id_oferta = comp.id_oferta " +
-                "INNER JOIN [GD2C2019].[T_REX].[Proveedor] prov ON prov.id_proveedor = ofer.id_proveedor  " +
-                "WHERE prov.id_proveedor = " + target.id +
-                " and comp.compra_fecha between '" + date_desde.Text + "' and '" + date_hasta.Text + "'";
-
-            SqlCommand takeMaCash = Database.createCommand(takeMoney);
-            factura.importe_fact = Database.executeScalar(takeMaCash);
-            List<int> idsOferta = obtenerIdsOfertas();
-
-            foreach (int id in idsOferta)
+            try
             {
-                ItemFactura itemFactura = new ItemFactura();
-                itemFactura.factura = factura;
-                itemFactura.oferta = offerDAO.getOferta(id, false);
-                itemFactura.cantidad = compDAO.cantidadDeUnaOfertaCompradasEnPeriodo(date_desde.Value,
-                    date_hasta.Value, itemFactura.oferta.id_oferta);
-                itemFactura.importe_oferta = compDAO.recaudacionTotalOfertaEnPeriodo(date_desde.Value,
-                    date_hasta.Value, itemFactura.oferta);
-                itemDAO.crearItemFactura(itemFactura);
+                int? idFactura = this.factDAO.crearFactura(target.id, date_desde.Value, date_hasta.Value);
+                if (idFactura == null)
+                {
+                    MessageBox.Show("Error al generar la factura.",
+                    "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                Factura factura = this.factDAO.getFactura(idFactura);
+                factura.proveedor = this.target;
+                new InfoFactura(factura).ShowDialog();
+                this.btn_limpiar.PerformClick();
             }
-            factDAO.crearFactura(factura);
-            new InfoFactura(factura).ShowDialog();
-            DataTable dt = (DataTable)this.dgv_ofertas.DataSource;
-            if (dt != null)
-                dt.Clear();
-            this.Controls.Cast<Control>().ToList()
-                .Where(c => c is GroupBox)
-                .SelectMany(c => c.Controls.Cast<Control>().ToList())
-                .ToList().ForEach(c =>
-                {
-                    if (c is ComboBox)
-                        ((ComboBox)c).SelectedIndex = -1;
-                    if (c is TextBox)
-                        c.Text = null;
-                    if (c is MonthCalendar)
-                        ((MonthCalendar)c).Visible = false;
-                });
-        }
-
-        private List<int> obtenerIdsOfertas()
-        {       
-            string cmd = "SELECT DISTINCT(offer.id_oferta) FROM [GD2C2019].[T_REX].OFERTA offer " +
-                "JOIN [GD2C2019].[T_REX].COMPRA comp ON comp.id_oferta = offer.id_oferta " +
-                "WHERE offer.id_proveedor = " + target.id +
-                " AND comp.compra_fecha BETWEEN '" + date_desde.Text + "' AND '" + date_hasta.Text + "'" +
-                " ORDER BY offer.id_oferta";
-
-            SqlCommand command = FrbaOfertas.Utils.Database.createCommand(cmd);
-            DataTable table = Utils.Database.getData(command);
-
-            return table.Rows.Cast<DataRow>().
-                Select(row =>
-                {
-                    return int.Parse(row["id_oferta"].ToString());
-                }).ToList<int>();
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "ERROR",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void Facturar_FormClosed(object sender, FormClosedEventArgs e)

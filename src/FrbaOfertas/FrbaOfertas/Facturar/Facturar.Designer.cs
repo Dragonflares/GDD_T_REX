@@ -29,13 +29,8 @@
         private void InitializeComponent()
         {
             this.dgv_ofertas = new System.Windows.Forms.DataGridView();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.comprador = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.precioOferta = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fechaCompra = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.bn_volver = new System.Windows.Forms.Button();
+            this.btn_facturar = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button4 = new System.Windows.Forms.Button();
             this.text_proveedor = new System.Windows.Forms.TextBox();
@@ -45,8 +40,14 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.btn_listar = new System.Windows.Forms.Button();
+            this.btn_limpiar = new System.Windows.Forms.Button();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.comprador = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.precioOferta = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fechaCompra = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_ofertas)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -62,73 +63,35 @@
             this.descripcion,
             this.comprador,
             this.precioOferta,
+            this.Cantidad,
             this.fechaCompra});
             this.dgv_ofertas.Location = new System.Drawing.Point(26, 237);
             this.dgv_ofertas.Margin = new System.Windows.Forms.Padding(2);
             this.dgv_ofertas.Name = "dgv_ofertas";
             this.dgv_ofertas.ReadOnly = true;
             this.dgv_ofertas.RowTemplate.Height = 24;
-            this.dgv_ofertas.Size = new System.Drawing.Size(543, 154);
+            this.dgv_ofertas.Size = new System.Drawing.Size(655, 154);
             this.dgv_ofertas.TabIndex = 26;
             // 
-            // id
+            // bn_volver
             // 
-            this.id.DataPropertyName = "id";
-            this.id.HeaderText = "id";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            this.id.Visible = false;
+            this.bn_volver.Location = new System.Drawing.Point(27, 396);
+            this.bn_volver.Name = "bn_volver";
+            this.bn_volver.Size = new System.Drawing.Size(129, 38);
+            this.bn_volver.TabIndex = 7;
+            this.bn_volver.Text = "Volver";
+            this.bn_volver.UseVisualStyleBackColor = true;
+            this.bn_volver.Click += new System.EventHandler(this.button1_Click);
             // 
-            // descripcion
+            // btn_facturar
             // 
-            this.descripcion.DataPropertyName = "descripcion";
-            this.descripcion.HeaderText = "Descripcion";
-            this.descripcion.Name = "descripcion";
-            this.descripcion.ReadOnly = true;
-            this.descripcion.Width = 165;
-            // 
-            // comprador
-            // 
-            this.comprador.DataPropertyName = "comprador";
-            this.comprador.HeaderText = "Comprador";
-            this.comprador.Name = "comprador";
-            this.comprador.ReadOnly = true;
-            // 
-            // precioOferta
-            // 
-            this.precioOferta.DataPropertyName = "precioOferta";
-            this.precioOferta.HeaderText = "Precio de Oferta";
-            this.precioOferta.Name = "precioOferta";
-            this.precioOferta.ReadOnly = true;
-            this.precioOferta.Width = 120;
-            // 
-            // fechaCompra
-            // 
-            this.fechaCompra.DataPropertyName = "compraFecha";
-            this.fechaCompra.HeaderText = "Fecha de Compra";
-            this.fechaCompra.Name = "fechaCompra";
-            this.fechaCompra.ReadOnly = true;
-            this.fechaCompra.Width = 115;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(27, 396);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(129, 38);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "Volver";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(441, 396);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(129, 38);
-            this.button2.TabIndex = 6;
-            this.button2.Text = "Facturar";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btn_facturar.Location = new System.Drawing.Point(552, 396);
+            this.btn_facturar.Name = "btn_facturar";
+            this.btn_facturar.Size = new System.Drawing.Size(129, 38);
+            this.btn_facturar.TabIndex = 6;
+            this.btn_facturar.Text = "Facturar";
+            this.btn_facturar.UseVisualStyleBackColor = true;
+            this.btn_facturar.Click += new System.EventHandler(this.button2_Click);
             // 
             // groupBox1
             // 
@@ -138,7 +101,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(27, 27);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(542, 152);
+            this.groupBox1.Size = new System.Drawing.Size(654, 152);
             this.groupBox1.TabIndex = 29;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Parámetros de facturación";
@@ -166,7 +129,7 @@
             this.groupBox2.Controls.Add(this.date_desde);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Location = new System.Drawing.Point(283, 24);
+            this.groupBox2.Location = new System.Drawing.Point(360, 24);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(244, 99);
             this.groupBox2.TabIndex = 3;
@@ -219,36 +182,82 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Proveedor";
             // 
-            // button3
+            // btn_listar
             // 
-            this.button3.Location = new System.Drawing.Point(440, 185);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(129, 38);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "Generar Listado";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.btn_listar.Location = new System.Drawing.Point(552, 185);
+            this.btn_listar.Name = "btn_listar";
+            this.btn_listar.Size = new System.Drawing.Size(129, 38);
+            this.btn_listar.TabIndex = 4;
+            this.btn_listar.Text = "Generar Listado";
+            this.btn_listar.UseVisualStyleBackColor = true;
+            this.btn_listar.Click += new System.EventHandler(this.button3_Click);
             // 
-            // button5
+            // btn_limpiar
             // 
-            this.button5.Location = new System.Drawing.Point(26, 185);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(129, 38);
-            this.button5.TabIndex = 5;
-            this.button5.Text = "Limpiar";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.btn_limpiar.Location = new System.Drawing.Point(26, 185);
+            this.btn_limpiar.Name = "btn_limpiar";
+            this.btn_limpiar.Size = new System.Drawing.Size(129, 38);
+            this.btn_limpiar.TabIndex = 5;
+            this.btn_limpiar.Text = "Limpiar";
+            this.btn_limpiar.UseVisualStyleBackColor = true;
+            this.btn_limpiar.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // id
+            // 
+            this.id.DataPropertyName = "id";
+            this.id.HeaderText = "id";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            this.id.Visible = false;
+            // 
+            // descripcion
+            // 
+            this.descripcion.DataPropertyName = "descripcion";
+            this.descripcion.HeaderText = "Descripcion";
+            this.descripcion.Name = "descripcion";
+            this.descripcion.ReadOnly = true;
+            this.descripcion.Width = 165;
+            // 
+            // comprador
+            // 
+            this.comprador.DataPropertyName = "comprador";
+            this.comprador.HeaderText = "Comprador";
+            this.comprador.Name = "comprador";
+            this.comprador.ReadOnly = true;
+            // 
+            // precioOferta
+            // 
+            this.precioOferta.DataPropertyName = "precioOferta";
+            this.precioOferta.HeaderText = "Precio de Oferta";
+            this.precioOferta.Name = "precioOferta";
+            this.precioOferta.ReadOnly = true;
+            this.precioOferta.Width = 120;
+            // 
+            // Cantidad
+            // 
+            this.Cantidad.DataPropertyName = "cantidad";
+            this.Cantidad.HeaderText = "Cantidad";
+            this.Cantidad.Name = "Cantidad";
+            this.Cantidad.ReadOnly = true;
+            // 
+            // fechaCompra
+            // 
+            this.fechaCompra.DataPropertyName = "compraFecha";
+            this.fechaCompra.HeaderText = "Fecha de Compra";
+            this.fechaCompra.Name = "fechaCompra";
+            this.fechaCompra.ReadOnly = true;
+            this.fechaCompra.Width = 115;
             // 
             // Facturar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(600, 446);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button3);
+            this.ClientSize = new System.Drawing.Size(731, 446);
+            this.Controls.Add(this.btn_limpiar);
+            this.Controls.Add(this.btn_listar);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btn_facturar);
+            this.Controls.Add(this.bn_volver);
             this.Controls.Add(this.dgv_ofertas);
             this.Name = "Facturar";
             this.Text = "Facturar";
@@ -265,8 +274,8 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dgv_ofertas;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button bn_volver;
+        private System.Windows.Forms.Button btn_facturar;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.TextBox text_proveedor;
@@ -274,14 +283,15 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button btn_listar;
+        private System.Windows.Forms.Button btn_limpiar;
         private System.Windows.Forms.DateTimePicker date_hasta;
         private System.Windows.Forms.DateTimePicker date_desde;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
         private System.Windows.Forms.DataGridViewTextBoxColumn descripcion;
         private System.Windows.Forms.DataGridViewTextBoxColumn comprador;
         private System.Windows.Forms.DataGridViewTextBoxColumn precioOferta;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Cantidad;
         private System.Windows.Forms.DataGridViewTextBoxColumn fechaCompra;
     }
 }
