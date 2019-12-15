@@ -1035,7 +1035,7 @@ GO
 CREATE PROCEDURE [T_REX].AltaUsuario
 	
 	@IdUsuario int= NULL,
-	@Password  nvarchar (255),
+	@Password  varchar (255),
 	@Nombre nvarchar (255),
 	@Accion varchar(1),
 	@out varchar(1000) OUTPUT

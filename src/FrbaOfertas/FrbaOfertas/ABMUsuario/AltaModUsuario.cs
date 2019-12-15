@@ -62,16 +62,20 @@ namespace FrbaOfertas.ABMUsuario
                     {
                         userDAO.cambiarContraseñaAdmin(target.id, contrasenia.Text);
                     }
+                    MessageBox.Show("Usuario guardado con éxito.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
                 }
                 else
                 {
                     if (contrasenia.Text != "")
                     {
                         userDAO.cambiarContraseñaAdmin(target.id, contrasenia.Text);
+                        MessageBox.Show("Usuario guardado con éxito.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.Close();
                     }
                     else
                     {
-                        MessageBox.Show("No habia cambios que guardar...", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                        MessageBox.Show("No hay cambios que guardar...", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Question);
                     }
 
                 }
@@ -80,6 +84,7 @@ namespace FrbaOfertas.ABMUsuario
             {
                 userDAO.guardarUsuario(null, nombreUsuario.Text, contrasenia.Text);
                 MessageBox.Show("Usuario guardado con éxito.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
             }
         }
 
