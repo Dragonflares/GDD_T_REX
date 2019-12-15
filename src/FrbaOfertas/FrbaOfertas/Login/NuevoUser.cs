@@ -21,9 +21,10 @@ namespace FrbaOfertas.Login
         private RolDAO rolDAO = new RolDAO();
         private UsuarioDAO userDAO = new UsuarioDAO();
         private string rol;
-
-        public NuevoUser(string _rol)
+        private ClienteLogin form_ant;
+        public NuevoUser(string _rol, ClienteLogin form)
         {
+            form_ant = form;
             rol = _rol;
             InitializeComponent();
             textBox1.Text = rol;
@@ -84,7 +85,7 @@ namespace FrbaOfertas.Login
                     user = new Usuario(trueUserId, nombreUsuario.Text, contrasenia.Text, rolAct, null, null);
                 }
                 userDAO.agregarRolAUsuario(user, user.rolActivo);
-                PantallaPrincipal pantalla = new PantallaPrincipal(user);
+                PantallaPrincipal pantalla = new PantallaPrincipal(user, form_ant);
                 pantalla.Owner = this.Owner;
                 pantalla.Show();
                 this.Close();

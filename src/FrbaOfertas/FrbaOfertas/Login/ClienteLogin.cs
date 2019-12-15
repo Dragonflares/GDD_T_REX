@@ -32,7 +32,7 @@ namespace FrbaOfertas.Login
             showRoles();
             
         }
-        private void showRoles()
+        public void showRoles()
         {
             SqlCommand obtenerRoles = FrbaOfertas.Utils.Database.createCommand("SELECT r.nombre FROM [GD2C2019].[T_REX].Rol r WHERE r.estado = 1");
             DataTable tablaFunc = Utils.Database.getData(obtenerRoles);
@@ -86,7 +86,7 @@ namespace FrbaOfertas.Login
                             break;
                         }
                 }
-                PantallaPrincipal pantalla = new PantallaPrincipal(user);
+                PantallaPrincipal pantalla = new PantallaPrincipal(user, this);
                 pantalla.Owner = this;
                 pantalla.Show();
                 this.Hide();
@@ -117,21 +117,21 @@ namespace FrbaOfertas.Login
             }
             else if(comboBox1.Text == "Proveedor")
             {
-                PrimerLoginProveedor login = new PrimerLoginProveedor();
+                PrimerLoginProveedor login = new PrimerLoginProveedor(this);
                 login.Owner = this;
                 login.Show();
                 this.Hide();
             }
             else if (comboBox1.Text == "Cliente")
             {
-                PrimerLoginCliente login = new PrimerLoginCliente();
+                PrimerLoginCliente login = new PrimerLoginCliente(this);
                 login.Owner = this;
                 login.Show();
                 this.Hide();
             }
             else
             {
-                NuevoUser login = new NuevoUser(comboBox1.Text);
+                NuevoUser login = new NuevoUser(comboBox1.Text, this);
                 login.Owner = this;
                 login.Show();
                 this.Hide();

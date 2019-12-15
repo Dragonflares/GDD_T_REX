@@ -21,9 +21,10 @@ namespace FrbaOfertas.Login
     {
 
         ProveedorDAO provDAO = new ProveedorDAO();
-
-        public PrimerLoginProveedor()
+        private ClienteLogin formant;
+        public PrimerLoginProveedor(ClienteLogin form)
         {
+            formant = form;
             InitializeComponent();
             contrasenia.PasswordChar = '*';
             confirmContrasenia.PasswordChar = '*';
@@ -162,7 +163,7 @@ namespace FrbaOfertas.Login
                         proveedor.rubro, proveedor.telefono, user.nombre, user.pass, proveedor.direccion.calle,
                         proveedor.direccion.piso, proveedor.direccion.departamento, proveedor.direccion.localidad,
                         proveedor.direccion.codigopostal);
-                    PantallaPrincipal pantalla = new PantallaPrincipal(user);
+                    PantallaPrincipal pantalla = new PantallaPrincipal(user, formant);
                     pantalla.Owner = this.Owner;
                     pantalla.Show();
                     this.Close();

@@ -23,6 +23,8 @@ namespace FrbaOfertas.ABMRol
         {
             InitializeComponent();
             this.user = _user;
+            btnBorrarRol.Visible = false;
+            btnModificar.Visible = false;
         }
 
         private void HomeRol_Load(object sender, EventArgs e)
@@ -55,6 +57,7 @@ namespace FrbaOfertas.ABMRol
         private void btnCrear_Click(object sender, EventArgs e)
         {
             new Alta(this).ShowDialog();
+            this.cargarDatos();
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
@@ -65,6 +68,7 @@ namespace FrbaOfertas.ABMRol
                 Modificacion pantalla = new Modificacion(rol_seleccionado);
                 pantalla.Owner = this;
                 pantalla.ShowDialog();
+                this.cargarDatos();
             }
             else
             {

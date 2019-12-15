@@ -19,9 +19,10 @@ namespace FrbaOfertas.Login
     public partial class PrimerLoginCliente : Form
     {
         private ClienteDAO cliDao = new ClienteDAO();
-
-        public PrimerLoginCliente()
+        private ClienteLogin formant;
+        public PrimerLoginCliente(ClienteLogin form)
         {
+            formant = form;
             InitializeComponent();
             contrasenia.PasswordChar = '*';
             confirmContrasenia.PasswordChar = '*';
@@ -156,7 +157,7 @@ namespace FrbaOfertas.Login
                 cliDao.guardarCliente(null, cliente.nombres, cliente.apellido, cliente.tipoDocumento, cliente.nroDocumento,
                     cliente.fechaNacimiento, cliente.mail, cliente.telefono, user.nombre, user.pass, cliente.direccion.calle,
                     cliente.direccion.piso, cliente.direccion.departamento, cliente.direccion.localidad, cliente.direccion.codigopostal);
-                PantallaPrincipal pantalla = new PantallaPrincipal(user);
+                PantallaPrincipal pantalla = new PantallaPrincipal(user, formant);
                 pantalla.Owner = this.Owner;
                 pantalla.Show();
                 this.Close();

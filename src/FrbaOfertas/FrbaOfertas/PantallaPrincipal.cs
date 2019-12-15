@@ -17,8 +17,10 @@ namespace FrbaOfertas
         private Boolean cerrandoSession = false;
         private Dictionary<String, Button> funcionalidades = new Dictionary<String, Button>();
         public Usuario user;
-        public PantallaPrincipal(Usuario usuario)
+        private Login.ClienteLogin form_ant;
+        public PantallaPrincipal(Usuario usuario, Login.ClienteLogin form)
         {
+            form_ant = form;
             InitializeComponent();
             user = usuario;
             showFuncionalidades(user.rolActivo);
@@ -50,6 +52,7 @@ namespace FrbaOfertas
 
         private void button2_Click(object sender, EventArgs e)
         {
+            this.form_ant.showRoles();
             this.cerrandoSession = true;
             this.Owner.Show();
             this.Close();
