@@ -34,7 +34,7 @@ namespace FrbaOfertas.CanjeCupon
         public void loadCuponesPorEntregar()
         {
             string takecupon = "SELECT cup.id_cupon as id, DATEADD(week, 2, comp.compra_fecha) as fechaVencimiento, " +
-                "offer.descripcion as descripcion, u.username as cliente " +
+                "offer.descripcion as descripcion, CONCAT(u.username, ' - ', cli.nombre, ' ', cli.apellido) as cliente " +
                 "FROM [GD2C2019].[T_REX].[Cupon] cup " + 
                 "INNER JOIN [GD2C2019].[T_REX].[Oferta] offer ON offer.id_oferta = cup.id_oferta " +
                 "INNER JOIN [GD2C2019].[T_REX].[Compra] comp ON comp.id_compra = cup.id_compra " +
@@ -43,11 +43,12 @@ namespace FrbaOfertas.CanjeCupon
                 "WHERE cup.cupon_estado = 1 and DATEADD(week, 2, comp.compra_fecha) > '"+ Database.getDateBeta() +"' " +
                 "and offer.id_proveedor = " + usuario.proveedor.id;
 
-            if (!String.IsNullOrEmpty(textBox1.Text)) takecupon += " and lower(offer.descripcion) like '%" + textBox1.Text.ToLower() + "%'";
+            if (!String.IsNullOrEmpty(text_producto.Text)) takecupon += " and lower(offer.descripcion) like '%" + text_producto.Text.ToLower() + "%'";
+            if (!String.IsNullOrEmpty(text_documento.Text)) takecupon += " and cli.nro_documento like '%" + text_documento.Text.ToLower() + "%'";
+            if (!String.IsNullOrEmpty(text_email.Text)) takecupon += " and lower(cli.email) like '%" + text_email.Text.ToLower() + "%'";
+            if (!String.IsNullOrEmpty(text_nya.Text)) takecupon += " and (lower(cli.nombre) like '%" + text_nya.Text.ToLower() + "%' OR lower(cli.apellido) like '%" + text_nya.Text.ToLower() + "%')";
 
-
-
-            takecupon += "ORDER BY [id] ASC";
+            takecupon += "ORDER BY [fechaVencimiento] ASC";
             SqlCommand takeClients = FrbaOfertas.Utils.Database.createCommand(takecupon);
             DataTable table = Utils.Database.getData(takeClients);
             this.dgv_cupon.DataSource = table;
@@ -85,6 +86,7 @@ namespace FrbaOfertas.CanjeCupon
 
                 ListadoClientes pantalla = new ListadoClientes(id);
                 pantalla.ShowDialog();
+                this.loadCuponesPorEntregar();
             }
         }
 

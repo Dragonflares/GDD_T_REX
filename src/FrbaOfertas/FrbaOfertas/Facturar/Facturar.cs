@@ -28,8 +28,8 @@ namespace FrbaOfertas.Facturar
         {
             user = admin;
             InitializeComponent();
-            textBox1.Enabled = false;
-            dateTimePicker2.MinDate = dateTimePicker1.Value;
+            text_proveedor.Enabled = false;
+            date_hasta.MinDate = date_desde.Value;
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -41,7 +41,6 @@ namespace FrbaOfertas.Facturar
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Owner.Show();
             this.Close();
         }
 
@@ -66,12 +65,12 @@ namespace FrbaOfertas.Facturar
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            dateTimePicker2.MinDate = dateTimePicker1.Value.AddDays(1);
+            date_hasta.MinDate = date_desde.Value.AddDays(1);
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text == "")
+            if (text_proveedor.Text == "")
             {
                 MessageBox.Show("Tiene que seleccionar a un proveedor para poder ver las Ofertas compradas.",
                     "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -85,7 +84,7 @@ namespace FrbaOfertas.Facturar
                 "INNER JOIN [GD2C2019].[T_REX].[Proveedor] prov ON prov.id_proveedor = ofer.id_proveedor " +
                 "INNER JOIN [GD2C2019].[T_REX].[Cliente] cli ON cli.id_cliente = comp.id_cliente " +
                 "WHERE prov.id_proveedor = " + target.id +
-                " and comp.compra_fecha between '" + dateTimePicker1.Text + "' and '" + dateTimePicker2.Text + "'";
+                " and comp.compra_fecha between '" + date_desde.Text + "' and '" + date_hasta.Text + "'";
 
                 SqlCommand takeOffers = FrbaOfertas.Utils.Database.createCommand(takeoffer);
                 DataTable table = Utils.Database.getData(takeOffers);
@@ -96,7 +95,7 @@ namespace FrbaOfertas.Facturar
         public void settarget(Proveedor prov)
         {
             this.target = prov;
-            textBox1.Text = prov.razonSocial;
+            text_proveedor.Text = prov.razonSocial;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -108,15 +107,15 @@ namespace FrbaOfertas.Facturar
             factura.nro_factura = Utils.Database.executeScalar(query2) + 1;
             factura.tipo_fact = "B";
             factura.proveedor = target;
-            factura.fecha_inicio = dateTimePicker1.Value;
-            factura.fecha_fin = dateTimePicker2.Value;
-            string check = dateTimePicker1.Text;
+            factura.fecha_inicio = date_desde.Value;
+            factura.fecha_fin = date_hasta.Value;
+            string check = date_desde.Text;
             string takeMoney = "SELECT cast(SUM(cup.cupon_precio_oferta) as int) FROM [GD2C2019].[T_REX].[CUPON] cup " +
                 "INNER JOIN [GD2C2019].[T_REX].[Compra] comp ON comp.id_compra = cup.id_compra " +
                 "INNER JOIN [GD2C2019].[T_REX].[Oferta] ofer ON ofer.id_oferta = comp.id_oferta " +
                 "INNER JOIN [GD2C2019].[T_REX].[Proveedor] prov ON prov.id_proveedor = ofer.id_proveedor  " +
                 "WHERE prov.id_proveedor = " + target.id +
-                " and comp.compra_fecha between '" + dateTimePicker1.Text + "' and '" + dateTimePicker2.Text + "'";
+                " and comp.compra_fecha between '" + date_desde.Text + "' and '" + date_hasta.Text + "'";
 
             SqlCommand takeMaCash = Database.createCommand(takeMoney);
             factura.importe_fact = Database.executeScalar(takeMaCash);
@@ -127,10 +126,10 @@ namespace FrbaOfertas.Facturar
                 ItemFactura itemFactura = new ItemFactura();
                 itemFactura.factura = factura;
                 itemFactura.oferta = offerDAO.getOferta(id, false);
-                itemFactura.cantidad = compDAO.cantidadDeUnaOfertaCompradasEnPeriodo(dateTimePicker1.Value,
-                    dateTimePicker2.Value, itemFactura.oferta.id_oferta);
-                itemFactura.importe_oferta = compDAO.recaudacionTotalOfertaEnPeriodo(dateTimePicker1.Value,
-                    dateTimePicker2.Value, itemFactura.oferta);
+                itemFactura.cantidad = compDAO.cantidadDeUnaOfertaCompradasEnPeriodo(date_desde.Value,
+                    date_hasta.Value, itemFactura.oferta.id_oferta);
+                itemFactura.importe_oferta = compDAO.recaudacionTotalOfertaEnPeriodo(date_desde.Value,
+                    date_hasta.Value, itemFactura.oferta);
                 itemDAO.crearItemFactura(itemFactura);
             }
             factDAO.crearFactura(factura);
@@ -157,7 +156,7 @@ namespace FrbaOfertas.Facturar
             string cmd = "SELECT DISTINCT(offer.id_oferta) FROM [GD2C2019].[T_REX].OFERTA offer " +
                 "JOIN [GD2C2019].[T_REX].COMPRA comp ON comp.id_oferta = offer.id_oferta " +
                 "WHERE offer.id_proveedor = " + target.id +
-                " AND comp.compra_fecha BETWEEN '" + dateTimePicker1.Text + "' AND '" + dateTimePicker2.Text + "'" +
+                " AND comp.compra_fecha BETWEEN '" + date_desde.Text + "' AND '" + date_hasta.Text + "'" +
                 " ORDER BY offer.id_oferta";
 
             SqlCommand command = FrbaOfertas.Utils.Database.createCommand(cmd);
@@ -168,6 +167,11 @@ namespace FrbaOfertas.Facturar
                 {
                     return int.Parse(row["id_oferta"].ToString());
                 }).ToList<int>();
+        }
+
+        private void Facturar_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Owner.Show();
         }
     }
 }

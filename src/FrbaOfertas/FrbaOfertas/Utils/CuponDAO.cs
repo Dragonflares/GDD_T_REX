@@ -27,9 +27,8 @@ namespace FrbaOfertas.Utils
 
             sp.Parameters.AddWithValue("id_cupon", id_cupon);
             sp.Parameters.AddWithValue("id_consumidor", id_consumidor);
- 
-
-
+            sp.Parameters.AddWithValue("fecha_consumo", Database.getDateBeta());
+            
             SqlParameter text = new SqlParameter("@out", SqlDbType.VarChar, 1000);
             text.Direction = ParameterDirection.Output;
             sp.Parameters.Add(text);
@@ -42,26 +41,5 @@ namespace FrbaOfertas.Utils
             }
         }
 
-        public void crearCupon(Cupon cupon)
-        {
-            SqlCommand sp = FrbaOfertas.Utils.Database.createCommand("[GD2C2019].[T_REX].CrearCupon");
-
-            sp.Parameters.AddWithValue("PrecioOferta", cupon.cupon_precio_oferta);
-            sp.Parameters.AddWithValue("PrecioLista", cupon.cupon_precio_lista);
-            sp.Parameters.AddWithValue("IdCompra", cupon.compra.id_compra);
-            sp.Parameters.AddWithValue("IdOferta", cupon.oferta.id_oferta);
-
-
-            SqlParameter text = new SqlParameter("@out", SqlDbType.VarChar, 1000);
-            text.Direction = ParameterDirection.Output;
-            sp.Parameters.Add(text);
-
-            FrbaOfertas.Utils.Database.executeProcedure(sp);
-
-            if (!String.IsNullOrEmpty(text.Value.ToString()))
-            {
-                throw new Exception(text.Value.ToString());
-            }
-        }
     }
 }

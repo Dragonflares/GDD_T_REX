@@ -64,7 +64,7 @@ IF NOT EXISTS (
 BEGIN
 CREATE TABLE [T_REX].[ROL] (
 		id_rol int IDENTITY(1,1) PRIMARY KEY NOT NULL,
-		nombre nvarchar (50) NOT NULL,
+		nombre nvarchar (50) UNIQUE NOT NULL,
 		estado bit NOT NULL DEFAULT 1
 );
 END
@@ -1784,9 +1784,9 @@ CREATE PROCEDURE [T_REX].CargarSaldo
 	@out varchar(1000) OUTPUT
 AS
 BEGIN
-	IF( NOT EXISTS (SELECT 1 FROM [T_REX].CLIENTE WHERE id_cliente=@IdCliente) )
+	IF( NOT EXISTS (SELECT 1 FROM [T_REX].CLIENTE WHERE id_cliente=@IdCliente AND baja_logica=1 AND estado=1) )
 	BEGIN
-		RAISERROR('ERROR: No existe cliente.', 16, 1)
+		RAISERROR('ERROR: No existe cliente o no se encuentra habilitado.', 16, 1)
 		return
 	END
 	DECLARE @id_forma_pago int, @id_tarjeta int, @titular_tarjeta_ex nvarchar (150), @banco_tarjeta_ex nvarchar(150), @tipo_tarjeta_ex nvarchar (150)
@@ -1901,14 +1901,13 @@ AS
 BEGIN
 	DECLARE @Monto int, @CantidadCompradosPorCliente int, @MaxPorCliente int, @CreditoCliente int, @PrecioOferta decimal (20,2), @PrecioLista decimal (20,2)
 	
-	SELECT @CreditoCliente=creditoTotal FROM [T_REX].CLIENTE WHERE id_cliente=@IdCliente
+	SELECT @CreditoCliente=creditoTotal FROM [T_REX].CLIENTE WHERE id_cliente=@IdCliente AND baja_logica=1 AND estado=1
 	IF(@@ROWCOUNT = 0) 
 	BEGIN
-		RAISERROR('ERROR: No existe cliente.', 16, 1)
+		RAISERROR('ERROR: No existe cliente o no se encuentra habilitado.', 16, 1)
 		return
 	END
 
-	-- ESTA BIEN QUE VALIDE LA CANTIDAD DISPONIBLE Y EL MAX POR CLIENTE ASI??
 	SELECT @MaxPorCliente=cant_max_porCliente FROM [T_REX].OFERTA WHERE id_oferta=@IdOferta AND cantDisponible >= @Cantidad AND cant_max_porCliente >= @Cantidad
 	IF(@@ROWCOUNT = 0)
 	BEGIN
@@ -1965,5 +1964,31 @@ BEGIN
 		ROLLBACK TRANSACTION [T]
 		set @out = ERROR_MESSAGE();
 	END CATCH
+END
+GO
+
+IF OBJECT_ID('T_REX.EntregarCupon') IS NOT NULL
+	DROP PROCEDURE [T_REX].EntregarCupon;
+GO
+CREATE PROCEDURE [T_REX].EntregarCupon
+	@id_cupon int,
+	@id_consumidor int,
+	@fecha_consumo datetime,
+	@out varchar(1000) OUTPUT
+AS
+BEGIN
+	IF( NOT EXISTS (SELECT 1 FROM [T_REX].CLIENTE WHERE id_cliente=@id_consumidor AND baja_logica=1 AND estado=1) )
+	BEGIN
+		RAISERROR('ERROR: Cliente no habilitado para canjear cupon.', 16, 1)
+		return
+	END
+
+	IF( NOT EXISTS (SELECT 1 FROM [T_REX].CUPON WHERE id_cupon=@id_cupon AND cupon_estado=1) )
+	BEGIN
+		RAISERROR('ERROR: No existe cupon disponible para canjear.', 16, 1)
+		return
+	END
+
+	UPDATE T_REX.CUPON SET cupon_fecha_deconsumo=@fecha_consumo, id_consumidor=@id_consumidor, cupon_estado=0 WHERE id_cupon=@id_cupon
 END
 GO
