@@ -1190,6 +1190,29 @@ BEGIN
 END
 GO
 
+-- CAMBIAR USERNAME MODO ADMIN
+
+IF OBJECT_ID('T_REX.CambiarUsernameModoAdmin') IS NOT NULL
+	DROP PROCEDURE [T_REX].CambiarUsernameModoAdmin;
+GO
+CREATE PROCEDURE [T_REX].CambiarUsernameModoAdmin
+	@IdUsuario int,
+	@Nombre varchar(255)
+AS
+BEGIN
+	IF(EXISTS(	SELECT 1 FROM [T_REX].USUARIO us WHERE us.id_usuario = @IdUsuario )	)
+	BEGIN
+		UPDATE [T_REX].USUARIO 
+		SET username = @Nombre
+		WHERE id_usuario = @IdUsuario
+	END
+	ELSE
+	BEGIN
+		RAISERROR('ERROR: Usuario incorrecto', 16, 1)
+	END			
+END
+GO
+
 
 --//---------- ROL ----------//
 
