@@ -38,7 +38,6 @@ namespace FrbaOfertas.ABMUsuario
 
         private void btn_volver_Click(object sender, EventArgs e)
         {
-            this.Owner.Show();
             this.Close();
         }
 
@@ -96,6 +95,11 @@ namespace FrbaOfertas.ABMUsuario
         {
             new AltaModUsuario().ShowDialog();
             this.loadUsuarios();
+        }
+
+        private void ListadoUsuario_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Owner.Show();
         }
     }
 }

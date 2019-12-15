@@ -154,13 +154,21 @@ namespace FrbaOfertas.Login
                     }
                     
                 }
-                cliDao.guardarCliente(null, cliente.nombres, cliente.apellido, cliente.tipoDocumento, cliente.nroDocumento,
-                    cliente.fechaNacimiento, cliente.mail, cliente.telefono, user.nombre, user.pass, cliente.direccion.calle,
-                    cliente.direccion.piso, cliente.direccion.departamento, cliente.direccion.localidad, cliente.direccion.codigopostal);
-                PantallaPrincipal pantalla = new PantallaPrincipal(user, formant);
-                pantalla.Owner = this.Owner;
-                pantalla.Show();
-                this.Close();
+                try
+                {
+                    cliDao.guardarCliente(null, cliente.nombres, cliente.apellido, cliente.tipoDocumento, cliente.nroDocumento,
+                        cliente.fechaNacimiento, cliente.mail, cliente.telefono, user.nombre, user.pass, cliente.direccion.calle,
+                        cliente.direccion.piso, cliente.direccion.departamento, cliente.direccion.localidad, cliente.direccion.codigopostal);
+                    PantallaPrincipal pantalla = new PantallaPrincipal(user, formant);
+                    pantalla.Owner = this.Owner;
+                    pantalla.Show();
+                    this.Close();
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.Message, "ERROR",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {

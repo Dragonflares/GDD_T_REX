@@ -201,6 +201,7 @@
             this.Controls.Add(this.btn_limpiar);
             this.Name = "ListadoUsuario";
             this.Text = "ListadoUsuario";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ListadoUsuario_FormClosed);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_clientes)).EndInit();

@@ -159,14 +159,24 @@ namespace FrbaOfertas.Login
                         }
 
                     }
-                    provDAO.guardarProveedor(null, proveedor.razonSocial, proveedor.CUIT, proveedor.mail,
-                        proveedor.rubro, proveedor.telefono, user.nombre, user.pass, proveedor.direccion.calle,
-                        proveedor.direccion.piso, proveedor.direccion.departamento, proveedor.direccion.localidad,
-                        proveedor.direccion.codigopostal);
-                    PantallaPrincipal pantalla = new PantallaPrincipal(user, formant);
-                    pantalla.Owner = this.Owner;
-                    pantalla.Show();
-                    this.Close();
+
+                    try
+                    {
+                        provDAO.guardarProveedor(null, proveedor.razonSocial, proveedor.CUIT, proveedor.mail,
+                            proveedor.rubro, proveedor.telefono, user.nombre, user.pass, proveedor.direccion.calle,
+                            proveedor.direccion.piso, proveedor.direccion.departamento, proveedor.direccion.localidad,
+                            proveedor.direccion.codigopostal);
+                        PantallaPrincipal pantalla = new PantallaPrincipal(user, formant);
+                        pantalla.Owner = this.Owner;
+                        pantalla.Show();
+                        this.Close();
+
+                    }
+                    catch (Exception exception)
+                    {
+                        MessageBox.Show(exception.Message, "ERROR",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
             else
