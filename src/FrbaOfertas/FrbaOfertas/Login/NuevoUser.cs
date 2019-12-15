@@ -88,11 +88,8 @@ namespace FrbaOfertas.Login
                         MessageBox.Show("Contraseñas incorrectas.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
-                    MessageBox.Show("Funciono OK", "Creación Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    int trueUserId = System.Convert.ToInt32(userid);
-                    Rol rolAct = rolDAO.getRol(rol);
-                    user = new Usuario(trueUserId, nombreUsuario.Text, contrasenia.Text, rolAct, null, null);
+                    
+                    user.rolActivo = rolDAO.getRol(rol);
                 }
                 userDAO.agregarRolAUsuario(user, user.rolActivo);
                 userDAO.eliminarUsuario(user.id);
