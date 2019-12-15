@@ -15,7 +15,7 @@ namespace FrbaOfertas.Utils
     {
         public Rol getRol(string rol)
         {
-            string cmd = "SELECT r.[id_rol], r.[nombre]" +
+            string cmd = "SELECT r.[id_rol], r.[nombre], r.[estado]" +
                 " FROM [GD2C2019].[T_REX].[Rol] r" +
                 " WHERE r.nombre = '" + rol + "'";
 
@@ -31,7 +31,7 @@ namespace FrbaOfertas.Utils
 
         public Rol getRolxID(int id_rol)
         {
-            string cmd = "SELECT r.[id_rol], r.[nombre]" +
+            string cmd = "SELECT r.[id_rol], r.[nombre], r.[estado]" +
                 " FROM [GD2C2019].[T_REX].[Rol] r" +
                 " WHERE r.id_rol = " + id_rol + "";
 
@@ -49,6 +49,13 @@ namespace FrbaOfertas.Utils
         {
             Rol rol = new Rol(int.Parse(row["id_rol"].ToString()),
                 row["nombre"].ToString());
+            string result = row["estado"].ToString();
+            if (result == "True")
+            {
+                rol.activo = true;
+            }
+            else
+                rol.activo = false;
             return rol;
         }
 
