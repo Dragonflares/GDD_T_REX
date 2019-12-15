@@ -138,7 +138,7 @@ namespace FrbaOfertas.ABMRol
                                 break;
                             }
                         }
-                        if (failsafe)
+                        if (!failsafe)
                         {
                             rolDao.agregarFuncionalidad(rol.id, funcX);
                         }
@@ -154,7 +154,7 @@ namespace FrbaOfertas.ABMRol
                                 break;
                             }
                         }
-                        if (failsafe)
+                        if (!failsafe)
                         {
                             rolDao.sacarFuncionalidad(rol.id, funcZ);
                         }

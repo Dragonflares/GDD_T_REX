@@ -23,8 +23,6 @@ namespace FrbaOfertas.ABMRol
         {
             InitializeComponent();
             this.user = _user;
-            btnBorrarRol.Visible = false;
-            btnModificar.Visible = false;
         }
 
         private void HomeRol_Load(object sender, EventArgs e)
@@ -35,6 +33,8 @@ namespace FrbaOfertas.ABMRol
         public void cargarDatos()
         {
             dgvRoles.DataSource = rolDao.listarDatos();
+            btnBorrarRol.Visible = false;
+            btnModificar.Visible = false;
         }
 
         private void dgvRoles_CellClick(object sender, DataGridViewCellEventArgs e)
