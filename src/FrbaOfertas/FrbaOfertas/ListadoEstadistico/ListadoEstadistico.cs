@@ -87,14 +87,6 @@ namespace FrbaOfertas.ListadoEstadistico
                         gridResultados.DataSource = proveedoresConMayorPorcentajeDeDescuento(anio.Text, semestre.SelectedItem.ToString());
                         break;
                 }
-
-                gridResultados.Columns.Add(new DataGridViewButtonColumn()
-                {
-                    Name = "Ver",
-                    Text = "Ver",
-                    UseColumnTextForButtonValue = true
-                });
-
                 if (gridResultados.Rows.Count == 0)
                     MessageBox.Show("No se han encontrado datos.", "",
                         System.Windows.Forms.MessageBoxButtons.OK, MessageBoxIcon.Warning);
