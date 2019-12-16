@@ -63,7 +63,7 @@ namespace FrbaOfertas.ABMCliente
 
         private void numeric_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if ((!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) || (sender as TextBox).TextLength > 8)
+            if ((!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) || (sender as TextBox).TextLength > 10)
             {
                 e.Handled = true;
             }
