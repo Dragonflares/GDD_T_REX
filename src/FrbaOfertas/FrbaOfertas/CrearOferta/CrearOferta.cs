@@ -24,9 +24,9 @@ namespace FrbaOfertas.CrearOferta
         public CrearOferta(Usuario usuario)
         {
             InitializeComponent();
-            this.dateTimePicker2.MinDate = dateTimePicker1.Value;
-            numericUpDown1.Maximum = decimal.MaxValue;
-            numericUpDown2.Maximum = numericUpDown1.Value;
+            this.dateTimePicker1.MinDate = Database.getDateBeta();
+            num_precio_lista.Maximum = decimal.MaxValue;
+            num_precio_oferta.Maximum = num_precio_lista.Value;
             numericUpDown3.Maximum = decimal.MaxValue;
             numericUpDown4.Maximum = numericUpDown3.Value;
             user = usuario;
@@ -66,8 +66,8 @@ namespace FrbaOfertas.CrearOferta
                 oferta.descripcion = textBox1.Text;
                 oferta.fecha_inicio = dateTimePicker1.Value;
                 oferta.fecha_fin = dateTimePicker2.Value;
-                oferta.precio_oferta = numericUpDown2.Value;
-                oferta.precio_lista = numericUpDown1.Value;
+                oferta.precio_oferta = num_precio_oferta.Value;
+                oferta.precio_lista = num_precio_lista.Value;
                 oferta.cantDisponible = (int)numericUpDown3.Value;
                 oferta.cant_max_porCliente = (int)numericUpDown4.Value;
                 oferta.proveedor = target;
@@ -77,6 +77,7 @@ namespace FrbaOfertas.CrearOferta
                     oferta.cantDisponible, oferta.cant_max_porCliente, oferta.proveedor.id);
 
                 MessageBox.Show("La Oferta se ha publicado con éxito.", "Oferta creada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
             }
         }
 
@@ -103,6 +104,11 @@ namespace FrbaOfertas.CrearOferta
         private void numericUpDown3_ValueChanged(object sender, EventArgs e)
         {
             this.numericUpDown4.Maximum = this.numericUpDown3.Value;
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            this.num_precio_oferta.Maximum = this.num_precio_lista.Value;
         }
     }
 }

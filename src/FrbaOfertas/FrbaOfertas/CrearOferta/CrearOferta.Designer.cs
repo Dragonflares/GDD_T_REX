@@ -38,8 +38,8 @@
             this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.num_precio_oferta = new System.Windows.Forms.NumericUpDown();
+            this.num_precio_lista = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -55,8 +55,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_precio_oferta)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_precio_lista)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -178,8 +178,8 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.numericUpDown2);
-            this.groupBox3.Controls.Add(this.numericUpDown1);
+            this.groupBox3.Controls.Add(this.num_precio_oferta);
+            this.groupBox3.Controls.Add(this.num_precio_lista);
             this.groupBox3.Controls.Add(this.label6);
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Location = new System.Drawing.Point(253, 126);
@@ -189,51 +189,52 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Precio";
             // 
-            // numericUpDown2
+            // num_precio_oferta
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(22, 104);
-            this.numericUpDown2.Maximum = new decimal(new int[] {
+            this.num_precio_oferta.Location = new System.Drawing.Point(22, 104);
+            this.num_precio_oferta.Maximum = new decimal(new int[] {
             2147483647,
             0,
             0,
             0});
-            this.numericUpDown2.Minimum = new decimal(new int[] {
+            this.num_precio_oferta.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(87, 20);
-            this.numericUpDown2.TabIndex = 10;
-            this.numericUpDown2.ThousandsSeparator = true;
-            this.numericUpDown2.Value = new decimal(new int[] {
+            this.num_precio_oferta.Name = "num_precio_oferta";
+            this.num_precio_oferta.Size = new System.Drawing.Size(87, 20);
+            this.num_precio_oferta.TabIndex = 10;
+            this.num_precio_oferta.ThousandsSeparator = true;
+            this.num_precio_oferta.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
             // 
-            // numericUpDown1
+            // num_precio_lista
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(22, 49);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
+            this.num_precio_lista.Location = new System.Drawing.Point(22, 49);
+            this.num_precio_lista.Maximum = new decimal(new int[] {
             2147483647,
             0,
             0,
             0});
-            this.numericUpDown1.Minimum = new decimal(new int[] {
+            this.num_precio_lista.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(87, 20);
-            this.numericUpDown1.TabIndex = 9;
-            this.numericUpDown1.ThousandsSeparator = true;
-            this.numericUpDown1.Value = new decimal(new int[] {
+            this.num_precio_lista.Name = "num_precio_lista";
+            this.num_precio_lista.Size = new System.Drawing.Size(87, 20);
+            this.num_precio_lista.TabIndex = 9;
+            this.num_precio_lista.ThousandsSeparator = true;
+            this.num_precio_lista.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
+            this.num_precio_lista.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // label6
             // 
@@ -349,8 +350,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_precio_oferta)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_precio_lista)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
@@ -374,8 +375,8 @@
         private System.Windows.Forms.NumericUpDown numericUpDown3;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown num_precio_oferta;
+        private System.Windows.Forms.NumericUpDown num_precio_lista;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown numericUpDown4;
