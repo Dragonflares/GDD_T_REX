@@ -218,7 +218,6 @@ namespace FrbaOfertas.ListadoEstadistico
 
         private void volverButton_Click(object sender, EventArgs e)
         {
-            this.Owner.Show();
             this.Close();
         }
 
@@ -228,6 +227,11 @@ namespace FrbaOfertas.ListadoEstadistico
             {
                 e.Handled = true;
             }
+        }
+
+        private void ListadoEstadistico_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Owner.Show();
         }
     }
 }
