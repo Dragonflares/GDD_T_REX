@@ -918,7 +918,7 @@ order by a.Factura_Nro;
 --//---------- USUARIO ----------//
 
 --exec [T_REX].LogearUsuario '88430112', '1234', 'Proveedor';
-
+GO
 IF OBJECT_ID('T_REX.LogearUsuario') IS NOT NULL
 	DROP PROCEDURE [T_REX].LogearUsuario;
 GO
@@ -1137,7 +1137,7 @@ BEGIN
 END
 
 -- CAMBIAR CONTRASEÑA
-
+GO
 IF OBJECT_ID('T_REX.CambiarContrasenia') IS NOT NULL
 	DROP PROCEDURE [T_REX].CambiarContrasenia;
 GO
@@ -1491,7 +1491,7 @@ BEGIN
 	end catch
 
 END
-
+GO
 IF OBJECT_ID('T_REX.DeshabilitarCliente') IS NOT NULL
 	DROP PROCEDURE T_REX.DeshabilitarCliente;
 GO
@@ -1552,7 +1552,7 @@ BEGIN
 END
 
 --//---------- PROVEEDOR ----------//
-
+GO
 IF OBJECT_ID('T_REX.AbmProveedor') IS NOT NULL
 	DROP PROCEDURE [T_REX].AbmProveedor;
 GO
@@ -1795,7 +1795,7 @@ GO
 
 --//---------- OFERTA ----------//
 
-
+GO
 IF OBJECT_ID('T_REX.ABMOferta') IS NOT NULL
 	DROP PROCEDURE [T_REX].ABMOferta;
 GO
@@ -1850,7 +1850,7 @@ END
 GO
 
 --//---------- Listado Estadistico ----------//
-
+GO
 --1--
 IF OBJECT_ID('T_REX.ProveedoresConMasDescuento') IS NOT NULL
     DROP PROCEDURE [T_REX].ProveedoresConMasDescuento
