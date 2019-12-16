@@ -344,9 +344,9 @@ namespace FrbaOfertas.ABMCliente
             this.label16.AutoSize = true;
             this.label16.Location = new System.Drawing.Point(9, 24);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(30, 13);
+            this.label16.Size = new System.Drawing.Size(78, 13);
             this.label16.TabIndex = 50;
-            this.label16.Text = "Calle";
+            this.label16.Text = "Calle y Numero";
             // 
             // text_dto
             // 
