@@ -937,6 +937,15 @@ BEGIN
 		return
 	END
 	
+	IF(EXISTS(SELECT 1 FROM [T_REX].USUARIO us 
+		inner join  [T_REX].ROL_USUARIO ru on us.id_usuario=ru.id_usuario
+		inner join T_REX.ROL r on ru.id_rol=r.id_rol
+		where us.username=@username and r.nombre='Administrativo')  AND @tipoUsuario != 'Administrativo')
+	BEGIN
+		RAISERROR('ERROR: No existe usuario para ese rol', 16, 1)
+		return
+	END
+
 	IF(NOT EXISTS(SELECT 1 FROM [T_REX].USUARIO us 
 		inner join  [T_REX].ROL_USUARIO ru on us.id_usuario=ru.id_usuario
 		inner join T_REX.ROL r on ru.id_rol=r.id_rol
