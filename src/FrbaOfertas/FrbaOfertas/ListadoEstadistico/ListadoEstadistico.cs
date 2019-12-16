@@ -21,7 +21,7 @@ namespace FrbaOfertas.ListadoEstadistico
         {
             InitializeComponent();
             anio.KeyPress += numeric_KeyPress;
-
+            this.anio.MaxLength = 4;
         }
 
         private void numeric_KeyPress(object sender, KeyPressEventArgs e)
@@ -62,7 +62,8 @@ namespace FrbaOfertas.ListadoEstadistico
         {
 
             gridResultados.Columns.Clear();
-            Boolean estanTodosLlenos = true;
+            Boolean estanTodosLlenos = !String.IsNullOrEmpty(this.tipoListado.Text) && !String.IsNullOrEmpty(this.anio.Text) && this.anio.Text.Length == 4 && !String.IsNullOrEmpty(this.semestre.Text);
+            /*
             foreach (Control x in this.Controls)
             {
                 if (x is TextBox && x.Text == "")
@@ -76,6 +77,7 @@ namespace FrbaOfertas.ListadoEstadistico
                     break;
                 }
             }
+             */
             if (estanTodosLlenos)
             {
                 switch (tipoListado.Text)
